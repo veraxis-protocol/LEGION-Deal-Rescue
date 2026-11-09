@@ -63,7 +63,7 @@ class Ctx:
         return value
 
 
-def build(run, mode, run_id, paypal_state=None, paypal_mission=None):
+def build(run, mode, run_id, paypal_state=None, paypal_mission=None, paypal_runs=None):
     c = Ctx(run, mode, run_id)
     neg = load_jsonl(run, "NEGOTIATION_TRACE.jsonl")
     by_kind = lambda k: [r for r in neg if r["kind"] == k]
@@ -253,10 +253,43 @@ def build(run, mode, run_id, paypal_state=None, paypal_mission=None):
             else:
                 slot.update({"state": "NOT_STARTED (paused before creation)"})
         slots.append(slot)
-    paypal = {"slots": slots, "readback_confirmed_captures": 0, "slots_total": len(slots),
-              "provider_confirmed_cents": 0, "new_provider_posts_this_wo": 0,
+    # Native Sandbox payments: a slot is CONFIRMED only from an independent separate-process readback file whose owner-signed
+    # mission is bound to THIS run's final contract hash and which names this payer's obligation, exact amount and COMPLETED.
+    confirmed = 0
+    for pr in paypal_runs or []:
+        pr = Path(pr)
+        mission = json.loads((pr / "MISSION_AUTHORIZED.json").read_text())["payload"]
+        if mission["federation_contract_hash"] != v3["contract_hash"]:
+            continue
+        for line in mission["payer_lines"]:
+            b = line["payer"].split(":")[1]
+            f = pr / f"PAYPAL_NATIVE_READBACK_{b}.json"
+            if not f.exists():
+                continue
+            rb = json.loads(f.read_text())
+            slot = next(s for s in slots if s["owner_id"] == line["payer"])
+            ok = (rb.get("payment_status") == "VERIFIED_COMPLETED" and rb["capture"]["status"] == "COMPLETED"
+                  and rb["capture"]["amount"] == {"currency_code": "USD", "value": f"{line['amount_cents'] // 100}.{line['amount_cents'] % 100:02d}"}
+                  and line["amount_cents"] == slot["amount_cents"] and rb["captures_on_order"] == 1 and rb["order"]["invoice_id"] == rb["effect_id"])
+            if not ok:
+                slot.update({"state": "READBACK_NOT_VERIFIED", "status_source": str(f.name)})
+                continue
+            confirmed += 1
+            slot.update({"state": "SANDBOX_PAYMENT_CONFIRMED", "evidence_mode": "REAL_SANDBOX (PayPal Sandbox, no real money)",
+                         "payee": "Sandbox merchant (id redacted)", "provider_confirmed_cents": line["amount_cents"],
+                         "mission_id": mission["mission_id"], "contract_hash": mission["federation_contract_hash"],
+                         "payer_commitment_id": line["payer_commitment"]["commitment_id"],
+                         "order_id": rb["order"]["id"], "capture_id": rb["capture"]["id"], "effect_id": rb["effect_id"],
+                         "captured_at": rb["capture"]["create_time"], "readback_at": rb["readback_at"],
+                         "status_source": "independent separate-process readback (python -m commerce_demo.readback), fresh PayPal GETs",
+                         "readback": {k: rb[k] for k in ("process", "source", "environment", "payment_status", "captures_on_order", "readback_at")}
+                                     | {"order": {k: v for k, v in rb["order"].items() if k != "payee_merchant_id"}, "capture": rb["capture"]}})
+    paypal = {"slots": slots, "readback_confirmed_captures": confirmed, "slots_total": len(slots),
+              "provider_confirmed_cents": sum(s["provider_confirmed_cents"] for s in slots), "new_provider_posts_this_wo": 0,
               "historic_mission_bound_to_this_contract": bound,
-              "admission": "F — see PAYPAL_AUTHORITY_PREFLIGHT.json", "badge": "PAYPAL_NOT_AUTHORIZED / MECHANISM_ONLY"}
+              "admission": "sandbox-demo-v1: owner-signed mission per payer + fresh qualified Lean T per POST" if confirmed else "F — see PAYPAL_AUTHORITY_PREFLIGHT.json",
+              "badge": (f"PAYPAL_PARTIAL_GO ({confirmed}/{len(slots)}) — SANDBOX_PAYMENT_CONFIRMED: ${confirmed * v3['per_buyer_cents'] / 100:.0f}"
+                        if 0 < confirmed < len(slots) else "PAYPAL_PAYMENT_GO (5/5)" if confirmed == len(slots) else "PAYPAL_NOT_AUTHORIZED / MECHANISM_ONLY")}
 
     # ---------- obligations / contract
     final_contract = versions[-1]["data"]["contract"]
@@ -372,10 +405,11 @@ def main():
     ap.add_argument("--run-id", required=True)
     ap.add_argument("--paypal-state")
     ap.add_argument("--paypal-mission")
+    ap.add_argument("--paypal-run", action="append", default=[], help="LMF-007 payment run dir with MISSION_AUTHORIZED + PAYPAL_NATIVE_READBACK_<b>.json")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     SOURCE_COMMIT = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=Path(__file__).parent).stdout.strip()
-    d = build(Path(a.run), a.mode, a.run_id, a.paypal_state, a.paypal_mission)
+    d = build(Path(a.run), a.mode, a.run_id, a.paypal_state, a.paypal_mission, a.paypal_run)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     (out / "DEAL_DOSSIER.json").write_text(json.dumps(d, indent=1))

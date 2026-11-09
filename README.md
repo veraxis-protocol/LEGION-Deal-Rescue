@@ -8,7 +8,7 @@ Entry for the [PayPal AI Hackathon](https://paypalaihackathon.devpost.com/rules)
 > **Status, stated plainly (2026-11-09):**
 > - The AI-driven seven-owner deal formation, contract versioning and independent Judge **run end to end** (two fresh first attempts, both Judge `PASS_COMPLETED`, 63/63 checks).
 > - The deal is a **synthetic scenario**: buyers, factory, engineer, manufacture, shipment and buyer-ledger payments are **SIMULATED**.
-> - **PayPal: no payment has been captured (0/5, $0).** The PayPal Sandbox Orders v2 adapter is included and its 42 mechanism tests pass. Native Sandbox payment is **blocked by owner-controlled authority gates** (independent A03 acceptance, signed mission/permit, owner pause, Sandbox buyer approval). See [`PAYPAL_STATUS.md`](PAYPAL_STATUS.md). The app shows this state; it does not fake it.
+> - **PayPal: one real Sandbox payment confirmed — `PAYPAL_PARTIAL_GO (1/5)`.** On 2026-11-09 Customer A's own Sandbox buyer approved $99.00 on PayPal; order `21U22496GM957054P` was captured once (capture `0DR81708WC9477605`, COMPLETED, USD 99.00) under an owner-signed mission bound to the seven-owner contract, and a separate-process readback of PayPal's records verified it. The other four payers are not yet authorized (each needs its own signed mission line and buyer approval). Sandbox = test money, not real revenue. See [`PAYPAL_STATUS.md`](PAYPAL_STATUS.md).
 > - Economics: the scenario's $495 price equals its $495 vendor cost → **contribution $0 before overhead; not profitable**.
 
 ## What it does
@@ -23,7 +23,7 @@ A small merchant receives five requests for 20 sensor modules each (max $100 per
    - v3 $495 = $99/buyer → signed by all seven.
 3. **Executes** in each owner's simulated world (manufacture, certification, 5 shipments, 5 ledger payments) with signed receipts.
 4. **Verifies** with an independent, read-only Judge that reads every owner's live state, plus 4 tamper mutants and 25 adversarial negatives.
-5. **Pays** each buyer's own $99 line through PayPal **only** when that buyer approves on PayPal and the owner's authority checks pass. Currently: not authorized (see above).
+5. **Pays** each buyer's own $99 line through PayPal **only** when that buyer approves on PayPal and the owner's authority checks pass. Currently: 1 of 5 paid and independently verified (Sandbox).
 
 The merchant UI has five screens (Lost orders · Opportunity · Deal & approval · Work & verification · Payment & outcome), a customer offer view, a downloadable **Deal Dossier** and an **Execution Passport**. Every number links to the exact retained record (file, sequence/line, JSON path, record hash, file SHA-256).
 
@@ -89,7 +89,7 @@ See [`NOTICE`](NOTICE) and [`PROVENANCE_AND_LICENSE.md`](PROVENANCE_AND_LICENSE.
 
 - Synthetic scenario, not real customers.
 - No physical goods.
-- No PayPal capture yet.
+- PayPal: 1 of 5 payers captured in Sandbox (test money); 4 not yet authorized.
 - No profit at the frozen prices.
 - A central matcher with the same public data finds the same coalition: we claim **no matching advantage**. The difference is per-owner signed consent, private terms, admission checks and independent verification.
 - No unaided user study has been run.

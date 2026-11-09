@@ -1,32 +1,24 @@
-# PayPal integration status (truthful, 2026-11-09)
+# PayPal integration status (2026-11-09 23:44Z)
 
-| Item | State | Evidence |
+**`PAYPAL_PARTIAL_GO (1/5)` — one genuine PayPal Sandbox payment, independently confirmed.**
+
+| Payer | State | Evidence |
 |---|---|---|
-| Adapter code (Orders v2: create → buyer approval → server GET APPROVED → capture → separate-process readback) | Present: `paypal_adapter/` | `paypal_adapter/A04_README.md`, `paypal_adapter/docs/ADMISSION_INTERFACE.md` |
-| Adapter mechanism tests (fake provider, real SQLite, crash cases) | **42/42 PASS** | `python -m unittest discover -s tests -t .` in `paypal_adapter/` |
-| Native Sandbox payment in this release | **NOT RUN: 0 orders created, 0 approvals, 0 captures, $0** | `demo_evidence/PAYPAL_AUTHORITY_PREFLIGHT.json` |
-| Historic Sandbox attempt (2026-11-07, earlier run, different contract) | 4 orders created, buyer approval never given, 0 captures; 4 reservations still held in the local ledger | `demo_evidence/OLD_HOLDS_RECONCILIATION_READ_ONLY.json` (order IDs masked) |
+| Customer A (`owner:b1`) | **SANDBOX_PAYMENT_CONFIRMED $99.00** — order `21U22496GM957054P` COMPLETED, capture `0DR81708WC9477605` COMPLETED, USD 99.00, final, 1 capture on the order | `demo_evidence/paypal_runs/lmf007-20261109T232734Z/` |
+| Customers B–E | NOT_AUTHORIZED — no order exists | — |
 
-**Why no payment was taken.** The adapter refuses to create an order unless all eight admission checks are true. The checks that are still F or Z, and who must act:
+**How b1 was paid (sandbox-demo-v1 profile, `LEGION-Commerce/commerce_demo` + A04 gateway):**
+1. Mission `LMF-007-20261109T232734Z` drafted for one payer, bound to the seven-owner contract `809b4f82…` (fresh run 2, Judge PASS 63/63) and to b1's OWN signed ACCEPT `commit-59268f25…` (max 9,900 cents).
+2. Owner signed mission + control with the Control Key (passphrase-gated); verified before run (mission hash `b6e8ab89…`, identical to draft).
+3. Fresh qualified Lean decision **T** for the exact action; journaled `LEAN_ATTESTED` before each POST.
+4. One order create (HTTP 200, `PAYER_ACTION_REQUIRED`) → buyer approved on PayPal's own page (one earlier visit returned via *cancel*; no effect) → server GET `APPROVED` → one capture POST (HTTP 201) → GETs: order `COMPLETED`, capture `COMPLETED` 9,900.
+5. Independent readback in a separate process (read-only ledger, fresh GETs): `VERIFIED_COMPLETED`. Its first two runs failed with `READBACK_MISMATCH` because PayPal's purchase-unit amount carries an extra empty `breakdown` object; the check now compares (currency, value) and the exact ledger cents. History: `READBACK_HISTORY.md`.
+6. Ledger: 1 effect, **2 POSTs total (create + capture), 0 retries, 0 duplicate captures**.
 
-| Check | State | Who must act |
-|---|---|---|
-| Independent signed A03 acceptance of the exact adapter source | missing | Independent acceptor |
-| A current owner-signed mission, control and per-buyer one-time permit for this contract | missing | Owner |
-| Lifting the owner's pause | pause active | Owner |
-| Reconciling the 4 historic holds | 4 still held | Owner |
-| Identified merchant of record | not identified | Owner |
-| Real Sandbox buyer approval for each payer | none | Each buyer |
+**Controls (mechanism, fake provider):** payment negatives 6/6 (over-cap, duplicate effect, changed amount, wrong payer, stale epoch, missing consent), adapter suite 42/42 (revoked/expired permit, lost capture reply, callback without APPROVED, duplicate capture).
 
-None of these can be produced by the developer, and none is bypassed.
+**Not claimed:** production admission (independent A03 acceptance is still unsigned; the Sandbox profile deliberately uses separate signature domains), real money, physical delivery, or payment for b2–b5. A mission draft for b2–b5 (`LMF-007-20261109T234414Z`, 4 × $99, each bound to that buyer's own consent) awaits the owner's signature; each buyer approves separately.
 
-**Note on the earlier pin mismatch.** The local A04 checkout was at `4c7e6b7` while the published pin is `ff6dcd1`. The two differ only in one README line; the `commerce_adapter` runtime is byte-identical.
+**Historic 2026-11-07 orders** (different contract, paused run): 4 held, never approved, 0 captured; untouched.
 
-**What would change this.** All of the following, in order:
-1. A03 accepted by an independent party for this source.
-2. Owner-signed authority installed under `%LOCALAPPDATA%\Veraxis\LEGION-Commerce\a04\`.
-3. The pause lifted.
-4. Each Sandbox buyer approves on PayPal's page.
-5. Run `create` → `serve-approval` → `capture` → `independent-readback`.
-
-One approved $99 capture would prove a **partial (1/5)** native payment. It would not complete the five-payer deal.
+**Adapter build note:** `paypal_adapter/` here is A04 `ff6dcd1`. The payment above ran on LEGION-Commerce `61dd814`+ (same adapter plus mandatory Lean attestation before each POST; `gateway.py` differs), which is also the build the unsigned A03 v5 request covers.

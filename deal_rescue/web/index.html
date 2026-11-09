@@ -123,7 +123,7 @@ function renderChrome() {
     `<span class="b acc">run ${esc(d.run_id)}</span>`,
     `<span class="b ${d.evidence_mode === "HISTORIC_REPLAY" ? "z" : "acc"}">${esc(b.replay)}</span>`,
     `<span class="b sim">${esc(b.requests)}</span>`, `<span class="b sim">${esc(b.world)}</span>`,
-    `<span class="b bad">${esc(b.paypal)}</span>`, `<span class="b warn sim">${esc(b.economics)}</span>`,
+    `<span class="b ${d.paypal.readback_confirmed_captures ? "ok" : "bad"}">${esc(b.paypal)}</span>`, `<span class="b warn sim">${esc(b.economics)}</span>`,
     `<span class="b z">source ${esc((d.source_commit || "uncommitted").slice(0, 7))}</span>`].join("");
   $("#steps").innerHTML = STEPS.map((s, i) => `<button class="${i === S.step ? "on" : ""}" onclick="go(${i})">${s}</button>`).join("") +
     `<button onclick="showBuyer('A')">Customer offer view</button><button onclick="showDossier()">Deal Dossier</button><button onclick="showPassport()">Execution Passport</button>`;
@@ -261,21 +261,21 @@ function s5() {
    <div class="card"><div class="note">Proposed deal value <span class="b sim">SYNTHETIC WORLD VALUE</span></div><div class="big">${F("econ.proceeds", usd)}</div><div>${F("v3.per_buyer", usd)} per customer</div></div>
    <div class="card"><div class="note">PayPal Sandbox captures confirmed <span class="b bad">REAL SANDBOX</span></div><div class="big">${usd(p.provider_confirmed_cents)}</div><div>${p.readback_confirmed_captures}/${p.slots_total} payers · real incremental TPV: <b>unknown</b></div></div>
   </div>
-  <div class="strip"><b>Two separate states</b><span>FULFILLMENT_WORLD = <span class="st warn">SIMULATED</span></span><span>PAYPAL = <span class="st bad">${p.slots.some((s) => s.order_id_masked) ? "BLOCKED (historic orders CREATED, never APPROVED or CAPTURED)" : "UNAUTHORIZED (no order created)"}</span></span><span class="note">A simulated delivery never advances a payment, and a payment would never prove a delivery.</span></div>
+  <div class="strip"><b>Two separate states</b><span>FULFILLMENT_WORLD = <span class="st warn">SIMULATED</span></span><span>PAYPAL = ${p.readback_confirmed_captures ? `<span class="st ok">PARTIAL: ${p.readback_confirmed_captures}/${p.slots_total} CAPTURED &amp; INDEPENDENTLY READ BACK</span>` : `<span class="st bad">${p.slots.some((s) => s.order_id_masked) ? "BLOCKED (historic orders CREATED, never APPROVED or CAPTURED)" : "UNAUTHORIZED (no order created)"}</span>`}</span><span class="note">A simulated delivery never advances a payment, and a payment would never prove a delivery.</span></div>
   <h2>Five individual payers</h2>
   <div class="card" style="padding:0"><table><thead><tr><th>Payer</th><th>Amount</th><th>Payee</th><th>Status (exact)</th><th>Evidence</th></tr></thead><tbody>
    ${p.slots.map((s) => `<tr><td class="who">${esc(s.customer)}</td><td>${usd(s.amount_cents)} ${esc(s.currency)}</td><td>${esc(s.payee)}</td>
-     <td><span class="st ${s.state.startsWith("NOT_AUTH") ? "z" : "warn"}">${esc(s.state)}</span>${s.order_id_masked ? `<div class="note">order ${esc(s.order_id_masked)} · captures ${s.captures}</div>` : ""}</td>
+     <td><span class="st ${s.state === "SANDBOX_PAYMENT_CONFIRMED" ? "ok" : s.state.startsWith("NOT_AUTH") ? "z" : "warn"}">${esc(s.state === "SANDBOX_PAYMENT_CONFIRMED" ? "SANDBOX_PAYMENT_CONFIRMED: " + usd(s.provider_confirmed_cents) : s.state)}</span>${s.order_id_masked ? `<div class="note">order ${esc(s.order_id_masked)} · captures ${s.captures}</div>` : ""}${s.capture_id ? `<div class="note mono">order ${esc(s.order_id)} · capture ${esc(s.capture_id)}<br>captured ${esc(s.captured_at)}</div>` : ""}</td>
      <td class="note">${esc(s.evidence_mode)}<br>${esc(s.status_source)}</td></tr>`).join("")}
   </tbody></table></div>
   <div class="grid g2" style="margin-top:14px">
-   <div class="card"><h3>Why no payment can be taken now</h3><p class="note">A PayPal order is only created when all eight authority checks are true. Current read-only result: <b>${esc(pre?.admission || "Z")}</b>. No new PayPal request was sent.</p>
+   <div class="card"><h3>${p.readback_confirmed_captures ? "Payment authority (remaining payers)" : "Why no payment can be taken now"}</h3>${p.readback_confirmed_captures ? `<p class="note">${p.readback_confirmed_captures} payer(s) paid under an owner-signed Sandbox mission bound to this contract, with a fresh qualified Lean decision before every PayPal POST and the buyer's own approval on PayPal. Each remaining payer needs its own signed mission line and its own buyer approval. Production admission (below) stays off.</p>` : ""}<p class="note">A PayPal order is only created when all eight authority checks are true. Current read-only result: <b>${esc(pre?.admission || "Z")}</b>. No new PayPal request was sent.</p>
     <table><tbody>${(pre?.checks || []).map((c) => `<tr><td>${c.n}</td><td>${esc(c.check)}</td><td><span class="st ${c.verdict === "T" ? "ok" : c.verdict === "F" ? "bad" : "z"}">${c.verdict}</span></td></tr>`).join("")}</tbody></table></div>
    <div class="card"><h3>Did anyone make a profit?</h3><p><b>No profit is established.</b> At version 3 the customers pay ${F("econ.proceeds", usd)} and the factory, engineer and shipping cost ${F("v3.total", usd)}: contribution ${F("econ.contribution", usd)} before payment fees, AI inference, verification and support (all unknown). Even at the customers' caps, headroom is only ${F("econ.headroom", usd)}.</p>
     <span class="st warn">${esc(e.verdict)}</span><p class="note">Factory price is a quote paid to the factory; its own margin is unknown.</p></div>
   </div>
   <div class="cta"><button class="btn" onclick="showDossier()">Deal Dossier</button><button class="btn sec" onclick="go(3);playReplay()">Replay</button>
-   <button class="btn sec" disabled title="No PayPal readback exists for this run: payment not authorized">Inspect PayPal Readback — none (not authorized)</button></div>`;
+   ${p.readback_confirmed_captures ? `<button class="btn sec" onclick="showReadback()">Inspect PayPal Readback (${p.readback_confirmed_captures}/${p.slots_total})</button>` : `<button class="btn sec" disabled title="No PayPal readback exists for this run: payment not authorized">Inspect PayPal Readback — none (not authorized)</button>`}</div>`;
 }
 // ---------- Dossier & passport
 function showDossier() {
@@ -308,8 +308,17 @@ function showBuyer(L) {
     <div class="card"><h3>Your decision</h3><span class="st ${k && k.decision === "ACCEPT" ? "ok" : "bad"}">${esc(k ? k.decision : "Z")}</span><p class="note">Signed with your own key ${esc(k ? k.signer_key_id : "")} (${R(k ? k.ref : "", "commitment record")}). Signing is consent to the terms, not a payment approval.</p></div>
    </div>
    <div class="card" style="margin-top:14px"><h3>Pay your ${usd(v3.per_buyer_cents)} with PayPal</h3><p>Status: <span class="st ${slot.state.startsWith("NOT_AUTH") ? "z" : "warn"}">${esc(slot.state)}</span></p>
-    <button class="btn" disabled title="PayPal admission is F: no current mission/permit, owner pause, unsigned A03">Pay with PayPal — unavailable (not authorized)</button>
+    ${slot.state === "SANDBOX_PAYMENT_CONFIRMED" ? `<p><span class="st ok">PAID (PayPal Sandbox) ${usd(slot.provider_confirmed_cents)}</span> capture <span class="mono">${esc(slot.capture_id)}</span>, confirmed by independent readback. Your consent ${esc(slot.payer_commitment_id)} was used for your line only.</p>` : `<button class="btn" disabled title="Not yet authorized for this payer">Pay with PayPal — unavailable (not authorized)</button>`}
     <p class="note">A PayPal order would be created only for you, for exactly your amount, after the owner's authority checks pass; you would then approve it on PayPal's own page.</p></div>`);
+}
+function showReadback() {
+  const d = S.d;
+  openModal(`<div style="display:flex;gap:10px;align-items:center"><h1 style="margin:0">PayPal readback</h1><span class="spacer" style="flex:1"></span><button class="btn sec" data-close="1">Close</button></div>
+   <p class="note">Fresh provider GETs in a separate process with a read-only ledger. Sandbox: no real money. Payer identifiers and merchant ID redacted. run ${esc(d.run_id)}</p>
+   ${d.paypal.slots.filter((s) => s.readback).map((s) => `<div class="card" style="margin-top:10px"><h3>${esc(s.customer)} · ${usd(s.provider_confirmed_cents)} · ${esc(s.readback.payment_status)}</h3>
+     <div class="kv"><span>Mission / contract</span><span class="mono">${esc(s.mission_id)} / ${esc(s.contract_hash.slice(0, 12))}</span></div>
+     <div class="kv"><span>Buyer's own consent</span><span class="mono">${esc(s.payer_commitment_id)}</span></div>
+     <pre class="mono" style="white-space:pre-wrap;background:#fafbfc;padding:10px;border-radius:8px">${esc(JSON.stringify(s.readback, null, 1))}</pre></div>`).join("")}`);
 }
 function showPassport() {
   const d = S.d;

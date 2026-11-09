@@ -58,10 +58,7 @@ Every number in the UI opens its source record: file, record, JSON path and SHA-
 - **AI:** NVIDIA NIM `nemotron-3.5-lightning-30b-a3b` makes every owner's accept/reject decision and the coordinator's design choices. In each fresh run that is 27 model decisions across 7 owners plus the coordinator.
 - **PayPal:** Orders v2 is the payment rail, one order per buyer and obligation, never a pooled charge.
 
-**Honest status:** in this submission the **native Sandbox payment has not been executed** (0 of 5 captured, $0).
-- The adapter's 42 mechanism tests pass.
-- Live dispatch is blocked by our own authority gates: independent acceptance of the adapter source, an owner-signed mission and permits, and Sandbox buyer approvals.
-- We show that blocked state rather than a fake success.
+**Status: one real PayPal Sandbox payment, independently verified (1 of 5).** Customer A's Sandbox buyer approved $99.00 on PayPal; the order was captured once (COMPLETED) under an owner-signed mission bound to the seven-owner contract, with a fresh Lean admission decision before each POST, and a separate-process readback of PayPal's records confirmed it. The other four payers are not yet authorized; we show them as unpaid. Sandbox test money, not revenue.
 
 ## Challenges
 

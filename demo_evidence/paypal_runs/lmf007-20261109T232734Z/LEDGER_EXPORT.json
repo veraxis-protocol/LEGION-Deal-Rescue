@@ -1,0 +1,136 @@
+{
+ "source": "ledger.db opened read-only",
+ "effects": [
+  {
+   "obligation_id": "pay-b1",
+   "amount": 9900,
+   "held": 1,
+   "state": "CAPTURE_CONFIRMED",
+   "capture_started": 1,
+   "order_id": "21U22496GM957054P",
+   "capture_id": "0DR81708WC9477605"
+  }
+ ],
+ "events": [
+  {
+   "seq": 1,
+   "at": 1794267116.196736,
+   "effect_id": null,
+   "kind": "CONTROL_APPLIED",
+   "data": "{\"mission_id\":\"LMF-007-20261109T232734Z\",\"sequence\":1}"
+  },
+  {
+   "seq": 2,
+   "at": 1794267117.11195,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "RESERVED",
+   "data": "{\"amount_cents\":9900,\"budget_used_cents\":9900}"
+  },
+  {
+   "seq": 3,
+   "at": 1794267117.1296854,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "LEAN_ATTESTED",
+   "data": "{\"action_digest\":\"5f68d464fa84b4677c7882e86c396906100862f88c2772f79806882df8c6e659\",\"evaluated_at\":1794267117,\"lean_verdict\":\"T\",\"source\":\"commerce_demo.sandbox_admission\"}"
+  },
+  {
+   "seq": 4,
+   "at": 1794267117.1297715,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "CREATE_INTENT",
+   "data": "{\"request_id\":\"9a1a2754-b7a2-4ca8-bdcd-3bf9d156c708\"}"
+  },
+  {
+   "seq": 5,
+   "at": 1794267117.1428409,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "LEAN_ATTESTED",
+   "data": "{\"action_digest\":\"5f68d464fa84b4677c7882e86c396906100862f88c2772f79806882df8c6e659\",\"evaluated_at\":1794267117,\"lean_verdict\":\"T\",\"source\":\"commerce_demo.sandbox_admission\"}"
+  },
+  {
+   "seq": 6,
+   "at": 1794267119.0139208,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "NETWORK",
+   "data": "{\"duration_ms\":1871,\"http_status\":200,\"method\":\"POST\",\"operation\":\"orders\"}"
+  },
+  {
+   "seq": 7,
+   "at": 1794267119.0143082,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "ORDER_CREATED",
+   "data": "{\"order_id\":\"21U22496GM957054P\",\"provider_status\":\"PAYER_ACTION_REQUIRED\"}"
+  },
+  {
+   "seq": 8,
+   "at": 1794267747.1570108,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "NETWORK",
+   "data": "{\"duration_ms\":557,\"http_status\":200,\"method\":\"GET\",\"operation\":\"21U22496GM957054P\"}"
+  },
+  {
+   "seq": 9,
+   "at": 1794267747.1574106,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "ORDER_READBACK",
+   "data": "{\"order_id\":\"21U22496GM957054P\",\"provider_status\":\"APPROVED\"}"
+  },
+  {
+   "seq": 10,
+   "at": 1794267747.1635203,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "LEAN_ATTESTED",
+   "data": "{\"action_digest\":\"5f68d464fa84b4677c7882e86c396906100862f88c2772f79806882df8c6e659\",\"evaluated_at\":1794267747,\"lean_verdict\":\"T\",\"source\":\"commerce_demo.sandbox_admission\"}"
+  },
+  {
+   "seq": 11,
+   "at": 1794267747.163647,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "CAPTURE_INTENT",
+   "data": "{\"request_id\":\"b4860554-c441-4000-8cd7-1977e89729eb\"}"
+  },
+  {
+   "seq": 12,
+   "at": 1794267747.178693,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "LEAN_ATTESTED",
+   "data": "{\"action_digest\":\"5f68d464fa84b4677c7882e86c396906100862f88c2772f79806882df8c6e659\",\"evaluated_at\":1794267747,\"lean_verdict\":\"T\",\"source\":\"commerce_demo.sandbox_admission\"}"
+  },
+  {
+   "seq": 13,
+   "at": 1794267748.956583,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "NETWORK",
+   "data": "{\"duration_ms\":1778,\"http_status\":201,\"method\":\"POST\",\"operation\":\"capture\"}"
+  },
+  {
+   "seq": 14,
+   "at": 1794267750.033375,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "NETWORK",
+   "data": "{\"duration_ms\":1076,\"http_status\":200,\"method\":\"GET\",\"operation\":\"21U22496GM957054P\"}"
+  },
+  {
+   "seq": 15,
+   "at": 1794267750.0335348,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "ORDER_READBACK",
+   "data": "{\"order_id\":\"21U22496GM957054P\",\"provider_status\":\"COMPLETED\"}"
+  },
+  {
+   "seq": 16,
+   "at": 1794267750.5793095,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "NETWORK",
+   "data": "{\"duration_ms\":545,\"http_status\":200,\"method\":\"GET\",\"operation\":\"0DR81708WC9477605\"}"
+  },
+  {
+   "seq": 17,
+   "at": 1794267750.5800843,
+   "effect_id": "ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9",
+   "kind": "CAPTURE_READBACK",
+   "data": "{\"amount_cents\":9900,\"capture_digest\":\"43a06cdd56a4485aeae0d01d18a80cb3d137deb109e6dd9b0c3eb581d601921a\",\"capture_id\":\"0DR81708WC9477605\",\"currency\":\"USD\",\"effect_id\":\"ae89734d03336fea9a7dae9243863f7d9e3b123d4311c7a17162818aea98bfa9\",\"merchant_id\":\"SANDBOX_MERCHANT_REDACTED\",\"mission_complete\":false,\"order_digest\":\"c45156a5757c242271c978caa1c62911e59c31d96e78544ec09c1eaae5420270\",\"order_id\":\"21U22496GM957054P\",\"readback_at\":1794267750,\"schema\":\"commerce.payment_readback.v1\",\"source\":\"PAYPAL_SANDBOX_AUTHENTICATED_GET\",\"status\":\"COMPLETED\"}"
+  }
+ ],
+ "network_posts": 2
+}

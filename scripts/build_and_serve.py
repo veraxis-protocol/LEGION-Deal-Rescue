@@ -35,7 +35,8 @@ def main():
     for r in runs:
         rid = "WO004-" + r if r.startswith("A2-fresh") else r
         ids[r] = rid
-        print(sh("-m", "deal_rescue.dossier", "--run", str(ev / "runs" / r), "--mode", "FRESH_SYNTHETIC", "--run-id", rid, "--out", str(ev / "dossier" / rid)))
+        pay = [x for p in sorted((ev / "paypal_runs").glob("*")) if p.is_dir() for x in ("--paypal-run", str(p))] if (ev / "paypal_runs").exists() else []
+        print(sh("-m", "deal_rescue.dossier", "--run", str(ev / "runs" / r), "--mode", "FRESH_SYNTHETIC", "--run-id", rid, "--out", str(ev / "dossier" / rid), *pay))
     counted = ids[a.counted]
     replay = next((ids[r] for r in runs if r != a.counted), counted)
     inf = ev / "runs" / a.counted / "INFERENCE_SUMMARY.json"

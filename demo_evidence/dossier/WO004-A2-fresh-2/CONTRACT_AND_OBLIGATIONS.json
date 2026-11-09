@@ -262,8 +262,8 @@
   {
    "payer": "owner:b1",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
-   "state": "NOT_AUTHORIZED"
+   "payee": "Sandbox merchant (id redacted)",
+   "state": "SANDBOX_PAYMENT_CONFIRMED"
   },
   {
    "payer": "owner:b2",

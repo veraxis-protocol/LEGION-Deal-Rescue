@@ -1,0 +1,59 @@
+{
+ "note": "PUBLIC REDACTED COPY: merchant id replaced, so the owner signature does not verify on this copy; the original signed envelope is in the private evidence package",
+ "payload": {
+  "actor": "agent:procurement-executor",
+  "cap_cents": 9900,
+  "contract_version": "1",
+  "created_at": 1794266854,
+  "currency": "USD",
+  "deadline": 1794288454,
+  "epoch": 1,
+  "federation_contract_hash": "809b4f82b5bd3e3dd130d98ae3ca9644d7bca77818b60284e8d3ac0d9763dc8d",
+  "max_attempts": 1,
+  "merchant_ids": [
+   "SANDBOX_MERCHANT_REDACTED"
+  ],
+  "mission_id": "LMF-007-20261109T232734Z",
+  "obligation_ids": [
+   "pay-b1"
+  ],
+  "obligations": [
+   {
+    "id": "pay-b1",
+    "requirement": "$99.00; payer consent commit-59268f254f1c46e3",
+    "service": "payment line of owner:b1"
+   }
+  ],
+  "owner_control_key_id": "fdaab34c5defcf9805c32bb5",
+  "payer_lines": [
+   {
+    "amount_cents": 9900,
+    "effect_slot": "payer-b1",
+    "obligation_id": "pay-b1",
+    "payer": "owner:b1",
+    "payer_commitment": {
+     "commitment_id": "commit-59268f254f1c46e3",
+     "envelope_sha256": "3f37e05ee4fc17a9c6d230a05e1e879b1d826ea0cc2f7505221cdf2ed6716b2e",
+     "max_amount_cents": 9900,
+     "signer_key_id": "ed25519:88810296cb5a4fef80ab3e92"
+    }
+   }
+  ],
+  "payer_obligation_ids": [
+   "pay-b1"
+  ],
+  "payment_form": "1 separate PayPal Sandbox orders (one per buyer line), each captured at most once",
+  "profile": "sandbox-demo-v1",
+  "runtime_public_keys": {
+   "core_observer": "GiTW4nXWCYJ8/yC1qQ8TtH86iBTequAFg7U0WtgKmA8=",
+   "fulfillment_simulator": "256OlxYAd5OXOy0Ura4z2TGTY4mwHR9bvZXlWKBSpNI=",
+   "reporter_1": "5UtHtKjGJ8BwA/oU7Aq1OPM76jXrtPsmySPeRFAD/6c=",
+   "reporter_2": "ptq1vDuHXvx+BFMXcQro5Kjctw5NvJQTifFy2jUguiw=",
+   "reporter_3": "SgAxfAr60m2E7RN/aP/rLE4t3dc3aESMIF+avhZxsmo=",
+   "sandbox_admission": "tiW7IoSEJyw80m1evoZGh8W0NGmhJIBoMC6rTLMmK+E="
+  },
+  "schema": "commerce.sandbox-demo.mission.v1",
+  "statement": "Settle 1 buyer line(s) of federation contract 809b4f82b5bd3e3d as separate PayPal Sandbox payments of $99.00 each to the merchant below, each approved by its own Sandbox buyer. Production and delivery remain SIMULATED."
+ },
+ "signature": "<redacted-copy: see private package>"
+}

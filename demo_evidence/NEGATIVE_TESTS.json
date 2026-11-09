@@ -256,6 +256,11 @@
      "detected": true
     },
     {
+     "auditor_mutant": "confirmed payment without readback",
+     "result": false,
+     "detected": true
+    },
+    {
      "run_observation": "fresh run PayPal slots bound to historic mission: False",
      "pass": true
     }

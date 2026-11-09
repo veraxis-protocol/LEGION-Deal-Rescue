@@ -95,8 +95,13 @@ def claims(d, ui_text=""):
         issues.append("profit/paid claim with non-positive contribution")
     if d["paypal"]["readback_confirmed_captures"] == 0 and d["paypal"]["provider_confirmed_cents"] != 0:
         issues.append("confirmed cents without captures")
-    if any(s.get("evidence_mode", "").startswith("REAL_SANDBOX") for s in d["paypal"]["slots"]) and not d["paypal"]["historic_mission_bound_to_this_contract"]:
+    v3h = d["terms_versions"][-1]["contract_hash"]
+    if any(s.get("evidence_mode", "").startswith("REAL_SANDBOX") and s.get("contract_hash") != v3h for s in d["paypal"]["slots"]) and not d["paypal"]["historic_mission_bound_to_this_contract"]:
         issues.append("PayPal state from another contract/run attached")
+    if any(s["state"] == "SANDBOX_PAYMENT_CONFIRMED" and not (s.get("capture_id") and s.get("readback")) for s in d["paypal"]["slots"]):
+        issues.append("confirmed payment without independent readback")
+    if d["paypal"]["provider_confirmed_cents"] != sum(s["provider_confirmed_cents"] for s in d["paypal"]["slots"]):
+        issues.append("confirmed total differs from per-payer confirmations")
     return {"issues": issues, "pass": not issues}
 
 
@@ -150,7 +155,8 @@ def main():
         ("N10", "payee identity swap / wrong payer", [{"paypal_leg": "BLOCKED: not exercised (no authority)", "pass": None}]),
         ("N11", "false COMPLETE with missing original obligation", [aud_mutant("drop one shipment receipt", lambda m: m.__setitem__("execution", [x for x in m["execution"] if x["obligation_id"] != "ship-owner:b5"]), mission_status)]),
         ("N12", "evidence_mode mixed across run ids", [aud_mutant("figure from another run", lambda m: m["figures"].__setitem__("v3.total", dict(hd["figures"]["v3.total"])), lambda m: provenance(m, frun)["pass"]),
-                                                       aud_mutant("historic PayPal state on fresh run", lambda m: m["paypal"]["slots"][0].__setitem__("evidence_mode", "REAL_SANDBOX (historic)"), lambda m: claims(m)["pass"]),
+                                                       aud_mutant("historic PayPal state on fresh run", lambda m: m["paypal"]["slots"][-1].update({"evidence_mode": "REAL_SANDBOX (historic)", "contract_hash": "b444a7b9bee7e58b970c65cce3f8e09be9cbd07ed6ab9c696bc2ea2cc2af0448"}), lambda m: claims(m)["pass"]),
+                                                       aud_mutant("confirmed payment without readback", lambda m: m["paypal"]["slots"][1].update({"state": "SANDBOX_PAYMENT_CONFIRMED", "provider_confirmed_cents": 9900}), lambda m: claims(m)["pass"]),
                                                        {"run_observation": "fresh run PayPal slots bound to historic mission: %s" % fd["paypal"]["historic_mission_bound_to_this_contract"], "pass": not fd["paypal"]["historic_mission_bound_to_this_contract"]}]),
         ("N13", "caps met but contribution <= 0 -> no PROFITABLE claim", [aud_mutant("badge says PROFITABLE", lambda m: m["badges"].__setitem__("economics", "PROFITABLE"), lambda m: claims(m)["pass"]),
                                                                            {"run_observation": "contribution %d cents; claims check %s" % (fd["economics"]["pass_through_contribution_cents"], report[a.counted]["claims"]["pass"]), "pass": report[a.counted]["claims"]["pass"]}]),

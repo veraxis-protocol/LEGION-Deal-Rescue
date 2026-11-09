@@ -10,4 +10,4 @@
 | ↳ adversarial negatives against live owners | **25/25**, 0 forbidden effects | clean clone |
 | ↳ UI evidence audit (provenance, claims, N01–N15) | 100% figures/events resolved; 13 passed / 0 failed / 2 blocked (N10, N14 need a live PayPal leg) | clean clone |
 | WO-004 fresh first attempts so far | **3/3 PASS** (`A2-fresh-1`, `A2-fresh-2`, clean-clone run). The earlier 2026-11-07 campaign was 1 of 3 | — |
-| PayPal | **0 orders, 0 captures, $0** in this release (authority gates; see PAYPAL_STATUS.md) | — |
+| PayPal | **1/5 Sandbox payment confirmed**: b1 $99.00, order 21U22496GM957054P / capture 0DR81708WC9477605 COMPLETED, independent readback VERIFIED_COMPLETED; 2 POSTs, 0 duplicates | 2026-11-09 23:42Z |

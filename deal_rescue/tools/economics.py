@@ -46,9 +46,9 @@ def main(dossier, inference, out):
         "verdict": "NEGATIVE ECONOMICS under the published-fee assumption" if upper_bound < 0 else "NOT ECONOMICALLY VALIDATED",
         "Commercial_GO": False,
         "Commercial_GO_terms": {"NetContribution>0": "F" if upper_bound <= 0 else "Z", "full_commitments_valid": "T (synthetic)",
-                                "merchant_of_record_identified": "F", "purchase_allowed": "F (PayPal admission F)", "independent_acceptance_possible": "T (synthetic Judge)"},
+                                "merchant_of_record_identified": "F (Sandbox merchant only)", "purchase_allowed": "PARTIAL (%d/%d payers authorized and captured in Sandbox)" % (d["paypal"]["readback_confirmed_captures"], n), "independent_acceptance_possible": "T (synthetic Judge)"},
         "metrics": {"RescueRate": f"{n}/{n} synthetic (accepted rescued / originally unfulfillable, fixture only)", "PositiveNetDeals": 0,
-                    "ConfirmedSandboxTPV_cents": 0, "RealIncrementalTPV": "Z"},
+                    "ConfirmedSandboxTPV_cents": d["paypal"]["provider_confirmed_cents"], "ConfirmedSandboxTPV_note": "PayPal Sandbox test money, not real TPV", "RealIncrementalTPV": "Z"},
     }
     # hypothetical sensitivity (NOT a scenario run, NOT reusing the Judge verdict)
     cap = min(r["max_cents"] for r in d["requests"])

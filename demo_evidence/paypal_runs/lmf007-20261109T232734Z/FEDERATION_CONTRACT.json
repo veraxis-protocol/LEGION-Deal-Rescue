@@ -1,0 +1,265 @@
+{
+ "contract_hash": "809b4f82b5bd3e3dd130d98ae3ca9644d7bca77818b60284e8d3ac0d9763dc8d",
+ "contract": {
+  "contract_id": "contract-coal-b4fa1531f1eb4a82",
+  "created_at": 1794264603.2596602,
+  "currency": "USD",
+  "deadline": 1794268203.2596562,
+  "design_id": "D-B",
+  "mission_ids": [
+   "M-B2",
+   "M-B4",
+   "M-B3",
+   "M-B5",
+   "M-B1",
+   "M-F1",
+   "M-E1"
+  ],
+  "partial_failure_policy": "No unit ships before the engineer certifies the lot; no buyer pays before receiving its 20 units; on any failure, holds remain and the contract goes to RECONCILING.",
+  "parties": [
+   {
+    "obligations": [
+     {
+      "amount_cents": 9900,
+      "kind": "pay",
+      "obligation_id": "ob-b2-pay"
+     },
+     {
+      "counterparty": "owner:f1",
+      "kind": "receive_units",
+      "obligation_id": "ob-b2-recv",
+      "quantity": 20
+     }
+    ],
+    "owner_id": "owner:b2",
+    "peer_id": "peer:b2",
+    "role": "buyer"
+   },
+   {
+    "obligations": [
+     {
+      "amount_cents": 9900,
+      "kind": "pay",
+      "obligation_id": "ob-b4-pay"
+     },
+     {
+      "counterparty": "owner:f1",
+      "kind": "receive_units",
+      "obligation_id": "ob-b4-recv",
+      "quantity": 20
+     }
+    ],
+    "owner_id": "owner:b4",
+    "peer_id": "peer:b4",
+    "role": "buyer"
+   },
+   {
+    "obligations": [
+     {
+      "amount_cents": 9900,
+      "kind": "pay",
+      "obligation_id": "ob-b3-pay"
+     },
+     {
+      "counterparty": "owner:f1",
+      "kind": "receive_units",
+      "obligation_id": "ob-b3-recv",
+      "quantity": 20
+     }
+    ],
+    "owner_id": "owner:b3",
+    "peer_id": "peer:b3",
+    "role": "buyer"
+   },
+   {
+    "obligations": [
+     {
+      "amount_cents": 9900,
+      "kind": "pay",
+      "obligation_id": "ob-b5-pay"
+     },
+     {
+      "counterparty": "owner:f1",
+      "kind": "receive_units",
+      "obligation_id": "ob-b5-recv",
+      "quantity": 20
+     }
+    ],
+    "owner_id": "owner:b5",
+    "peer_id": "peer:b5",
+    "role": "buyer"
+   },
+   {
+    "obligations": [
+     {
+      "amount_cents": 9900,
+      "kind": "pay",
+      "obligation_id": "ob-b1-pay"
+     },
+     {
+      "counterparty": "owner:f1",
+      "kind": "receive_units",
+      "obligation_id": "ob-b1-recv",
+      "quantity": 20
+     }
+    ],
+    "owner_id": "owner:b1",
+    "peer_id": "peer:b1",
+    "role": "buyer"
+   },
+   {
+    "obligations": [
+     {
+      "kind": "manufacture",
+      "obligation_id": "ob-f-mfg",
+      "quantity": 100
+     },
+     {
+      "kind": "ship",
+      "obligation_id": "ob-f-ship",
+      "quantity": 100
+     }
+    ],
+    "owner_id": "owner:f1",
+    "peer_id": "peer:f1",
+    "role": "factory"
+   },
+   {
+    "obligations": [
+     {
+      "kind": "qualify",
+      "obligation_id": "ob-e-qual",
+      "quantity": 100
+     }
+    ],
+    "owner_id": "owner:e1",
+    "peer_id": "peer:e1",
+    "role": "engineer"
+   }
+  ],
+  "payments": [
+   {
+    "amount_cents": 8900,
+    "payee": "owner:f1",
+    "payer": "owner:b2",
+    "purpose": "units+shipping D-B"
+   },
+   {
+    "amount_cents": 1000,
+    "payee": "owner:e1",
+    "payer": "owner:b2",
+    "purpose": "qualification share"
+   },
+   {
+    "amount_cents": 8900,
+    "payee": "owner:f1",
+    "payer": "owner:b4",
+    "purpose": "units+shipping D-B"
+   },
+   {
+    "amount_cents": 1000,
+    "payee": "owner:e1",
+    "payer": "owner:b4",
+    "purpose": "qualification share"
+   },
+   {
+    "amount_cents": 8900,
+    "payee": "owner:f1",
+    "payer": "owner:b3",
+    "purpose": "units+shipping D-B"
+   },
+   {
+    "amount_cents": 1000,
+    "payee": "owner:e1",
+    "payer": "owner:b3",
+    "purpose": "qualification share"
+   },
+   {
+    "amount_cents": 8900,
+    "payee": "owner:f1",
+    "payer": "owner:b5",
+    "purpose": "units+shipping D-B"
+   },
+   {
+    "amount_cents": 1000,
+    "payee": "owner:e1",
+    "payer": "owner:b5",
+    "purpose": "qualification share"
+   },
+   {
+    "amount_cents": 8900,
+    "payee": "owner:f1",
+    "payer": "owner:b1",
+    "purpose": "units+shipping D-B"
+   },
+   {
+    "amount_cents": 1000,
+    "payee": "owner:e1",
+    "payer": "owner:b1",
+    "purpose": "qualification share"
+   }
+  ],
+  "prev_version_hash": "6eb799833b68c1370926750ed7d80fc86171350e1b57c5467a1130d652ec5d52",
+  "price_basis": {
+   "factory_cents": 41500,
+   "factory_offer_id": "offer-06fa46624d1c40c7",
+   "per_buyer_cents": 9900,
+   "qualification_cents": 5000,
+   "shipping_cents": 3000,
+   "total_cents": 49500
+  },
+  "qualification": {
+   "engineer": "owner:e1",
+   "fixture": "QF-7"
+  },
+  "quantity": 100,
+  "schema": "lmf.coalition-contract.v1",
+  "spec_hash": "0817288dc58932f02d042d629cc2150d73034296bdc22788e1c97c5d33dea06a",
+  "version": 3
+ },
+ "consents": {
+  "owner:b2": {
+   "commitment_id": "commit-9ef8a556c27c48a3",
+   "max_amount_cents": 9900,
+   "envelope_sha256": "ce6af3b92b7f97ab9c7cc762dd343d79bf582911b6b9e655fe7ff197723ce422",
+   "signer_key_id": "ed25519:615a26d2e7f701611b11966c"
+  },
+  "owner:b4": {
+   "commitment_id": "commit-c46aee2c5f2a4e7d",
+   "max_amount_cents": 9900,
+   "envelope_sha256": "8986ca7dc0b64173ee8222e1c9c230402cdd0feacc52548b10dde45f7d3a39ed",
+   "signer_key_id": "ed25519:146c1c2acd0c363c6e942ddf"
+  },
+  "owner:b3": {
+   "commitment_id": "commit-d332f282a3084f94",
+   "max_amount_cents": 9900,
+   "envelope_sha256": "0b0a6eeb5510e501cc5c4922c5b940cf5051ca16160911e290738bd0a6018667",
+   "signer_key_id": "ed25519:dac64c882122728445f9c2ec"
+  },
+  "owner:b5": {
+   "commitment_id": "commit-5fdb43cd6853409c",
+   "max_amount_cents": 9900,
+   "envelope_sha256": "7e32c36342c5488f0be462afb1f1ea96734bfbccda226ea582fcc5abe90c301f",
+   "signer_key_id": "ed25519:e6aa1d490585d121c1a0d1a0"
+  },
+  "owner:b1": {
+   "commitment_id": "commit-59268f254f1c46e3",
+   "max_amount_cents": 9900,
+   "envelope_sha256": "3f37e05ee4fc17a9c6d230a05e1e879b1d826ea0cc2f7505221cdf2ed6716b2e",
+   "signer_key_id": "ed25519:88810296cb5a4fef80ab3e92"
+  },
+  "owner:f1": {
+   "commitment_id": "commit-a68cb7cb118b40e5",
+   "max_amount_cents": 0,
+   "envelope_sha256": "1036b807f091aae3395d9f2540c6313ca21ba750aed33cc105c981a3d6ecd0c1",
+   "signer_key_id": "ed25519:8bf2dedc5530d5cf510c08c1"
+  },
+  "owner:e1": {
+   "commitment_id": "commit-bc0181faf3be43d2",
+   "max_amount_cents": 0,
+   "envelope_sha256": "3ff2fb368bdb38ed47e13a092648c84faa97a694286a90cf0b91b756e4059f27",
+   "signer_key_id": "ed25519:16843efa6dafa3032d93d479"
+  }
+ },
+ "source_run": "C:\\Users\\Administrator\\Documents\\ChatGPT\\Hackathons\\LEGION-Commerce-Q002\\final_release\\evidence\\runs\\A2-fresh-2"
+}
