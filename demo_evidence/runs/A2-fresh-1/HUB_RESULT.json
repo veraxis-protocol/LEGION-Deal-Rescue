@@ -1,0 +1,10 @@
+{
+ "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+ "design": "D-B",
+ "hub_model_calls": 2,
+ "model_calls": 2,
+ "outcome": "FULFILLED",
+ "per_buyer_cents": 9900,
+ "total_cents": 49500,
+ "version": 3
+}

@@ -1,0 +1,362 @@
+{
+ "verdict": "PASS_COMPLETED",
+ "judgement_id": "judge-4e4f86f929994396",
+ "scope": "SYNTHETIC (owner world-engine state read back live by the Judge; no physical goods, no PayPal)",
+ "checks_total": 63,
+ "checks_passed": 63,
+ "tamper_mutants": {
+  "contract_amount": {
+   "detected": true,
+   "verdict": "FAIL"
+  },
+  "duplicate_effect": {
+   "detected": true,
+   "verdict": "FAIL"
+  },
+  "forged_receipt": {
+   "detected": true,
+   "verdict": "FAIL"
+  },
+  "missing_buyer": {
+   "detected": true,
+   "verdict": "FAIL"
+  }
+ },
+ "judge_key_id": "ed25519:4fe35a38bf1460fd4cc90266",
+ "evidence_sha256": {
+  "ACTION_PERMITS.jsonl": "4bfcc3283d75ca9a0a11acc129860723cdf1ecc3e89f8af6ae6a8f8740e96bfa",
+  "CONTRACT_VERSIONS.jsonl": "a6745901ac8b04043121518359d0c1d7e2b2e13196fc4256b230e9c7940eca6e",
+  "FULL_TRACE.jsonl": "4940c00f07dc156b04a6dfcac8e4b6399f8c40b727dafc142620d0c42b318a88",
+  "MODEL_DECISIONS.jsonl": "22d8e5e95b35eead138e012175f1307042900959d2b24e8d1695a11fd0cc1bbb",
+  "NEGOTIATION_TRACE.jsonl": "01e2499fd37ecbba7c3cdeb14f38b907b86dabb2ab7ce6949e878c81f42adda0",
+  "OWNER_COMMITMENTS.jsonl": "c9fbd82b08953074478e58c0c542ebe44e4fbb09c9c776348e5724586587c9d1",
+  "RECEIPTS.jsonl": "6dced533c1a60200ba6303cf8c85d8b73dd078aace200567b285f342e8b8b66f"
+ },
+ "file": "JUDGE_RESULT.json",
+ "file_sha256": "90f83ac643da06660ef4a0222404d8261147cb22fe165b2ab64d8b4695ad026e",
+ "facts": {
+  "coordinator_model_decisions": 2,
+  "design": "D-B",
+  "final_contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+  "per_buyer_cents": 9900,
+  "per_owner_model_decisions": {
+   "owner:b1": 3,
+   "owner:b2": 3,
+   "owner:b3": 3,
+   "owner:b4": 3,
+   "owner:b5": 3,
+   "owner:e1": 5,
+   "owner:f1": 5
+  },
+  "registered_workers": 700,
+  "total_cents": 49500
+ },
+ "checks": [
+  {
+   "check": "J0_hub_reported_outcome_is_not_trusted_alone",
+   "pass": true
+  },
+  {
+   "check": "J1_final_contract_version_exists",
+   "pass": true
+  },
+  {
+   "check": "J1_final_contract_hash_recomputes",
+   "pass": true
+  },
+  {
+   "check": "J2_buyer_received_original_quantity",
+   "pass": true,
+   "owner": "owner:b5",
+   "received": 20
+  },
+  {
+   "check": "J2_buyer_paid_exact_line_within_cap",
+   "pass": true,
+   "cap": 10000,
+   "line": 9900,
+   "owner": "owner:b5",
+   "paid": 9900
+  },
+  {
+   "check": "J2_buyer_received_original_quantity",
+   "pass": true,
+   "owner": "owner:b4",
+   "received": 20
+  },
+  {
+   "check": "J2_buyer_paid_exact_line_within_cap",
+   "pass": true,
+   "cap": 10000,
+   "line": 9900,
+   "owner": "owner:b4",
+   "paid": 9900
+  },
+  {
+   "check": "J2_buyer_received_original_quantity",
+   "pass": true,
+   "owner": "owner:b1",
+   "received": 20
+  },
+  {
+   "check": "J2_buyer_paid_exact_line_within_cap",
+   "pass": true,
+   "cap": 10000,
+   "line": 9900,
+   "owner": "owner:b1",
+   "paid": 9900
+  },
+  {
+   "check": "J2_buyer_received_original_quantity",
+   "pass": true,
+   "owner": "owner:b2",
+   "received": 20
+  },
+  {
+   "check": "J2_buyer_paid_exact_line_within_cap",
+   "pass": true,
+   "cap": 10000,
+   "line": 9900,
+   "owner": "owner:b2",
+   "paid": 9900
+  },
+  {
+   "check": "J2_buyer_received_original_quantity",
+   "pass": true,
+   "owner": "owner:b3",
+   "received": 20
+  },
+  {
+   "check": "J2_buyer_paid_exact_line_within_cap",
+   "pass": true,
+   "cap": 10000,
+   "line": 9900,
+   "owner": "owner:b3",
+   "paid": 9900
+  },
+  {
+   "check": "J2_factory_produced_contract_quantity",
+   "pass": true
+  },
+  {
+   "check": "J2_factory_shipped_each_buyer",
+   "pass": true
+  },
+  {
+   "check": "J2_engineer_qualified_design_by_fixture_readback",
+   "pass": true
+  },
+  {
+   "check": "J2_engineer_certified_lot",
+   "pass": true
+  },
+  {
+   "check": "J2_no_unqualified_design_produced",
+   "pass": true
+  },
+  {
+   "check": "J3_all_owners_committed_same_final_version",
+   "pass": true
+  },
+  {
+   "check": "J3_commitments_reference_model_decisions",
+   "pass": true
+  },
+  {
+   "check": "J4_owner_authorized_final_version",
+   "pass": true,
+   "owner": "owner:b3"
+  },
+  {
+   "check": "J4_owner_authorized_final_version",
+   "pass": true,
+   "owner": "owner:b5"
+  },
+  {
+   "check": "J4_owner_authorized_final_version",
+   "pass": true,
+   "owner": "owner:f1"
+  },
+  {
+   "check": "J4_owner_authorized_final_version",
+   "pass": true,
+   "owner": "owner:b1"
+  },
+  {
+   "check": "J4_owner_authorized_final_version",
+   "pass": true,
+   "owner": "owner:b2"
+  },
+  {
+   "check": "J4_owner_authorized_final_version",
+   "pass": true,
+   "owner": "owner:e1"
+  },
+  {
+   "check": "J4_owner_authorized_final_version",
+   "pass": true,
+   "owner": "owner:b4"
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J5_receipt_bound_to_owner_readback",
+   "pass": true
+  },
+  {
+   "check": "J6_no_double_effect",
+   "pass": true,
+   "owner": "owner:b1"
+  },
+  {
+   "check": "J6_no_double_effect",
+   "pass": true,
+   "owner": "owner:b2"
+  },
+  {
+   "check": "J6_no_double_effect",
+   "pass": true,
+   "owner": "owner:b3"
+  },
+  {
+   "check": "J6_no_double_effect",
+   "pass": true,
+   "owner": "owner:b4"
+  },
+  {
+   "check": "J6_no_double_effect",
+   "pass": true,
+   "owner": "owner:b5"
+  },
+  {
+   "check": "J6_no_double_effect",
+   "pass": true,
+   "owner": "owner:f1"
+  },
+  {
+   "check": "J6_no_double_effect",
+   "pass": true,
+   "owner": "owner:e1"
+  },
+  {
+   "check": "J7_total_paid_equals_contract_total",
+   "pass": true
+  },
+  {
+   "check": "J7_combined_cap_respected",
+   "pass": true
+  },
+  {
+   "check": "J8_no_private_field_released",
+   "pass": true
+  },
+  {
+   "check": "J8_no_private_value_outside_owner_processes",
+   "pass": true
+  },
+  {
+   "check": "J9_price_shock_injected_once",
+   "pass": true
+  },
+  {
+   "check": "J9_prior_terms_invalidated_after_shock",
+   "pass": true
+  },
+  {
+   "check": "J9_recovery_version_created_after_shock",
+   "pass": true
+  },
+  {
+   "check": "J9_single_first_attempt",
+   "pass": true
+  },
+  {
+   "check": "J10_each_owner_model_active",
+   "pass": true
+  },
+  {
+   "check": "J10_registered_workers",
+   "pass": true
+  },
+  {
+   "check": "J11_all_hash_chains_valid",
+   "pass": true
+  },
+  {
+   "check": "J12_A0_no_unilateral_feasible_order",
+   "pass": true
+  }
+ ],
+ "evidence_hash_check": {
+  "ACTION_PERMITS.jsonl": "exact",
+  "CONTRACT_VERSIONS.jsonl": "exact",
+  "FULL_TRACE.jsonl": "prefix (JUDGE_FINISHED appended after judging)",
+  "MODEL_DECISIONS.jsonl": "exact",
+  "NEGOTIATION_TRACE.jsonl": "exact",
+  "OWNER_COMMITMENTS.jsonl": "exact",
+  "RECEIPTS.jsonl": "exact"
+ },
+ "evidence_hashes_match_rendered_files": true
+}

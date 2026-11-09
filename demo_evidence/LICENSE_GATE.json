@@ -1,0 +1,14 @@
+{
+ "at": "2026-11-09T22:51:53Z",
+ "licenses": {
+  "LEGION-Marketplace": "PolyForm Noncommercial License 1.0.0",
+  "LEGION-Federation": "PolyForm Noncommercial License 1.0.0",
+  "LEGION-Core": "PolyForm Noncommercial License 1.0.0",
+  "LEGION-Commerce (Q002)": "NO LICENSE FILE"
+ },
+ "osi_open_source": "F",
+ "verdict": "F (competition OSS condition NOT MET): runnable stack (Core, Federation, Marketplace) is PolyForm Noncommercial 1.0.0; Commerce repo has no LICENSE file. No relicensing done; owner decision or written organizer ruling required.",
+ "ag_studio": "trial licence (expires 2026-12-22), evaluation-only; public judging rights Z",
+ "source": "release/PAYPAL_ELIGIBILITY.md (Marketplace) states NOT MET",
+ "superseded_by_owner_decision_2026-11-09": "LEGION-Deal-Rescue (this repo) is Apache-2.0; LEGION Core, Formal Core, Marketplace and Federation remain PolyForm Noncommercial 1.0.0 and are external pinned dependencies (not vendored). Organizer acceptance of this dependency structure: Z (no ruling)."
+}

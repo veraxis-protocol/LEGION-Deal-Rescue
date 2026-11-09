@@ -1,0 +1,53 @@
+{
+ "schema": "legion.deal-rescue.economic-case.v1",
+ "run_id": "WO004-A2-fresh-2",
+ "evidence_mode": "FRESH_SYNTHETIC",
+ "perspective": "merchant_of_record candidate (pass-through), synthetic fixture prices",
+ "formula": "NetContributionCents = buyer_receipts - supplier_costs - engineering_costs - shipping_costs - PayPal_fees - inference_cost - verification_cost - support_cost - expected_loss",
+ "known_cents": {
+  "buyer_receipts": 49500,
+  "supplier_costs": 41500,
+  "engineering_costs": 5000,
+  "shipping_costs": 3000,
+  "paypal_fees_assumed": 1975
+ },
+ "paypal_fee_assumption": {
+  "per_transaction_cents": 395,
+  "basis": "https://www.paypal.com/us/business/paypal-business-fees (PayPal Checkout, US, 3.49% + $0.49) \u2014 ASSUMPTION, not merchant-verified",
+  "transactions": 5
+ },
+ "unknown": {
+  "inference_cost": {
+   "status": "Z",
+   "measured": {
+    "model_calls": 27,
+    "prompt_tokens": 12608,
+    "completion_tokens": 2716
+   },
+   "price": "NIM trial endpoint, no invoice"
+  },
+  "verification_cost": "Z",
+  "support_cost": "Z",
+  "expected_loss": "Z",
+  "taxes": "Z (not modelled)",
+  "refund_risk": "Z"
+ },
+ "gross_contribution_before_overhead_cents": 0,
+ "net_contribution_upper_bound_cents": -1975,
+ "net_contribution_cents": "Z (upper bound -1975; all unknown terms are >= 0)",
+ "verdict": "NEGATIVE ECONOMICS under the published-fee assumption",
+ "Commercial_GO": false,
+ "Commercial_GO_terms": {
+  "NetContribution>0": "F",
+  "full_commitments_valid": "T (synthetic)",
+  "merchant_of_record_identified": "F",
+  "purchase_allowed": "F (PayPal admission F)",
+  "independent_acceptance_possible": "T (synthetic Judge)"
+ },
+ "metrics": {
+  "RescueRate": "5/5 synthetic (accepted rescued / originally unfulfillable, fixture only)",
+  "PositiveNetDeals": 0,
+  "ConfirmedSandboxTPV_cents": 0,
+  "RealIncrementalTPV": "Z"
+ }
+}

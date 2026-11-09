@@ -1,0 +1,15 @@
+{
+ "frozen_at_utc": "2026-11-09T22:14:47Z",
+ "purpose": "scorer+source freeze BEFORE fresh A2 run (WO-004 GO_2 attempt)",
+ "heads": {
+  "LEGION-Marketplace": "906ec0f553c0f8076127f7abab98825e188342ef",
+  "LEGION-Federation": "9d2a32a5c32758bea1ad2200955da1cc9213356c",
+  "LEGION-Core-pinned": "d083c44af2526e38068e0220891cd0bb5fce52af"
+ },
+ "judge_py_sha256": "9146122791d2d2a6f4cada2019c825b2c4925b6e4182fe91f55a7bae74f2992f",
+ "negatives_py_sha256": "0c190d7ec98aa5d2369540fdd3c5f106e6770c185e89e134a86bca123cb8ac84",
+ "e2e_py_sha256": "8b95ee05d8f9e19876c32f3c897929e831c75b29253648593e83cd3cc56d1e6a",
+ "run_manifest_sha256": "3b228cd136ed55e4404489487f429138c0feea27cfdd723a16e5e2e0cdf96b0e",
+ "judge_identical_to_historic_a7aa474": true,
+ "model_default": "nvidia/nemotron-3.5-lightning-30b-a3b (LMF_NIM_MODEL unset)"
+}

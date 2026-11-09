@@ -1,0 +1,164 @@
+{
+ "source": {
+  "file": "WO-LMF-006/comparators\\BASELINE_RESULTS.json",
+  "sha256": "2c241bd3516502b4ca1baf7444f8fe33badbacf9e03c720523972d83c267b360"
+ },
+ "A0": {
+  "label": "five isolated 20-unit buyers, direct unilateral factory probes",
+  "verdict": "T: NO_DEAL, 5/5 refused (quantity_meets_moq)",
+  "probes": [
+   {
+    "buyer": "b1",
+    "factory_decision": "REJECT",
+    "factory_reason": "REJECT: owner policy F, agent REJECT; failed checks: quantity_meets_moq; private rationale sha256 d194638599c73ca6",
+    "unilateral_units": 20
+   },
+   {
+    "buyer": "b2",
+    "factory_decision": "REJECT",
+    "factory_reason": "REJECT: owner policy F, agent REJECT; failed checks: quantity_meets_moq; private rationale sha256 e5005cb0fe718740",
+    "unilateral_units": 20
+   },
+   {
+    "buyer": "b3",
+    "factory_decision": "REJECT",
+    "factory_reason": "REJECT: owner policy F, agent REJECT; failed checks: quantity_meets_moq; private rationale sha256 1b310ac4949e9f1c",
+    "unilateral_units": 20
+   },
+   {
+    "buyer": "b4",
+    "factory_decision": "REJECT",
+    "factory_reason": "REJECT: owner policy F, agent REJECT; failed checks: quantity_meets_moq; private rationale sha256 7ea85eadfa696824",
+    "unilateral_units": 20
+   },
+   {
+    "buyer": "b5",
+    "factory_decision": "REJECT",
+    "factory_reason": "REJECT: owner policy F, agent REJECT; failed checks: quantity_meets_moq; private rationale sha256 522cad7071c7beee",
+    "unilateral_units": 20
+   }
+  ]
+ },
+ "A1": {
+  "label": "owner peers known by address (no discovery claim)",
+  "design": "D-B",
+  "judge": {
+   "verdict": "PASS_COMPLETED",
+   "failed": [],
+   "file": "WO-LMF-006/A1-known-peers\\JUDGE_RESULT.json",
+   "sha256": "b8e484ab586dbfe084ddd3fc1cf2243be5914bb119f1c8c3f4c9f5123c30d12a"
+  },
+  "note": "pre-known counterpart addresses",
+  "outcome": "FULFILLED",
+  "per_buyer_cents": 9900,
+  "run": "A1-known-peers",
+  "total_cents": 49500
+ },
+ "A2_historic": {
+  "label": "marketplace discovery + federation (WO-LMF-006 campaign)",
+  "attempts": [
+   {
+    "run": "A2-first-attempt",
+    "outcome": "NO_DEAL",
+    "cause": "owner NIM call failed (HTTPError) -> owner failed closed; 0 effects",
+    "judge": {
+     "verdict": "FAIL",
+     "failed": [
+      {
+       "check": "J1_final_contract_version_exists",
+       "contract_hash": null,
+       "pass": false
+      }
+     ],
+     "file": "WO-LMF-006/A2-first-attempt\\JUDGE_RESULT.json",
+     "sha256": "ab324ec1c0e37e170e5b5aa5c2d034bdeceebcaa76acc5783fc8bd646517ba3a"
+    }
+   },
+   {
+    "run": "A2-attempt-2",
+    "outcome": "FULFILLED",
+    "cause": "owner agents echoed private data in commitment rationale (disclosure leak)",
+    "judge": {
+     "verdict": "FAIL",
+     "failed": [
+      {
+       "check": "J8_no_private_value_outside_owner_processes",
+       "hits": [
+        "<2 leaked private tokens redacted in public copy>"
+       ],
+       "pass": false
+      }
+     ],
+     "file": "WO-LMF-006/A2-attempt-2\\JUDGE_RESULT.json",
+     "sha256": "9abf231d45b69d22513d049ae4624d5cd83652924d31adf36546a995777bd3c4"
+    }
+   },
+   {
+    "run": "A2-attempt-3",
+    "outcome": "FULFILLED",
+    "judge": {
+     "verdict": "PASS_COMPLETED",
+     "failed": [],
+     "file": "WO-LMF-006/A2-attempt-3\\JUDGE_RESULT.json",
+     "sha256": "5252fe5b35649dbc25d6dcc11e5ef6ea3219dd907750c99100cef1ae2e9d0e1d"
+    }
+   }
+  ],
+  "VCC_at_1": 0,
+  "passes_over_attempts": "1/3"
+ },
+ "A2_fresh_WO004_runs": [
+  {
+   "run": "A2-fresh-1",
+   "outcome": "FULFILLED",
+   "judge": {
+    "verdict": "PASS_COMPLETED",
+    "failed": [],
+    "file": "final_release\\evidence\\runs\\A2-fresh-1\\JUDGE_RESULT.json",
+    "sha256": "77480357784ee90a8b32b72aeade50cd6cec5accf2862e4bf9f9aec213e7fb56"
+   },
+   "first_attempt_pass": true
+  },
+  {
+   "run": "A2-fresh-2",
+   "outcome": "FULFILLED",
+   "judge": {
+    "verdict": "PASS_COMPLETED",
+    "failed": [],
+    "file": "final_release\\evidence\\runs\\A2-fresh-2\\JUDGE_RESULT.json",
+    "sha256": "7a8def6194fe55c49bfe8f3c590c0591e88a8dc772e45fdd2399b72246a54caa"
+   },
+   "first_attempt_pass": true
+  }
+ ],
+ "A2_fresh_WO004": {
+  "label": "fresh first attempts in WO-004 (each its own preregistered first attempt, same frozen scenario)",
+  "outcome": "FULFILLED",
+  "judge": {
+   "verdict": "PASS_COMPLETED",
+   "failed": [],
+   "file": "final_release\\evidence\\runs\\A2-fresh-2\\JUDGE_RESULT.json",
+   "sha256": "7a8def6194fe55c49bfe8f3c590c0591e88a8dc772e45fdd2399b72246a54caa"
+  },
+  "first_attempt_pass": true,
+  "VCC_at_1": "2/2"
+ },
+ "A3": {
+  "label": "centralized matcher, identical public intents",
+  "note": "A centralized matcher with identical access to the same published intents finds the same coalition. It is not crippled. It has no owner-scoped commitment, disclosure or admission protocol, so on its own it can form a proposal but cannot obtain verifiable per-owner consent or execute; price feasibility is equally unknown to it because supplier prices are private. No uplift over A3 is claimed for matching.",
+  "outcome": "MATCH_FOUND (parity with A2 matching)",
+  "proposal_buyers": [
+   "owner:b1",
+   "owner:b2",
+   "owner:b3",
+   "owner:b4",
+   "owner:b5"
+  ],
+  "claim": "PARITY on matching; LEGION claims no matching uplift"
+ },
+ "A4": {
+  "label": "realistic incumbent group-purchasing intermediary / distributor",
+  "status": "Z \u2014 not sourced or priced; market superiority UNPROVEN",
+  "candidates_named_in_MARKET_ORIGIN_001": "Candex, Upwork, Fairmarkit, ORO (named, not priced for this request)"
+ }
+}

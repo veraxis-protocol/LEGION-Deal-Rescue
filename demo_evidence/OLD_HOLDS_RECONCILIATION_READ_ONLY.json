@@ -1,0 +1,48 @@
+{
+ "at": "2026-11-09T22:51:53Z",
+ "mode": "READ_ONLY from retained ledger evidence; provider GET NOT performed (A04 source mismatch => protected tooling not run)",
+ "source": "<local path redacted>",
+ "source_sha256": "f1f955071bd1bd1d9d575eae2850e0ee7324f28c4b2cf243851884cda847db02",
+ "holds": [
+  {
+   "obligation_id": "pay-b1",
+   "amount_cents": 9900,
+   "held": 1,
+   "last_observed_provider_status": "PAYER_ACTION_REQUIRED",
+   "order_id_masked": "2R77\u202624P",
+   "captures": 0,
+   "current_provider_state": "Z (not re-read)"
+  },
+  {
+   "obligation_id": "pay-b2",
+   "amount_cents": 9900,
+   "held": 1,
+   "last_observed_provider_status": "PAYER_ACTION_REQUIRED",
+   "order_id_masked": "47W8\u2026131",
+   "captures": 0,
+   "current_provider_state": "Z (not re-read)"
+  },
+  {
+   "obligation_id": "pay-b3",
+   "amount_cents": 9900,
+   "held": 1,
+   "last_observed_provider_status": "PAYER_ACTION_REQUIRED",
+   "order_id_masked": "1ND8\u2026513",
+   "captures": 0,
+   "current_provider_state": "Z (not re-read)"
+  },
+  {
+   "obligation_id": "pay-b4",
+   "amount_cents": 9900,
+   "held": 1,
+   "last_observed_provider_status": "PAYER_ACTION_REQUIRED",
+   "order_id_masked": "20N1\u202680W",
+   "captures": 0,
+   "current_provider_state": "Z (not re-read)"
+  }
+ ],
+ "b5": "NOT_STARTED",
+ "captures_total": 0,
+ "historic_create_posts": 4,
+ "actions_taken": "none (no clear/void/refund/dispatch)"
+}

@@ -1,0 +1,13 @@
+{
+ "schema": "legion.deal-rescue.hypothetical-break-even.v1",
+ "label": "HYPOTHETICAL \u2014 counterfactual sensitivity, no run, no Judge, no buyer, no supplier",
+ "assumptions": {
+  "paypal_fee": "https://www.paypal.com/us/business/paypal-business-fees (PayPal Checkout, US, 3.49% + $0.49) \u2014 ASSUMPTION, not merchant-verified",
+  "inference_verification_support_loss": 0
+ },
+ "break_even_price_per_buyer_cents_at_frozen_costs": 10310,
+ "exceeds_each_buyer_cap": true,
+ "max_total_vendor_cost_for_break_even_at_caps_cents": 48009,
+ "frozen_vendor_cost_cents": 49500,
+ "conclusion": "Under the frozen $100 caps the fixture cannot break even even with zero AI/verification/support cost; a profitable rescue needs buyers whose willingness to pay exceeds vendor cost + fees, or vendor costs <= 48009 cents. This is a requirement for a REAL opportunity, not a claim."
+}

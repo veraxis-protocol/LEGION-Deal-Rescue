@@ -1,0 +1,304 @@
+{
+ "counted_run": "WO004-A2-fresh-2",
+ "summary": {
+  "attempted": 13,
+  "passed": 13,
+  "blocked": [
+   "N10",
+   "N14"
+  ],
+  "failed": [],
+  "harness": {
+   "forbidden_effects": 0,
+   "passed": 25,
+   "total": 25
+  }
+ },
+ "cases": [
+  {
+   "id": "N01",
+   "attack": "missing/withdrawn buyer or stale commitment",
+   "status": "PASS",
+   "evidence": [
+    {
+     "case": "N3-5",
+     "desc": "authorization with a minority of commitments (4 of 7)",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "case": "N3-9",
+     "desc": "buyer b5 revokes after authorization; delivery to b5 must not complete (no false DONE)",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "case": "N3-11",
+     "desc": "stale owner commitment (b5 revoked) is reported inactive by b5 itself",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "judge_tamper_mutant": "missing_buyer",
+     "verdict": "FAIL",
+     "detected": true
+    }
+   ]
+  },
+  {
+   "id": "N02",
+   "attack": "$540 version exceeds caps",
+   "status": "PASS",
+   "evidence": [
+    {
+     "case": "N3-2",
+     "desc": "buyer b1 asked to pay $101 (over its $100 cap)",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "case": "N6-3",
+     "desc": "attempt to make buyer b1 pay $101",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "run_observation": "v2 rejected by 5/5 buyers (payment_within_my_cap), state FAILED, receipts bound to v2: 0",
+     "pass": true
+    }
+   ]
+  },
+  {
+   "id": "N03",
+   "attack": "cheaper incompatible design / engineer self-certification",
+   "status": "PASS",
+   "evidence": [
+    {
+     "case": "N3-4",
+     "desc": "fake engineer verification (certificate not signed by the engineer)",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "case": "N3-7",
+     "desc": "engineer asked to certify a lot with no manufacturing receipt",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "run_observation": "D-C engineer FAIL; D-C in any contract version: False",
+     "pass": true
+    }
+   ]
+  },
+  {
+   "id": "N04",
+   "attack": "expired permit / revoked actor -> no consequential POST",
+   "status": "PASS",
+   "evidence": [
+    {
+     "case": "N2-3",
+     "desc": "grant revoked (epoch advanced): cached grant can no longer release",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "case": "N3-11",
+     "desc": "stale owner commitment (b5 revoked) is reported inactive by b5 itself",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "observation": "provider POSTs in WO-004: 0",
+     "pass": true
+    }
+   ]
+  },
+  {
+   "id": "N05",
+   "attack": "contract amount/hash changed after commitment",
+   "status": "PASS",
+   "evidence": [
+    {
+     "case": "N3-1",
+     "desc": "contract payload altered after the coordinator signed it",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "judge_tamper_mutant": "contract_amount",
+     "verdict": "FAIL",
+     "detected": true
+    }
+   ]
+  },
+  {
+   "id": "N06",
+   "attack": "cross-owner private field disclosure",
+   "status": "PASS",
+   "evidence": [
+    {
+     "case": "N2-1",
+     "desc": "malicious agent asks factory for unit cost, customers, suppliers, margin, plan",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "case": "N2-7a",
+     "desc": "prompt-injection style query mixing public and private fields",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "historic": "WO-LMF-006 A2-attempt-2 Judge FAIL J8 (CUST-b5-1, fixture QF-7 cost) preserved",
+     "pass": true
+    }
+   ]
+  },
+  {
+   "id": "N07",
+   "attack": "duplicate create/capture same obligation",
+   "status": "PASS (synthetic leg; PayPal leg BLOCKED)",
+   "evidence": [
+    {
+     "case": "N3-8",
+     "desc": "lost reply / duplicate manufacture command (fresh nonce, same obligation)",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "case": "N3-10",
+     "desc": "double fulfilment: ship to b1 twice",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "judge_tamper_mutant": "duplicate_effect",
+     "verdict": "FAIL",
+     "detected": true
+    },
+    {
+     "paypal_leg": "BLOCKED (not authorized; not exercised)",
+     "pass": null
+    }
+   ]
+  },
+  {
+   "id": "N08",
+   "attack": "forged receipt / changed evidence hash",
+   "status": "PASS",
+   "evidence": [
+    {
+     "judge_tamper_mutant": "forged_receipt",
+     "verdict": "FAIL",
+     "detected": true
+    },
+    {
+     "auditor_mutant": "receipt hash changed",
+     "result": false,
+     "detected": true
+    }
+   ]
+  },
+  {
+   "id": "N09",
+   "attack": "lost/ambiguous provider response -> HOLD",
+   "status": "PASS (synthetic leg; PayPal leg BLOCKED)",
+   "evidence": [
+    {
+     "case": "N3-8",
+     "desc": "lost reply / duplicate manufacture command (fresh nonce, same obligation)",
+     "pass": true,
+     "forbidden_effects": 0
+    },
+    {
+     "paypal_leg": "BLOCKED: native provider leg not authorized in WO-004 (historic LMF-007 22/22 admission tests not re-run)",
+     "pass": null
+    }
+   ]
+  },
+  {
+   "id": "N10",
+   "attack": "payee identity swap / wrong payer",
+   "status": "BLOCKED",
+   "evidence": [
+    {
+     "paypal_leg": "BLOCKED: not exercised (no authority)",
+     "pass": null
+    }
+   ]
+  },
+  {
+   "id": "N11",
+   "attack": "false COMPLETE with missing original obligation",
+   "status": "PASS",
+   "evidence": [
+    {
+     "auditor_mutant": "drop one shipment receipt",
+     "result": "INCOMPLETE (judge PASS_COMPLETED, missing ['owner:f1:ship'])",
+     "detected": true
+    }
+   ]
+  },
+  {
+   "id": "N12",
+   "attack": "evidence_mode mixed across run ids",
+   "status": "PASS",
+   "evidence": [
+    {
+     "auditor_mutant": "figure from another run",
+     "result": false,
+     "detected": true
+    },
+    {
+     "auditor_mutant": "historic PayPal state on fresh run",
+     "result": false,
+     "detected": true
+    },
+    {
+     "run_observation": "fresh run PayPal slots bound to historic mission: False",
+     "pass": true
+    }
+   ]
+  },
+  {
+   "id": "N13",
+   "attack": "caps met but contribution <= 0 -> no PROFITABLE claim",
+   "status": "PASS",
+   "evidence": [
+    {
+     "auditor_mutant": "badge says PROFITABLE",
+     "result": false,
+     "detected": true
+    },
+    {
+     "run_observation": "contribution 0 cents; claims check True",
+     "pass": true
+    }
+   ]
+  },
+  {
+   "id": "N14",
+   "attack": "callback navigation without provider APPROVED -> no capture",
+   "status": "BLOCKED",
+   "evidence": [
+    {
+     "paypal_leg": "BLOCKED: not exercised (no authority)",
+     "pass": null
+    }
+   ]
+  },
+  {
+   "id": "N15",
+   "attack": "replay event without source record",
+   "status": "PASS",
+   "evidence": [
+    {
+     "auditor_mutant": "fabricated event",
+     "result": false,
+     "detected": true
+    }
+   ]
+  }
+ ]
+}

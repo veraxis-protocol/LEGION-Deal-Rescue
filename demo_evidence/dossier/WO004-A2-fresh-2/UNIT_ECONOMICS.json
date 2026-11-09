@@ -1,0 +1,21 @@
+{
+ "perspective": "merchant_of_record (pass-through) \u2014 synthetic scenario prices",
+ "buyer_proceeds_cents": 49500,
+ "payable_factory_cents": 41500,
+ "payable_engineer_cents": 5000,
+ "shipping_cents": 3000,
+ "pass_through_contribution_cents": 0,
+ "max_gross_at_caps_cents": 50000,
+ "max_headroom_before_overhead_cents": 500,
+ "unknown_cost_lines": {
+  "payment_fees_cents": "Z",
+  "agent_inference_cents": "Z",
+  "independent_verification_cents": "Z",
+  "support_cents": "Z",
+  "expected_loss_cents": "Z"
+ },
+ "manufacturer_internal_margin": "UNKNOWN (factory price is a quote paid to the factory, not its cost)",
+ "merchant_net_margin": "NOT ESTABLISHED (non-positive: contribution 0 before any overhead)",
+ "verdict": "NOT YET PROFITABLE / NOT ECONOMICALLY VALIDATED",
+ "incremental_real_tpv": "UNKNOWN"
+}

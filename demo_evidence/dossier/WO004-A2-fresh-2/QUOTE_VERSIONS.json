@@ -1,0 +1,359 @@
+{
+ "versions": [
+  {
+   "version": 1,
+   "design": "D-A",
+   "contract_hash": "c182b364feaf911e3f7d1138e64a9f01d52a6eade3dddb6164464e70fa2eedaf",
+   "prev": null,
+   "factory_cents": 40000,
+   "qualification_cents": 5000,
+   "shipping_cents": 3000,
+   "total_cents": 48000,
+   "per_buyer_cents": 9600,
+   "final_state": "FAILED",
+   "failure": {
+    "reason": "supplier price shock invalidated commitments",
+    "ref": "NEGOTIATION_TRACE.jsonl#9",
+    "rejected_by": null,
+    "inactive": [
+     "owner:f1"
+    ]
+   },
+   "commitments": [
+    {
+     "owner_id": "owner:b2",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-65496eaae0174e27",
+     "signer_key_id": "ed25519:615a26d2e7f701611b11966c",
+     "ref": "OWNER_COMMITMENTS.jsonl#1",
+     "record_hash": "46d7b83f38663b221dc79695d47a925a87e86e8ba26731709af20b8d035f9b42",
+     "t": 1794264582.473617
+    },
+    {
+     "owner_id": "owner:b4",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-526134ec9f0e4775",
+     "signer_key_id": "ed25519:146c1c2acd0c363c6e942ddf",
+     "ref": "OWNER_COMMITMENTS.jsonl#2",
+     "record_hash": "35b514eaba1781163e5a062643df775f9f4e859d21e0e9e914334d09fb8385b4",
+     "t": 1794264583.7536957
+    },
+    {
+     "owner_id": "owner:b3",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-20baf7d998ab4d56",
+     "signer_key_id": "ed25519:dac64c882122728445f9c2ec",
+     "ref": "OWNER_COMMITMENTS.jsonl#3",
+     "record_hash": "08d7ae209efdfa8de4f101684478c3d5375815f81516cad834ff5a94277d1abe",
+     "t": 1794264584.6902936
+    },
+    {
+     "owner_id": "owner:b5",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-9d1e47e490ea4111",
+     "signer_key_id": "ed25519:e6aa1d490585d121c1a0d1a0",
+     "ref": "OWNER_COMMITMENTS.jsonl#4",
+     "record_hash": "8c3a60d6cf25b388d97057604b12796fb89a1339ff04d50c509eda91d650cb95",
+     "t": 1794264585.6852894
+    },
+    {
+     "owner_id": "owner:b1",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-dbd6a3b5c1ca40a7",
+     "signer_key_id": "ed25519:88810296cb5a4fef80ab3e92",
+     "ref": "OWNER_COMMITMENTS.jsonl#5",
+     "record_hash": "83657d9e0fc771608687e058641b2a8d46512be51b8f1fb56511119689770e5e",
+     "t": 1794264586.8751943
+    },
+    {
+     "owner_id": "owner:f1",
+     "role": "factory",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-f4846040ad7a4d60",
+     "signer_key_id": "ed25519:8bf2dedc5530d5cf510c08c1",
+     "ref": "OWNER_COMMITMENTS.jsonl#6",
+     "record_hash": "285f42d272d69ecaaeeb7bce3411c940369994a4eb199c2ba4869a5f8d42bed0",
+     "t": 1794264587.876528
+    },
+    {
+     "owner_id": "owner:e1",
+     "role": "engineer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-409f1b4fd3934644",
+     "signer_key_id": "ed25519:16843efa6dafa3032d93d479",
+     "ref": "OWNER_COMMITMENTS.jsonl#7",
+     "record_hash": "444611463925494b57e1d1fec786bcaa5048c8e8246526b3a18c61026d7b8050",
+     "t": 1794264588.8938317
+    }
+   ],
+   "created_at": 1794264581.5896008,
+   "ref": "CONTRACT_VERSIONS.jsonl#1"
+  },
+  {
+   "version": 2,
+   "design": "D-A",
+   "contract_hash": "6eb799833b68c1370926750ed7d80fc86171350e1b57c5467a1130d652ec5d52",
+   "prev": "c182b364feaf911e3f7d1138e64a9f01d52a6eade3dddb6164464e70fa2eedaf",
+   "factory_cents": 46000,
+   "qualification_cents": 5000,
+   "shipping_cents": 3000,
+   "total_cents": 54000,
+   "per_buyer_cents": 10800,
+   "final_state": "FAILED",
+   "failure": {
+    "reason": "owners rejected repriced terms",
+    "ref": "NEGOTIATION_TRACE.jsonl#14",
+    "rejected_by": [
+     "owner:b1",
+     "owner:b2",
+     "owner:b3",
+     "owner:b4",
+     "owner:b5"
+    ],
+    "inactive": null
+   },
+   "commitments": [
+    {
+     "owner_id": "owner:b2",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-f521eaa23220409e",
+     "signer_key_id": "ed25519:615a26d2e7f701611b11966c",
+     "ref": "OWNER_COMMITMENTS.jsonl#8",
+     "record_hash": "599d6fa868a1f27ab08c58b6a68f14b46315f000751d817c3007601302cd9a65",
+     "t": 1794264592.1553984
+    },
+    {
+     "owner_id": "owner:b4",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-7301785c304b489e",
+     "signer_key_id": "ed25519:146c1c2acd0c363c6e942ddf",
+     "ref": "OWNER_COMMITMENTS.jsonl#9",
+     "record_hash": "1a7a3720c50df8ad02e858e184bca2e84d6dcd2976f356414ac48dcd3b45a70e",
+     "t": 1794264593.305057
+    },
+    {
+     "owner_id": "owner:b3",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-8148291d4fb54d67",
+     "signer_key_id": "ed25519:dac64c882122728445f9c2ec",
+     "ref": "OWNER_COMMITMENTS.jsonl#10",
+     "record_hash": "631dd9904e582a42e7cba11a0bc95a0c6d50b0076356d1c6a00da889e9288c58",
+     "t": 1794264594.7182918
+    },
+    {
+     "owner_id": "owner:b5",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-56a67b72fc334723",
+     "signer_key_id": "ed25519:e6aa1d490585d121c1a0d1a0",
+     "ref": "OWNER_COMMITMENTS.jsonl#11",
+     "record_hash": "228a06d085188dbe1e0ad07bc63e109a971497624aa81a029d67cfa92d7ae626",
+     "t": 1794264596.0359092
+    },
+    {
+     "owner_id": "owner:b1",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-0a45b73afba24447",
+     "signer_key_id": "ed25519:88810296cb5a4fef80ab3e92",
+     "ref": "OWNER_COMMITMENTS.jsonl#12",
+     "record_hash": "f9f69937317bcc68e32f6a1975111a93619f4ae0c028b4dda8592c39acd3a3d9",
+     "t": 1794264598.2036507
+    },
+    {
+     "owner_id": "owner:f1",
+     "role": "factory",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 2,
+     "failed_checks": "none",
+     "commitment_id": "commit-c62b9e924e8e429e",
+     "signer_key_id": "ed25519:8bf2dedc5530d5cf510c08c1",
+     "ref": "OWNER_COMMITMENTS.jsonl#13",
+     "record_hash": "e081a87a5a4fd88a23ca70c03d0315a298a3748d6037c1722a395cf51406b728",
+     "t": 1794264600.61875
+    },
+    {
+     "owner_id": "owner:e1",
+     "role": "engineer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-55c44e3067d94026",
+     "signer_key_id": "ed25519:16843efa6dafa3032d93d479",
+     "ref": "OWNER_COMMITMENTS.jsonl#14",
+     "record_hash": "6b5c23ed4f8f1b4e1cbcade7d7f29fd0788316e58f133e2085a767fc2f1a1d34",
+     "t": 1794264601.9151719
+    }
+   ],
+   "created_at": 1794264591.0087533,
+   "ref": "CONTRACT_VERSIONS.jsonl#2"
+  },
+  {
+   "version": 3,
+   "design": "D-B",
+   "contract_hash": "809b4f82b5bd3e3dd130d98ae3ca9644d7bca77818b60284e8d3ac0d9763dc8d",
+   "prev": "6eb799833b68c1370926750ed7d80fc86171350e1b57c5467a1130d652ec5d52",
+   "factory_cents": 41500,
+   "qualification_cents": 5000,
+   "shipping_cents": 3000,
+   "total_cents": 49500,
+   "per_buyer_cents": 9900,
+   "final_state": "FULFILLED",
+   "failure": null,
+   "commitments": [
+    {
+     "owner_id": "owner:b2",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-9ef8a556c27c48a3",
+     "signer_key_id": "ed25519:615a26d2e7f701611b11966c",
+     "ref": "OWNER_COMMITMENTS.jsonl#15",
+     "record_hash": "12bce15bed9ff379422dbb640a644aa66f54d94ff2ec09fa26e50cd7557d597e",
+     "t": 1794264604.2972322
+    },
+    {
+     "owner_id": "owner:b4",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-c46aee2c5f2a4e7d",
+     "signer_key_id": "ed25519:146c1c2acd0c363c6e942ddf",
+     "ref": "OWNER_COMMITMENTS.jsonl#16",
+     "record_hash": "36aef4fb04b3e16fdc9c61e58f5ab5d0477ad4992252d81bfcae23425390f25d",
+     "t": 1794264605.2163365
+    },
+    {
+     "owner_id": "owner:b3",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-d332f282a3084f94",
+     "signer_key_id": "ed25519:dac64c882122728445f9c2ec",
+     "ref": "OWNER_COMMITMENTS.jsonl#17",
+     "record_hash": "45b1e6b56a5318aa8eae9e5dcd78fb580a20c368aa196fe206295af2dd1e10f7",
+     "t": 1794264606.3963873
+    },
+    {
+     "owner_id": "owner:b5",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-5fdb43cd6853409c",
+     "signer_key_id": "ed25519:e6aa1d490585d121c1a0d1a0",
+     "ref": "OWNER_COMMITMENTS.jsonl#18",
+     "record_hash": "9ef8cd758c10b5bbe14d7f945a7faa91209313273be14d57c62b8c9d0690bd14",
+     "t": 1794264608.5206597
+    },
+    {
+     "owner_id": "owner:b1",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-59268f254f1c46e3",
+     "signer_key_id": "ed25519:88810296cb5a4fef80ab3e92",
+     "ref": "OWNER_COMMITMENTS.jsonl#19",
+     "record_hash": "20ccc445aaa15054f01d7543473aee50f18d96ff2f6aa81c9e3952d5316eb9b2",
+     "t": 1794264609.845122
+    },
+    {
+     "owner_id": "owner:f1",
+     "role": "factory",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 2,
+     "failed_checks": "none",
+     "commitment_id": "commit-a68cb7cb118b40e5",
+     "signer_key_id": "ed25519:8bf2dedc5530d5cf510c08c1",
+     "ref": "OWNER_COMMITMENTS.jsonl#20",
+     "record_hash": "92b933a02fc93de19634dacc2319ccc05544338697bad77925c00f1d509e4c46",
+     "t": 1794264611.0867546
+    },
+    {
+     "owner_id": "owner:e1",
+     "role": "engineer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-bc0181faf3be43d2",
+     "signer_key_id": "ed25519:16843efa6dafa3032d93d479",
+     "ref": "OWNER_COMMITMENTS.jsonl#21",
+     "record_hash": "d32d81aba2e0cbccc7573b5ae9902c5a888492f0a33156959b8e655de70f60f4",
+     "t": 1794264612.094534
+    }
+   ],
+   "created_at": 1794264603.2596602,
+   "ref": "CONTRACT_VERSIONS.jsonl#3"
+  }
+ ],
+ "rejected_designs": [
+  {
+   "design": "D-C",
+   "engineer_pass": false,
+   "factory_cents": 38000,
+   "ref": "NEGOTIATION_TRACE.jsonl#11"
+  }
+ ],
+ "price_shock": {
+  "label": "INJECTED / TEST environment event",
+  "ref": "FULL_TRACE.jsonl@16",
+  "t": 1794264588.9034133
+ }
+}

@@ -1,0 +1,6 @@
+external/
+__pycache__/
+*.pyc
+.venv/
+demo_evidence/runs/A2-live-*/
+demo_evidence/negatives-live-*/

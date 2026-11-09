@@ -1,0 +1,4405 @@
+{
+ "schema": "legion.deal-rescue.dossier.v1",
+ "product": "LEGION Deal Rescue",
+ "run_id": "WO004-A2-fresh-1",
+ "run_dir_name": "A2-fresh-1",
+ "evidence_mode": "FRESH_SYNTHETIC",
+ "source_commit": "HEAD",
+ "built_at": "2026-11-09T23:01:46Z",
+ "run_files_sha256": {
+  "ACTION_PERMITS.jsonl": "4bfcc3283d75ca9a0a11acc129860723cdf1ecc3e89f8af6ae6a8f8740e96bfa",
+  "CONTRACT_VERSIONS.jsonl": "a6745901ac8b04043121518359d0c1d7e2b2e13196fc4256b230e9c7940eca6e",
+  "FULL_TRACE.jsonl": "c1b8200f24cea57761ddc2b15b2a5a18d1050cb14eef1abddb495416e9cbb1de",
+  "HUB_RESULT.json": "858d83b4c3a47df16be798b994476ccf8c523c4f0c274d9af0f0b886fb2fd263",
+  "INFERENCE_SUMMARY.json": "f59031611e80dc47561005273df49af7a71ce4df14baa0699fd663f7b422cd15",
+  "JUDGE_RESULT.json": "90f83ac643da06660ef4a0222404d8261147cb22fe165b2ab64d8b4695ad026e",
+  "marketplace/DISCOVERY_TRACE.jsonl": "861501705cdf0279b6e0f7afdb0756e23ba642f3ce2efa3648aa22c6d34638b4",
+  "marketplace/INTENT_PUBLICATIONS.jsonl": "1ee66b34aa49e8d8c095d702639aaf8faa2c75e319136b187b48ff2363ced641",
+  "marketplace/MATCHES.jsonl": "c3eb55dac2a310eb6c6927ba2e26de1e0b2bbb0ef7c8d4dfffc5c9d94019b0e7",
+  "MODEL_DECISIONS.jsonl": "22d8e5e95b35eead138e012175f1307042900959d2b24e8d1695a11fd0cc1bbb",
+  "NEGOTIATION_TRACE.jsonl": "01e2499fd37ecbba7c3cdeb14f38b907b86dabb2ab7ce6949e878c81f42adda0",
+  "OWNER_COMMITMENTS.jsonl": "c9fbd82b08953074478e58c0c542ebe44e4fbb09c9c776348e5724586587c9d1",
+  "RECEIPTS.jsonl": "6dced533c1a60200ba6303cf8c85d8b73dd078aace200567b285f342e8b8b66f"
+ },
+ "badges": {
+  "world": "SIMULATED \u2014 no physical manufacture or delivery",
+  "requests": "DEMO REQUESTS \u2014 SYNTHETIC",
+  "replay": "FRESH SYNTHETIC RUN (first attempt, scorer frozen before run)",
+  "paypal": "PAYPAL_NOT_AUTHORIZED / MECHANISM_ONLY",
+  "economics": "NOT YET PROFITABLE / NOT ECONOMICALLY VALIDATED"
+ },
+ "requests": [
+  {
+   "customer": "Customer A",
+   "owner_id": "owner:b1",
+   "units": 20,
+   "max_cents": 10000,
+   "alone_feasible": false,
+   "refusal_reason": "MOQ not met",
+   "intent_id": "intent-78cac9dcae654196",
+   "intent_sha256": "3d08e9f23f5b50a2557574dd99e8f5760cd6198ed2a73a5ec9298a08fe3a0af0",
+   "published_at": 1794262499.2570598,
+   "publication_ref": "marketplace/INTENT_PUBLICATIONS.jsonl#1"
+  },
+  {
+   "customer": "Customer B",
+   "owner_id": "owner:b2",
+   "units": 20,
+   "max_cents": 10000,
+   "alone_feasible": false,
+   "refusal_reason": "MOQ not met",
+   "intent_id": "intent-b6da32a94f9444e1",
+   "intent_sha256": "140da3e5719422f8af875e53f228a2a329985f21cf53e7d747da662fc866839b",
+   "published_at": 1794262499.2861624,
+   "publication_ref": "marketplace/INTENT_PUBLICATIONS.jsonl#2"
+  },
+  {
+   "customer": "Customer C",
+   "owner_id": "owner:b3",
+   "units": 20,
+   "max_cents": 10000,
+   "alone_feasible": false,
+   "refusal_reason": "MOQ not met",
+   "intent_id": "intent-ce480938c76243c4",
+   "intent_sha256": "6e2da7f366b4b0898a48ee4d97e4bfa2babe5503207dbcd51c1106afb2a489fd",
+   "published_at": 1794262499.3243766,
+   "publication_ref": "marketplace/INTENT_PUBLICATIONS.jsonl#3"
+  },
+  {
+   "customer": "Customer D",
+   "owner_id": "owner:b4",
+   "units": 20,
+   "max_cents": 10000,
+   "alone_feasible": false,
+   "refusal_reason": "MOQ not met",
+   "intent_id": "intent-69766036efe8428c",
+   "intent_sha256": "fe43ee1081824657e30394a6cd0e371f8e41675e0395f7224065819df3aab526",
+   "published_at": 1794262499.3650186,
+   "publication_ref": "marketplace/INTENT_PUBLICATIONS.jsonl#4"
+  },
+  {
+   "customer": "Customer E",
+   "owner_id": "owner:b5",
+   "units": 20,
+   "max_cents": 10000,
+   "alone_feasible": false,
+   "refusal_reason": "MOQ not met",
+   "intent_id": "intent-1e39c382840c4cf1",
+   "intent_sha256": "683c9a31c8869d3e5ca7a5a2802ed2f46299109a41dedabe2aa9dac01f8b2c02",
+   "published_at": 1794262499.3907142,
+   "publication_ref": "marketplace/INTENT_PUBLICATIONS.jsonl#5"
+  }
+ ],
+ "opportunity": {
+  "match_ref": "marketplace/MATCHES.jsonl#1",
+  "sum_units": 100,
+  "meets_moq": true,
+  "spec_match": true,
+  "distinct_owners": true,
+  "within_capacity": true,
+  "proposal_authorization": "NONE: proposal only",
+  "buyers": [
+   "owner:b5",
+   "owner:b4",
+   "owner:b1",
+   "owner:b2",
+   "owner:b3"
+  ],
+  "supplier": null,
+  "engineer": "owner:e1",
+  "discovery_live_intents": 7,
+  "intents_by_kind": {
+   "demand": 5,
+   "service": 1,
+   "supply": 1
+  }
+ },
+ "terms_versions": [
+  {
+   "version": 1,
+   "design": "D-A",
+   "contract_hash": "68b89344785cb3568d582ca849cf984bdbaa8c405bdd8724a1e4eba4c8ce9494",
+   "prev": null,
+   "factory_cents": 40000,
+   "qualification_cents": 5000,
+   "shipping_cents": 3000,
+   "total_cents": 48000,
+   "per_buyer_cents": 9600,
+   "final_state": "FAILED",
+   "failure": {
+    "reason": "supplier price shock invalidated commitments",
+    "ref": "NEGOTIATION_TRACE.jsonl#9",
+    "rejected_by": null,
+    "inactive": [
+     "owner:f1"
+    ]
+   },
+   "commitments": [
+    {
+     "owner_id": "owner:b5",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-d1642a71fe41411f",
+     "signer_key_id": "ed25519:8f81075dee75b2af78b991a3",
+     "ref": "OWNER_COMMITMENTS.jsonl#1",
+     "record_hash": "9ab1d4f20af142de8ba6fc3bb409f0eb185805429f10a021cd962d910ddd36af",
+     "t": 1794262505.1891775
+    },
+    {
+     "owner_id": "owner:b4",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-3c1d2b42c0524745",
+     "signer_key_id": "ed25519:467ca89ad936ad6709434ca2",
+     "ref": "OWNER_COMMITMENTS.jsonl#2",
+     "record_hash": "777981cce7edc70a739f5fd6d1042250279a35936747e3c1f0988fdf4e033046",
+     "t": 1794262506.449184
+    },
+    {
+     "owner_id": "owner:b1",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-7e66ae20d50247eb",
+     "signer_key_id": "ed25519:6a50c149376df287e8ae8d4f",
+     "ref": "OWNER_COMMITMENTS.jsonl#3",
+     "record_hash": "d9a33420886f28ef3ec7fac050b2d2b4f4256e9335168595a4973f564857faeb",
+     "t": 1794262507.6897657
+    },
+    {
+     "owner_id": "owner:b2",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-adf48f7f7ff34c86",
+     "signer_key_id": "ed25519:ea08bd861288116e046bd40f",
+     "ref": "OWNER_COMMITMENTS.jsonl#4",
+     "record_hash": "881af54f5e6966fa0b8952e7fb140387801f66078905599f3dd02d18dd17acc5",
+     "t": 1794262521.6120315
+    },
+    {
+     "owner_id": "owner:b3",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9600,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-e46cd586a7264a75",
+     "signer_key_id": "ed25519:d924ce0e20b8a7556c340aa3",
+     "ref": "OWNER_COMMITMENTS.jsonl#5",
+     "record_hash": "19d9ea858507cbe6afa7286473a10fbf685a487d29ea36ad01546c3c2d7ea495",
+     "t": 1794262522.6832657
+    },
+    {
+     "owner_id": "owner:f1",
+     "role": "factory",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-556d4fc542a4425a",
+     "signer_key_id": "ed25519:46027dfa11ad631e0783ef5b",
+     "ref": "OWNER_COMMITMENTS.jsonl#6",
+     "record_hash": "64355fa89d4b6958405a642092e5091ed0015362296d40c45ca5452b322d44d1",
+     "t": 1794262524.1691654
+    },
+    {
+     "owner_id": "owner:e1",
+     "role": "engineer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-87d9cd2ae6bf45c0",
+     "signer_key_id": "ed25519:fd6e22941faef2f54d31da6f",
+     "ref": "OWNER_COMMITMENTS.jsonl#7",
+     "record_hash": "cc6d9b009b207d7b0415ed38a3693e0ae7f8122b9f0979b5f266c30b501e6962",
+     "t": 1794262525.1582468
+    }
+   ],
+   "created_at": 1794262503.9407644,
+   "ref": "CONTRACT_VERSIONS.jsonl#1"
+  },
+  {
+   "version": 2,
+   "design": "D-A",
+   "contract_hash": "42267d78e977899b0414131f6fb5bdb814dad9c01634e687e66e6c988ad063cd",
+   "prev": "68b89344785cb3568d582ca849cf984bdbaa8c405bdd8724a1e4eba4c8ce9494",
+   "factory_cents": 46000,
+   "qualification_cents": 5000,
+   "shipping_cents": 3000,
+   "total_cents": 54000,
+   "per_buyer_cents": 10800,
+   "final_state": "FAILED",
+   "failure": {
+    "reason": "owners rejected repriced terms",
+    "ref": "NEGOTIATION_TRACE.jsonl#14",
+    "rejected_by": [
+     "owner:b1",
+     "owner:b2",
+     "owner:b3",
+     "owner:b4",
+     "owner:b5"
+    ],
+    "inactive": null
+   },
+   "commitments": [
+    {
+     "owner_id": "owner:b5",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-5e95dfaa48614f6f",
+     "signer_key_id": "ed25519:8f81075dee75b2af78b991a3",
+     "ref": "OWNER_COMMITMENTS.jsonl#8",
+     "record_hash": "6ca78a2dea1eac298f2b7d2f33b036004aaa9657d64d6355fba47abad3df205c",
+     "t": 1794262528.299295
+    },
+    {
+     "owner_id": "owner:b4",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-a60a2d8146c5475b",
+     "signer_key_id": "ed25519:467ca89ad936ad6709434ca2",
+     "ref": "OWNER_COMMITMENTS.jsonl#9",
+     "record_hash": "4335af3cc486160df7add678dec90afeb69ce6d63741db2a030a3fe7b4dc3d93",
+     "t": 1794262529.4370492
+    },
+    {
+     "owner_id": "owner:b1",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-c97af122098e437c",
+     "signer_key_id": "ed25519:6a50c149376df287e8ae8d4f",
+     "ref": "OWNER_COMMITMENTS.jsonl#10",
+     "record_hash": "4f223184d3066c0247519de87d3072089b866aa1178f9c5c05a94522d7a20703",
+     "t": 1794262532.3164966
+    },
+    {
+     "owner_id": "owner:b2",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-31b030750d1841ad",
+     "signer_key_id": "ed25519:ea08bd861288116e046bd40f",
+     "ref": "OWNER_COMMITMENTS.jsonl#11",
+     "record_hash": "90847c06b0fc7fb232fe18996f313d76632495fd0470f0f0594558a5d2506d21",
+     "t": 1794262533.4115417
+    },
+    {
+     "owner_id": "owner:b3",
+     "role": "buyer",
+     "decision": "REJECT",
+     "max_amount_cents": 10800,
+     "epoch": 1,
+     "failed_checks": "payment_within_my_cap",
+     "commitment_id": "commit-c5bea6c2f96e42de",
+     "signer_key_id": "ed25519:d924ce0e20b8a7556c340aa3",
+     "ref": "OWNER_COMMITMENTS.jsonl#12",
+     "record_hash": "ea989d837704615d81babcad83b531e2ffbf12a839c17c5e6a56762ae3776cbb",
+     "t": 1794262534.594122
+    },
+    {
+     "owner_id": "owner:f1",
+     "role": "factory",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 2,
+     "failed_checks": "none",
+     "commitment_id": "commit-a7f9b567c4f64171",
+     "signer_key_id": "ed25519:46027dfa11ad631e0783ef5b",
+     "ref": "OWNER_COMMITMENTS.jsonl#13",
+     "record_hash": "0c4451a7f7d882fe5ed461e4d478af9c80f5004bbdf33f7cce6e1b8f1735f76c",
+     "t": 1794262536.3078103
+    },
+    {
+     "owner_id": "owner:e1",
+     "role": "engineer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-f90f840bb3fb42b1",
+     "signer_key_id": "ed25519:fd6e22941faef2f54d31da6f",
+     "ref": "OWNER_COMMITMENTS.jsonl#14",
+     "record_hash": "2124a6bb0d476e01918ea2309b326510d851b876ae73d306f0ae867a20c226c5",
+     "t": 1794262537.5611858
+    }
+   ],
+   "created_at": 1794262527.5294878,
+   "ref": "CONTRACT_VERSIONS.jsonl#2"
+  },
+  {
+   "version": 3,
+   "design": "D-B",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "prev": "42267d78e977899b0414131f6fb5bdb814dad9c01634e687e66e6c988ad063cd",
+   "factory_cents": 41500,
+   "qualification_cents": 5000,
+   "shipping_cents": 3000,
+   "total_cents": 49500,
+   "per_buyer_cents": 9900,
+   "final_state": "FULFILLED",
+   "failure": null,
+   "commitments": [
+    {
+     "owner_id": "owner:b5",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-a50dde377b374d67",
+     "signer_key_id": "ed25519:8f81075dee75b2af78b991a3",
+     "ref": "OWNER_COMMITMENTS.jsonl#15",
+     "record_hash": "497ebdc012851f24d69002fab708f124b90fe2b05b39f5f801d87e381b5f992d",
+     "t": 1794262539.8275247
+    },
+    {
+     "owner_id": "owner:b4",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-c8a522ef77314fce",
+     "signer_key_id": "ed25519:467ca89ad936ad6709434ca2",
+     "ref": "OWNER_COMMITMENTS.jsonl#16",
+     "record_hash": "0fdad21f035cd91e26eb288bf7d26714761581bc42a4ea2ad12f7481120fab6d",
+     "t": 1794262541.0642474
+    },
+    {
+     "owner_id": "owner:b1",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-ba2dc966760f4b01",
+     "signer_key_id": "ed25519:6a50c149376df287e8ae8d4f",
+     "ref": "OWNER_COMMITMENTS.jsonl#17",
+     "record_hash": "c108c8ef01a764e107439b49f444aac08b726ec0ada432b175c20c2b58eb2472",
+     "t": 1794262542.3862295
+    },
+    {
+     "owner_id": "owner:b2",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-bc67eebbe1ae429d",
+     "signer_key_id": "ed25519:ea08bd861288116e046bd40f",
+     "ref": "OWNER_COMMITMENTS.jsonl#18",
+     "record_hash": "27b3780f966b4d9d231faf636668bf2048a0320e4780ab40039ddf7a44e0af4c",
+     "t": 1794262543.5263915
+    },
+    {
+     "owner_id": "owner:b3",
+     "role": "buyer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 9900,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-537a8c6c6df3443d",
+     "signer_key_id": "ed25519:d924ce0e20b8a7556c340aa3",
+     "ref": "OWNER_COMMITMENTS.jsonl#19",
+     "record_hash": "b852f661735153919da195ccb90a015a9d64a6888b18fa92f678cc6498ab1546",
+     "t": 1794262548.2663224
+    },
+    {
+     "owner_id": "owner:f1",
+     "role": "factory",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 2,
+     "failed_checks": "none",
+     "commitment_id": "commit-5df6b5b3a8ca47b7",
+     "signer_key_id": "ed25519:46027dfa11ad631e0783ef5b",
+     "ref": "OWNER_COMMITMENTS.jsonl#20",
+     "record_hash": "282cbeee413d76a06f8a12564955defa7022ab81fc000f921cd12ce360fae97d",
+     "t": 1794262549.500182
+    },
+    {
+     "owner_id": "owner:e1",
+     "role": "engineer",
+     "decision": "ACCEPT",
+     "max_amount_cents": 0,
+     "epoch": 1,
+     "failed_checks": "none",
+     "commitment_id": "commit-83f3c27639324037",
+     "signer_key_id": "ed25519:fd6e22941faef2f54d31da6f",
+     "ref": "OWNER_COMMITMENTS.jsonl#21",
+     "record_hash": "451663068284e6730e84de28510e57ea79a75f9ce5141a8f491e2bf2b2419882",
+     "t": 1794262550.6864867
+    }
+   ],
+   "created_at": 1794262538.570116,
+   "ref": "CONTRACT_VERSIONS.jsonl#3"
+  }
+ ],
+ "rejected_designs": [
+  {
+   "design": "D-C",
+   "engineer_pass": false,
+   "factory_cents": 38000,
+   "ref": "NEGOTIATION_TRACE.jsonl#11"
+  }
+ ],
+ "price_shock": {
+  "label": "INJECTED / TEST environment event",
+  "ref": "FULL_TRACE.jsonl@16",
+  "t": 1794262525.1648183
+ },
+ "execution": [
+  {
+   "action": "factory.manufacture",
+   "issuer": "owner:f1",
+   "mode": "SIMULATED",
+   "obligation_id": "ob-owner:f1-manufacture",
+   "effect_id": "eff-f7bff2115242",
+   "receipt_id": "rcpt-74444760cd144c8b",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "82509df7a4b8790f232ae50e08c1735e58f3a27af0304d287d976c224356c1e9",
+   "issued_at": 1794262550.787388,
+   "signer_key_id": "ed25519:46027dfa11ad631e0783ef5b",
+   "ref": "RECEIPTS.jsonl#1",
+   "record_hash": "97ec19fe3a7d71a7993054e1d645aa177fe24051ed2b3d584a586859380e0f69",
+   "verdict": "T"
+  },
+  {
+   "action": "engineer.certify_lot",
+   "issuer": "owner:e1",
+   "mode": "SIMULATED",
+   "obligation_id": "certify-lot-D-B",
+   "effect_id": "eff-396a13b67e7b",
+   "receipt_id": "rcpt-ed63b97785ac4fa5",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "8a24646e7b1d7455cf1cc010bfb129b56077d8727e76cfa07b0f521d8b470235",
+   "issued_at": 1794262550.7940385,
+   "signer_key_id": "ed25519:fd6e22941faef2f54d31da6f",
+   "ref": "RECEIPTS.jsonl#2",
+   "record_hash": "b1d65d93dcf557011b8a561fc7e73769e06f725e05443e15e1c6fcd3aecd22d6",
+   "verdict": "T"
+  },
+  {
+   "action": "factory.ship",
+   "issuer": "owner:f1",
+   "mode": "SIMULATED",
+   "obligation_id": "ship-owner:b5",
+   "effect_id": "eff-7fcad6991164",
+   "receipt_id": "rcpt-0802744df104475f",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "0dfb8c6b9cb81bd3598e039f4da635654584655b18e2da4937cd1e695eb02f1a",
+   "issued_at": 1794262550.8005545,
+   "signer_key_id": "ed25519:46027dfa11ad631e0783ef5b",
+   "ref": "RECEIPTS.jsonl#3",
+   "record_hash": "2e853d643085d99c26ff302b93705e7f847b75ba4135ed22566bd2ece6b3e22c",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.receive",
+   "issuer": "owner:b5",
+   "mode": "SIMULATED",
+   "obligation_id": "receive-owner:b5",
+   "effect_id": "eff-51434bedc8d9",
+   "receipt_id": "rcpt-ccc0c9c45a4b406c",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "1881fdbbb4cc35fe231bfadfbbb14cfecba4d30aa414fabc987009f5bf3707c0",
+   "issued_at": 1794262550.8068068,
+   "signer_key_id": "ed25519:8f81075dee75b2af78b991a3",
+   "ref": "RECEIPTS.jsonl#3",
+   "record_hash": "2e853d643085d99c26ff302b93705e7f847b75ba4135ed22566bd2ece6b3e22c",
+   "verdict": "T"
+  },
+  {
+   "action": "factory.ship",
+   "issuer": "owner:f1",
+   "mode": "SIMULATED",
+   "obligation_id": "ship-owner:b4",
+   "effect_id": "eff-8192a14fdd28",
+   "receipt_id": "rcpt-addbb82ee2894a25",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "6c6fe95ca1288f26ec61cc42c0c58fe5ae976964e6e94ce58767baed7e7e96c7",
+   "issued_at": 1794262550.815819,
+   "signer_key_id": "ed25519:46027dfa11ad631e0783ef5b",
+   "ref": "RECEIPTS.jsonl#4",
+   "record_hash": "98e86f5e817c1e95b6539359e35a87bb8092bb444858a9e46ac6c516516c3f08",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.receive",
+   "issuer": "owner:b4",
+   "mode": "SIMULATED",
+   "obligation_id": "receive-owner:b4",
+   "effect_id": "eff-98a7050eaef2",
+   "receipt_id": "rcpt-c144de57f86f476a",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "48c6b1aa09b03aef7f02a4b5af2425ebc7752d29187f52b7e3c948928829bf2a",
+   "issued_at": 1794262550.820975,
+   "signer_key_id": "ed25519:467ca89ad936ad6709434ca2",
+   "ref": "RECEIPTS.jsonl#4",
+   "record_hash": "98e86f5e817c1e95b6539359e35a87bb8092bb444858a9e46ac6c516516c3f08",
+   "verdict": "T"
+  },
+  {
+   "action": "factory.ship",
+   "issuer": "owner:f1",
+   "mode": "SIMULATED",
+   "obligation_id": "ship-owner:b1",
+   "effect_id": "eff-6abee0336b9f",
+   "receipt_id": "rcpt-c1dd168f7bb14155",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "728f3c0086ef5971e6ecdbbb18dd00b83ff2c9b753bab13d0e9bf505c38fb7c1",
+   "issued_at": 1794262550.8282204,
+   "signer_key_id": "ed25519:46027dfa11ad631e0783ef5b",
+   "ref": "RECEIPTS.jsonl#5",
+   "record_hash": "a180cd0871d0e46f2921648d4f85694d0b0854ae2fb49d605aea7c969e27b687",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.receive",
+   "issuer": "owner:b1",
+   "mode": "SIMULATED",
+   "obligation_id": "receive-owner:b1",
+   "effect_id": "eff-1875bdbd1513",
+   "receipt_id": "rcpt-b20cffc1c78241fb",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "d62b6d67d1d27cbf7648aa0552399a49ad9a51782359f7f249ff5539f4019ed6",
+   "issued_at": 1794262550.832639,
+   "signer_key_id": "ed25519:6a50c149376df287e8ae8d4f",
+   "ref": "RECEIPTS.jsonl#5",
+   "record_hash": "a180cd0871d0e46f2921648d4f85694d0b0854ae2fb49d605aea7c969e27b687",
+   "verdict": "T"
+  },
+  {
+   "action": "factory.ship",
+   "issuer": "owner:f1",
+   "mode": "SIMULATED",
+   "obligation_id": "ship-owner:b2",
+   "effect_id": "eff-331234c00e02",
+   "receipt_id": "rcpt-8b72aff337ae4852",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "851ed8ea4d00fef4e62e12d8b0bbc9a9f926a6419c6fd2d89c86d69cb71603b4",
+   "issued_at": 1794262550.8414562,
+   "signer_key_id": "ed25519:46027dfa11ad631e0783ef5b",
+   "ref": "RECEIPTS.jsonl#6",
+   "record_hash": "231e53e3dc81aea1544ff06063061fe57f7cdefbfc5cb796b6ef2220909fdda2",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.receive",
+   "issuer": "owner:b2",
+   "mode": "SIMULATED",
+   "obligation_id": "receive-owner:b2",
+   "effect_id": "eff-d3b2456d0e49",
+   "receipt_id": "rcpt-65cb105243624833",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "6e16ed4e138bcaa2a1db9d88ee76d2c84caa23dad81bd4666d7528ff32b6f678",
+   "issued_at": 1794262550.84573,
+   "signer_key_id": "ed25519:ea08bd861288116e046bd40f",
+   "ref": "RECEIPTS.jsonl#6",
+   "record_hash": "231e53e3dc81aea1544ff06063061fe57f7cdefbfc5cb796b6ef2220909fdda2",
+   "verdict": "T"
+  },
+  {
+   "action": "factory.ship",
+   "issuer": "owner:f1",
+   "mode": "SIMULATED",
+   "obligation_id": "ship-owner:b3",
+   "effect_id": "eff-5e14c5518043",
+   "receipt_id": "rcpt-a584abf9c83f4647",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "ee87e64acbe42ba383a13390327701c981d821b7756f72dc8de7f5c60c5f6a7d",
+   "issued_at": 1794262550.8548954,
+   "signer_key_id": "ed25519:46027dfa11ad631e0783ef5b",
+   "ref": "RECEIPTS.jsonl#7",
+   "record_hash": "5e8d921c36303dd2fe16e53923280708d0732771db88dcb727d9ce2ed9613c7b",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.receive",
+   "issuer": "owner:b3",
+   "mode": "SIMULATED",
+   "obligation_id": "receive-owner:b3",
+   "effect_id": "eff-ebbe4de91878",
+   "receipt_id": "rcpt-0dbe0f07f8d8476a",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "0d2e2a777bf1baa4fbbd47754a86075082e1ce6440bd811bfc8f6d6dfae299b4",
+   "issued_at": 1794262550.8723292,
+   "signer_key_id": "ed25519:d924ce0e20b8a7556c340aa3",
+   "ref": "RECEIPTS.jsonl#7",
+   "record_hash": "5e8d921c36303dd2fe16e53923280708d0732771db88dcb727d9ce2ed9613c7b",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.pay",
+   "issuer": "owner:b5",
+   "mode": "SIMULATED",
+   "obligation_id": "pay-owner:b5",
+   "effect_id": "eff-1325ea4218a3",
+   "receipt_id": "rcpt-ce6489bc5f854c95",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "e7e0a2d1abec98c46e7e4daa5ac6a0e59448c05536802f42c2f3ec1bd44a7fd9",
+   "issued_at": 1794262550.8788834,
+   "signer_key_id": "ed25519:8f81075dee75b2af78b991a3",
+   "ref": "RECEIPTS.jsonl#8",
+   "record_hash": "b720439729658b6ed3b33426b531d30297ce881317f681ebf1bae251160caf7a",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.pay",
+   "issuer": "owner:b4",
+   "mode": "SIMULATED",
+   "obligation_id": "pay-owner:b4",
+   "effect_id": "eff-6cad0de52284",
+   "receipt_id": "rcpt-a309d89d34624c72",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "1ad4cd95e282e97cc3c361994861a4d4920871de41f04baccfde604a48042523",
+   "issued_at": 1794262550.8849537,
+   "signer_key_id": "ed25519:467ca89ad936ad6709434ca2",
+   "ref": "RECEIPTS.jsonl#9",
+   "record_hash": "676744cd5ae810af5e59bf594e569c065f48a968c5008da8ba88995a8a96622b",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.pay",
+   "issuer": "owner:b1",
+   "mode": "SIMULATED",
+   "obligation_id": "pay-owner:b1",
+   "effect_id": "eff-2bfb1a765e1e",
+   "receipt_id": "rcpt-6ad3f75c042a4911",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "8bc9c46a5ca68b8a374cde56233a06a8c875c87e6ea5327fe88eabc2c824bb15",
+   "issued_at": 1794262550.8906653,
+   "signer_key_id": "ed25519:6a50c149376df287e8ae8d4f",
+   "ref": "RECEIPTS.jsonl#10",
+   "record_hash": "8f3fe7556d8fa9045c8c23a5a703e6e39093f3699e9dc3a562a52e5830938ecb",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.pay",
+   "issuer": "owner:b2",
+   "mode": "SIMULATED",
+   "obligation_id": "pay-owner:b2",
+   "effect_id": "eff-6c3488931f02",
+   "receipt_id": "rcpt-3c35277ab0e944d8",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "208b85d2532de3281404387a252dfbe3292604b0a48c0f17654dcdfbd5389bbb",
+   "issued_at": 1794262550.8955295,
+   "signer_key_id": "ed25519:ea08bd861288116e046bd40f",
+   "ref": "RECEIPTS.jsonl#11",
+   "record_hash": "8b2ddc24e264d7cd2d1c087dff6946d29bd1b05838595a85f863fd79bacc7388",
+   "verdict": "T"
+  },
+  {
+   "action": "buyer.pay",
+   "issuer": "owner:b3",
+   "mode": "SIMULATED",
+   "obligation_id": "pay-owner:b3",
+   "effect_id": "eff-3d36dce1fe39",
+   "receipt_id": "rcpt-ceedf00845054685",
+   "contract_version_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "readback_sha256": "1a7f55f55b6d5b4b0f0e761fe135c2b0ac7341d21504f9177e27e561ae3cfb71",
+   "issued_at": 1794262550.9011111,
+   "signer_key_id": "ed25519:d924ce0e20b8a7556c340aa3",
+   "ref": "RECEIPTS.jsonl#12",
+   "record_hash": "7168dd0560e518201f45a0755a9dd0f4c25cf34e6d7668627cc45c5b91e0dfad",
+   "verdict": "T"
+  }
+ ],
+ "judge": {
+  "verdict": "PASS_COMPLETED",
+  "judgement_id": "judge-4e4f86f929994396",
+  "scope": "SYNTHETIC (owner world-engine state read back live by the Judge; no physical goods, no PayPal)",
+  "checks_total": 63,
+  "checks_passed": 63,
+  "tamper_mutants": {
+   "contract_amount": {
+    "detected": true,
+    "verdict": "FAIL"
+   },
+   "duplicate_effect": {
+    "detected": true,
+    "verdict": "FAIL"
+   },
+   "forged_receipt": {
+    "detected": true,
+    "verdict": "FAIL"
+   },
+   "missing_buyer": {
+    "detected": true,
+    "verdict": "FAIL"
+   }
+  },
+  "judge_key_id": "ed25519:4fe35a38bf1460fd4cc90266",
+  "evidence_sha256": {
+   "ACTION_PERMITS.jsonl": "4bfcc3283d75ca9a0a11acc129860723cdf1ecc3e89f8af6ae6a8f8740e96bfa",
+   "CONTRACT_VERSIONS.jsonl": "a6745901ac8b04043121518359d0c1d7e2b2e13196fc4256b230e9c7940eca6e",
+   "FULL_TRACE.jsonl": "4940c00f07dc156b04a6dfcac8e4b6399f8c40b727dafc142620d0c42b318a88",
+   "MODEL_DECISIONS.jsonl": "22d8e5e95b35eead138e012175f1307042900959d2b24e8d1695a11fd0cc1bbb",
+   "NEGOTIATION_TRACE.jsonl": "01e2499fd37ecbba7c3cdeb14f38b907b86dabb2ab7ce6949e878c81f42adda0",
+   "OWNER_COMMITMENTS.jsonl": "c9fbd82b08953074478e58c0c542ebe44e4fbb09c9c776348e5724586587c9d1",
+   "RECEIPTS.jsonl": "6dced533c1a60200ba6303cf8c85d8b73dd078aace200567b285f342e8b8b66f"
+  },
+  "file": "JUDGE_RESULT.json",
+  "file_sha256": "90f83ac643da06660ef4a0222404d8261147cb22fe165b2ab64d8b4695ad026e",
+  "facts": {
+   "coordinator_model_decisions": 2,
+   "design": "D-B",
+   "final_contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "per_buyer_cents": 9900,
+   "per_owner_model_decisions": {
+    "owner:b1": 3,
+    "owner:b2": 3,
+    "owner:b3": 3,
+    "owner:b4": 3,
+    "owner:b5": 3,
+    "owner:e1": 5,
+    "owner:f1": 5
+   },
+   "registered_workers": 700,
+   "total_cents": 49500
+  },
+  "checks": [
+   {
+    "check": "J0_hub_reported_outcome_is_not_trusted_alone",
+    "pass": true
+   },
+   {
+    "check": "J1_final_contract_version_exists",
+    "pass": true
+   },
+   {
+    "check": "J1_final_contract_hash_recomputes",
+    "pass": true
+   },
+   {
+    "check": "J2_buyer_received_original_quantity",
+    "pass": true,
+    "owner": "owner:b5",
+    "received": 20
+   },
+   {
+    "check": "J2_buyer_paid_exact_line_within_cap",
+    "pass": true,
+    "cap": 10000,
+    "line": 9900,
+    "owner": "owner:b5",
+    "paid": 9900
+   },
+   {
+    "check": "J2_buyer_received_original_quantity",
+    "pass": true,
+    "owner": "owner:b4",
+    "received": 20
+   },
+   {
+    "check": "J2_buyer_paid_exact_line_within_cap",
+    "pass": true,
+    "cap": 10000,
+    "line": 9900,
+    "owner": "owner:b4",
+    "paid": 9900
+   },
+   {
+    "check": "J2_buyer_received_original_quantity",
+    "pass": true,
+    "owner": "owner:b1",
+    "received": 20
+   },
+   {
+    "check": "J2_buyer_paid_exact_line_within_cap",
+    "pass": true,
+    "cap": 10000,
+    "line": 9900,
+    "owner": "owner:b1",
+    "paid": 9900
+   },
+   {
+    "check": "J2_buyer_received_original_quantity",
+    "pass": true,
+    "owner": "owner:b2",
+    "received": 20
+   },
+   {
+    "check": "J2_buyer_paid_exact_line_within_cap",
+    "pass": true,
+    "cap": 10000,
+    "line": 9900,
+    "owner": "owner:b2",
+    "paid": 9900
+   },
+   {
+    "check": "J2_buyer_received_original_quantity",
+    "pass": true,
+    "owner": "owner:b3",
+    "received": 20
+   },
+   {
+    "check": "J2_buyer_paid_exact_line_within_cap",
+    "pass": true,
+    "cap": 10000,
+    "line": 9900,
+    "owner": "owner:b3",
+    "paid": 9900
+   },
+   {
+    "check": "J2_factory_produced_contract_quantity",
+    "pass": true
+   },
+   {
+    "check": "J2_factory_shipped_each_buyer",
+    "pass": true
+   },
+   {
+    "check": "J2_engineer_qualified_design_by_fixture_readback",
+    "pass": true
+   },
+   {
+    "check": "J2_engineer_certified_lot",
+    "pass": true
+   },
+   {
+    "check": "J2_no_unqualified_design_produced",
+    "pass": true
+   },
+   {
+    "check": "J3_all_owners_committed_same_final_version",
+    "pass": true
+   },
+   {
+    "check": "J3_commitments_reference_model_decisions",
+    "pass": true
+   },
+   {
+    "check": "J4_owner_authorized_final_version",
+    "pass": true,
+    "owner": "owner:b3"
+   },
+   {
+    "check": "J4_owner_authorized_final_version",
+    "pass": true,
+    "owner": "owner:b5"
+   },
+   {
+    "check": "J4_owner_authorized_final_version",
+    "pass": true,
+    "owner": "owner:f1"
+   },
+   {
+    "check": "J4_owner_authorized_final_version",
+    "pass": true,
+    "owner": "owner:b1"
+   },
+   {
+    "check": "J4_owner_authorized_final_version",
+    "pass": true,
+    "owner": "owner:b2"
+   },
+   {
+    "check": "J4_owner_authorized_final_version",
+    "pass": true,
+    "owner": "owner:e1"
+   },
+   {
+    "check": "J4_owner_authorized_final_version",
+    "pass": true,
+    "owner": "owner:b4"
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J5_receipt_bound_to_owner_readback",
+    "pass": true
+   },
+   {
+    "check": "J6_no_double_effect",
+    "pass": true,
+    "owner": "owner:b1"
+   },
+   {
+    "check": "J6_no_double_effect",
+    "pass": true,
+    "owner": "owner:b2"
+   },
+   {
+    "check": "J6_no_double_effect",
+    "pass": true,
+    "owner": "owner:b3"
+   },
+   {
+    "check": "J6_no_double_effect",
+    "pass": true,
+    "owner": "owner:b4"
+   },
+   {
+    "check": "J6_no_double_effect",
+    "pass": true,
+    "owner": "owner:b5"
+   },
+   {
+    "check": "J6_no_double_effect",
+    "pass": true,
+    "owner": "owner:f1"
+   },
+   {
+    "check": "J6_no_double_effect",
+    "pass": true,
+    "owner": "owner:e1"
+   },
+   {
+    "check": "J7_total_paid_equals_contract_total",
+    "pass": true
+   },
+   {
+    "check": "J7_combined_cap_respected",
+    "pass": true
+   },
+   {
+    "check": "J8_no_private_field_released",
+    "pass": true
+   },
+   {
+    "check": "J8_no_private_value_outside_owner_processes",
+    "pass": true
+   },
+   {
+    "check": "J9_price_shock_injected_once",
+    "pass": true
+   },
+   {
+    "check": "J9_prior_terms_invalidated_after_shock",
+    "pass": true
+   },
+   {
+    "check": "J9_recovery_version_created_after_shock",
+    "pass": true
+   },
+   {
+    "check": "J9_single_first_attempt",
+    "pass": true
+   },
+   {
+    "check": "J10_each_owner_model_active",
+    "pass": true
+   },
+   {
+    "check": "J10_registered_workers",
+    "pass": true
+   },
+   {
+    "check": "J11_all_hash_chains_valid",
+    "pass": true
+   },
+   {
+    "check": "J12_A0_no_unilateral_feasible_order",
+    "pass": true
+   }
+  ],
+  "evidence_hash_check": {
+   "ACTION_PERMITS.jsonl": "exact",
+   "CONTRACT_VERSIONS.jsonl": "exact",
+   "FULL_TRACE.jsonl": "prefix (JUDGE_FINISHED appended after judging)",
+   "MODEL_DECISIONS.jsonl": "exact",
+   "NEGOTIATION_TRACE.jsonl": "exact",
+   "OWNER_COMMITMENTS.jsonl": "exact",
+   "RECEIPTS.jsonl": "exact"
+  },
+  "evidence_hashes_match_rendered_files": true
+ },
+ "economics": {
+  "perspective": "merchant_of_record (pass-through) \u2014 synthetic scenario prices",
+  "buyer_proceeds_cents": 49500,
+  "payable_factory_cents": 41500,
+  "payable_engineer_cents": 5000,
+  "shipping_cents": 3000,
+  "pass_through_contribution_cents": 0,
+  "max_gross_at_caps_cents": 50000,
+  "max_headroom_before_overhead_cents": 500,
+  "unknown_cost_lines": {
+   "payment_fees_cents": "Z",
+   "agent_inference_cents": "Z",
+   "independent_verification_cents": "Z",
+   "support_cents": "Z",
+   "expected_loss_cents": "Z"
+  },
+  "manufacturer_internal_margin": "UNKNOWN (factory price is a quote paid to the factory, not its cost)",
+  "merchant_net_margin": "NOT ESTABLISHED (non-positive: contribution 0 before any overhead)",
+  "verdict": "NOT YET PROFITABLE / NOT ECONOMICALLY VALIDATED",
+  "incremental_real_tpv": "UNKNOWN"
+ },
+ "paypal": {
+  "slots": [
+   {
+    "customer": "Customer A",
+    "owner_id": "owner:b1",
+    "obligation_id": "pay-b1",
+    "amount_cents": 9900,
+    "currency": "USD",
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED",
+    "evidence_mode": "FRESH_SYNTHETIC",
+    "provider_confirmed_cents": 0,
+    "status_source": "no PayPal mission bound to this run's contract"
+   },
+   {
+    "customer": "Customer B",
+    "owner_id": "owner:b2",
+    "obligation_id": "pay-b2",
+    "amount_cents": 9900,
+    "currency": "USD",
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED",
+    "evidence_mode": "FRESH_SYNTHETIC",
+    "provider_confirmed_cents": 0,
+    "status_source": "no PayPal mission bound to this run's contract"
+   },
+   {
+    "customer": "Customer C",
+    "owner_id": "owner:b3",
+    "obligation_id": "pay-b3",
+    "amount_cents": 9900,
+    "currency": "USD",
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED",
+    "evidence_mode": "FRESH_SYNTHETIC",
+    "provider_confirmed_cents": 0,
+    "status_source": "no PayPal mission bound to this run's contract"
+   },
+   {
+    "customer": "Customer D",
+    "owner_id": "owner:b4",
+    "obligation_id": "pay-b4",
+    "amount_cents": 9900,
+    "currency": "USD",
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED",
+    "evidence_mode": "FRESH_SYNTHETIC",
+    "provider_confirmed_cents": 0,
+    "status_source": "no PayPal mission bound to this run's contract"
+   },
+   {
+    "customer": "Customer E",
+    "owner_id": "owner:b5",
+    "obligation_id": "pay-b5",
+    "amount_cents": 9900,
+    "currency": "USD",
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED",
+    "evidence_mode": "FRESH_SYNTHETIC",
+    "provider_confirmed_cents": 0,
+    "status_source": "no PayPal mission bound to this run's contract"
+   }
+  ],
+  "readback_confirmed_captures": 0,
+  "slots_total": 5,
+  "provider_confirmed_cents": 0,
+  "new_provider_posts_this_wo": 0,
+  "historic_mission_bound_to_this_contract": false,
+  "admission": "F \u2014 see PAYPAL_AUTHORITY_PREFLIGHT.json",
+  "badge": "PAYPAL_NOT_AUTHORIZED / MECHANISM_ONLY"
+ },
+ "contract": {
+  "deal_id": "deal-62881b4e53d5",
+  "contract_id": "contract-coal-8d776cb57d5b46aa",
+  "merchant_role": "demonstration storefront / merchant-of-record CANDIDATE \u2014 not a signing owner",
+  "merchant_of_record_status": "NOT ESTABLISHED",
+  "currency": "USD",
+  "supplier_moq": 100,
+  "partial_failure_policy": "No unit ships before the engineer certifies the lot; no buyer pays before receiving its 20 units; on any failure, holds remain and the contract goes to RECONCILING.",
+  "parties": [
+   {
+    "owner_id": "owner:b5",
+    "role": "buyer",
+    "peer_id": "peer:b5"
+   },
+   {
+    "owner_id": "owner:b4",
+    "role": "buyer",
+    "peer_id": "peer:b4"
+   },
+   {
+    "owner_id": "owner:b1",
+    "role": "buyer",
+    "peer_id": "peer:b1"
+   },
+   {
+    "owner_id": "owner:b2",
+    "role": "buyer",
+    "peer_id": "peer:b2"
+   },
+   {
+    "owner_id": "owner:b3",
+    "role": "buyer",
+    "peer_id": "peer:b3"
+   },
+   {
+    "owner_id": "owner:f1",
+    "role": "factory",
+    "peer_id": "peer:f1"
+   },
+   {
+    "owner_id": "owner:e1",
+    "role": "engineer",
+    "peer_id": "peer:e1"
+   }
+  ],
+  "terms_versions": [
+   {
+    "version": 1,
+    "design": "D-A",
+    "contract_hash": "68b89344785cb3568d582ca849cf984bdbaa8c405bdd8724a1e4eba4c8ce9494",
+    "prev": null,
+    "factory_cents": 40000,
+    "qualification_cents": 5000,
+    "shipping_cents": 3000,
+    "total_cents": 48000,
+    "per_buyer_cents": 9600,
+    "final_state": "FAILED",
+    "failure": {
+     "reason": "supplier price shock invalidated commitments",
+     "ref": "NEGOTIATION_TRACE.jsonl#9",
+     "rejected_by": null,
+     "inactive": [
+      "owner:f1"
+     ]
+    },
+    "created_at": 1794262503.9407644,
+    "ref": "CONTRACT_VERSIONS.jsonl#1"
+   },
+   {
+    "version": 2,
+    "design": "D-A",
+    "contract_hash": "42267d78e977899b0414131f6fb5bdb814dad9c01634e687e66e6c988ad063cd",
+    "prev": "68b89344785cb3568d582ca849cf984bdbaa8c405bdd8724a1e4eba4c8ce9494",
+    "factory_cents": 46000,
+    "qualification_cents": 5000,
+    "shipping_cents": 3000,
+    "total_cents": 54000,
+    "per_buyer_cents": 10800,
+    "final_state": "FAILED",
+    "failure": {
+     "reason": "owners rejected repriced terms",
+     "ref": "NEGOTIATION_TRACE.jsonl#14",
+     "rejected_by": [
+      "owner:b1",
+      "owner:b2",
+      "owner:b3",
+      "owner:b4",
+      "owner:b5"
+     ],
+     "inactive": null
+    },
+    "created_at": 1794262527.5294878,
+    "ref": "CONTRACT_VERSIONS.jsonl#2"
+   },
+   {
+    "version": 3,
+    "design": "D-B",
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "prev": "42267d78e977899b0414131f6fb5bdb814dad9c01634e687e66e6c988ad063cd",
+    "factory_cents": 41500,
+    "qualification_cents": 5000,
+    "shipping_cents": 3000,
+    "total_cents": 49500,
+    "per_buyer_cents": 9900,
+    "final_state": "FULFILLED",
+    "failure": null,
+    "created_at": 1794262538.570116,
+    "ref": "CONTRACT_VERSIONS.jsonl#3"
+   }
+  ],
+  "obligations": [
+   {
+    "owner_id": "owner:b5",
+    "role": "buyer",
+    "amount_cents": 9900,
+    "kind": "pay",
+    "obligation_id": "ob-b5-pay",
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": "NONE (not authorized)"
+   },
+   {
+    "owner_id": "owner:b5",
+    "role": "buyer",
+    "counterparty": "owner:f1",
+    "kind": "receive_units",
+    "obligation_id": "ob-b5-recv",
+    "quantity": 20,
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": null
+   },
+   {
+    "owner_id": "owner:b4",
+    "role": "buyer",
+    "amount_cents": 9900,
+    "kind": "pay",
+    "obligation_id": "ob-b4-pay",
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": "NONE (not authorized)"
+   },
+   {
+    "owner_id": "owner:b4",
+    "role": "buyer",
+    "counterparty": "owner:f1",
+    "kind": "receive_units",
+    "obligation_id": "ob-b4-recv",
+    "quantity": 20,
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": null
+   },
+   {
+    "owner_id": "owner:b1",
+    "role": "buyer",
+    "amount_cents": 9900,
+    "kind": "pay",
+    "obligation_id": "ob-b1-pay",
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": "NONE (not authorized)"
+   },
+   {
+    "owner_id": "owner:b1",
+    "role": "buyer",
+    "counterparty": "owner:f1",
+    "kind": "receive_units",
+    "obligation_id": "ob-b1-recv",
+    "quantity": 20,
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": null
+   },
+   {
+    "owner_id": "owner:b2",
+    "role": "buyer",
+    "amount_cents": 9900,
+    "kind": "pay",
+    "obligation_id": "ob-b2-pay",
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": "NONE (not authorized)"
+   },
+   {
+    "owner_id": "owner:b2",
+    "role": "buyer",
+    "counterparty": "owner:f1",
+    "kind": "receive_units",
+    "obligation_id": "ob-b2-recv",
+    "quantity": 20,
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": null
+   },
+   {
+    "owner_id": "owner:b3",
+    "role": "buyer",
+    "amount_cents": 9900,
+    "kind": "pay",
+    "obligation_id": "ob-b3-pay",
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": "NONE (not authorized)"
+   },
+   {
+    "owner_id": "owner:b3",
+    "role": "buyer",
+    "counterparty": "owner:f1",
+    "kind": "receive_units",
+    "obligation_id": "ob-b3-recv",
+    "quantity": 20,
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": null
+   },
+   {
+    "owner_id": "owner:f1",
+    "role": "factory",
+    "kind": "manufacture",
+    "obligation_id": "ob-f-mfg",
+    "quantity": 100,
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": null
+   },
+   {
+    "owner_id": "owner:f1",
+    "role": "factory",
+    "kind": "ship",
+    "obligation_id": "ob-f-ship",
+    "quantity": 100,
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": null
+   },
+   {
+    "owner_id": "owner:e1",
+    "role": "engineer",
+    "kind": "qualify",
+    "obligation_id": "ob-e-qual",
+    "quantity": 100,
+    "contract_version": 3,
+    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+    "world_effect": "SIMULATED",
+    "paypal_effect": null
+   }
+  ],
+  "payer_payee_map": [
+   {
+    "payer": "owner:b1",
+    "amount_cents": 9900,
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED"
+   },
+   {
+    "payer": "owner:b2",
+    "amount_cents": 9900,
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED"
+   },
+   {
+    "payer": "owner:b3",
+    "amount_cents": 9900,
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED"
+   },
+   {
+    "payer": "owner:b4",
+    "amount_cents": 9900,
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED"
+   },
+   {
+    "payer": "owner:b5",
+    "amount_cents": 9900,
+    "payee": "UNKNOWN (merchant of record not established)",
+    "state": "NOT_AUTHORIZED"
+   }
+  ]
+ },
+ "model_activity": {
+  "per_owner_model_decisions": {
+   "owner:b1": 3,
+   "owner:b2": 3,
+   "owner:b3": 3,
+   "owner:b4": 3,
+   "owner:b5": 3,
+   "owner:e1": 5,
+   "owner:f1": 5
+  },
+  "coordinator_model_decisions": 2,
+  "registered_workers": 700,
+  "note": "700 workers are REGISTERED (100 per owner); model-active decisions are the counts above, not 700 concurrent models"
+ },
+ "hub_result": {
+  "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+  "design": "D-B",
+  "hub_model_calls": 2,
+  "model_calls": 2,
+  "outcome": "FULFILLED",
+  "per_buyer_cents": 9900,
+  "total_cents": 49500,
+  "version": 3
+ },
+ "denied_actions": [
+  {
+   "actor_id": "owner:b5",
+   "contract_version": 2,
+   "decision": "REJECT",
+   "grounds": "payment_within_my_cap",
+   "ref": "OWNER_COMMITMENTS.jsonl#8"
+  },
+  {
+   "actor_id": "owner:b4",
+   "contract_version": 2,
+   "decision": "REJECT",
+   "grounds": "payment_within_my_cap",
+   "ref": "OWNER_COMMITMENTS.jsonl#9"
+  },
+  {
+   "actor_id": "owner:b1",
+   "contract_version": 2,
+   "decision": "REJECT",
+   "grounds": "payment_within_my_cap",
+   "ref": "OWNER_COMMITMENTS.jsonl#10"
+  },
+  {
+   "actor_id": "owner:b2",
+   "contract_version": 2,
+   "decision": "REJECT",
+   "grounds": "payment_within_my_cap",
+   "ref": "OWNER_COMMITMENTS.jsonl#11"
+  },
+  {
+   "actor_id": "owner:b3",
+   "contract_version": 2,
+   "decision": "REJECT",
+   "grounds": "payment_within_my_cap",
+   "ref": "OWNER_COMMITMENTS.jsonl#12"
+  }
+ ],
+ "events": [
+  {
+   "t": 1794262499.2600925,
+   "kind": "OWNER_PUBLISHED",
+   "label": "Customer A published an intent (marketplace verdict T)",
+   "phase": 1,
+   "ref": "FULL_TRACE.jsonl@8",
+   "actor": "owner:b1",
+   "record_hash": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:000"
+  },
+  {
+   "t": 1794262499.2888198,
+   "kind": "OWNER_PUBLISHED",
+   "label": "Customer B published an intent (marketplace verdict T)",
+   "phase": 1,
+   "ref": "FULL_TRACE.jsonl@9",
+   "actor": "owner:b2",
+   "record_hash": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:001"
+  },
+  {
+   "t": 1794262499.3264725,
+   "kind": "OWNER_PUBLISHED",
+   "label": "Customer C published an intent (marketplace verdict T)",
+   "phase": 1,
+   "ref": "FULL_TRACE.jsonl@10",
+   "actor": "owner:b3",
+   "record_hash": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:002"
+  },
+  {
+   "t": 1794262499.3673875,
+   "kind": "OWNER_PUBLISHED",
+   "label": "Customer D published an intent (marketplace verdict T)",
+   "phase": 1,
+   "ref": "FULL_TRACE.jsonl@11",
+   "actor": "owner:b4",
+   "record_hash": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:003"
+  },
+  {
+   "t": 1794262499.3932557,
+   "kind": "OWNER_PUBLISHED",
+   "label": "Customer E published an intent (marketplace verdict T)",
+   "phase": 1,
+   "ref": "FULL_TRACE.jsonl@12",
+   "actor": "owner:b5",
+   "record_hash": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:004"
+  },
+  {
+   "t": 1794262499.4177802,
+   "kind": "OWNER_PUBLISHED",
+   "label": "owner:f1 published an intent (marketplace verdict T)",
+   "phase": 1,
+   "ref": "FULL_TRACE.jsonl@13",
+   "actor": "owner:f1",
+   "record_hash": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:005"
+  },
+  {
+   "t": 1794262499.4415278,
+   "kind": "OWNER_PUBLISHED",
+   "label": "owner:e1 published an intent (marketplace verdict T)",
+   "phase": 1,
+   "ref": "FULL_TRACE.jsonl@14",
+   "actor": "owner:e1",
+   "record_hash": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:006"
+  },
+  {
+   "t": 1794262500.0426166,
+   "kind": "DISCOVERY",
+   "label": "Marketplace discovery: coalition candidate found, unilateral orders infeasible",
+   "phase": 2,
+   "ref": "NEGOTIATION_TRACE.jsonl#1",
+   "actor": "coordinator:hub",
+   "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:007"
+  },
+  {
+   "t": 1794262500.0432687,
+   "kind": "COALITION_PROPOSAL",
+   "label": "Coalition proposed (proposal only, no authority)",
+   "phase": 2,
+   "ref": "NEGOTIATION_TRACE.jsonl#2",
+   "actor": "coordinator:hub",
+   "record_hash": "ba7d79ce3b96cd35b612fb37ec3890b829cb7dd305d85af18a739a971bd15ad0",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:008"
+  },
+  {
+   "t": 1794262501.2720454,
+   "kind": "FACTORY_OFFERS",
+   "label": "Factory quotes received: D-A $400",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#3",
+   "actor": "coordinator:hub",
+   "record_hash": "052445ebd0444689b1c5cb41ce5e2c40ecacb27375bb1c7368b4a1eb2bcfb3e1",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:009"
+  },
+  {
+   "t": 1794262502.2168686,
+   "kind": "QUALIFICATION",
+   "label": "Engineer qualification results: D-A PASS",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#4",
+   "actor": "coordinator:hub",
+   "record_hash": "bdca7ad8912843d4a70e89fc840bfca3b7143a0b7561c512efdcf24b25d47028",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:010"
+  },
+  {
+   "t": 1794262503.9403405,
+   "kind": "PLANNER_CHOICE",
+   "label": "Coordinator chose a design",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#5",
+   "actor": "coordinator:hub",
+   "record_hash": "22671558b4fb5146ca15a2b07f4d9044e7a467aff4f291f9fcad0b5e0da20fda",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:011"
+  },
+  {
+   "t": 1794262503.9439526,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v1 DRAFT",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#6",
+   "actor": "coordinator:hub",
+   "record_hash": "2cc904cc9e4d64d3fdbb8c87427bcac8d8672395b73fee704f79e1bce3820c37",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:012"
+  },
+  {
+   "t": 1794262503.944459,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v1 OFFERED",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#7",
+   "actor": "coordinator:hub",
+   "record_hash": "9617623b11ee26fbe44c870117289f111cea6ad5f89bb3fec54ebb22a9cb3e73",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:013"
+  },
+  {
+   "t": 1794262505.1891775,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer E signed ACCEPT on v1",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#1",
+   "actor": "owner:b5",
+   "record_hash": "9ab1d4f20af142de8ba6fc3bb409f0eb185805429f10a021cd962d910ddd36af",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:014"
+  },
+  {
+   "t": 1794262506.449184,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer D signed ACCEPT on v1",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#2",
+   "actor": "owner:b4",
+   "record_hash": "777981cce7edc70a739f5fd6d1042250279a35936747e3c1f0988fdf4e033046",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:015"
+  },
+  {
+   "t": 1794262507.6897657,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer A signed ACCEPT on v1",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#3",
+   "actor": "owner:b1",
+   "record_hash": "d9a33420886f28ef3ec7fac050b2d2b4f4256e9335168595a4973f564857faeb",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:016"
+  },
+  {
+   "t": 1794262521.6120315,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer B signed ACCEPT on v1",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#4",
+   "actor": "owner:b2",
+   "record_hash": "881af54f5e6966fa0b8952e7fb140387801f66078905599f3dd02d18dd17acc5",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:017"
+  },
+  {
+   "t": 1794262522.6832657,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer C signed ACCEPT on v1",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#5",
+   "actor": "owner:b3",
+   "record_hash": "19d9ea858507cbe6afa7286473a10fbf685a487d29ea36ad01546c3c2d7ea495",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:018"
+  },
+  {
+   "t": 1794262524.1691654,
+   "kind": "OWNER_COMMITMENT",
+   "label": "owner:f1 signed ACCEPT on v1",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#6",
+   "actor": "owner:f1",
+   "record_hash": "64355fa89d4b6958405a642092e5091ed0015362296d40c45ca5452b322d44d1",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:019"
+  },
+  {
+   "t": 1794262525.1582468,
+   "kind": "OWNER_COMMITMENT",
+   "label": "owner:e1 signed ACCEPT on v1",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#7",
+   "actor": "owner:e1",
+   "record_hash": "cc6d9b009b207d7b0415ed38a3693e0ae7f8122b9f0979b5f266c30b501e6962",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:020"
+  },
+  {
+   "t": 1794262525.1648183,
+   "kind": "PRICE_SHOCK_INJECTED",
+   "label": "INJECTED TEST EVENT: factory price shock",
+   "phase": 3,
+   "ref": "FULL_TRACE.jsonl@16",
+   "actor": "environment",
+   "record_hash": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "INJECTED/TEST",
+   "event_id": "WO004-A2-fresh-1:021"
+  },
+  {
+   "t": 1794262525.1659155,
+   "kind": "ENVIRONMENT_EVENT_OBSERVED",
+   "label": "Coordinator observed the price shock",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#8",
+   "actor": "coordinator:hub",
+   "record_hash": "ca95362064ccc847543dbc3c8c2336c99e0fec63f6362a66797043c4a4aa5b0c",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:022"
+  },
+  {
+   "t": 1794262525.1975527,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v1 FAILED \u2014 supplier price shock invalidated commitments",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#9",
+   "actor": "coordinator:hub",
+   "record_hash": "893cda4ab88a10144188f8d4b9237fb12bb4b7ad40f3ff0d4b5668ca6792509e",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:023"
+  },
+  {
+   "t": 1794262526.911689,
+   "kind": "FACTORY_OFFERS",
+   "label": "Factory quotes received: D-A $460, D-B $415, D-C $380",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#10",
+   "actor": "coordinator:hub",
+   "record_hash": "40dd78cbb5c43490c7a3de37fb30b9abba7a3ff34790df0d2cf8aad3213a4b68",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:024"
+  },
+  {
+   "t": 1794262527.5289695,
+   "kind": "QUALIFICATION",
+   "label": "Engineer qualification results: D-B PASS, D-C FAIL",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#11",
+   "actor": "coordinator:hub",
+   "record_hash": "77e761d0ddd25aac2b5f42d3b020a9f36940b7627830b3143bb81bc71bde852d",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:025"
+  },
+  {
+   "t": 1794262527.5322824,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v2 DRAFT",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#12",
+   "actor": "coordinator:hub",
+   "record_hash": "d1364d5d397af2f51c56efe0583a86a3d6d7ff7aecb012bf511755775d14e58c",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:026"
+  },
+  {
+   "t": 1794262527.5327215,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v2 OFFERED",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#13",
+   "actor": "coordinator:hub",
+   "record_hash": "3a1851af2e284256d64a542a9f85c9bfff06e981cfdc22f5096c5b4001b4e7c9",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:027"
+  },
+  {
+   "t": 1794262528.299295,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer E signed REJECT on v2 (failed: payment_within_my_cap)",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#8",
+   "actor": "owner:b5",
+   "record_hash": "6ca78a2dea1eac298f2b7d2f33b036004aaa9657d64d6355fba47abad3df205c",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:028"
+  },
+  {
+   "t": 1794262529.4370492,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer D signed REJECT on v2 (failed: payment_within_my_cap)",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#9",
+   "actor": "owner:b4",
+   "record_hash": "4335af3cc486160df7add678dec90afeb69ce6d63741db2a030a3fe7b4dc3d93",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:029"
+  },
+  {
+   "t": 1794262532.3164966,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer A signed REJECT on v2 (failed: payment_within_my_cap)",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#10",
+   "actor": "owner:b1",
+   "record_hash": "4f223184d3066c0247519de87d3072089b866aa1178f9c5c05a94522d7a20703",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:030"
+  },
+  {
+   "t": 1794262533.4115417,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer B signed REJECT on v2 (failed: payment_within_my_cap)",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#11",
+   "actor": "owner:b2",
+   "record_hash": "90847c06b0fc7fb232fe18996f313d76632495fd0470f0f0594558a5d2506d21",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:031"
+  },
+  {
+   "t": 1794262534.594122,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer C signed REJECT on v2 (failed: payment_within_my_cap)",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#12",
+   "actor": "owner:b3",
+   "record_hash": "ea989d837704615d81babcad83b531e2ffbf12a839c17c5e6a56762ae3776cbb",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:032"
+  },
+  {
+   "t": 1794262536.3078103,
+   "kind": "OWNER_COMMITMENT",
+   "label": "owner:f1 signed ACCEPT on v2",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#13",
+   "actor": "owner:f1",
+   "record_hash": "0c4451a7f7d882fe5ed461e4d478af9c80f5004bbdf33f7cce6e1b8f1735f76c",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:033"
+  },
+  {
+   "t": 1794262537.5611858,
+   "kind": "OWNER_COMMITMENT",
+   "label": "owner:e1 signed ACCEPT on v2",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#14",
+   "actor": "owner:e1",
+   "record_hash": "2124a6bb0d476e01918ea2309b326510d851b876ae73d306f0ae867a20c226c5",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:034"
+  },
+  {
+   "t": 1794262537.561838,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v2 FAILED \u2014 owners rejected repriced terms",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#14",
+   "actor": "coordinator:hub",
+   "record_hash": "8e2706a8f8dfe7bfea8ef0b638e3b6b665f5c91011c577265b90d489bd694b5e",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:035"
+  },
+  {
+   "t": 1794262538.5693398,
+   "kind": "PLANNER_CHOICE",
+   "label": "Coordinator chose a design",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#15",
+   "actor": "coordinator:hub",
+   "record_hash": "dd1dc781804fe37ea2f0bc3a59e956431b620f95b9055b614d07f38ab19c8703",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:036"
+  },
+  {
+   "t": 1794262538.5720513,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v3 DRAFT",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#16",
+   "actor": "coordinator:hub",
+   "record_hash": "6a2d389634aab543d83adec6973d29a43e91021444b391ec6187bf2b5fe198aa",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:037"
+  },
+  {
+   "t": 1794262538.572498,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v3 OFFERED",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#17",
+   "actor": "coordinator:hub",
+   "record_hash": "009adcdd4c6b5a88bc2946bb28132e3f1a21d0aee490717e32ceb26241f09383",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:038"
+  },
+  {
+   "t": 1794262539.8275247,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer E signed ACCEPT on v3",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#15",
+   "actor": "owner:b5",
+   "record_hash": "497ebdc012851f24d69002fab708f124b90fe2b05b39f5f801d87e381b5f992d",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:039"
+  },
+  {
+   "t": 1794262541.0642474,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer D signed ACCEPT on v3",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#16",
+   "actor": "owner:b4",
+   "record_hash": "0fdad21f035cd91e26eb288bf7d26714761581bc42a4ea2ad12f7481120fab6d",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:040"
+  },
+  {
+   "t": 1794262542.3862295,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer A signed ACCEPT on v3",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#17",
+   "actor": "owner:b1",
+   "record_hash": "c108c8ef01a764e107439b49f444aac08b726ec0ada432b175c20c2b58eb2472",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:041"
+  },
+  {
+   "t": 1794262543.5263915,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer B signed ACCEPT on v3",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#18",
+   "actor": "owner:b2",
+   "record_hash": "27b3780f966b4d9d231faf636668bf2048a0320e4780ab40039ddf7a44e0af4c",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:042"
+  },
+  {
+   "t": 1794262548.2663224,
+   "kind": "OWNER_COMMITMENT",
+   "label": "Customer C signed ACCEPT on v3",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#19",
+   "actor": "owner:b3",
+   "record_hash": "b852f661735153919da195ccb90a015a9d64a6888b18fa92f678cc6498ab1546",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:043"
+  },
+  {
+   "t": 1794262549.500182,
+   "kind": "OWNER_COMMITMENT",
+   "label": "owner:f1 signed ACCEPT on v3",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#20",
+   "actor": "owner:f1",
+   "record_hash": "282cbeee413d76a06f8a12564955defa7022ab81fc000f921cd12ce360fae97d",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:044"
+  },
+  {
+   "t": 1794262550.6864867,
+   "kind": "OWNER_COMMITMENT",
+   "label": "owner:e1 signed ACCEPT on v3",
+   "phase": 3,
+   "ref": "OWNER_COMMITMENTS.jsonl#21",
+   "actor": "owner:e1",
+   "record_hash": "451663068284e6730e84de28510e57ea79a75f9ce5141a8f491e2bf2b2419882",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:045"
+  },
+  {
+   "t": 1794262550.6872933,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v3 PREPARED",
+   "phase": 3,
+   "ref": "NEGOTIATION_TRACE.jsonl#18",
+   "actor": "coordinator:hub",
+   "record_hash": "e559e8fa91de648f586b213a1d9016d0fa2640fd4da2badbbcca80a062ee9235",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:046"
+  },
+  {
+   "t": 1794262550.7248716,
+   "kind": "ACTION_PERMIT",
+   "label": "owner:b5 issued action permit (verdict T)",
+   "phase": 4,
+   "ref": "ACTION_PERMITS.jsonl#1",
+   "actor": "owner:b5",
+   "record_hash": "5d9e76db91e60183c13283a106cdb6248d7339973af14c294b25e888b194c75f",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:047"
+  },
+  {
+   "t": 1794262550.733976,
+   "kind": "ACTION_PERMIT",
+   "label": "owner:b4 issued action permit (verdict T)",
+   "phase": 4,
+   "ref": "ACTION_PERMITS.jsonl#2",
+   "actor": "owner:b4",
+   "record_hash": "a1b55dde517c59253eac3afcc8bbf66b9c549ccc8b90f7dbdb7df901e384fb41",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:048"
+  },
+  {
+   "t": 1794262550.7429454,
+   "kind": "ACTION_PERMIT",
+   "label": "owner:b1 issued action permit (verdict T)",
+   "phase": 4,
+   "ref": "ACTION_PERMITS.jsonl#3",
+   "actor": "owner:b1",
+   "record_hash": "af76be92dac07361eb098e89b22da83a68a11f3fd156915e8f6454b9bc35a05c",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:049"
+  },
+  {
+   "t": 1794262550.7506444,
+   "kind": "ACTION_PERMIT",
+   "label": "owner:b2 issued action permit (verdict T)",
+   "phase": 4,
+   "ref": "ACTION_PERMITS.jsonl#4",
+   "actor": "owner:b2",
+   "record_hash": "580ed6dddfb696c6102a4c4df5c1eda9dca3af22881c42a71839e58072eff7fd",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:050"
+  },
+  {
+   "t": 1794262550.7593982,
+   "kind": "ACTION_PERMIT",
+   "label": "owner:b3 issued action permit (verdict T)",
+   "phase": 4,
+   "ref": "ACTION_PERMITS.jsonl#5",
+   "actor": "owner:b3",
+   "record_hash": "996245566816db31cc2ecb147e45e24b329577262ca7d7553184368d3b8eea30",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:051"
+  },
+  {
+   "t": 1794262550.7703001,
+   "kind": "ACTION_PERMIT",
+   "label": "owner:f1 issued action permit (verdict T)",
+   "phase": 4,
+   "ref": "ACTION_PERMITS.jsonl#6",
+   "actor": "owner:f1",
+   "record_hash": "7ed9be9171f968e847b7317e1d09a5488aff55f077de7c7033e9f85609c2809c",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:052"
+  },
+  {
+   "t": 1794262550.780388,
+   "kind": "ACTION_PERMIT",
+   "label": "owner:e1 issued action permit (verdict T)",
+   "phase": 4,
+   "ref": "ACTION_PERMITS.jsonl#7",
+   "actor": "owner:e1",
+   "record_hash": "6694df45271c04f9d27f39523f96d5b2bf4dd3e22f86c489abe2a2975dc492c7",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:053"
+  },
+  {
+   "t": 1794262550.7810967,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v3 AUTHORIZED",
+   "phase": 4,
+   "ref": "NEGOTIATION_TRACE.jsonl#19",
+   "actor": "coordinator:hub",
+   "record_hash": "972c0ffd58809ba3505b5ee073f476b19cdd1309710530f3ca0d19deaf0caebb",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:054"
+  },
+  {
+   "t": 1794262550.781614,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v3 EXECUTING",
+   "phase": 4,
+   "ref": "NEGOTIATION_TRACE.jsonl#20",
+   "actor": "coordinator:hub",
+   "record_hash": "22b530850f74a60bc8a6869c3c0c9161f45d27bfdd069ac812601ef445e5b9ba",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:055"
+  },
+  {
+   "t": 1794262550.787388,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Factory manufactured 100 units",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#1",
+   "actor": "owner:f1",
+   "record_hash": "97ec19fe3a7d71a7993054e1d645aa177fe24051ed2b3d584a586859380e0f69",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:056"
+  },
+  {
+   "t": 1794262550.7940385,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Engineer certified the lot",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#2",
+   "actor": "owner:e1",
+   "record_hash": "b1d65d93dcf557011b8a561fc7e73769e06f725e05443e15e1c6fcd3aecd22d6",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:057"
+  },
+  {
+   "t": 1794262550.8005545,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Factory shipped 20 units to Customer E",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#3",
+   "actor": "owner:f1",
+   "record_hash": "2e853d643085d99c26ff302b93705e7f847b75ba4135ed22566bd2ece6b3e22c",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:058"
+  },
+  {
+   "t": 1794262550.8068068,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer E confirmed receipt of 20 units",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#3",
+   "actor": "owner:b5",
+   "record_hash": "2e853d643085d99c26ff302b93705e7f847b75ba4135ed22566bd2ece6b3e22c",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:059"
+  },
+  {
+   "t": 1794262550.815819,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Factory shipped 20 units to Customer D",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#4",
+   "actor": "owner:f1",
+   "record_hash": "98e86f5e817c1e95b6539359e35a87bb8092bb444858a9e46ac6c516516c3f08",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:060"
+  },
+  {
+   "t": 1794262550.820975,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer D confirmed receipt of 20 units",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#4",
+   "actor": "owner:b4",
+   "record_hash": "98e86f5e817c1e95b6539359e35a87bb8092bb444858a9e46ac6c516516c3f08",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:061"
+  },
+  {
+   "t": 1794262550.8282204,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Factory shipped 20 units to Customer A",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#5",
+   "actor": "owner:f1",
+   "record_hash": "a180cd0871d0e46f2921648d4f85694d0b0854ae2fb49d605aea7c969e27b687",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:062"
+  },
+  {
+   "t": 1794262550.832639,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer A confirmed receipt of 20 units",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#5",
+   "actor": "owner:b1",
+   "record_hash": "a180cd0871d0e46f2921648d4f85694d0b0854ae2fb49d605aea7c969e27b687",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:063"
+  },
+  {
+   "t": 1794262550.8414562,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Factory shipped 20 units to Customer B",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#6",
+   "actor": "owner:f1",
+   "record_hash": "231e53e3dc81aea1544ff06063061fe57f7cdefbfc5cb796b6ef2220909fdda2",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:064"
+  },
+  {
+   "t": 1794262550.84573,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer B confirmed receipt of 20 units",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#6",
+   "actor": "owner:b2",
+   "record_hash": "231e53e3dc81aea1544ff06063061fe57f7cdefbfc5cb796b6ef2220909fdda2",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:065"
+  },
+  {
+   "t": 1794262550.8548954,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Factory shipped 20 units to Customer C",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#7",
+   "actor": "owner:f1",
+   "record_hash": "5e8d921c36303dd2fe16e53923280708d0732771db88dcb727d9ce2ed9613c7b",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:066"
+  },
+  {
+   "t": 1794262550.8723292,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer C confirmed receipt of 20 units",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#7",
+   "actor": "owner:b3",
+   "record_hash": "5e8d921c36303dd2fe16e53923280708d0732771db88dcb727d9ce2ed9613c7b",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:067"
+  },
+  {
+   "t": 1794262550.8788834,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer E paid its line (ledger)",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#8",
+   "actor": "owner:b5",
+   "record_hash": "b720439729658b6ed3b33426b531d30297ce881317f681ebf1bae251160caf7a",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:068"
+  },
+  {
+   "t": 1794262550.8849537,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer D paid its line (ledger)",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#9",
+   "actor": "owner:b4",
+   "record_hash": "676744cd5ae810af5e59bf594e569c065f48a968c5008da8ba88995a8a96622b",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:069"
+  },
+  {
+   "t": 1794262550.8906653,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer A paid its line (ledger)",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#10",
+   "actor": "owner:b1",
+   "record_hash": "8f3fe7556d8fa9045c8c23a5a703e6e39093f3699e9dc3a562a52e5830938ecb",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:070"
+  },
+  {
+   "t": 1794262550.8955295,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer B paid its line (ledger)",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#11",
+   "actor": "owner:b2",
+   "record_hash": "8b2ddc24e264d7cd2d1c087dff6946d29bd1b05838595a85f863fd79bacc7388",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:071"
+  },
+  {
+   "t": 1794262550.9011111,
+   "kind": "RECEIPT",
+   "label": "SIMULATED: Customer C paid its line (ledger)",
+   "phase": 4,
+   "ref": "RECEIPTS.jsonl#12",
+   "actor": "owner:b3",
+   "record_hash": "7168dd0560e518201f45a0755a9dd0f4c25cf34e6d7668627cc45c5b91e0dfad",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SIMULATED",
+   "event_id": "WO004-A2-fresh-1:072"
+  },
+  {
+   "t": 1794262550.9024873,
+   "kind": "CONTRACT_STATE",
+   "label": "Contract v3 FULFILLED",
+   "phase": 4,
+   "ref": "NEGOTIATION_TRACE.jsonl#21",
+   "actor": "coordinator:hub",
+   "record_hash": "bad619eed5a7e6fb08afebb252c23137e795556101b162ee2e1f7dfbd85cee9e",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:073"
+  },
+  {
+   "t": 1794262552.6770093,
+   "kind": "JUDGE_FINISHED",
+   "label": "Independent Judge: PASS_COMPLETED (63/63 checks, synthetic scope)",
+   "phase": 4,
+   "ref": "FULL_TRACE.jsonl@18",
+   "actor": "judge",
+   "record_hash": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "scope": "SYNTHETIC",
+   "event_id": "WO004-A2-fresh-1:074"
+  }
+ ],
+ "passport": [
+  {
+   "actor_id": "owner:f1",
+   "owner_id": "owner:f1",
+   "obligation_id": "ob-owner:f1-manufacture",
+   "action": "factory.manufacture",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#6",
+   "permit_id": "permit-511ac5be759f45e6",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-f7bff2115242",
+   "receipt_id": "rcpt-74444760cd144c8b",
+   "receipt_record_hash": "97ec19fe3a7d71a7993054e1d645aa177fe24051ed2b3d584a586859380e0f69",
+   "readback_sha256": "82509df7a4b8790f232ae50e08c1735e58f3a27af0304d287d976c224356c1e9",
+   "timestamp": 1794262550.787388,
+   "epoch": 2,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#1"
+  },
+  {
+   "actor_id": "owner:e1",
+   "owner_id": "owner:e1",
+   "obligation_id": "certify-lot-D-B",
+   "action": "engineer.certify_lot",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#7",
+   "permit_id": "permit-19fbc0cceff543e1",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-396a13b67e7b",
+   "receipt_id": "rcpt-ed63b97785ac4fa5",
+   "receipt_record_hash": "b1d65d93dcf557011b8a561fc7e73769e06f725e05443e15e1c6fcd3aecd22d6",
+   "readback_sha256": "8a24646e7b1d7455cf1cc010bfb129b56077d8727e76cfa07b0f521d8b470235",
+   "timestamp": 1794262550.7940385,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#2"
+  },
+  {
+   "actor_id": "owner:f1",
+   "owner_id": "owner:f1",
+   "obligation_id": "ship-owner:b5",
+   "action": "factory.ship",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#6",
+   "permit_id": "permit-511ac5be759f45e6",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-7fcad6991164",
+   "receipt_id": "rcpt-0802744df104475f",
+   "receipt_record_hash": "2e853d643085d99c26ff302b93705e7f847b75ba4135ed22566bd2ece6b3e22c",
+   "readback_sha256": "0dfb8c6b9cb81bd3598e039f4da635654584655b18e2da4937cd1e695eb02f1a",
+   "timestamp": 1794262550.8005545,
+   "epoch": 2,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#3"
+  },
+  {
+   "actor_id": "owner:b5",
+   "owner_id": "owner:b5",
+   "obligation_id": "receive-owner:b5",
+   "action": "buyer.receive",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#1",
+   "permit_id": "permit-0ecfb83f4c574a9a",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-51434bedc8d9",
+   "receipt_id": "rcpt-ccc0c9c45a4b406c",
+   "receipt_record_hash": "2e853d643085d99c26ff302b93705e7f847b75ba4135ed22566bd2ece6b3e22c",
+   "readback_sha256": "1881fdbbb4cc35fe231bfadfbbb14cfecba4d30aa414fabc987009f5bf3707c0",
+   "timestamp": 1794262550.8068068,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#3"
+  },
+  {
+   "actor_id": "owner:f1",
+   "owner_id": "owner:f1",
+   "obligation_id": "ship-owner:b4",
+   "action": "factory.ship",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#6",
+   "permit_id": "permit-511ac5be759f45e6",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-8192a14fdd28",
+   "receipt_id": "rcpt-addbb82ee2894a25",
+   "receipt_record_hash": "98e86f5e817c1e95b6539359e35a87bb8092bb444858a9e46ac6c516516c3f08",
+   "readback_sha256": "6c6fe95ca1288f26ec61cc42c0c58fe5ae976964e6e94ce58767baed7e7e96c7",
+   "timestamp": 1794262550.815819,
+   "epoch": 2,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#4"
+  },
+  {
+   "actor_id": "owner:b4",
+   "owner_id": "owner:b4",
+   "obligation_id": "receive-owner:b4",
+   "action": "buyer.receive",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#2",
+   "permit_id": "permit-6a675ab80d6d40a3",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-98a7050eaef2",
+   "receipt_id": "rcpt-c144de57f86f476a",
+   "receipt_record_hash": "98e86f5e817c1e95b6539359e35a87bb8092bb444858a9e46ac6c516516c3f08",
+   "readback_sha256": "48c6b1aa09b03aef7f02a4b5af2425ebc7752d29187f52b7e3c948928829bf2a",
+   "timestamp": 1794262550.820975,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#4"
+  },
+  {
+   "actor_id": "owner:f1",
+   "owner_id": "owner:f1",
+   "obligation_id": "ship-owner:b1",
+   "action": "factory.ship",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#6",
+   "permit_id": "permit-511ac5be759f45e6",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-6abee0336b9f",
+   "receipt_id": "rcpt-c1dd168f7bb14155",
+   "receipt_record_hash": "a180cd0871d0e46f2921648d4f85694d0b0854ae2fb49d605aea7c969e27b687",
+   "readback_sha256": "728f3c0086ef5971e6ecdbbb18dd00b83ff2c9b753bab13d0e9bf505c38fb7c1",
+   "timestamp": 1794262550.8282204,
+   "epoch": 2,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#5"
+  },
+  {
+   "actor_id": "owner:b1",
+   "owner_id": "owner:b1",
+   "obligation_id": "receive-owner:b1",
+   "action": "buyer.receive",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#3",
+   "permit_id": "permit-01e46cde4bb6410d",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-1875bdbd1513",
+   "receipt_id": "rcpt-b20cffc1c78241fb",
+   "receipt_record_hash": "a180cd0871d0e46f2921648d4f85694d0b0854ae2fb49d605aea7c969e27b687",
+   "readback_sha256": "d62b6d67d1d27cbf7648aa0552399a49ad9a51782359f7f249ff5539f4019ed6",
+   "timestamp": 1794262550.832639,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#5"
+  },
+  {
+   "actor_id": "owner:f1",
+   "owner_id": "owner:f1",
+   "obligation_id": "ship-owner:b2",
+   "action": "factory.ship",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#6",
+   "permit_id": "permit-511ac5be759f45e6",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-331234c00e02",
+   "receipt_id": "rcpt-8b72aff337ae4852",
+   "receipt_record_hash": "231e53e3dc81aea1544ff06063061fe57f7cdefbfc5cb796b6ef2220909fdda2",
+   "readback_sha256": "851ed8ea4d00fef4e62e12d8b0bbc9a9f926a6419c6fd2d89c86d69cb71603b4",
+   "timestamp": 1794262550.8414562,
+   "epoch": 2,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#6"
+  },
+  {
+   "actor_id": "owner:b2",
+   "owner_id": "owner:b2",
+   "obligation_id": "receive-owner:b2",
+   "action": "buyer.receive",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#4",
+   "permit_id": "permit-ffc7e55334a54a89",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-d3b2456d0e49",
+   "receipt_id": "rcpt-65cb105243624833",
+   "receipt_record_hash": "231e53e3dc81aea1544ff06063061fe57f7cdefbfc5cb796b6ef2220909fdda2",
+   "readback_sha256": "6e16ed4e138bcaa2a1db9d88ee76d2c84caa23dad81bd4666d7528ff32b6f678",
+   "timestamp": 1794262550.84573,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#6"
+  },
+  {
+   "actor_id": "owner:f1",
+   "owner_id": "owner:f1",
+   "obligation_id": "ship-owner:b3",
+   "action": "factory.ship",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#6",
+   "permit_id": "permit-511ac5be759f45e6",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-5e14c5518043",
+   "receipt_id": "rcpt-a584abf9c83f4647",
+   "receipt_record_hash": "5e8d921c36303dd2fe16e53923280708d0732771db88dcb727d9ce2ed9613c7b",
+   "readback_sha256": "ee87e64acbe42ba383a13390327701c981d821b7756f72dc8de7f5c60c5f6a7d",
+   "timestamp": 1794262550.8548954,
+   "epoch": 2,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#7"
+  },
+  {
+   "actor_id": "owner:b3",
+   "owner_id": "owner:b3",
+   "obligation_id": "receive-owner:b3",
+   "action": "buyer.receive",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#5",
+   "permit_id": "permit-38772aac41b24ad1",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-ebbe4de91878",
+   "receipt_id": "rcpt-0dbe0f07f8d8476a",
+   "receipt_record_hash": "5e8d921c36303dd2fe16e53923280708d0732771db88dcb727d9ce2ed9613c7b",
+   "readback_sha256": "0d2e2a777bf1baa4fbbd47754a86075082e1ce6440bd811bfc8f6d6dfae299b4",
+   "timestamp": 1794262550.8723292,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#7"
+  },
+  {
+   "actor_id": "owner:b5",
+   "owner_id": "owner:b5",
+   "obligation_id": "pay-owner:b5",
+   "action": "buyer.pay",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#1",
+   "permit_id": "permit-0ecfb83f4c574a9a",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-1325ea4218a3",
+   "receipt_id": "rcpt-ce6489bc5f854c95",
+   "receipt_record_hash": "b720439729658b6ed3b33426b531d30297ce881317f681ebf1bae251160caf7a",
+   "readback_sha256": "e7e0a2d1abec98c46e7e4daa5ac6a0e59448c05536802f42c2f3ec1bd44a7fd9",
+   "timestamp": 1794262550.8788834,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#8"
+  },
+  {
+   "actor_id": "owner:b4",
+   "owner_id": "owner:b4",
+   "obligation_id": "pay-owner:b4",
+   "action": "buyer.pay",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#2",
+   "permit_id": "permit-6a675ab80d6d40a3",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-6cad0de52284",
+   "receipt_id": "rcpt-a309d89d34624c72",
+   "receipt_record_hash": "676744cd5ae810af5e59bf594e569c065f48a968c5008da8ba88995a8a96622b",
+   "readback_sha256": "1ad4cd95e282e97cc3c361994861a4d4920871de41f04baccfde604a48042523",
+   "timestamp": 1794262550.8849537,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#9"
+  },
+  {
+   "actor_id": "owner:b1",
+   "owner_id": "owner:b1",
+   "obligation_id": "pay-owner:b1",
+   "action": "buyer.pay",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#3",
+   "permit_id": "permit-01e46cde4bb6410d",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-2bfb1a765e1e",
+   "receipt_id": "rcpt-6ad3f75c042a4911",
+   "receipt_record_hash": "8f3fe7556d8fa9045c8c23a5a703e6e39093f3699e9dc3a562a52e5830938ecb",
+   "readback_sha256": "8bc9c46a5ca68b8a374cde56233a06a8c875c87e6ea5327fe88eabc2c824bb15",
+   "timestamp": 1794262550.8906653,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#10"
+  },
+  {
+   "actor_id": "owner:b2",
+   "owner_id": "owner:b2",
+   "obligation_id": "pay-owner:b2",
+   "action": "buyer.pay",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#4",
+   "permit_id": "permit-ffc7e55334a54a89",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-6c3488931f02",
+   "receipt_id": "rcpt-3c35277ab0e944d8",
+   "receipt_record_hash": "8b2ddc24e264d7cd2d1c087dff6946d29bd1b05838595a85f863fd79bacc7388",
+   "readback_sha256": "208b85d2532de3281404387a252dfbe3292604b0a48c0f17654dcdfbd5389bbb",
+   "timestamp": 1794262550.8955295,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#11"
+  },
+  {
+   "actor_id": "owner:b3",
+   "owner_id": "owner:b3",
+   "obligation_id": "pay-owner:b3",
+   "action": "buyer.pay",
+   "admission_verdict": "T",
+   "grounds": "owner policy + signed permit + contract binding",
+   "authorization_ref": "ACTION_PERMITS.jsonl#5",
+   "permit_id": "permit-38772aac41b24ad1",
+   "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
+   "contract_version": 3,
+   "effect_id": "eff-3d36dce1fe39",
+   "receipt_id": "rcpt-ceedf00845054685",
+   "receipt_record_hash": "7168dd0560e518201f45a0755a9dd0f4c25cf34e6d7668627cc45c5b91e0dfad",
+   "readback_sha256": "1a7f55f55b6d5b4b0f0e761fe135c2b0ac7341d21504f9177e27e561ae3cfb71",
+   "timestamp": 1794262550.9011111,
+   "epoch": 1,
+   "evidence_mode": "FRESH_SYNTHETIC",
+   "effect_scope": "SIMULATED",
+   "observed_by": "independent Judge (live reader endpoints)",
+   "ref": "RECEIPTS.jsonl#12"
+  }
+ ],
+ "figures": {
+  "req.A.units": {
+   "value": 20,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     0,
+     "quantity"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.A.cap": {
+   "value": 10000,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "proposal",
+     "buyers",
+     2,
+     "max_payment_cents"
+    ],
+    "seq": 2,
+    "record_hash": "ba7d79ce3b96cd35b612fb37ec3890b829cb7dd305d85af18a739a971bd15ad0"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.A.alone": {
+   "value": false,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     0,
+     "unilateral_feasible"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.A.reason": {
+   "value": "MOQ not met",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     0,
+     "reason"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.A.intent": {
+   "value": "intent-78cac9dcae654196",
+   "ref": {
+    "file": "marketplace/INTENT_PUBLICATIONS.jsonl",
+    "path": [
+     "data",
+     "intent_id"
+    ],
+    "seq": 1,
+    "record_hash": "124efee3225de8081e9b3e5a2e009cb516bccfc83211935ac7079b9dc12d8325"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.B.units": {
+   "value": 20,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     1,
+     "quantity"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.B.cap": {
+   "value": 10000,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "proposal",
+     "buyers",
+     3,
+     "max_payment_cents"
+    ],
+    "seq": 2,
+    "record_hash": "ba7d79ce3b96cd35b612fb37ec3890b829cb7dd305d85af18a739a971bd15ad0"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.B.alone": {
+   "value": false,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     1,
+     "unilateral_feasible"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.B.reason": {
+   "value": "MOQ not met",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     1,
+     "reason"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.B.intent": {
+   "value": "intent-b6da32a94f9444e1",
+   "ref": {
+    "file": "marketplace/INTENT_PUBLICATIONS.jsonl",
+    "path": [
+     "data",
+     "intent_id"
+    ],
+    "seq": 2,
+    "record_hash": "977c39f6dce468e397f758ceec469c54563cc7eea332249fe242fb0c513c32d8"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.C.units": {
+   "value": 20,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     2,
+     "quantity"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.C.cap": {
+   "value": 10000,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "proposal",
+     "buyers",
+     4,
+     "max_payment_cents"
+    ],
+    "seq": 2,
+    "record_hash": "ba7d79ce3b96cd35b612fb37ec3890b829cb7dd305d85af18a739a971bd15ad0"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.C.alone": {
+   "value": false,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     2,
+     "unilateral_feasible"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.C.reason": {
+   "value": "MOQ not met",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     2,
+     "reason"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.C.intent": {
+   "value": "intent-ce480938c76243c4",
+   "ref": {
+    "file": "marketplace/INTENT_PUBLICATIONS.jsonl",
+    "path": [
+     "data",
+     "intent_id"
+    ],
+    "seq": 3,
+    "record_hash": "ae94827ddc513fe0ec6c5ed35b845ea4af019a7a3b73db408d0b0e1beefc7ed5"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.D.units": {
+   "value": 20,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     3,
+     "quantity"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.D.cap": {
+   "value": 10000,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "proposal",
+     "buyers",
+     1,
+     "max_payment_cents"
+    ],
+    "seq": 2,
+    "record_hash": "ba7d79ce3b96cd35b612fb37ec3890b829cb7dd305d85af18a739a971bd15ad0"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.D.alone": {
+   "value": false,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     3,
+     "unilateral_feasible"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.D.reason": {
+   "value": "MOQ not met",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     3,
+     "reason"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.D.intent": {
+   "value": "intent-69766036efe8428c",
+   "ref": {
+    "file": "marketplace/INTENT_PUBLICATIONS.jsonl",
+    "path": [
+     "data",
+     "intent_id"
+    ],
+    "seq": 4,
+    "record_hash": "fe5dc3cf88de60773e06d60418542766bc9fb57161ef2ecd2b803e7b995c90c4"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.E.units": {
+   "value": 20,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     4,
+     "quantity"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.E.cap": {
+   "value": 10000,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "proposal",
+     "buyers",
+     0,
+     "max_payment_cents"
+    ],
+    "seq": 2,
+    "record_hash": "ba7d79ce3b96cd35b612fb37ec3890b829cb7dd305d85af18a739a971bd15ad0"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.E.alone": {
+   "value": false,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     4,
+     "unilateral_feasible"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.E.reason": {
+   "value": "MOQ not met",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "A0_unilateral",
+     4,
+     "reason"
+    ],
+    "seq": 1,
+    "record_hash": "098ff1b9b54b0dadf93d5aa9d043f5a790b19efda6c9716a16d4a0de59b8b45a"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.E.intent": {
+   "value": "intent-1e39c382840c4cf1",
+   "ref": {
+    "file": "marketplace/INTENT_PUBLICATIONS.jsonl",
+    "path": [
+     "data",
+     "intent_id"
+    ],
+    "seq": 5,
+    "record_hash": "668af3dfde7345e5646f17e4c4bb31b3e4ef7df8fc92930232714f4cd40c57ce"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "req.count_unfulfillable": {
+   "value": 5,
+   "derived_from": [
+    "req.A.alone",
+    "req.B.alone",
+    "req.C.alone",
+    "req.D.alone",
+    "req.E.alone"
+   ],
+   "label": "requests that cannot be fulfilled alone",
+   "semantic": "SYNTHETIC",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "opp.sum_units": {
+   "value": 100,
+   "ref": {
+    "file": "marketplace/MATCHES.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "coalition_checks",
+     0,
+     "sum_quantity"
+    ],
+    "seq": 1,
+    "record_hash": "b1af70ea0521d00365473692b2b04a7886b9a873dd8256e41a3c8e6dcaa821f5"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "opp.meets_moq": {
+   "value": true,
+   "ref": {
+    "file": "marketplace/MATCHES.jsonl",
+    "path": [
+     "data",
+     "oracle",
+     "coalition_checks",
+     0,
+     "meets_moq"
+    ],
+    "seq": 1,
+    "record_hash": "b1af70ea0521d00365473692b2b04a7886b9a873dd8256e41a3c8e6dcaa821f5"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "opp.authorization": {
+   "value": "NONE: proposal only",
+   "ref": {
+    "file": "marketplace/MATCHES.jsonl",
+    "path": [
+     "data",
+     "proposals",
+     0,
+     "authorization"
+    ],
+    "seq": 1,
+    "record_hash": "b1af70ea0521d00365473692b2b04a7886b9a873dd8256e41a3c8e6dcaa821f5"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.version": {
+   "value": 1,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "version"
+    ],
+    "seq": 1,
+    "record_hash": "1aa9884fd698115063c462bbd7630d5dc5e9fdb8f3adfa28bceea5135a1be8e8"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.design": {
+   "value": "D-A",
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "design"
+    ],
+    "seq": 1,
+    "record_hash": "1aa9884fd698115063c462bbd7630d5dc5e9fdb8f3adfa28bceea5135a1be8e8"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.factory": {
+   "value": 40000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "factory_cents"
+    ],
+    "seq": 1,
+    "record_hash": "1aa9884fd698115063c462bbd7630d5dc5e9fdb8f3adfa28bceea5135a1be8e8"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.qual": {
+   "value": 5000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "qualification_cents"
+    ],
+    "seq": 1,
+    "record_hash": "1aa9884fd698115063c462bbd7630d5dc5e9fdb8f3adfa28bceea5135a1be8e8"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.ship": {
+   "value": 3000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "shipping_cents"
+    ],
+    "seq": 1,
+    "record_hash": "1aa9884fd698115063c462bbd7630d5dc5e9fdb8f3adfa28bceea5135a1be8e8"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.total": {
+   "value": 48000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "total_cents"
+    ],
+    "seq": 1,
+    "record_hash": "1aa9884fd698115063c462bbd7630d5dc5e9fdb8f3adfa28bceea5135a1be8e8"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.per_buyer": {
+   "value": 9600,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "per_buyer_cents"
+    ],
+    "seq": 1,
+    "record_hash": "1aa9884fd698115063c462bbd7630d5dc5e9fdb8f3adfa28bceea5135a1be8e8"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.final_state": {
+   "value": "FAILED",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "state"
+    ],
+    "seq": 9,
+    "record_hash": "893cda4ab88a10144188f8d4b9237fb12bb4b7ad40f3ff0d4b5668ca6792509e"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.fail_reason": {
+   "value": "supplier price shock invalidated commitments",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "reason"
+    ],
+    "seq": 9,
+    "record_hash": "893cda4ab88a10144188f8d4b9237fb12bb4b7ad40f3ff0d4b5668ca6792509e"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.commit.owner:b5.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 1,
+    "record_hash": "9ab1d4f20af142de8ba6fc3bb409f0eb185805429f10a021cd962d910ddd36af"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.commit.owner:b4.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 2,
+    "record_hash": "777981cce7edc70a739f5fd6d1042250279a35936747e3c1f0988fdf4e033046"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.commit.owner:b1.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 3,
+    "record_hash": "d9a33420886f28ef3ec7fac050b2d2b4f4256e9335168595a4973f564857faeb"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.commit.owner:b2.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 4,
+    "record_hash": "881af54f5e6966fa0b8952e7fb140387801f66078905599f3dd02d18dd17acc5"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.commit.owner:b3.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 5,
+    "record_hash": "19d9ea858507cbe6afa7286473a10fbf685a487d29ea36ad01546c3c2d7ea495"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.commit.owner:f1.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 6,
+    "record_hash": "64355fa89d4b6958405a642092e5091ed0015362296d40c45ca5452b322d44d1"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.commit.owner:e1.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 7,
+    "record_hash": "cc6d9b009b207d7b0415ed38a3693e0ae7f8122b9f0979b5f266c30b501e6962"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v1.accepts": {
+   "value": 7,
+   "derived_from": [
+    "v1.commit.owner:b5.decision",
+    "v1.commit.owner:b4.decision",
+    "v1.commit.owner:b1.decision",
+    "v1.commit.owner:b2.decision",
+    "v1.commit.owner:b3.decision",
+    "v1.commit.owner:f1.decision",
+    "v1.commit.owner:e1.decision"
+   ],
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.version": {
+   "value": 2,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "version"
+    ],
+    "seq": 2,
+    "record_hash": "e0996518a9d53a356430e4a5bfb0efbe3982f06c336f3ed3dc85af09e2b3f6b1"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.design": {
+   "value": "D-A",
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "design"
+    ],
+    "seq": 2,
+    "record_hash": "e0996518a9d53a356430e4a5bfb0efbe3982f06c336f3ed3dc85af09e2b3f6b1"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.factory": {
+   "value": 46000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "factory_cents"
+    ],
+    "seq": 2,
+    "record_hash": "e0996518a9d53a356430e4a5bfb0efbe3982f06c336f3ed3dc85af09e2b3f6b1"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.qual": {
+   "value": 5000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "qualification_cents"
+    ],
+    "seq": 2,
+    "record_hash": "e0996518a9d53a356430e4a5bfb0efbe3982f06c336f3ed3dc85af09e2b3f6b1"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.ship": {
+   "value": 3000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "shipping_cents"
+    ],
+    "seq": 2,
+    "record_hash": "e0996518a9d53a356430e4a5bfb0efbe3982f06c336f3ed3dc85af09e2b3f6b1"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.total": {
+   "value": 54000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "total_cents"
+    ],
+    "seq": 2,
+    "record_hash": "e0996518a9d53a356430e4a5bfb0efbe3982f06c336f3ed3dc85af09e2b3f6b1"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.per_buyer": {
+   "value": 10800,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "per_buyer_cents"
+    ],
+    "seq": 2,
+    "record_hash": "e0996518a9d53a356430e4a5bfb0efbe3982f06c336f3ed3dc85af09e2b3f6b1"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.final_state": {
+   "value": "FAILED",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "state"
+    ],
+    "seq": 14,
+    "record_hash": "8e2706a8f8dfe7bfea8ef0b638e3b6b665f5c91011c577265b90d489bd694b5e"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.fail_reason": {
+   "value": "owners rejected repriced terms",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "reason"
+    ],
+    "seq": 14,
+    "record_hash": "8e2706a8f8dfe7bfea8ef0b638e3b6b665f5c91011c577265b90d489bd694b5e"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.commit.owner:b5.decision": {
+   "value": "REJECT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 8,
+    "record_hash": "6ca78a2dea1eac298f2b7d2f33b036004aaa9657d64d6355fba47abad3df205c"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.commit.owner:b4.decision": {
+   "value": "REJECT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 9,
+    "record_hash": "4335af3cc486160df7add678dec90afeb69ce6d63741db2a030a3fe7b4dc3d93"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.commit.owner:b1.decision": {
+   "value": "REJECT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 10,
+    "record_hash": "4f223184d3066c0247519de87d3072089b866aa1178f9c5c05a94522d7a20703"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.commit.owner:b2.decision": {
+   "value": "REJECT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 11,
+    "record_hash": "90847c06b0fc7fb232fe18996f313d76632495fd0470f0f0594558a5d2506d21"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.commit.owner:b3.decision": {
+   "value": "REJECT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 12,
+    "record_hash": "ea989d837704615d81babcad83b531e2ffbf12a839c17c5e6a56762ae3776cbb"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.commit.owner:f1.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 13,
+    "record_hash": "0c4451a7f7d882fe5ed461e4d478af9c80f5004bbdf33f7cce6e1b8f1735f76c"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.commit.owner:e1.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 14,
+    "record_hash": "2124a6bb0d476e01918ea2309b326510d851b876ae73d306f0ae867a20c226c5"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v2.accepts": {
+   "value": 2,
+   "derived_from": [
+    "v2.commit.owner:b5.decision",
+    "v2.commit.owner:b4.decision",
+    "v2.commit.owner:b1.decision",
+    "v2.commit.owner:b2.decision",
+    "v2.commit.owner:b3.decision",
+    "v2.commit.owner:f1.decision",
+    "v2.commit.owner:e1.decision"
+   ],
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.version": {
+   "value": 3,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "version"
+    ],
+    "seq": 3,
+    "record_hash": "2df80f6c1ce8d631ce78c870bf3720c0fb040149b3e9145ffc49614fd5c95890"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.design": {
+   "value": "D-B",
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "design"
+    ],
+    "seq": 3,
+    "record_hash": "2df80f6c1ce8d631ce78c870bf3720c0fb040149b3e9145ffc49614fd5c95890"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.factory": {
+   "value": 41500,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "factory_cents"
+    ],
+    "seq": 3,
+    "record_hash": "2df80f6c1ce8d631ce78c870bf3720c0fb040149b3e9145ffc49614fd5c95890"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.qual": {
+   "value": 5000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "qualification_cents"
+    ],
+    "seq": 3,
+    "record_hash": "2df80f6c1ce8d631ce78c870bf3720c0fb040149b3e9145ffc49614fd5c95890"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.ship": {
+   "value": 3000,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "shipping_cents"
+    ],
+    "seq": 3,
+    "record_hash": "2df80f6c1ce8d631ce78c870bf3720c0fb040149b3e9145ffc49614fd5c95890"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.total": {
+   "value": 49500,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "total_cents"
+    ],
+    "seq": 3,
+    "record_hash": "2df80f6c1ce8d631ce78c870bf3720c0fb040149b3e9145ffc49614fd5c95890"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.per_buyer": {
+   "value": 9900,
+   "ref": {
+    "file": "CONTRACT_VERSIONS.jsonl",
+    "path": [
+     "data",
+     "price_basis",
+     "per_buyer_cents"
+    ],
+    "seq": 3,
+    "record_hash": "2df80f6c1ce8d631ce78c870bf3720c0fb040149b3e9145ffc49614fd5c95890"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.final_state": {
+   "value": "FULFILLED",
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "state"
+    ],
+    "seq": 21,
+    "record_hash": "bad619eed5a7e6fb08afebb252c23137e795556101b162ee2e1f7dfbd85cee9e"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.commit.owner:b5.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 15,
+    "record_hash": "497ebdc012851f24d69002fab708f124b90fe2b05b39f5f801d87e381b5f992d"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.commit.owner:b4.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 16,
+    "record_hash": "0fdad21f035cd91e26eb288bf7d26714761581bc42a4ea2ad12f7481120fab6d"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.commit.owner:b1.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 17,
+    "record_hash": "c108c8ef01a764e107439b49f444aac08b726ec0ada432b175c20c2b58eb2472"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.commit.owner:b2.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 18,
+    "record_hash": "27b3780f966b4d9d231faf636668bf2048a0320e4780ab40039ddf7a44e0af4c"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.commit.owner:b3.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 19,
+    "record_hash": "b852f661735153919da195ccb90a015a9d64a6888b18fa92f678cc6498ab1546"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.commit.owner:f1.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 20,
+    "record_hash": "282cbeee413d76a06f8a12564955defa7022ab81fc000f921cd12ce360fae97d"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.commit.owner:e1.decision": {
+   "value": "ACCEPT",
+   "ref": {
+    "file": "OWNER_COMMITMENTS.jsonl",
+    "path": [
+     "data",
+     "commitment",
+     "payload",
+     "decision"
+    ],
+    "seq": 21,
+    "record_hash": "451663068284e6730e84de28510e57ea79a75f9ce5141a8f491e2bf2b2419882"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "v3.accepts": {
+   "value": 7,
+   "derived_from": [
+    "v3.commit.owner:b5.decision",
+    "v3.commit.owner:b4.decision",
+    "v3.commit.owner:b1.decision",
+    "v3.commit.owner:b2.decision",
+    "v3.commit.owner:b3.decision",
+    "v3.commit.owner:f1.decision",
+    "v3.commit.owner:e1.decision"
+   ],
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "qual.D-C.pass": {
+   "value": false,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "results",
+     "D-C"
+    ],
+    "seq": 11,
+    "record_hash": "77e761d0ddd25aac2b5f42d3b020a9f36940b7627830b3143bb81bc71bde852d"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "qual.D-C.factory": {
+   "value": 38000,
+   "ref": {
+    "file": "NEGOTIATION_TRACE.jsonl",
+    "path": [
+     "data",
+     "offers",
+     "D-C",
+     "amount_cents"
+    ],
+    "seq": 10,
+    "record_hash": "40dd78cbb5c43490c7a3de37fb30b9abba7a3ff34790df0d2cf8aad3213a4b68"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "exec.simulated_receipts": {
+   "value": 17,
+   "derived_from": [
+    "RECEIPTS.jsonl"
+   ],
+   "label": "signed world-effect receipts",
+   "semantic": "SIMULATED",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "exec.non_simulated_receipts": {
+   "value": 0,
+   "derived_from": [
+    "RECEIPTS.jsonl"
+   ],
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "econ.proceeds": {
+   "value": 49500,
+   "derived_from": [
+    "v3.per_buyer"
+   ],
+   "label": "5 x per-buyer price",
+   "semantic": "SYNTHETIC proposed buyer-side sale",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "econ.contribution": {
+   "value": 0,
+   "derived_from": [
+    "v3.per_buyer",
+    "v3.total"
+   ],
+   "label": "contribution before other costs",
+   "semantic": "EXACT",
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "econ.max_at_caps": {
+   "value": 50000,
+   "derived_from": [
+    "req.A.cap",
+    "req.B.cap",
+    "req.C.cap",
+    "req.D.cap",
+    "req.E.cap"
+   ],
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "econ.headroom": {
+   "value": 500,
+   "derived_from": [
+    "req.A.cap",
+    "req.B.cap",
+    "req.C.cap",
+    "req.D.cap",
+    "req.E.cap",
+    "v3.total"
+   ],
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  },
+  "contract.moq": {
+   "value": 100,
+   "ref": {
+    "file": "marketplace/MATCHES.jsonl",
+    "path": [
+     "data",
+     "proposals",
+     0,
+     "factory",
+     "minimum_quantity"
+    ],
+    "seq": 1,
+    "record_hash": "b1af70ea0521d00365473692b2b04a7886b9a873dd8256e41a3c8e6dcaa821f5"
+   },
+   "label": null,
+   "semantic": null,
+   "run_id": "WO004-A2-fresh-1",
+   "evidence_mode": "FRESH_SYNTHETIC"
+  }
+ }
+}

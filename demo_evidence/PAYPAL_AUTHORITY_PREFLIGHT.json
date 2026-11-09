@@ -1,0 +1,64 @@
+{
+ "at": "2026-11-09T22:51:53Z",
+ "mode": "READ_ONLY (no OAuth call, no DPAPI decrypt, no provider request)",
+ "authority_registry_keys": [
+  {
+   "key_id": "fdaab34c5defcf9805c32bb5",
+   "role": "control",
+   "status": "ACTIVE",
+   "passphrase_gated": true
+  }
+ ],
+ "checks": [
+  {
+   "n": 1,
+   "check": "A03 independent signed acceptance for exact current A04 source",
+   "verdict": "Z",
+   "grounds": "no independent A03 signature located; only unsigned review request(s) present (CONTRACT_REVIEW.md, evidence, EVIDENCE_HASHES.sha256, REVIEW_REQUEST_v5_UNSIGNED.json, RUN.log, run_reaccept_checks.ps1); owner: A03 is CONDITIONAL GO pending trusted re-signature + independent payment test"
+  },
+  {
+   "n": 2,
+   "check": "current signed mission/control/policy/per-buyer permit for this contract",
+   "verdict": "F",
+   "grounds": "only the 2026-11-07 LMF-007 mission exists (bound to historic contract b444a7b9); one-attempt rule: not reusable for a fresh episode"
+  },
+  {
+   "n": 3,
+   "check": "epoch current, no revocation/expiry",
+   "verdict": "Z",
+   "grounds": "no current mission to evaluate"
+  },
+  {
+   "n": 4,
+   "check": "no active owner pause; owner authorizes this new Sandbox payer episode",
+   "verdict": "F",
+   "grounds": "PAUSED_STATE.json status=PAUSED_BY_OWNER; WO-004 text does not itself authorize a payer episode; no new owner instruction"
+  },
+  {
+   "n": 5,
+   "check": "historic reservations reconciled read-only",
+   "verdict": "F",
+   "grounds": "4 holds open (pay-b1..b4, PAYER_ACTION_REQUIRED at pause); current provider state not re-read (see 7)"
+  },
+  {
+   "n": 6,
+   "check": "merchant payee bound; per-buyer payer authority",
+   "verdict": "Z",
+   "grounds": "Sandbox merchant id recorded in LMF-007 mission draft; merchant-of-record for Deal Rescue not established; no buyer Sandbox logins confirmed"
+  },
+  {
+   "n": 7,
+   "check": "A04 preflight T, no source hash mismatch",
+   "verdict": "F",
+   "grounds": "F: local A04 checkout is not at the WO pin (pin object absent locally); protected A04 execution STOPPED per WO s.12 integrity rule"
+  },
+  {
+   "n": 8,
+   "check": "buyer approval observed via provider GET = APPROVED",
+   "verdict": "Z",
+   "grounds": "no approval episode started"
+  }
+ ],
+ "admission": "F",
+ "new_provider_posts_this_wo": 0
+}

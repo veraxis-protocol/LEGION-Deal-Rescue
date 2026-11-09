@@ -1,0 +1,509 @@
+{
+ "cases": [
+  {
+   "case_id": "P2-1",
+   "description": "registered peer receives exactly the granted allowlisted fields",
+   "detail": {
+    "receiver_readback": {
+     "available_capacity": 150,
+     "minimum_quantity": 100
+    },
+    "sender_allowlist_projection": {
+     "available_capacity": 150,
+     "minimum_quantity": 100
+    }
+   },
+   "effect_delta": {},
+   "expected": "released == sender projection",
+   "forbidden_effects": 0,
+   "observed": {
+    "available_capacity": 150,
+    "minimum_quantity": 100
+   },
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "P2-2",
+   "description": "seven owners publish signed minimal intents to the marketplace",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "all T",
+   "forbidden_effects": 0,
+   "observed": [
+    "T",
+    "T",
+    "T",
+    "T",
+    "T",
+    "T",
+    "T"
+   ],
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N2-1",
+   "description": "malicious agent asks factory for unit cost, customers, suppliers, margin, plan",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "all F, nothing released",
+   "forbidden_effects": 0,
+   "observed": [
+    {
+     "field": "unit_cost_cents",
+     "reason": "field is always private",
+     "verdict": "F"
+    },
+    {
+     "field": "customer_ids",
+     "reason": "field is always private",
+     "verdict": "F"
+    },
+    {
+     "field": "supplier_list",
+     "reason": "field is always private",
+     "verdict": "F"
+    },
+    {
+     "field": "margin_floor_cents",
+     "reason": "field is always private",
+     "verdict": "F"
+    },
+    {
+     "field": "private_plan",
+     "reason": "field is always private",
+     "verdict": "F"
+    }
+   ],
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N2-2",
+   "description": "forged peer identity (unregistered key; stolen public key without signature)",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "F",
+   "forbidden_effects": 0,
+   "observed": [
+    [
+     {
+      "field": "minimum_quantity",
+      "reason": "unverified identity",
+      "verdict": "F"
+     }
+    ],
+    [
+     {
+      "field": "minimum_quantity",
+      "reason": "unverified identity",
+      "verdict": "F"
+     }
+    ]
+   ],
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N2-3",
+   "description": "grant revoked (epoch advanced): cached grant can no longer release",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "T before revoke, F/Z after",
+   "forbidden_effects": 0,
+   "observed": [
+    {
+     "max_payment_cents": 10000
+    },
+    [
+     {
+      "field": "max_payment_cents",
+      "reason": "grant revoked",
+      "verdict": "F"
+     }
+    ]
+   ],
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N2-4",
+   "description": "grant issued to peer:f1 presented by a different peer",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "F",
+   "forbidden_effects": 0,
+   "observed": [
+    {
+     "field": "service",
+     "reason": "wrong recipient",
+     "verdict": "F"
+    }
+   ],
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N2-5",
+   "description": "replayed signed query/grant",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "first T, replay F",
+   "forbidden_effects": 0,
+   "observed": [
+    {
+     "available_capacity": 150
+    },
+    [
+     {
+      "field": "*",
+      "reason": "replayed query",
+      "verdict": "F"
+     }
+    ]
+   ],
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N2-6",
+   "description": "registered peer publishes an intent mutating buyer b1's quantity",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "F",
+   "forbidden_effects": 0,
+   "observed": {
+    "intent_id": "intent-803afa44da1d41a1",
+    "reasons": [
+     "identity: signer not in trusted registry"
+    ],
+    "verdict": "F"
+   },
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N2-7a",
+   "description": "prompt-injection style query mixing public and private fields",
+   "detail": {
+    "note": "query purpose text cannot widen policy"
+   },
+   "effect_delta": {},
+   "expected": "private F",
+   "forbidden_effects": 0,
+   "observed": [
+    {
+     "field": "description",
+     "reason": "public discovery field",
+     "verdict": "T"
+    },
+    {
+     "field": "unit_cost_cents",
+     "reason": "field is always private",
+     "verdict": "F"
+    }
+   ],
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N2-8",
+   "description": "disallowed bulk query",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "F",
+   "forbidden_effects": 0,
+   "observed": [
+    [
+     {
+      "field": "*",
+      "reason": "bulk query disallowed",
+      "verdict": "F"
+     }
+    ],
+    [
+     {
+      "field": "*",
+      "reason": "bulk query disallowed",
+      "verdict": "F"
+     }
+    ]
+   ],
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N2-9",
+   "description": "engineer peer killed mid-session; no false success; restarts with the SAME owner authority",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "unavailable, then same key",
+   "forbidden_effects": 0,
+   "observed": {
+    "after": {
+     "service": "qualification"
+    },
+    "during": "unavailable (URLError)",
+    "same_owner_key_after_restart": true
+   },
+   "pass": true,
+   "wo": "WO-LMF-002"
+  },
+  {
+   "case_id": "N3-1",
+   "description": "contract payload altered after the coordinator signed it",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "F (signature)",
+   "forbidden_effects": 0,
+   "observed": {
+    "error": "identity: invalid envelope: InvalidSignature",
+    "verdict": "F"
+   },
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N3-2",
+   "description": "buyer b1 asked to pay $101 (over its $100 cap)",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "REJECT",
+   "forbidden_effects": 0,
+   "observed": {
+    "owner:b1": "REJECT"
+   },
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N3-3",
+   "description": "mismatched unit count (19 instead of 20)",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "REJECT",
+   "forbidden_effects": 0,
+   "observed": {
+    "owner:b1": "REJECT"
+   },
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N3-4",
+   "description": "fake engineer verification (certificate not signed by the engineer)",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "REJECT",
+   "forbidden_effects": 0,
+   "observed": {
+    "owner:b1": "REJECT",
+    "owner:b2": "REJECT"
+   },
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N6-1",
+   "description": "prompt injection in counterparty note + over-cap price",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "REJECT (policy binds even if agent obeys)",
+   "forbidden_effects": 0,
+   "observed": {
+    "agent_decision": "REJECT",
+    "decision": "REJECT",
+    "policy": "F"
+   },
+   "pass": true,
+   "wo": "WO-LMF-006"
+  },
+  {
+   "case_id": "N6-2",
+   "description": "contract built on a fake factory offer ($300 not offered by the factory)",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "factory REJECT",
+   "forbidden_effects": 0,
+   "observed": {
+    "owner:f1": "REJECT"
+   },
+   "pass": true,
+   "wo": "WO-LMF-006"
+  },
+  {
+   "case_id": "N3-5",
+   "description": "authorization with a minority of commitments (4 of 7)",
+   "detail": {
+    "accepted": [
+     "owner:b5",
+     "owner:b4",
+     "owner:b2",
+     "owner:b3",
+     "owner:b1",
+     "owner:f1",
+     "owner:e1"
+    ]
+   },
+   "effect_delta": {},
+   "expected": "not T",
+   "forbidden_effects": 0,
+   "observed": {
+    "missing": [
+     "owner:b1",
+     "owner:e1",
+     "owner:f1"
+    ],
+    "verdict": "F"
+   },
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N3-6",
+   "description": "dependency violation: ship before manufacture/lot certification (no permit, no lot cert)",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "F",
+   "forbidden_effects": 0,
+   "observed": "F",
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N3-7",
+   "description": "engineer asked to certify a lot with no manufacturing receipt",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "F",
+   "forbidden_effects": 0,
+   "observed": "F",
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N3-8",
+   "description": "lost reply / duplicate manufacture command (fresh nonce, same obligation)",
+   "detail": {},
+   "effect_delta": {
+    "owner:f1": 1
+   },
+   "expected": "exactly one manufacture effect",
+   "forbidden_effects": 0,
+   "observed": {
+    "first": "T",
+    "manufacture_effects": 1,
+    "retry": "T"
+   },
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N3-9",
+   "description": "buyer b5 revokes after authorization; delivery to b5 must not complete (no false DONE)",
+   "detail": {},
+   "effect_delta": {
+    "owner:e1": 1,
+    "owner:f1": 1
+   },
+   "expected": "factory ship ends RECONCILING, buyer receives 0",
+   "forbidden_effects": 0,
+   "observed": {
+    "b5_units": 0,
+    "buyer_response": {
+     "checks": [
+      [
+       "sender_is_contract_factory",
+       true
+      ],
+      [
+       "shipment_bound_to_contract",
+       true
+      ],
+      [
+       "my_permit_valid",
+       false
+      ],
+      [
+       "addressed_to_me",
+       true
+      ],
+      [
+       "qty_is_my_need",
+       true
+      ],
+      [
+       "design_is_contract_design",
+       true
+      ],
+      [
+       "engineer_lot_certificate_valid",
+       true
+      ],
+      [
+       "nonce_unused",
+       true
+      ]
+     ],
+     "verdict": "F"
+    },
+    "lot": "T",
+    "ship": "RECONCILING"
+   },
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N3-10",
+   "description": "double fulfilment: ship to b1 twice",
+   "detail": {},
+   "effect_delta": {
+    "owner:b1": 1,
+    "owner:f1": 1
+   },
+   "expected": "b1 holds exactly 20 units",
+   "forbidden_effects": 0,
+   "observed": {
+    "b1_units": 20,
+    "first": "T",
+    "second": "T"
+   },
+   "pass": true,
+   "wo": "WO-LMF-003"
+  },
+  {
+   "case_id": "N6-3",
+   "description": "attempt to make buyer b1 pay $101",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "F",
+   "forbidden_effects": 0,
+   "observed": "F",
+   "pass": true,
+   "wo": "WO-LMF-006"
+  },
+  {
+   "case_id": "N3-11",
+   "description": "stale owner commitment (b5 revoked) is reported inactive by b5 itself",
+   "detail": {},
+   "effect_delta": {},
+   "expected": "active False",
+   "forbidden_effects": 0,
+   "observed": {
+    "active": false,
+    "contract_version_hash": "c872597d8961421da3bf397c385d9fc30177d34782f54175f930dac72d45e6b2",
+    "epoch": 2,
+    "owner_id": "owner:b5",
+    "t": 1794264645.8063145
+   },
+   "pass": true,
+   "wo": "WO-LMF-003"
+  }
+ ],
+ "summary": {
+  "forbidden_effects": 0,
+  "passed": 25,
+  "total": 25
+ }
+}

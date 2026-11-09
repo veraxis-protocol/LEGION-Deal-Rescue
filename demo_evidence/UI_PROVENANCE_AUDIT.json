@@ -1,0 +1,36 @@
+{
+ "WO004-A2-fresh-1": {
+  "provenance": {
+   "figures": 88,
+   "figure_failures": [],
+   "events": 75,
+   "event_failures": [],
+   "events_time_ordered": true,
+   "coverage_pct": 100.0,
+   "pass": true
+  },
+  "mission_status": "SIMULATED_MISSION_VERIFIED",
+  "claims": {
+   "issues": [],
+   "pass": true
+  },
+  "judge": "PASS_COMPLETED"
+ },
+ "WO004-A2-fresh-2": {
+  "provenance": {
+   "figures": 88,
+   "figure_failures": [],
+   "events": 75,
+   "event_failures": [],
+   "events_time_ordered": true,
+   "coverage_pct": 100.0,
+   "pass": true
+  },
+  "mission_status": "SIMULATED_MISSION_VERIFIED",
+  "claims": {
+   "issues": [],
+   "pass": true
+  },
+  "judge": "PASS_COMPLETED"
+ }
+}

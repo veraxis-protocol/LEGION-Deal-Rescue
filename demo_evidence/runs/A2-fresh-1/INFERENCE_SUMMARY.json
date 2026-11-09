@@ -1,0 +1,9 @@
+{
+ "model_calls": 27,
+ "failed_calls": 0,
+ "prompt_tokens": 12601,
+ "completion_tokens": 2719,
+ "sum_model_latency_s": 38.31,
+ "nim_price_per_token": "Z (NIM trial endpoint; no invoice price)",
+ "cost_usd": "Z"
+}
