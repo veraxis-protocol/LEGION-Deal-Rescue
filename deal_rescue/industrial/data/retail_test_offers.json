@@ -1,0 +1,7 @@
+{
+  "schema": "legion.retail-test-quote.v1",
+  "test_scope": "SYNTHETIC_TEST_ONLY",
+  "direct": {"quantity":20,"base_cents":40000,"route":"DIRECT_RETAIL","scope":"SYNTHETIC_TEST_ONLY"},
+  "coalition": {"quantity":20,"base_cents":77000,"route":"DIRECT_RETAIL","scope":"SYNTHETIC_TEST_ONLY"},
+  "existing_batch": {"quantity":20,"base_cents":77000,"route":"DIRECT_RETAIL","scope":"SYNTHETIC_TEST_ONLY"}
+}

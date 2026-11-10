@@ -1,0 +1,18 @@
+{
+  "schema": "legion.supplier-plugin.open-batch-test-fixture.v1",
+  "test_scope": "SYNTHETIC_TEST_ONLY",
+  "existing_batch": {
+    "batch_id": "DEMO-SUPPLIER-OPEN-BATCH-80-OF-100",
+    "source_scope": "SYNTHETIC_TEST_ONLY",
+    "spec_digest": "45fb81e09beb1bff53d8519b84cdbed21291af89a197a41f760471fd54248182",
+    "spec_revision": "REV-C",
+    "process": "SLS",
+    "material": "PA12",
+    "required_moq_units": 100,
+    "committed_units_from_other_buyers": 80,
+    "max_units": 100,
+    "unit_base_cents": 2300,
+    "availability":"SIMULATED_NOT_VENDOR_CONFIRMED",
+    "quote_valid":"SIMULATED_NOT_BINDING"
+  }
+}

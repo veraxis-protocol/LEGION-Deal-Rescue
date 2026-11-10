@@ -10,11 +10,16 @@ import json
 import mimetypes
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from deal_rescue.industrial import core as industrial
+import base64
+import binascii
+import secrets
+from deal_rescue.industrial import core as industrial, workflow as industrial_flow, demo_intent
 from urllib.parse import parse_qs, urlparse
 
 WEB = Path(__file__).parent / "web"
 EV = None
+DEMO_SESSIONS = {}
+DEMO_LEDGER = None
 RUNS = {}  # run_id -> (run_dir, dossier_dir)
 
 
@@ -47,6 +52,41 @@ class H(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b)
 
+    def do_POST(self):
+        """Only bounded in-memory CAD intake + optional DEMO intent. No provider POST."""
+        u = urlparse(self.path)
+        if u.path not in ("/api/industrial/intake", "/api/industrial/demo-confirm"):
+            return self.send(405, {"error":"METHOD_NOT_ALLOWED"})
+        if self.headers.get("Content-Type", "").split(";")[0].strip().lower() != "application/json":
+            return self.send(415, {"error":"JSON_ONLY"})
+        origin=self.headers.get("Origin")
+        if origin and origin not in ("http://127.0.0.1:"+str(self.server.server_port),
+                                    "http://localhost:"+str(self.server.server_port)):
+            return self.send(403, {"error":"CROSS_ORIGIN_POST_DENIED"})
+        try:
+            size=int(self.headers.get("Content-Length", "-1"))
+            if not 0<size<=2900000: return self.send(413,{"error":"REQUEST_TOO_LARGE"})
+            body=json.loads(self.rfile.read(size))
+            if not isinstance(body,dict):return self.send(400,{"error":"OBJECT_EXPECTED"})
+            if u.path=="/api/industrial/intake":
+                raw=base64.b64decode(body.get("file_b64", ""),validate=True)
+                if len(raw)>2097152:return self.send(413,{"error":"FILE_TOO_LARGE"})
+                result=industrial_flow.run_intake(body.get("filename",""),raw,body.get("claim",{}))
+                if result['overall']=="DEMO_FEASIBLE_NEEDS_ACTUAL_AUTHORITY":
+                    session=secrets.token_urlsafe(24)
+                    if len(DEMO_SESSIONS)>128:DEMO_SESSIONS.clear()
+                    DEMO_SESSIONS[session]={'response':result}
+                    result['demo_session']=session
+                return self.send(200,result)
+            if DEMO_LEDGER is None:
+                return self.send(403,{"error":"DEMO_INTENTS_DISABLED"})
+            session=DEMO_SESSIONS.get(body.get('demo_session'))
+            return self.send(200,demo_intent.record(session,body,DEMO_LEDGER))
+        except (ValueError,TypeError,KeyError,binascii.Error,UnicodeError) as exc:
+            return self.send(422,{"error":type(exc).__name__,"code":str(exc)[:160]})
+        except Exception:
+            return self.send(500,{"error":"INTERNAL_INTAKE_ERROR"})
+
     def do_GET(self):
         u = urlparse(self.path)
         q = {k: v[0] for k, v in parse_qs(u.query).items()}
@@ -72,6 +112,8 @@ class H(BaseHTTPRequestHandler):
                 case = q.get("case", "coalition")
                 return self.send(200, industrial.supplier_rfq(case).encode("utf-8"), "text/plain; charset=utf-8",
                                  {"Content-Disposition": 'attachment; filename="RFQ_DRAFT_NOT_SENT.txt"'})
+            if u.path == "/api/industrial/work-plan":
+                return self.send(200, industrial_flow.execute_preflight_plan())
             if u.path == "/api/runs":
                 return self.send(200, [{"run_id": k, "evidence_mode": json.loads((d / "DEAL_DOSSIER.json").read_text())["evidence_mode"]}
                                        for k, (_, d) in RUNS.items()])
@@ -96,13 +138,15 @@ class H(BaseHTTPRequestHandler):
 
 
 def main():
-    global EV
+    global EV, DEMO_LEDGER
     ap = argparse.ArgumentParser()
     ap.add_argument("--evidence", required=True)
+    ap.add_argument("--industrial-demo-ledger", default=None, help="Optional NEW test-only intent ledger")
     ap.add_argument("--port", type=int, default=8795)
     ap.add_argument("--mode", default="replay", choices=["replay"])
     a = ap.parse_args()
     EV = Path(a.evidence).resolve()
+    DEMO_LEDGER = Path(a.industrial_demo_ledger).resolve() if a.industrial_demo_ledger else None
     for d in sorted((EV / "dossier").iterdir()):
         dj = json.loads((d / "DEAL_DOSSIER.json").read_text())
         RUNS[dj["run_id"]] = (EV / "runs" / dj["run_dir_name"], d)

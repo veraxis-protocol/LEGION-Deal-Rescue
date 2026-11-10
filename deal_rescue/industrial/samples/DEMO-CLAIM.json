@@ -1,0 +1,18 @@
+{
+  "demo": true,
+  "buyer_id": "DEMO-BUYER-NEW",
+  "requirements": {
+    "part_no": "SLS-BRACKET-REV-C",
+    "spec_digest": "45fb81e09beb1bff53d8519b84cdbed21291af89a197a41f760471fd54248182",
+    "spec_revision": "REV-C",
+    "process": "SLS",
+    "material": "PA12"
+  },
+  "budget_cents": 78000,
+  "due_date": "2026-12-10",
+  "own_shipping_cents": 2500,
+  "taxes_cents": 0,
+  "payment_fees_cents": 0,
+  "discovery_consent": true,
+  "fixture_case": "coalition"
+}

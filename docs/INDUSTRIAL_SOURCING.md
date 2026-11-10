@@ -1,3 +1,5 @@
+> Previous Industrial Sourcing 004 reference. Buyer-first 005 workflow and its write-isolated demo-intent endpoint are defined in [DEMAND_FIRST_WORKFLOW.md](DEMAND_FIRST_WORKFLOW.md).
+
 # Industrial sourcing and coalition discovery
 
 This page documents a **read-only research and candidate-formation component** integrated into the existing Deal Rescue merchant app. It does not create orders, charge PayPal, contact potential buyers, or admit a contract to LEGION Federation.
