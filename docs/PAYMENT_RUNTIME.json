@@ -20,7 +20,7 @@
    "commit": "0bb385f99915a429d0c03fa8f91a13de4e8a7636"
   }
  ],
- "branch": "claude/wo-004-final-release",
+ "branch": "release/sandbox-payments-2026-11",
  "command": "python -m commerce_demo.lmf007 run   (after: python -m commerce_demo.lmf007 prepare ...; owner: python -m commerce_demo.mission authorize)",
  "files_sha256_at_0bb385f": {
   "commerce_adapter/__init__.py": "f4b5a6451c984786b82936c80f1a08bfe977219a1d9efd5674b089b166abb536",

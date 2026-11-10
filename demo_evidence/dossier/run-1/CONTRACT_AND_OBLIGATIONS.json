@@ -1,7 +1,7 @@
 {
  "deal_id": "deal-62881b4e53d5",
  "contract_id": "contract-coal-8d776cb57d5b46aa",
- "merchant_role": "demonstration storefront / merchant-of-record CANDIDATE \u2014 not a signing owner",
+ "merchant_role": "demonstration storefront; candidate merchant of record, not a signing party",
  "merchant_of_record_status": "NOT ESTABLISHED",
  "currency": "USD",
  "supplier_moq": 100,
@@ -262,31 +262,31 @@
   {
    "payer": "owner:b1",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
+   "payee": "Not set (no merchant of record)",
    "state": "NOT_AUTHORIZED"
   },
   {
    "payer": "owner:b2",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
+   "payee": "Not set (no merchant of record)",
    "state": "NOT_AUTHORIZED"
   },
   {
    "payer": "owner:b3",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
+   "payee": "Not set (no merchant of record)",
    "state": "NOT_AUTHORIZED"
   },
   {
    "payer": "owner:b4",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
+   "payee": "Not set (no merchant of record)",
    "state": "NOT_AUTHORIZED"
   },
   {
    "payer": "owner:b5",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
+   "payee": "Not set (no merchant of record)",
    "state": "NOT_AUTHORIZED"
   }
  ]

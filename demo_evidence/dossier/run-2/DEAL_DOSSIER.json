@@ -4,8 +4,8 @@
  "run_id": "run-2",
  "run_dir_name": "A2-fresh-2",
  "evidence_mode": "FRESH_SYNTHETIC",
- "source_commit": "7668f2ce2a83269dde2a55fb4d82d3695dd7bfa6",
- "built_at": "2026-11-10T00:32:01Z",
+ "source_commit": "d92bd0b9e2e00ba2eb3bd901b6f986d40833a3e2",
+ "built_at": "2026-11-10T03:17:39Z",
  "run_files_sha256": {
   "ACTION_PERMITS.jsonl": "ea0b7e2ed4435af42da4de4227061c5ee18754fcc2bd6eff4d3b220f1e078ee8",
   "CONTRACT_VERSIONS.jsonl": "6f28d17274c68e527a66d4d9bcc21b4b11c2852de6a7b67f9cde45cb41fcd676",
@@ -24,9 +24,9 @@
  "badges": {
   "world": "Fulfilment simulated",
   "requests": "Demo requests (synthetic)",
-  "replay": "Recorded seven-owner run",
+  "replay": "Recorded seven-party run",
   "paypal": "PayPal Sandbox: 5 of 5 paid ($495.00)",
-  "economics": "NOT YET PROFITABLE / NOT ECONOMICALLY VALIDATED"
+  "economics": "Not yet profitable (not economically validated)"
  },
  "requests": [
   {
@@ -1108,7 +1108,7 @@
   },
   "manufacturer_internal_margin": "UNKNOWN (factory price is a quote paid to the factory, not its cost)",
   "merchant_net_margin": "NOT ESTABLISHED (non-positive: contribution 0 before any overhead)",
-  "verdict": "NOT YET PROFITABLE / NOT ECONOMICALLY VALIDATED",
+  "verdict": "Not yet profitable (not economically validated)",
   "incremental_real_tpv": "UNKNOWN"
  },
  "paypal": {
@@ -1435,14 +1435,14 @@
    }
   ],
   "historic_mission_bound_to_this_contract": false,
-  "authorization": "owner-signed payment mission per payer line, a one-time permit and a fresh admission decision (T) before every PayPal POST, and the buyer's own approval on PayPal",
+  "authorization": "a payment authorization signed by the platform operator for each buyer, a one-time permit, an admission check passed before every PayPal call, and the buyer's own approval on PayPal",
   "status": "PAYPAL_PAYMENT_GO",
   "badge": "PayPal Sandbox: 5 of 5 paid ($495.00)"
  },
  "contract": {
   "deal_id": "deal-809b4f82b5bd",
   "contract_id": "contract-coal-b4fa1531f1eb4a82",
-  "merchant_role": "demonstration storefront / merchant-of-record CANDIDATE \u2014 not a signing owner",
+  "merchant_role": "demonstration storefront; candidate merchant of record, not a signing party",
   "merchant_of_record_status": "NOT ESTABLISHED",
   "currency": "USD",
   "supplier_moq": 100,
@@ -1797,7 +1797,7 @@
   {
    "t": 1794264576.1077137,
    "kind": "OWNER_PUBLISHED",
-   "label": "Customer A published an intent (marketplace verdict T)",
+   "label": "Customer A published its request",
    "phase": 1,
    "ref": "FULL_TRACE.jsonl@8",
    "actor": "owner:b1",
@@ -1810,7 +1810,7 @@
   {
    "t": 1794264576.1552937,
    "kind": "OWNER_PUBLISHED",
-   "label": "Customer B published an intent (marketplace verdict T)",
+   "label": "Customer B published its request",
    "phase": 1,
    "ref": "FULL_TRACE.jsonl@9",
    "actor": "owner:b2",
@@ -1823,7 +1823,7 @@
   {
    "t": 1794264576.2231245,
    "kind": "OWNER_PUBLISHED",
-   "label": "Customer C published an intent (marketplace verdict T)",
+   "label": "Customer C published its request",
    "phase": 1,
    "ref": "FULL_TRACE.jsonl@10",
    "actor": "owner:b3",
@@ -1836,7 +1836,7 @@
   {
    "t": 1794264576.2660825,
    "kind": "OWNER_PUBLISHED",
-   "label": "Customer D published an intent (marketplace verdict T)",
+   "label": "Customer D published its request",
    "phase": 1,
    "ref": "FULL_TRACE.jsonl@11",
    "actor": "owner:b4",
@@ -1849,7 +1849,7 @@
   {
    "t": 1794264576.298017,
    "kind": "OWNER_PUBLISHED",
-   "label": "Customer E published an intent (marketplace verdict T)",
+   "label": "Customer E published its request",
    "phase": 1,
    "ref": "FULL_TRACE.jsonl@12",
    "actor": "owner:b5",
@@ -1862,7 +1862,7 @@
   {
    "t": 1794264576.3462572,
    "kind": "OWNER_PUBLISHED",
-   "label": "owner:f1 published an intent (marketplace verdict T)",
+   "label": "Manufacturer published its request",
    "phase": 1,
    "ref": "FULL_TRACE.jsonl@13",
    "actor": "owner:f1",
@@ -1875,7 +1875,7 @@
   {
    "t": 1794264576.368567,
    "kind": "OWNER_PUBLISHED",
-   "label": "owner:e1 published an intent (marketplace verdict T)",
+   "label": "Engineer published its request",
    "phase": 1,
    "ref": "FULL_TRACE.jsonl@14",
    "actor": "owner:e1",
@@ -1888,7 +1888,7 @@
   {
    "t": 1794264576.9441845,
    "kind": "DISCOVERY",
-   "label": "Marketplace discovery: coalition candidate found, unilateral orders infeasible",
+   "label": "Marketplace found a group of buyers that together reach the minimum order",
    "phase": 2,
    "ref": "NEGOTIATION_TRACE.jsonl#1",
    "actor": "coordinator:hub",
@@ -1901,7 +1901,7 @@
   {
    "t": 1794264576.9448504,
    "kind": "COALITION_PROPOSAL",
-   "label": "Coalition proposed (proposal only, no authority)",
+   "label": "Group deal proposed (a proposal only; no one is committed yet)",
    "phase": 2,
    "ref": "NEGOTIATION_TRACE.jsonl#2",
    "actor": "coordinator:hub",
@@ -1914,7 +1914,7 @@
   {
    "t": 1794264578.8772676,
    "kind": "FACTORY_OFFERS",
-   "label": "Factory quotes received: D-A $400",
+   "label": "Factory quotes received: design D-A $400",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#3",
    "actor": "coordinator:hub",
@@ -1927,7 +1927,7 @@
   {
    "t": 1794264579.711688,
    "kind": "QUALIFICATION",
-   "label": "Engineer qualification results: D-A PASS",
+   "label": "Engineer's qualification results: design D-A passed",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#4",
    "actor": "coordinator:hub",
@@ -1953,7 +1953,7 @@
   {
    "t": 1794264581.5927947,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v1 DRAFT",
+   "label": "Contract version 1 drafted",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#6",
    "actor": "coordinator:hub",
@@ -1966,7 +1966,7 @@
   {
    "t": 1794264581.5934675,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v1 OFFERED",
+   "label": "Contract version 1 offered to all parties",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#7",
    "actor": "coordinator:hub",
@@ -1979,7 +1979,7 @@
   {
    "t": 1794264582.473617,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer B signed ACCEPT on v1",
+   "label": "Customer B accepted version 1",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#1",
    "actor": "owner:b2",
@@ -1992,7 +1992,7 @@
   {
    "t": 1794264583.7536957,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer D signed ACCEPT on v1",
+   "label": "Customer D accepted version 1",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#2",
    "actor": "owner:b4",
@@ -2005,7 +2005,7 @@
   {
    "t": 1794264584.6902936,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer C signed ACCEPT on v1",
+   "label": "Customer C accepted version 1",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#3",
    "actor": "owner:b3",
@@ -2018,7 +2018,7 @@
   {
    "t": 1794264585.6852894,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer E signed ACCEPT on v1",
+   "label": "Customer E accepted version 1",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#4",
    "actor": "owner:b5",
@@ -2031,7 +2031,7 @@
   {
    "t": 1794264586.8751943,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer A signed ACCEPT on v1",
+   "label": "Customer A accepted version 1",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#5",
    "actor": "owner:b1",
@@ -2044,7 +2044,7 @@
   {
    "t": 1794264587.876528,
    "kind": "OWNER_COMMITMENT",
-   "label": "owner:f1 signed ACCEPT on v1",
+   "label": "Manufacturer accepted version 1",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#6",
    "actor": "owner:f1",
@@ -2057,7 +2057,7 @@
   {
    "t": 1794264588.8938317,
    "kind": "OWNER_COMMITMENT",
-   "label": "owner:e1 signed ACCEPT on v1",
+   "label": "Engineer accepted version 1",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#7",
    "actor": "owner:e1",
@@ -2070,7 +2070,7 @@
   {
    "t": 1794264588.9034133,
    "kind": "PRICE_SHOCK_INJECTED",
-   "label": "INJECTED TEST EVENT: factory price shock",
+   "label": "Test event: factory price increase injected",
    "phase": 3,
    "ref": "FULL_TRACE.jsonl@16",
    "actor": "environment",
@@ -2083,7 +2083,7 @@
   {
    "t": 1794264588.9049768,
    "kind": "ENVIRONMENT_EVENT_OBSERVED",
-   "label": "Coordinator observed the price shock",
+   "label": "Coordinator noticed the price increase",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#8",
    "actor": "coordinator:hub",
@@ -2096,7 +2096,7 @@
   {
    "t": 1794264588.9970326,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v1 FAILED \u2014 supplier price shock invalidated commitments",
+   "label": "Contract version 1 withdrawn: the factory's price change voided the signatures",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#9",
    "actor": "coordinator:hub",
@@ -2109,7 +2109,7 @@
   {
    "t": 1794264590.0047796,
    "kind": "FACTORY_OFFERS",
-   "label": "Factory quotes received: D-A $460, D-B $415, D-C $380",
+   "label": "Factory quotes received: design D-A $460, design D-B $415, design D-C $380",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#10",
    "actor": "coordinator:hub",
@@ -2122,7 +2122,7 @@
   {
    "t": 1794264591.0082839,
    "kind": "QUALIFICATION",
-   "label": "Engineer qualification results: D-B PASS, D-C FAIL",
+   "label": "Engineer's qualification results: design D-B passed, design D-C failed",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#11",
    "actor": "coordinator:hub",
@@ -2135,7 +2135,7 @@
   {
    "t": 1794264591.0121143,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v2 DRAFT",
+   "label": "Contract version 2 drafted",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#12",
    "actor": "coordinator:hub",
@@ -2148,7 +2148,7 @@
   {
    "t": 1794264591.0126176,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v2 OFFERED",
+   "label": "Contract version 2 offered to all parties",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#13",
    "actor": "coordinator:hub",
@@ -2161,7 +2161,7 @@
   {
    "t": 1794264592.1553984,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer B signed REJECT on v2 (failed: payment_within_my_cap)",
+   "label": "Customer B rejected version 2 (payment within my cap)",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#8",
    "actor": "owner:b2",
@@ -2174,7 +2174,7 @@
   {
    "t": 1794264593.305057,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer D signed REJECT on v2 (failed: payment_within_my_cap)",
+   "label": "Customer D rejected version 2 (payment within my cap)",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#9",
    "actor": "owner:b4",
@@ -2187,7 +2187,7 @@
   {
    "t": 1794264594.7182918,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer C signed REJECT on v2 (failed: payment_within_my_cap)",
+   "label": "Customer C rejected version 2 (payment within my cap)",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#10",
    "actor": "owner:b3",
@@ -2200,7 +2200,7 @@
   {
    "t": 1794264596.0359092,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer E signed REJECT on v2 (failed: payment_within_my_cap)",
+   "label": "Customer E rejected version 2 (payment within my cap)",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#11",
    "actor": "owner:b5",
@@ -2213,7 +2213,7 @@
   {
    "t": 1794264598.2036507,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer A signed REJECT on v2 (failed: payment_within_my_cap)",
+   "label": "Customer A rejected version 2 (payment within my cap)",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#12",
    "actor": "owner:b1",
@@ -2226,7 +2226,7 @@
   {
    "t": 1794264600.61875,
    "kind": "OWNER_COMMITMENT",
-   "label": "owner:f1 signed ACCEPT on v2",
+   "label": "Manufacturer accepted version 2",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#13",
    "actor": "owner:f1",
@@ -2239,7 +2239,7 @@
   {
    "t": 1794264601.9151719,
    "kind": "OWNER_COMMITMENT",
-   "label": "owner:e1 signed ACCEPT on v2",
+   "label": "Engineer accepted version 2",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#14",
    "actor": "owner:e1",
@@ -2252,7 +2252,7 @@
   {
    "t": 1794264601.915765,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v2 FAILED \u2014 owners rejected repriced terms",
+   "label": "Contract version 2 withdrawn: the buyers rejected the new price",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#14",
    "actor": "coordinator:hub",
@@ -2278,7 +2278,7 @@
   {
    "t": 1794264603.264192,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v3 DRAFT",
+   "label": "Contract version 3 drafted",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#16",
    "actor": "coordinator:hub",
@@ -2291,7 +2291,7 @@
   {
    "t": 1794264603.2648256,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v3 OFFERED",
+   "label": "Contract version 3 offered to all parties",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#17",
    "actor": "coordinator:hub",
@@ -2304,7 +2304,7 @@
   {
    "t": 1794264604.2972322,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer B signed ACCEPT on v3",
+   "label": "Customer B accepted version 3",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#15",
    "actor": "owner:b2",
@@ -2317,7 +2317,7 @@
   {
    "t": 1794264605.2163365,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer D signed ACCEPT on v3",
+   "label": "Customer D accepted version 3",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#16",
    "actor": "owner:b4",
@@ -2330,7 +2330,7 @@
   {
    "t": 1794264606.3963873,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer C signed ACCEPT on v3",
+   "label": "Customer C accepted version 3",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#17",
    "actor": "owner:b3",
@@ -2343,7 +2343,7 @@
   {
    "t": 1794264608.5206597,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer E signed ACCEPT on v3",
+   "label": "Customer E accepted version 3",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#18",
    "actor": "owner:b5",
@@ -2356,7 +2356,7 @@
   {
    "t": 1794264609.845122,
    "kind": "OWNER_COMMITMENT",
-   "label": "Customer A signed ACCEPT on v3",
+   "label": "Customer A accepted version 3",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#19",
    "actor": "owner:b1",
@@ -2369,7 +2369,7 @@
   {
    "t": 1794264611.0867546,
    "kind": "OWNER_COMMITMENT",
-   "label": "owner:f1 signed ACCEPT on v3",
+   "label": "Manufacturer accepted version 3",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#20",
    "actor": "owner:f1",
@@ -2382,7 +2382,7 @@
   {
    "t": 1794264612.094534,
    "kind": "OWNER_COMMITMENT",
-   "label": "owner:e1 signed ACCEPT on v3",
+   "label": "Engineer accepted version 3",
    "phase": 3,
    "ref": "OWNER_COMMITMENTS.jsonl#21",
    "actor": "owner:e1",
@@ -2395,7 +2395,7 @@
   {
    "t": 1794264612.0950632,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v3 PREPARED",
+   "label": "Contract version 3 prepared",
    "phase": 3,
    "ref": "NEGOTIATION_TRACE.jsonl#18",
    "actor": "coordinator:hub",
@@ -2408,7 +2408,7 @@
   {
    "t": 1794264612.2002804,
    "kind": "ACTION_PERMIT",
-   "label": "owner:b2 issued action permit (verdict T)",
+   "label": "Customer B authorized its part of the work",
    "phase": 4,
    "ref": "ACTION_PERMITS.jsonl#1",
    "actor": "owner:b2",
@@ -2421,7 +2421,7 @@
   {
    "t": 1794264612.2063355,
    "kind": "ACTION_PERMIT",
-   "label": "owner:b4 issued action permit (verdict T)",
+   "label": "Customer D authorized its part of the work",
    "phase": 4,
    "ref": "ACTION_PERMITS.jsonl#2",
    "actor": "owner:b4",
@@ -2434,7 +2434,7 @@
   {
    "t": 1794264612.2305243,
    "kind": "ACTION_PERMIT",
-   "label": "owner:b3 issued action permit (verdict T)",
+   "label": "Customer C authorized its part of the work",
    "phase": 4,
    "ref": "ACTION_PERMITS.jsonl#3",
    "actor": "owner:b3",
@@ -2447,7 +2447,7 @@
   {
    "t": 1794264612.2487116,
    "kind": "ACTION_PERMIT",
-   "label": "owner:b5 issued action permit (verdict T)",
+   "label": "Customer E authorized its part of the work",
    "phase": 4,
    "ref": "ACTION_PERMITS.jsonl#4",
    "actor": "owner:b5",
@@ -2460,7 +2460,7 @@
   {
    "t": 1794264612.265253,
    "kind": "ACTION_PERMIT",
-   "label": "owner:b1 issued action permit (verdict T)",
+   "label": "Customer A authorized its part of the work",
    "phase": 4,
    "ref": "ACTION_PERMITS.jsonl#5",
    "actor": "owner:b1",
@@ -2473,7 +2473,7 @@
   {
    "t": 1794264612.27165,
    "kind": "ACTION_PERMIT",
-   "label": "owner:f1 issued action permit (verdict T)",
+   "label": "Manufacturer authorized its part of the work",
    "phase": 4,
    "ref": "ACTION_PERMITS.jsonl#6",
    "actor": "owner:f1",
@@ -2486,7 +2486,7 @@
   {
    "t": 1794264612.2789283,
    "kind": "ACTION_PERMIT",
-   "label": "owner:e1 issued action permit (verdict T)",
+   "label": "Engineer authorized its part of the work",
    "phase": 4,
    "ref": "ACTION_PERMITS.jsonl#7",
    "actor": "owner:e1",
@@ -2499,7 +2499,7 @@
   {
    "t": 1794264612.279637,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v3 AUTHORIZED",
+   "label": "Contract version 3 authorized by all parties",
    "phase": 4,
    "ref": "NEGOTIATION_TRACE.jsonl#19",
    "actor": "coordinator:hub",
@@ -2512,7 +2512,7 @@
   {
    "t": 1794264612.280074,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v3 EXECUTING",
+   "label": "Contract version 3 in execution",
    "phase": 4,
    "ref": "NEGOTIATION_TRACE.jsonl#20",
    "actor": "coordinator:hub",
@@ -2525,7 +2525,7 @@
   {
    "t": 1794264612.2949107,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Factory manufactured 100 units",
+   "label": "Simulated: Factory manufactured 100 units",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#1",
    "actor": "owner:f1",
@@ -2538,7 +2538,7 @@
   {
    "t": 1794264612.3209043,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Engineer certified the lot",
+   "label": "Simulated: Engineer certified the lot",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#2",
    "actor": "owner:e1",
@@ -2551,7 +2551,7 @@
   {
    "t": 1794264612.3504891,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Factory shipped 20 units to Customer B",
+   "label": "Simulated: Factory shipped 20 units to Customer B",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#3",
    "actor": "owner:f1",
@@ -2564,7 +2564,7 @@
   {
    "t": 1794264612.3543286,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer B confirmed receipt of 20 units",
+   "label": "Simulated: Customer B confirmed receipt of 20 units",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#3",
    "actor": "owner:b2",
@@ -2577,7 +2577,7 @@
   {
    "t": 1794264612.3626077,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Factory shipped 20 units to Customer D",
+   "label": "Simulated: Factory shipped 20 units to Customer D",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#4",
    "actor": "owner:f1",
@@ -2590,7 +2590,7 @@
   {
    "t": 1794264612.367651,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer D confirmed receipt of 20 units",
+   "label": "Simulated: Customer D confirmed receipt of 20 units",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#4",
    "actor": "owner:b4",
@@ -2603,7 +2603,7 @@
   {
    "t": 1794264612.3747659,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Factory shipped 20 units to Customer C",
+   "label": "Simulated: Factory shipped 20 units to Customer C",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#5",
    "actor": "owner:f1",
@@ -2616,7 +2616,7 @@
   {
    "t": 1794264612.3790922,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer C confirmed receipt of 20 units",
+   "label": "Simulated: Customer C confirmed receipt of 20 units",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#5",
    "actor": "owner:b3",
@@ -2629,7 +2629,7 @@
   {
    "t": 1794264612.3875318,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Factory shipped 20 units to Customer E",
+   "label": "Simulated: Factory shipped 20 units to Customer E",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#6",
    "actor": "owner:f1",
@@ -2642,7 +2642,7 @@
   {
    "t": 1794264612.404874,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer E confirmed receipt of 20 units",
+   "label": "Simulated: Customer E confirmed receipt of 20 units",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#6",
    "actor": "owner:b5",
@@ -2655,7 +2655,7 @@
   {
    "t": 1794264612.4121401,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Factory shipped 20 units to Customer A",
+   "label": "Simulated: Factory shipped 20 units to Customer A",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#7",
    "actor": "owner:f1",
@@ -2668,7 +2668,7 @@
   {
    "t": 1794264612.4160876,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer A confirmed receipt of 20 units",
+   "label": "Simulated: Customer A confirmed receipt of 20 units",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#7",
    "actor": "owner:b1",
@@ -2681,7 +2681,7 @@
   {
    "t": 1794264612.4220579,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer B paid its line (ledger)",
+   "label": "Simulated: Customer B recorded its payment (simulated ledger)",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#8",
    "actor": "owner:b2",
@@ -2694,7 +2694,7 @@
   {
    "t": 1794264612.436459,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer D paid its line (ledger)",
+   "label": "Simulated: Customer D recorded its payment (simulated ledger)",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#9",
    "actor": "owner:b4",
@@ -2707,7 +2707,7 @@
   {
    "t": 1794264612.4406312,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer C paid its line (ledger)",
+   "label": "Simulated: Customer C recorded its payment (simulated ledger)",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#10",
    "actor": "owner:b3",
@@ -2720,7 +2720,7 @@
   {
    "t": 1794264612.4456062,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer E paid its line (ledger)",
+   "label": "Simulated: Customer E recorded its payment (simulated ledger)",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#11",
    "actor": "owner:b5",
@@ -2733,7 +2733,7 @@
   {
    "t": 1794264612.4685342,
    "kind": "RECEIPT",
-   "label": "SIMULATED: Customer A paid its line (ledger)",
+   "label": "Simulated: Customer A recorded its payment (simulated ledger)",
    "phase": 4,
    "ref": "RECEIPTS.jsonl#12",
    "actor": "owner:b1",
@@ -2746,7 +2746,7 @@
   {
    "t": 1794264612.4705412,
    "kind": "CONTRACT_STATE",
-   "label": "Contract v3 FULFILLED",
+   "label": "Contract version 3 fulfilled",
    "phase": 4,
    "ref": "NEGOTIATION_TRACE.jsonl#21",
    "actor": "coordinator:hub",
@@ -2759,7 +2759,7 @@
   {
    "t": 1794264614.4122512,
    "kind": "JUDGE_FINISHED",
-   "label": "Independent Judge: PASS_COMPLETED (63/63 checks, synthetic scope)",
+   "label": "Independent Judge passed the deal (63/63 checks; simulated scenario)",
    "phase": 4,
    "ref": "FULL_TRACE.jsonl@18",
    "actor": "judge",

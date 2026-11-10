@@ -32,7 +32,7 @@ pinned dependencies, creating the virtual environment and installing packages.
 | Check | Result |
 |---|---|
 | Pinned dependencies | LEGION `d083c44`, LEGION-Federation `9d2a32a`, LEGION-Marketplace `906ec0f`; Judge source hash verified |
-| Run `A2-live-20261109T192815` (first attempt) | contract `3b30f413…`. Version 1, $480: FAILED (price shock). Version 2, $540: FAILED (5 buyers refused). Version 3, $495: FULFILLED. |
+| Live run, first attempt (recorded as `A2-live-20261109T192815`) | contract `3b30f413…`. Version 1, $480: FAILED (price shock). Version 2, $540: FAILED (5 buyers refused). Version 3, $495: FULFILLED. |
 | Independent Judge | **PASS_COMPLETED, 63/63**, 4/4 tamper tests detected |
 | Model activity | 27 decisions: 25 by the parties, 2 by the coordinator |
 | Adversarial negatives against live parties | **25/25**, 0 forbidden effects |

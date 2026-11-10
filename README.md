@@ -54,7 +54,7 @@ See [CHALLENGES_AND_LIMITS.md](CHALLENGES_AND_LIMITS.md).
 
 Each buyer's $99 is a separate PayPal **Orders v2** payment. Every link in the chain below is read from retained evidence:
 
-`contract → buyer's own signed consent → owner-signed payment authorization + one-time permit → admission decision → order → buyer approval on PayPal → server check of APPROVED → capture → independent readback`
+`contract → buyer's own signed consent → operator-signed payment authorization + one-time permit → admission decision → order → buyer approval on PayPal → server check of APPROVED → capture → independent readback`
 
 The payment adapter keeps:
 - durable reservations;
@@ -69,7 +69,7 @@ Details: [PAYPAL_STATUS.md](PAYPAL_STATUS.md). The exact code that made the five
 
 | Layer | Component | Where |
 |---|---|---|
-| Parties | 7 owner processes (key, private policy, simulated world, NVIDIA NIM agent) | LEGION-Federation (external) |
+| Parties | 7 party processes (key, private policy, simulated world, NVIDIA NIM agent) | LEGION-Federation (external) |
 | Discovery & harness | intent publication, matching, end-to-end run, independent Judge | LEGION-Marketplace (external) |
 | Runtime | LEGION Core worlds and admission | LEGION (external) |
 | Payments | PayPal Orders v2 gateway | `paypal_adapter/` (this repo) |
@@ -104,7 +104,7 @@ The script:
 3. runs the independent Judge and the 25 adversarial negatives;
 4. builds, audits and serves the result.
 
-**C. PayPal payments.** These are not part of A or B. Each payment needs a signed owner authorization for specific
+**C. PayPal payments.** These are not part of A or B. Each payment needs the platform operator's signed authorization for specific
 buyers, and each buyer's approval on PayPal's own page. See [REPRODUCE.md](REPRODUCE.md#c-paypal-sandbox-payments).
 
 ## 7. Verification

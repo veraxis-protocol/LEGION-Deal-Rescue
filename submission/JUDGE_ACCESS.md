@@ -21,5 +21,5 @@ Screen 5 shows the five PayPal Sandbox payments, each with its consent, authoriz
 ```
 
 **PayPal.** The five payments were made in PayPal Sandbox and are shown from their recorded evidence. A new payment
-requires the owner's signed authorization and a buyer's approval on PayPal, so judges cannot trigger one from the app.
+requires the platform operator's signed authorization and a buyer's approval on PayPal, so judges cannot trigger one from the app.
 No hosted instance is provided.

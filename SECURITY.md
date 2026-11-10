@@ -2,8 +2,8 @@
 
 **No secrets in this repository.**
 - The NVIDIA NIM key is read from a local file whose path you pass at run time.
-- PayPal REST credentials stay sealed with Windows DPAPI on the operator's host.
-- The owner's control key is passphrase-protected and never leaves its key store.
+- PayPal REST credentials stay sealed with Windows DPAPI on the payment host.
+- The operator's control key is passphrase-protected and never leaves its key store.
 
 **Least authority.**
 - The app server is read-only and binds to `127.0.0.1`. It has no write endpoints, makes no model calls and makes no PayPal calls.

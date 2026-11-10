@@ -15,6 +15,14 @@ import time
 from pathlib import Path
 
 LETTERS = {"owner:b1": "A", "owner:b2": "B", "owner:b3": "C", "owner:b4": "D", "owner:b5": "E"}
+REASONS = {"owners rejected repriced terms": "the buyers rejected the new price",
+           "supplier price shock invalidated commitments": "the factory's price change voided the signatures"}
+ROLE_NAMES = {"owner:f1": "Manufacturer", "owner:e1": "Engineer", "coordinator:hub": "Coordinator", "marketplace": "Marketplace"}
+
+
+def party(owner_id):
+    """Business name for a party id (the raw id stays in the evidence record)."""
+    return f"Customer {LETTERS[owner_id]}" if owner_id in LETTERS else ROLE_NAMES.get(owner_id, owner_id)
 BUYERS = list(LETTERS)
 SOURCE_COMMIT = None  # filled in main()
 
@@ -231,7 +239,7 @@ def build(run, mode, run_id, paypal_state=None, paypal_mission=None, paypal_runs
         "unknown_cost_lines": {k: "Z" for k in ["payment_fees_cents", "agent_inference_cents", "independent_verification_cents", "support_cents", "expected_loss_cents"]},
         "manufacturer_internal_margin": "UNKNOWN (factory price is a quote paid to the factory, not its cost)",
         "merchant_net_margin": "NOT ESTABLISHED (non-positive: contribution 0 before any overhead)",
-        "verdict": "NOT YET PROFITABLE / NOT ECONOMICALLY VALIDATED",
+        "verdict": "Not yet profitable (not economically validated)",
         "incremental_real_tpv": "UNKNOWN",
     }
     slots = []
@@ -241,8 +249,8 @@ def build(run, mode, run_id, paypal_state=None, paypal_mission=None, paypal_runs
     for o in BUYERS:
         L = LETTERS[o]
         slot = {"customer": f"Customer {L}", "owner_id": o, "obligation_id": f"pay-{o.split(':')[1]}", "amount_cents": v3["per_buyer_cents"],
-                "currency": "USD", "payee": "UNKNOWN (merchant of record not established)", "state": "NOT_AUTHORIZED",
-                "evidence_mode": mode, "provider_confirmed_cents": 0, "status_source": "no PayPal mission bound to this run's contract"}
+                "currency": "USD", "payee": "Not set (no merchant of record)", "state": "NOT_AUTHORIZED",
+                "evidence_mode": mode, "provider_confirmed_cents": 0, "status_source": "no PayPal payment exists for this contract"}
         if bound and pstate:
             eff = next((e for e in pstate["effects"] if e["obligation_id"] == slot["obligation_id"]), None)
             slot.update({"evidence_mode": "REAL_SANDBOX (historic 2026-11-07 run)", "payee": "Sandbox merchant (id redacted)",
@@ -254,7 +262,7 @@ def build(run, mode, run_id, paypal_state=None, paypal_mission=None, paypal_runs
                 slot.update({"state": "NOT_STARTED (paused before creation)"})
         slots.append(slot)
     # Native PayPal Sandbox payments. One chain per payer, every link read from retained evidence:
-    #   contract -> buyer obligation -> buyer's own signed consent -> owner-signed payment mission + one-time permit
+    #   contract -> buyer obligation -> buyer's own signed consent -> operator-signed payment authorization + one-time permit
     #   -> PayPal order -> capture -> independent separate-process readback -> displayed status.
     # A slot is CONFIRMED only if the mission is bound to THIS run's final contract hash AND the readback, the payment
     # ledger and the event journal agree on effect, order, capture, amount and status.
@@ -308,8 +316,8 @@ def build(run, mode, run_id, paypal_state=None, paypal_mission=None, paypal_runs
               "provider_confirmed_cents": sum(s["provider_confirmed_cents"] for s in slots),
               "provider_posts": posts_total, "payment_runs": payment_runs,
               "historic_mission_bound_to_this_contract": bound,
-              "authorization": ("owner-signed payment mission per payer line, a one-time permit and a fresh admission decision (T) before "
-                                "every PayPal POST, and the buyer's own approval on PayPal") if confirmed else "no payment authorized for this contract",
+              "authorization": ("a payment authorization signed by the platform operator for each buyer, a one-time permit, an admission "
+                                "check passed before every PayPal call, and the buyer's own approval on PayPal") if confirmed else "no payment authorized for this contract",
               "status": ("PAYPAL_PAYMENT_GO" if confirmed == n else "PAYPAL_PARTIAL_GO" if confirmed else "PAYPAL_NOT_AUTHORIZED"),
               "badge": (f"PayPal Sandbox: {confirmed} of {n} paid (${confirmed * v3['per_buyer_cents'] / 100:.2f})" if confirmed
                         else "PayPal: no payment for this contract")}
@@ -326,7 +334,7 @@ def build(run, mode, run_id, paypal_state=None, paypal_mission=None, paypal_runs
                                 "paypal_effect": (next((f"{x['state']} {x.get('capture_id') or ''}".strip() for x in slots if x["owner_id"] == p["owner_id"]), None)
                                                   if ob["kind"] == "pay" else None)})
     contract = {"deal_id": f"deal-{v3['contract_hash'][:12]}", "contract_id": final_contract["contract_id"],
-                "merchant_role": "demonstration storefront / merchant-of-record CANDIDATE — not a signing owner",
+                "merchant_role": "demonstration storefront; candidate merchant of record, not a signing party",
                 "merchant_of_record_status": "NOT ESTABLISHED", "currency": final_contract["currency"],
                 "supplier_moq": c.fig("contract.moq", "marketplace/MATCHES.jsonl", ["data", "proposals", 0, "factory", "minimum_quantity"], seq=m["seq"]),
                 "partial_failure_policy": final_contract["partial_failure_policy"], "parties": [
@@ -343,34 +351,36 @@ def build(run, mode, run_id, paypal_state=None, paypal_mission=None, paypal_runs
     for i, t in enumerate(trace):
         if t["kind"] == "OWNER_PUBLISHED":
             who = LETTERS.get(t["owner"], None)
-            ev(t["t"], t["kind"], f"{'Customer ' + who if who else t['owner']} published an intent (marketplace verdict {t['marketplace_verdict']})", 1, f"FULL_TRACE.jsonl@{i}", t["owner"])
+            ev(t["t"], t["kind"], f"{party(t['owner'])} published its request" + ("" if t["marketplace_verdict"] == "T" else " (not accepted by the marketplace)"), 1, f"FULL_TRACE.jsonl@{i}", t["owner"])
         elif t["kind"] == "PRICE_SHOCK_INJECTED":
-            ev(t["t"], t["kind"], "INJECTED TEST EVENT: factory price shock", 3, f"FULL_TRACE.jsonl@{i}", "environment", scope="INJECTED/TEST")
-    labels = {"DISCOVERY": "Marketplace discovery: coalition candidate found, unilateral orders infeasible",
-              "COALITION_PROPOSAL": "Coalition proposed (proposal only, no authority)",
-              "FACTORY_OFFERS": "Factory quotes received", "QUALIFICATION": "Engineer qualification results",
-              "PLANNER_CHOICE": "Coordinator chose a design", "ENVIRONMENT_EVENT_OBSERVED": "Coordinator observed the price shock"}
+            ev(t["t"], t["kind"], "Test event: factory price increase injected", 3, f"FULL_TRACE.jsonl@{i}", "environment", scope="INJECTED/TEST")
+    labels = {"DISCOVERY": "Marketplace found a group of buyers that together reach the minimum order",
+              "COALITION_PROPOSAL": "Group deal proposed (a proposal only; no one is committed yet)",
+              "FACTORY_OFFERS": "Factory quotes received", "QUALIFICATION": "Engineer's qualification results",
+              "PLANNER_CHOICE": "Coordinator chose a design", "ENVIRONMENT_EVENT_OBSERVED": "Coordinator noticed the price increase"}
+    state_words = {"DRAFT": "drafted", "OFFERED": "offered to all parties", "FAILED": "withdrawn", "PREPARED": "prepared",
+                   "AUTHORIZED": "authorized by all parties", "EXECUTING": "in execution", "FULFILLED": "fulfilled"}
     for r in neg:
         if r["kind"] == "CONTRACT_STATE":
-            lab = f"Contract v{r['data'].get('version', '3')} {r['data']['state']}" + (f" — {r['data']['reason']}" if r["data"].get("reason") else "")
+            lab = f"Contract version {r['data'].get('version', '3')} {state_words.get(r['data']['state'], r['data']['state'].lower())}" + (f": {REASONS.get(r['data']['reason'], r['data']['reason'])}" if r["data"].get("reason") else "")
         else:
             lab = labels.get(r["kind"], r["kind"])
             if r["kind"] == "QUALIFICATION":
-                lab += ": " + ", ".join(f"{k} {'PASS' if v else 'FAIL'}" for k, v in r["data"]["results"].items())
+                lab += ": " + ", ".join(f"design {k} {'passed' if v else 'failed'}" for k, v in r["data"]["results"].items())
             if r["kind"] == "FACTORY_OFFERS":
-                lab += ": " + ", ".join(f"{k} ${v['amount_cents'] / 100:.0f}" for k, v in r["data"]["offers"].items())
+                lab += ": " + ", ".join(f"design {k} ${v['amount_cents'] / 100:.0f}" for k, v in r["data"]["offers"].items())
         ev(r["t"], r["kind"], lab, 2 if r["kind"] in ("DISCOVERY", "COALITION_PROPOSAL") else (4 if r["data"].get("state") in ("AUTHORIZED", "EXECUTING", "FULFILLED") else 3),
            f"NEGOTIATION_TRACE.jsonl#{r['seq']}", r["owner_id"], r["hash"])
     for x in commits:
         p = x["data"]["commitment"]["payload"]
-        nm = f"Customer {LETTERS[p['owner_id']]}" if p["owner_id"] in LETTERS else p["owner_id"]
         ver = next(t["version"] for t in tv if t["contract_hash"] == p["contract_version_hash"])
-        ev(x["t"], "OWNER_COMMITMENT", f"{nm} signed {p['decision']} on v{ver}" + ("" if p["decision"] == "ACCEPT" else f" (failed: {p['rationale'].split('failed checks: ')[-1].split(';')[0]})"),
+        why = p["rationale"].split("failed checks: ")[-1].split(";")[0].replace("_", " ")
+        ev(x["t"], "OWNER_COMMITMENT", f"{party(p['owner_id'])} {'accepted' if p['decision'] == 'ACCEPT' else 'rejected'} version {ver}" + ("" if p["decision"] == "ACCEPT" else f" ({why})"),
            3, f"OWNER_COMMITMENTS.jsonl#{x['seq']}", p["owner_id"], x["hash"])
     for x in permits:
-        ev(x["t"], "ACTION_PERMIT", f"{x['data']['owner']} issued action permit (verdict {x['data'].get('verdict')})", 4, f"ACTION_PERMITS.jsonl#{x['seq']}", x["data"]["owner"], x["hash"])
+        ev(x["t"], "ACTION_PERMIT", f"{party(x['data']['owner'])} authorized its part of the work" + ("" if x["data"].get("verdict") == "T" else " (refused)"), 4, f"ACTION_PERMITS.jsonl#{x['seq']}", x["data"]["owner"], x["hash"])
     nice = {"factory.manufacture": "Factory manufactured 100 units", "engineer.certify_lot": "Engineer certified the lot",
-            "factory.ship": "Factory shipped 20 units", "buyer.receive": "Buyer confirmed receipt of 20 units", "buyer.pay": "Buyer paid its line (ledger)"}
+            "factory.ship": "Factory shipped 20 units", "buyer.receive": "Buyer confirmed receipt of 20 units", "buyer.pay": "Buyer recorded its payment (simulated ledger)"}
     for x in execu:
         nm = f"Customer {LETTERS[x['issuer']]}" if x["issuer"] in LETTERS else x["issuer"]
         lab = nice.get(x["action"], x["action"])
@@ -378,9 +388,9 @@ def build(run, mode, run_id, paypal_state=None, paypal_mission=None, paypal_runs
             lab += " to " + "Customer " + LETTERS.get("owner:" + x["obligation_id"].split("owner:")[-1], "?")
         elif x["issuer"] in LETTERS:
             lab = lab.replace("Buyer", nm)
-        ev(x["issued_at"], "RECEIPT", f"SIMULATED: {lab}", 4, x["ref"], x["issuer"], x["record_hash"], scope="SIMULATED")
+        ev(x["issued_at"], "RECEIPT", f"Simulated: {lab}", 4, x["ref"], x["issuer"], x["record_hash"], scope="SIMULATED")
     jf = next(t for t in trace if t["kind"] == "JUDGE_FINISHED")
-    ev(jf["t"], "JUDGE_FINISHED", f"Independent Judge: {judge['verdict']} ({judge_block['checks_passed']}/{judge_block['checks_total']} checks, synthetic scope)", 4, f"FULL_TRACE.jsonl@{trace.index(jf)}", "judge")
+    ev(jf["t"], "JUDGE_FINISHED", f"Independent Judge {'passed' if judge['verdict'] == 'PASS_COMPLETED' else 'failed'} the deal ({judge_block['checks_passed']}/{judge_block['checks_total']} checks; simulated scenario)", 4, f"FULL_TRACE.jsonl@{trace.index(jf)}", "judge")
     events.sort(key=lambda e: e["t"])
     for i, e in enumerate(events):
         e["event_id"] = f"{run_id}:{i:03d}"
@@ -407,7 +417,7 @@ def build(run, mode, run_id, paypal_state=None, paypal_mission=None, paypal_runs
         "run_id": run_id, "run_dir_name": run.name, "evidence_mode": mode, "source_commit": SOURCE_COMMIT, "built_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "run_files_sha256": {str(p.relative_to(run)).replace("\\", "/"): sha_file(p) for p in sorted(run.rglob("*.json*")) if p.is_file()},
         "badges": {"world": "Fulfilment simulated", "requests": "Demo requests (synthetic)",
-                   "replay": "Historical replay" if mode == "HISTORIC_REPLAY" else "Recorded seven-owner run",
+                   "replay": "Historical replay" if mode == "HISTORIC_REPLAY" else "Recorded seven-party run",
                    "paypal": paypal["badge"], "economics": econ["verdict"]},
         "requests": requests, "opportunity": opp, "terms_versions": tv, "rejected_designs": rejected_designs,
         "price_shock": {"label": "INJECTED / TEST environment event", "ref": f"FULL_TRACE.jsonl@{shock_i}", "t": shock["t"]},

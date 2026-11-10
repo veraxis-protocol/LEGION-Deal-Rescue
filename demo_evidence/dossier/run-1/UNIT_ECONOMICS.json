@@ -16,6 +16,6 @@
  },
  "manufacturer_internal_margin": "UNKNOWN (factory price is a quote paid to the factory, not its cost)",
  "merchant_net_margin": "NOT ESTABLISHED (non-positive: contribution 0 before any overhead)",
- "verdict": "NOT YET PROFITABLE / NOT ECONOMICALLY VALIDATED",
+ "verdict": "Not yet profitable (not economically validated)",
  "incremental_real_tpv": "UNKNOWN"
 }

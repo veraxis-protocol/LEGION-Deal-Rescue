@@ -34,7 +34,7 @@ Every number in the app opens its source record. The Deal Dossier and Execution 
 
 ## How we built it
 
-- **Parties.** Seven owner processes (LEGION-Federation). Each holds an Ed25519 identity, a disclosure policy, a simulated world and an NVIDIA NIM model agent.
+- **Parties.** Seven party processes (LEGION-Federation). Each holds an Ed25519 identity, a disclosure policy, a simulated world and an NVIDIA NIM model agent.
 - **Discovery and judging.** Intent discovery and the independent Judge come from LEGION-Marketplace.
 - **Merchant app** (this repository, Python standard library):
   - a dossier builder that links every figure to evidence;

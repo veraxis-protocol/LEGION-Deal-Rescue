@@ -8,7 +8,7 @@ paypal_adapter/commerce_adapter/ is byte-identical to veraxis-protocol/LEGION-Co
 and is released here under Apache-2.0 by the copyright owner's decision of 2026-11-09.
 
 External dependencies NOT included in this repository and NOT covered by this license
-(fetched at pinned commits by scripts/run_live_e2e.ps1 for the live seven-owner run only):
+(fetched at pinned commits by scripts/run_live_e2e.ps1 for the live seven-party run only):
   - LEGION (Core)        https://github.com/veraxis-protocol/LEGION              d083c44af2526e38068e0220891cd0bb5fce52af
   - LEGION-Federation    https://github.com/veraxis-protocol/LEGION-Federation   9d2a32a5c32758bea1ad2200955da1cc9213356c
   - LEGION-Marketplace   https://github.com/veraxis-protocol/LEGION-Marketplace  906ec0f553c0f8076127f7abab98825e188342ef

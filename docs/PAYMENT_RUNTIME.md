@@ -5,12 +5,12 @@
 | Customer A | LEGION-Commerce `9e1f3d6591b679d6ffb619433a4d25f1235664af` | `python -m commerce_demo.lmf007 run` |
 | Customers B–E | LEGION-Commerce `0bb385f99915a429d0c03fa8f91a13de4e8a7636` | `python -m commerce_demo.lmf007 run` |
 
-**The two commits.** Both are on branch `claude/wo-004-final-release`. They differ in a single file,
+**The two commits.** Both are in LEGION-Commerce; `0bb385f` is the tip of branch `release/sandbox-payments-2026-11`. They differ in a single file,
 `commerce_demo/readback.py`: the comparison fix described in [PAYPAL_STATUS.md](../PAYPAL_STATUS.md). That fix was applied after
 Customer A's capture and before Customer A's passing readback. The order, approval and capture path is identical in both.
 
 **Published in this repository.** `paypal_adapter/commerce_adapter/` is **byte-identical** to `commerce_adapter/` at both commits. It
-is also the exact source bound by the pending independent acceptance request (A03 v5). The SHA-256 of every file is in
+is also the exact source bound by the pending independent acceptance request. The SHA-256 of every file is in
 [PAYMENT_RUNTIME.json](PAYMENT_RUNTIME.json):
 
 | File | SHA-256 |

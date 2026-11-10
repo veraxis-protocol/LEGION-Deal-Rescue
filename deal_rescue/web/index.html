@@ -91,6 +91,17 @@ function F(id, fmt) {
 // Authorization and permit IDs are long record identifiers; show a readable label and keep the full ID in the tooltip.
 const authLabel = (id) => { const m = /(\d{8}T\d{6}Z)/.exec(id || ""); return m ? `signed ${m[1].slice(0, 4)}-${m[1].slice(4, 6)}-${m[1].slice(6, 8)} ${m[1].slice(9, 11)}:${m[1].slice(11, 13)}Z` : esc(id); };
 const permitLabel = (id) => `<span title="${esc(id)}">permit ${esc((id || "").split("-PERMIT-")[1] || id)}</span>`;
+// Business names for parties and states; the raw identifiers stay in the evidence records (shown in tooltips/drawer).
+const PARTY = { "owner:b1": "Customer A", "owner:b2": "Customer B", "owner:b3": "Customer C", "owner:b4": "Customer D", "owner:b5": "Customer E", "owner:f1": "Manufacturer", "owner:e1": "Engineer" };
+const party = (id) => PARTY[id] || id;
+const REASON = { "owners rejected repriced terms": "the buyers rejected the new price", "supplier price shock invalidated commitments": "the factory's price change voided the signatures" };
+const reasonWord = (r) => REASON[r] || r;
+const ACTION = { "factory.manufacture": "Manufacture 100 units", "engineer.certify_lot": "Certify the lot", "factory.ship": "Ship 20 units",
+  "buyer.receive": "Confirm receipt", "buyer.pay": "Record payment (simulated ledger)" };
+const obligationWord = (o) => { const m = /(manufacture|ship|receive|pay|certify)[^:]*(?:owner:([a-z0-9]+))?/.exec(o || ""); if (!m) return o;
+  const who = m[2] ? party("owner:" + m[2]) : ""; return ({ manufacture: "Manufacturing", certify: "Lot certification", ship: "Shipment to " + who, receive: who + " receipt", pay: who + " payment" })[m[1]].trim(); };
+const judgeWord = (v) => (v === "PASS_COMPLETED" ? "Passed" : v === "FAIL" ? "Failed" : v || "unknown");
+const outcomeWord = (o) => ({ FULFILLED: "Deal completed (simulated)", NO_DEAL: "No deal" }[o] || o);
 const R = (ref, text) => `<a href="#" class="mono" data-ref="${esc(ref)}">${esc(text || ref)}</a>`;
 
 document.addEventListener("click", (e) => {
@@ -146,7 +157,7 @@ function s1() {
     <div class="kv"><span>Why refused</span><span>${F(`req.${L}.reason`)}</span></div>
     <div style="margin-top:8px"><span class="st bad">CANNOT FULFILL ALONE</span> <span class="note">(feasible alone: ${F(`req.${L}.alone`, (v) => (v ? "yes" : "no"))})</span></div>
     <div class="note" style="margin-top:8px">Published intent ${R(r.publication_ref, r.intent_id)}</div></div>`; }).join("")}</div>
-  <div class="strip"><b>Factory minimum order: ${F("contract.moq")} units.</b><span class="note">Individual request: ${F("req.A.units")} units. Direct orders from each customer to the factory were refused 5/5 in the baseline (A0) — see ${R("NEGOTIATION_TRACE.jsonl#" + d.events.find((e) => e.kind === "DISCOVERY").ref.split("#")[1], "the refusal record")}.</span></div>
+  <div class="strip"><b>Factory minimum order: ${F("contract.moq")} units.</b><span class="note">Individual request: ${F("req.A.units")} units. Direct orders from each customer to the factory were refused 5/5 in the baseline test — see ${R("NEGOTIATION_TRACE.jsonl#" + d.events.find((e) => e.kind === "DISCOVERY").ref.split("#")[1], "the refusal record")}.</span></div>
   <div class="cta"><button class="btn" onclick="go(1)">Rescue these requests</button></div>`;
 }
 // ---------- Screen 2
@@ -155,22 +166,22 @@ function s2() {
   return `<h1>Opportunity found: 5 compatible buyers → ${F("opp.sum_units")} units → factory minimum reached (${F("opp.meets_moq", (v) => (v ? "yes" : "no"))})</h1>
   <p class="lead">LEGION's marketplace read only what each party chose to publish (${o.discovery_live_intents} live intents: ${Object.entries(o.intents_by_kind).map(([k, v]) => v + " " + k).join(", ")}). It found one group whose combined order meets the factory minimum. <b>Finding a match is not permission:</b> the proposal carries authorization “${F("opp.authorization")}”. Every party still has to sign its own commitment.</p>
   <div class="grid g3">
-   <div class="card"><h3>Buyers (5 independent owners)</h3>${S.d.requests.map((r) => `<div class="kv"><span>${esc(r.customer)}</span><span>20 units · cap ${usd(r.max_cents)}</span></div>`).join("")}</div>
-   <div class="card"><h3>Manufacturer (independent owner)</h3><p class="note">owner:f1 — minimum order ${F("contract.moq")}, private prices and costs stay inside its own process. Delivers only qualified designs.</p>
-     <h3 style="margin-top:12px">Qualification engineer (independent owner)</h3><p class="note">owner:e1 — certifies the lot against the QF-7 fixture; never certifies an untested variant.</p></div>
+   <div class="card"><h3>Buyers (5 independent parties)</h3>${S.d.requests.map((r) => `<div class="kv"><span>${esc(r.customer)}</span><span>20 units · cap ${usd(r.max_cents)}</span></div>`).join("")}</div>
+   <div class="card"><h3>Manufacturer (independent party)</h3><p class="note">Minimum order ${F("contract.moq")}, private prices and costs stay inside its own process. Delivers only qualified designs.</p>
+     <h3 style="margin-top:12px">Qualification engineer (independent party)</h3><p class="note">Certifies the lot against the QF-7 fixture; never certifies an untested variant.</p></div>
    <div class="card"><h3>Why these parties match</h3>
      <div class="kv"><span>Same specification</span><span class="st ${o.spec_match ? "ok" : "bad"}">${o.spec_match ? "YES" : "NO"}</span></div>
-     <div class="kv"><span>Distinct owners</span><span class="st ${o.distinct_owners ? "ok" : "bad"}">${o.distinct_owners ? "YES" : "NO"}</span></div>
+     <div class="kv"><span>Distinct parties</span><span class="st ${o.distinct_owners ? "ok" : "bad"}">${o.distinct_owners ? "YES" : "NO"}</span></div>
      <div class="kv"><span>Combined units</span><span>${F("opp.sum_units")}</span></div>
      <div class="kv"><span>Within factory capacity</span><span class="st ${o.within_capacity ? "ok" : "bad"}">${o.within_capacity ? "YES" : "NO"}</span></div>
      <div class="note" style="margin-top:6px">Match record ${R(o.match_ref)}</div></div>
   </div>
   <h2>Compared with alternatives</h2>
   <div class="grid g4">
-   <div class="card tight"><h3>A0 · each customer alone</h3><span class="st bad">5/5 REFUSED</span><p class="note">Direct 20-unit orders fail the factory minimum.</p></div>
-   <div class="card tight"><h3>A3 · central matcher, same public data</h3><span class="st z">SAME MATCH (PARITY)</span><p class="note">LEGION does not claim better matching. Its difference: per-owner signed consent, private terms and verified execution.</p></div>
-   <div class="card tight"><h3>A1 · peers known in advance</h3><span class="st ok">${esc(cf?.A1?.judge?.verdict || "Z")}</span><p class="note">No discovery claim.</p></div>
-   <div class="card tight"><h3>A4 · real group-buying intermediary</h3><span class="st z">NOT TESTED (Z)</span><p class="note">Market superiority is unproven.</p></div>
+   <div class="card tight"><h3>Each customer alone</h3><span class="st bad">5/5 REFUSED</span><p class="note">Direct 20-unit orders fail the factory minimum.</p></div>
+   <div class="card tight"><h3>A central matcher with the same public data</h3><span class="st z">SAME MATCH</span><p class="note">LEGION does not claim better matching. Its difference: per-party signed consent, private terms and verified execution.</p></div>
+   <div class="card tight"><h3>Parties who already know each other</h3><span class="st ok">${esc(judgeWord(cf?.A1?.judge?.verdict))}</span><p class="note">Also works; no discovery needed.</p></div>
+   <div class="card tight"><h3>An existing group-buying intermediary</h3><span class="st z">NOT YET COMPARED</span><p class="note">We have not priced this alternative, so no advantage over it is claimed.</p></div>
   </div>
   <div class="cta"><button class="btn" onclick="go(2)">Review a proposed deal</button><button class="btn sec" onclick="go(0)">Back</button></div>`;
 }
@@ -185,9 +196,9 @@ function verCard(v) {
    <div class="kv"><span>Qualification (engineer)</span><span>${F(`v${n}.qual`, usd)}</span></div>
    <div class="kv"><span>Shipping</span><span>${F(`v${n}.ship`, usd)}</span></div>
    <div class="kv"><span>Contract state</span><span>${F(`v${n}.final_state`)}</span></div>
-   ${fr ? `<div class="kv"><span>Why</span><span>${F(`v${n}.fail_reason`)}</span></div>` : ""}
+   ${fr ? `<div class="kv"><span>Why</span><span>${F(`v${n}.fail_reason`, reasonWord)}</span></div>` : ""}
    <div class="note" style="margin-top:6px">Signatures: ${F(`v${n}.accepts`)} of ${v.commitments.length} accepted · contract ${R(v.ref, v.contract_hash.slice(0, 12))}</div>
-   <div class="dots">${v.commitments.map((k) => `<span class="dot ${k.decision}" data-ref="${esc(k.ref)}" title="${esc(k.owner_id)} ${k.decision} (failed checks: ${esc(k.failed_checks)})">${esc(k.owner_id.replace("owner:", ""))} ${k.decision}</span>`).join("")}</div>
+   <div class="dots">${v.commitments.map((k) => `<span class="dot ${k.decision}" data-ref="${esc(k.ref)}" title="${esc(k.owner_id)} · failed checks: ${esc(k.failed_checks)}">${esc(party(k.owner_id))} ${k.decision === "ACCEPT" ? "accepted" : "rejected"}</span>`).join("")}</div>
   </div>`;
 }
 function s3() {
@@ -196,7 +207,7 @@ function s3() {
   <p class="lead">Three versions of the same deal. The original requirements (20 units each, $100 cap each, same specification) never changed; every price change needed fresh signatures from every party.</p>
   <div class="grid g3">${v.map(verCard).join("")}</div>
   <div class="grid g2" style="margin-top:14px">
-   <div class="card"><h3>Why version 2 was denied</h3><p>After the price shock <span class="b sim">INJECTED / TEST</span> (${R(d.price_shock.ref, "environment event")}), the factory's price rose to ${F("v2.factory", usd)}. Each customer's share would have been ${F("v2.per_buyer", usd)}, above its own ${F("req.A.cap", usd)} cap, so all five customers refused independently (failed check: <b>payment_within_my_cap</b>). The total ${F("v2.total", usd)} also exceeds the combined ${F("econ.max_at_caps", usd)}.</p>
+   <div class="card"><h3>Why version 2 was denied</h3><p>After the price shock <span class="b sim">INJECTED / TEST</span> (${R(d.price_shock.ref, "environment event")}), the factory's price rose to ${F("v2.factory", usd)}. Each customer's share would have been ${F("v2.per_buyer", usd)}, above its own ${F("req.A.cap", usd)} cap, so all five customers refused independently (each buyer's own rule: <b>payment must be within my cap</b>). The total ${F("v2.total", usd)} also exceeds the combined ${F("econ.max_at_caps", usd)}.</p>
    <p class="note">Version 1 had been signed by all seven parties, but the shock made the factory's commitment inactive, so the coordinator withdrew it rather than execute stale terms.</p></div>
    <div class="card"><h3>Why the cheaper design was refused</h3>${rd.map((r) => `<p>Design <b>${esc(r.design)}</b> was cheaper at ${F(`qual.${r.design}.factory`, usd)}, but the independent engineer's qualification was ${F(`qual.${r.design}.pass`, (x) => (x ? "PASS" : "FAIL"))}. It was not offered (${R(r.ref, "qualification record")}).</p>`).join("")}
    <p class="note">Version 3 uses design D-B, which passed qualification at ${F("v3.total", usd)}, i.e. ${F("v3.per_buyer", usd)} per customer, within every individual cap.</p></div>
@@ -211,26 +222,26 @@ function s4() {
   const d = S.d, j = d.judge, cf = S.ctx["COUNTERFACTUAL_A0_A1_A2_A3.json"];
   const hist = cf?.A2_historic?.attempts || [];
   return `<h1>Verified execution</h1>
-  <p class="lead">A time-ordered replay of the run's recorded events: manufacture, qualification, five shipments and five ledger payments. <b>All of these are SIMULATED world effects</b> inside each owner's own process; nothing physical was made or shipped. ${F("exec.simulated_receipts")} signed receipts; ${F("exec.non_simulated_receipts")} non-simulated.</p>
+  <p class="lead">A time-ordered replay of the run's recorded events: manufacture, qualification, five shipments and five ledger payments. <b>All of these are SIMULATED world effects</b> inside each party's own process; nothing physical was made or shipped. ${F("exec.simulated_receipts")} signed receipts; ${F("exec.non_simulated_receipts")} non-simulated.</p>
   <div class="grid" style="grid-template-columns:2fr 1fr">
    <div>
     <div class="ctrl"><button onclick="playReplay()" id="playBtn">Play</button><button onclick="stopReplay()">Pause</button><button onclick="stepReplay()">Step</button><button onclick="S.replay.i=-1;paintReplay()">Reset</button>
       <label class="note">speed <select id="spd" onchange="S.replay.speed=+this.value"><option value="1">1×</option><option value="4">4×</option><option value="16">16×</option></select></label>
       <span class="b ${d.evidence_mode === "HISTORIC_REPLAY" ? "z" : "acc"}">${d.evidence_mode === "HISTORIC_REPLAY" ? "Historical replay" : "Replay of recorded events"}</span><span class="note" id="rpos"></span></div>
-    <div class="tl" id="tl">${d.events.map((e, i) => `<div class="row" id="ev${i}" data-ref="${esc(e.ref.includes("@") || e.ref.includes("#") ? e.ref : "")}"><span class="t">+${(e.t - d.events[0].t).toFixed(2)}s</span><span>${esc(e.label)}</span><span class="note mono">${esc(e.event_id.split(":")[1])} · ${esc(e.scope)}</span></div>`).join("")}</div>
+    <div class="tl" id="tl">${d.events.map((e, i) => `<div class="row" id="ev${i}" data-ref="${esc(e.ref.includes("@") || e.ref.includes("#") ? e.ref : "")}"><span class="t">+${(e.t - d.events[0].t).toFixed(2)}s</span><span>${esc(e.label)}</span><span class="note mono">#${esc(e.event_id.split(":")[1])} · ${esc(e.scope === "SYNTHETIC" ? "recorded" : e.scope === "SIMULATED" ? "simulated" : "test event")}</span></div>`).join("")}</div>
    </div>
    <div>
-    <div class="card"><h3>Independent Judge</h3><div class="big"><span class="st ${j.verdict === "PASS_COMPLETED" ? "ok" : "bad"}" style="font-size:16px">${esc(j.verdict)}</span></div>
+    <div class="card"><h3>Independent Judge</h3><div class="big"><span class="st ${j.verdict === "PASS_COMPLETED" ? "ok" : "bad"}" style="font-size:16px" title="${esc(j.verdict)}">${esc(judgeWord(j.verdict))}</span></div>
      <div class="kv"><span>Checks</span><span>${j.checks_passed}/${j.checks_total}</span></div>
-     <div class="kv"><span>Scope</span><span>SYNTHETIC</span></div>
+     <div class="kv"><span>Scope</span><span>Simulated scenario</span></div>
      <div class="kv"><span>Tamper tests detected</span><span>${Object.values(j.tamper_mutants || {}).filter((x) => x.detected).length}/${Object.keys(j.tamper_mutants || {}).length}</span></div>
      <div class="kv"><span>Evidence hashes match</span><span class="st ${j.evidence_hashes_match_rendered_files ? "ok" : "bad"}">${j.evidence_hashes_match_rendered_files ? "YES" : "NO"}</span></div>
-     <p class="note">Read-only process with its own key; read each owner's world state live. Its verdict is never set by the UI or by the coordinator.</p></div>
+     <p class="note">Read-only process with its own key; read each party's state live. Its verdict is never set by the UI or by the coordinator.</p></div>
     <div class="card" style="margin-top:12px"><h3>Track record, including failures</h3>
      <p class="note" style="margin:0 0 6px">First campaign (2026-11-07):</p>
-     ${hist.map((a, i) => `<div class="kv"><span>Attempt ${i + 1}</span><span class="st ${a.judge.verdict === "PASS_COMPLETED" ? "ok" : "bad"}">${esc(a.outcome)} · Judge ${esc(a.judge.verdict)}</span></div>${a.cause ? `<div class="note" style="margin:-2px 0 6px">${esc(a.cause)}</div>` : ""}`).join("")}
-     ${(cf?.fresh_runs || []).length ? `<p class="note" style="margin:8px 0 6px">Fresh runs (2026-11-09), each a first attempt:</p>${cf.fresh_runs.map((r, i) => `<div class="kv"><span>Run ${i + 1}</span><span class="st ${r.first_attempt_pass ? "ok" : "bad"}">${esc(r.outcome)} · Judge ${esc(r.judge.verdict)}</span></div>`).join("")}` : ""}
-     <p class="note">The Judge failed attempt 2 for leaking an owner's private data; that failure is kept as evidence.</p></div>
+     ${hist.map((a, i) => `<div class="kv"><span>Attempt ${i + 1}</span><span class="st ${a.judge.verdict === "PASS_COMPLETED" ? "ok" : "bad"}">${esc(outcomeWord(a.outcome))} · Judge ${esc(judgeWord(a.judge.verdict).toLowerCase())}</span></div>${a.cause ? `<div class="note" style="margin:-2px 0 6px">${esc(a.cause)}</div>` : ""}`).join("")}
+     ${(cf?.fresh_runs || []).length ? `<p class="note" style="margin:8px 0 6px">Fresh runs (2026-11-09), each a first attempt:</p>${cf.fresh_runs.map((r, i) => `<div class="kv"><span>Run ${i + 1}</span><span class="st ${r.first_attempt_pass ? "ok" : "bad"}">${esc(outcomeWord(r.outcome))} · Judge ${esc(judgeWord(r.judge.verdict).toLowerCase())}</span></div>`).join("")}` : ""}
+     <p class="note">The Judge failed attempt 2 for leaking a party's private data; that failure is kept as evidence.</p></div>
    </div>
   </div>
   <div class="cta"><button class="btn" onclick="go(4)">See outcome & PayPal status</button><button class="btn sec" onclick="showPassport()">Open evidence passport</button><button class="btn sec" onclick="go(2)">Back</button></div>`;
@@ -261,20 +272,20 @@ function s5() {
   <div class="grid g4">
    <div class="card"><div class="note">Before</div><div class="big">${F("req.count_unfulfillable")}</div><div>individually unfulfillable requests</div></div>
    <div class="card"><div class="note">After (simulated)</div><div class="big">${d.judge.verdict === "PASS_COMPLETED" ? 1 : 0}</div><div>Judge-verified synthetic deal · 5 conditional orders · ${F("opp.sum_units")} simulated units</div></div>
-   <div class="card"><div class="note">Proposed deal value <span class="b sim">SYNTHETIC WORLD VALUE</span></div><div class="big">${F("econ.proceeds", usd)}</div><div>${F("v3.per_buyer", usd)} per customer</div></div>
+   <div class="card"><div class="note">Proposed deal value <span class="b sim">SIMULATED DEAL</span></div><div class="big">${F("econ.proceeds", usd)}</div><div>${F("v3.per_buyer", usd)} per customer</div></div>
    <div class="card"><div class="note">Confirmed by PayPal <span class="b ${p.readback_confirmed_captures ? "ok" : "z"}">SANDBOX</span></div><div class="big">${usd(p.provider_confirmed_cents)}</div><div>${p.readback_confirmed_captures}/${p.slots_total} payers · Sandbox test money, not revenue</div></div>
   </div>
-  <div class="strip"><b>Two separate states</b><span>FULFILLMENT_WORLD = <span class="st warn">SIMULATED</span></span><span>PAYPAL = ${p.readback_confirmed_captures ? `<span class="st ok">${p.readback_confirmed_captures === p.slots_total ? "" : "PARTIAL: "}${p.readback_confirmed_captures}/${p.slots_total} CAPTURED &amp; INDEPENDENTLY READ BACK (SANDBOX)</span>` : `<span class="st bad">${p.slots.some((s) => s.order_id_masked) ? "BLOCKED (historic orders CREATED, never APPROVED or CAPTURED)" : "UNAUTHORIZED (no order created)"}</span>`}</span><span class="note">A simulated delivery never advances a payment, and a payment would never prove a delivery.</span></div>
+  <div class="strip"><b>Two separate states</b><span>Fulfilment: <span class="st warn">SIMULATED</span></span><span>PayPal: ${p.readback_confirmed_captures ? `<span class="st ok">${p.readback_confirmed_captures}/${p.slots_total} paid and confirmed by PayPal (Sandbox)</span>` : `<span class="st bad">${p.slots.some((s) => s.order_id_masked) ? "Not paid (earlier orders were never approved)" : "No payment for this contract"}</span>`}</span><span class="note">A simulated delivery never advances a payment, and a payment would never prove a delivery.</span></div>
   <h2>Five individual payers</h2>
   <div class="card" style="padding:0"><table><thead><tr><th>Payer</th><th>Amount</th><th>Payee</th><th>Status (exact)</th><th>Evidence</th></tr></thead><tbody>
    ${p.slots.map((s) => `<tr><td class="who">${esc(s.customer)}</td><td>${usd(s.amount_cents)} ${esc(s.currency)}</td><td>${esc(s.payee)}</td>
-     <td><span class="st ${s.state === "SANDBOX_PAYMENT_CONFIRMED" ? "ok" : s.state.startsWith("NOT_AUTH") ? "z" : "warn"}">${esc(s.state === "SANDBOX_PAYMENT_CONFIRMED" ? "SANDBOX_PAYMENT_CONFIRMED: " + usd(s.provider_confirmed_cents) : s.state)}</span>${s.order_id_masked ? `<div class="note">order ${esc(s.order_id_masked)} · captures ${s.captures}</div>` : ""}${s.capture_id ? `<div class="note mono">order ${esc(s.order_id)} · capture ${esc(s.capture_id)}<br>captured ${esc(s.captured_at)}</div>` : ""}</td>
-     <td class="note">${esc(s.evidence_mode)}<br>${esc(s.status_source)}</td></tr>`).join("")}
+     <td><span class="st ${s.state === "SANDBOX_PAYMENT_CONFIRMED" ? "ok" : s.state.startsWith("NOT_AUTH") ? "z" : "warn"}">${esc(s.state === "SANDBOX_PAYMENT_CONFIRMED" ? "Paid " + usd(s.provider_confirmed_cents) + " · confirmed by PayPal" : s.state === "NOT_AUTHORIZED" ? "Not authorized" : s.state.replace(/_/g, " ").toLowerCase())}</span>${s.order_id_masked ? `<div class="note">order ${esc(s.order_id_masked)} · captures ${s.captures}</div>` : ""}${s.capture_id ? `<div class="note mono">order ${esc(s.order_id)} · capture ${esc(s.capture_id)}<br>captured ${esc(s.captured_at)}</div>` : ""}</td>
+     <td class="note">${s.readback ? "PayPal Sandbox (test money)" : "—"}<br>${esc(s.status_source)}</td></tr>`).join("")}
   </tbody></table></div>
   <div class="grid g2" style="margin-top:14px">
    <div class="card"><h3>How each payment is authorized</h3>
-    <p class="note">${p.readback_confirmed_captures ? esc(p.authorization) + `. ${p.provider_posts} PayPal POSTs in total (one order and one capture per payer), no retries.` : "No payment has been authorized for this contract. A payment needs the owner's signed mission line for that buyer, a one-time permit, an admission decision before each PayPal call, and the buyer's own approval on PayPal."}</p>
-    ${p.readback_confirmed_captures ? `<table><thead><tr><th>Payer</th><th>Buyer consent</th><th>Authorization</th><th>Order → capture</th><th>Readback</th></tr></thead><tbody>${p.slots.filter((x) => x.readback).map((x) => `<tr><td>${esc(x.customer)}</td><td class="mono" data-ref="">${esc(x.payer_commitment_id)}</td><td class="mono"><span title="${esc(x.mission_id)}">${authLabel(x.mission_id)}</span> · ${permitLabel(x.permit_id)} · decision ${esc(x.admission_verdict)}</td><td class="mono">${esc(x.order_id)} → ${esc(x.capture_id)}</td><td><span class="st ok">${esc(x.readback.payment_status)}</span></td></tr>`).join("")}</tbody></table>` : ""}
+    <p class="note">${p.readback_confirmed_captures ? esc(p.authorization) + `. ${p.provider_posts} PayPal POSTs in total (one order and one capture per payer), no retries.` : "No payment has been authorized for this contract. A payment needs the platform operator's signed authorization for that buyer, a one-time permit, an admission decision before each PayPal call, and the buyer's own approval on PayPal."}</p>
+    ${p.readback_confirmed_captures ? `<table><thead><tr><th>Payer</th><th>Buyer consent</th><th>Authorization</th><th>Order → capture</th><th>Readback</th></tr></thead><tbody>${p.slots.filter((x) => x.readback).map((x) => `<tr><td>${esc(x.customer)}</td><td class="mono" data-ref="">${esc(x.payer_commitment_id)}</td><td class="mono"><span title="${esc(x.mission_id)}">${authLabel(x.mission_id)}</span> · ${permitLabel(x.permit_id)} · ${x.admission_verdict === "T" ? "admitted" : "not admitted"}</td><td class="mono">${esc(x.order_id)} → ${esc(x.capture_id)}</td><td><span class="st ok" title="${esc(x.readback.payment_status)}">confirmed</span></td></tr>`).join("")}</tbody></table>` : ""}
     <details style="margin-top:8px"><summary class="note">Production admission (not used for Sandbox)</summary><p class="note">Production payments additionally require an independent A03 acceptance of the payment adapter, which is not signed. The gate reading taken on 2026-11-09 before any payment was authorized is kept as a historical record: ${esc(pre?.admission || "Z")}.</p></details></div>
    <div class="card"><h3>Did anyone make a profit?</h3><p><b>No profit is established.</b> At version 3 the customers pay ${F("econ.proceeds", usd)} and the factory, engineer and shipping cost ${F("v3.total", usd)}: contribution ${F("econ.contribution", usd)} before payment fees, AI inference, verification and support (all unknown). Even at the customers' caps, headroom is only ${F("econ.headroom", usd)}.</p>
     <span class="st warn">${esc(e.verdict)}</span><p class="note">Factory price is a quote paid to the factory; its own margin is unknown.</p></div>
@@ -287,15 +298,15 @@ function showDossier() {
   const d = S.d, c = d.contract, cf = S.ctx["COUNTERFACTUAL_A0_A1_A2_A3.json"];
   openModal(`<div style="display:flex;gap:10px;align-items:center"><h1 style="margin:0">Deal Dossier</h1><span class="spacer" style="flex:1"></span>
     <a class="btn" href="/api/download?run=${encodeURIComponent(d.run_id)}" download>Download JSON</a><button class="btn sec" data-close="1">Close</button></div>
-   <p class="note">${esc(c.deal_id)} · run ${esc(d.run_id)} · ${esc(d.evidence_mode)} · built ${esc(d.built_at)} · source ${esc(d.source_commit)}</p>
+   <p class="note">${esc(c.deal_id)} · run ${esc(d.run_id)} · built ${esc(d.built_at)} · source ${esc(d.source_commit)}</p>
    <div class="grid g2">
-    <div class="card"><h3>1 · Original demand & refusals</h3>${d.requests.map((r) => `<div class="kv"><span>${esc(r.customer)}</span><span>${r.units} units ≤ ${usd(r.max_cents)} · ${esc(r.refusal_reason)}</span></div>`).join("")}</div>
-    <div class="card"><h3>2 · Disclosure boundary</h3><p class="note">Only published projections reached the marketplace. Private costs, customer IDs and rationale text stay inside each owner process; the Judge checks this (check J8). An earlier attempt failed on exactly this check and is kept as evidence.</p></div>
-    <div class="card"><h3>3 · Parties (7 independent owners)</h3>${c.parties.map((p) => `<div class="kv"><span>${esc(p.owner_id)}</span><span>${esc(p.role)}</span></div>`).join("")}<div class="kv"><span>Merchant</span><span>${esc(c.merchant_role)}</span></div></div>
-    <div class="card"><h3>4 · Contract versions</h3>${d.terms_versions.map((v) => `<div class="kv"><span>v${v.version} ${v.design}</span><span>${usd(v.total_cents)} (${usd(v.per_buyer_cents)}/buyer) · ${v.final_state}</span></div>`).join("")}</div>
-    <div class="card"><h3>5 · Payment & payee map</h3>${c.payer_payee_map.map((x) => `<div class="kv"><span>${esc(x.payer)}</span><span>${usd(x.amount_cents)} → ${esc(x.payee)}</span></div>`).join("")}<p class="note">Merchant of record: ${esc(c.merchant_of_record_status)}</p></div>
-    <div class="card"><h3>6 · Judge</h3><div class="kv"><span>Verdict</span><span>${esc(d.judge.verdict)}</span></div><div class="kv"><span>Judgement id</span><span class="mono">${esc(d.judge.judgement_id)}</span></div><div class="kv"><span>Scope</span><span>${esc(d.judge.scope)}</span></div></div>
-    <div class="card"><h3>7 · Economics</h3><div class="kv"><span>Contribution before overhead</span><span>${usd(d.economics.pass_through_contribution_cents)}</span></div>${Object.keys(d.economics.unknown_cost_lines).map((k) => `<div class="kv"><span>${esc(k)}</span><span>Z</span></div>`).join("")}<div class="kv"><span>Verdict</span><span>${esc(d.economics.verdict)}</span></div></div>
+    <div class="card"><h3>1 · Original demand & refusals</h3>${d.requests.map((r) => `<div class="kv"><span>${esc(r.customer)}</span><span>${r.units} units, at most ${usd(r.max_cents)} · ${esc(r.refusal_reason)}</span></div>`).join("")}</div>
+    <div class="card"><h3>2 · Disclosure boundary</h3><p class="note">Only published projections reached the marketplace. Private costs, customer IDs and rationale text stay inside each party's process; the Judge checks this (check J8). An earlier attempt failed on exactly this check and is kept as evidence.</p></div>
+    <div class="card"><h3>3 · Parties (7 independent parties)</h3>${c.parties.map((p) => `<div class="kv"><span title="${esc(p.owner_id)}">${esc(party(p.owner_id))}</span><span>${esc(p.role)}</span></div>`).join("")}<div class="kv"><span>Merchant</span><span>${esc(c.merchant_role)}</span></div></div>
+    <div class="card"><h3>4 · Contract versions</h3>${d.terms_versions.map((v) => `<div class="kv"><span>Version ${v.version} · design ${v.design}</span><span>${usd(v.total_cents)} (${usd(v.per_buyer_cents)} per buyer) · ${v.final_state === "FULFILLED" ? "fulfilled" : "withdrawn"}</span></div>`).join("")}</div>
+    <div class="card"><h3>5 · Payment & payee map</h3>${c.payer_payee_map.map((x) => `<div class="kv"><span>${esc(party(x.payer))}</span><span>${usd(x.amount_cents)} → ${esc(x.payee)}</span></div>`).join("")}<p class="note">Merchant of record: ${esc(c.merchant_of_record_status)}</p></div>
+    <div class="card"><h3>6 · Judge</h3><div class="kv"><span>Verdict</span><span>${esc(judgeWord(d.judge.verdict))} (${d.judge.checks_passed}/${d.judge.checks_total} checks)</span></div><div class="kv"><span>Judgement id</span><span class="mono">${esc(d.judge.judgement_id)}</span></div><div class="kv"><span>Scope</span><span>Simulated scenario; each party's state read live by the Judge</span></div></div>
+    <div class="card"><h3>7 · Economics</h3><div class="kv"><span>Contribution before overhead</span><span>${usd(d.economics.pass_through_contribution_cents)}</span></div>${Object.keys(d.economics.unknown_cost_lines).map((k) => `<div class="kv"><span>${esc(k.replace(/_cents$/, "").replace(/_/g, " "))}</span><span>unknown</span></div>`).join("")}<div class="kv"><span>Verdict</span><span>${esc(d.economics.verdict)}</span></div></div>
     <div class="card"><h3>8 · Open items</h3><p class="note">PayPal: ${esc(d.paypal.badge)} (Sandbox test money). Not established: real customer demand, an incumbent intermediary's price, physical delivery, a merchant of record, profit, and independent A03 acceptance for production payments.</p>
      <p class="note">Baselines: each buyer alone 5/5 refused · central matcher finds the same group (parity) · first campaign 1 pass in 3 attempts${(cf?.fresh_runs || []).length ? ` · fresh runs ${cf.fresh_runs.filter((r) => r.first_attempt_pass).length}/${cf.fresh_runs.length} passed on first attempt` : ""}.</p></div>
    </div>`);
@@ -309,18 +320,18 @@ function showBuyer(L) {
    <p class="note">What this customer sees. <span class="b sim">Demo request (synthetic)</span> run ${esc(d.run_id)}</p>
    <div class="grid g3">
     <div class="card"><h3>You asked for</h3><div class="kv"><span>Units</span><span>${F("req." + L + ".units")}</span></div><div class="kv"><span>Your maximum</span><span>${F("req." + L + ".cap", usd)}</span></div><div class="kv"><span>Alone</span><span>${F("req." + L + ".reason")}</span></div></div>
-    <div class="card"><h3>Offer (version ${v3.version})</h3><div class="big">${F("v3.per_buyer", usd)}</div><p class="note">Your share of a 100-unit order, qualified design ${esc(v3.design)}. Earlier version 2 at ${F("v2.per_buyer", usd)}: you signed ${esc(k2 ? k2.decision : "Z")}${k2 && k2.failed_checks !== "none" ? " (" + esc(k2.failed_checks) + ")" : ""}.</p></div>
-    <div class="card"><h3>Your decision</h3><span class="st ${k && k.decision === "ACCEPT" ? "ok" : "bad"}">${esc(k ? k.decision : "Z")}</span><p class="note">Signed with your own key ${esc(k ? k.signer_key_id : "")} (${R(k ? k.ref : "", "commitment record")}). Signing is consent to the terms, not a payment approval.</p></div>
+    <div class="card"><h3>Offer (version ${v3.version})</h3><div class="big">${F("v3.per_buyer", usd)}</div><p class="note">Your share of a 100-unit order, qualified design ${esc(v3.design)}. Earlier version 2 at ${F("v2.per_buyer", usd)}: you ${esc(k2 ? (k2.decision === "ACCEPT" ? "accepted" : "rejected") : "did not answer")}${k2 && k2.failed_checks !== "none" ? " (" + esc(k2.failed_checks.replace(/_/g, " ")) + ")" : ""}.</p></div>
+    <div class="card"><h3>Your decision</h3><span class="st ${k && k.decision === "ACCEPT" ? "ok" : "bad"}">${esc(k ? (k.decision === "ACCEPT" ? "Accepted" : "Rejected") : "unknown")}</span><p class="note">Signed with your own key ${esc(k ? k.signer_key_id : "")} (${R(k ? k.ref : "", "commitment record")}). Signing is consent to the terms, not a payment approval.</p></div>
    </div>
-   <div class="card" style="margin-top:14px"><h3>Pay your ${usd(v3.per_buyer_cents)} with PayPal</h3><p>Status: <span class="st ${slot.state.startsWith("NOT_AUTH") ? "z" : "warn"}">${esc(slot.state)}</span></p>
+   <div class="card" style="margin-top:14px"><h3>Pay your ${usd(v3.per_buyer_cents)} with PayPal</h3><p>Status: <span class="st ${slot.state === "SANDBOX_PAYMENT_CONFIRMED" ? "ok" : "z"}" title="${esc(slot.state)}">${slot.state === "SANDBOX_PAYMENT_CONFIRMED" ? "Paid" : slot.state === "NOT_AUTHORIZED" ? "Not authorized" : esc(slot.state.replace(/_/g, " ").toLowerCase())}</span></p>
     ${slot.state === "SANDBOX_PAYMENT_CONFIRMED" ? `<p><span class="st ok">PAID (PayPal Sandbox) ${usd(slot.provider_confirmed_cents)}</span> capture <span class="mono">${esc(slot.capture_id)}</span>, confirmed by independent readback. Your consent ${esc(slot.payer_commitment_id)} was used for your line only.</p>` : `<button class="btn" disabled title="Not yet authorized for this payer">Pay with PayPal — unavailable (not authorized)</button>`}
-    <p class="note">A PayPal order would be created only for you, for exactly your amount, after the owner's authority checks pass; you would then approve it on PayPal's own page.</p></div>`);
+    <p class="note">A PayPal order would be created only for you, for exactly your amount, after the platform operator's authorization checks pass; you would then approve it on PayPal's own page.</p></div>`);
 }
 function showReadback() {
   const d = S.d;
   openModal(`<div style="display:flex;gap:10px;align-items:center"><h1 style="margin:0">PayPal readback</h1><span class="spacer" style="flex:1"></span><button class="btn sec" data-close="1">Close</button></div>
    <p class="note">Fresh provider GETs in a separate process with a read-only ledger. Sandbox: no real money. Payer identifiers and merchant ID redacted. run ${esc(d.run_id)}</p>
-   ${d.paypal.slots.filter((s) => s.readback).map((s) => `<div class="card" style="margin-top:10px"><h3>${esc(s.customer)} · ${usd(s.provider_confirmed_cents)} · ${esc(s.readback.payment_status)}</h3>
+   ${d.paypal.slots.filter((s) => s.readback).map((s) => `<div class="card" style="margin-top:10px"><h3>${esc(s.customer)} · ${usd(s.provider_confirmed_cents)} · confirmed by PayPal</h3>
      <div class="kv"><span>Authorization / contract</span><span class="mono"><span title="${esc(s.mission_id)}">${authLabel(s.mission_id)}</span> / ${esc(s.contract_hash.slice(0, 12))}</span></div>
      <div class="kv"><span>Buyer's own consent</span><span class="mono">${esc(s.payer_commitment_id)}</span></div>
      <pre class="mono" style="white-space:pre-wrap;background:#fafbfc;padding:10px;border-radius:8px">${esc(JSON.stringify(s.readback, null, 1))}</pre></div>`).join("")}`);
@@ -328,16 +339,16 @@ function showReadback() {
 function showPassport() {
   const d = S.d;
   openModal(`<div style="display:flex;gap:10px;align-items:center"><h1 style="margin:0">Execution Passport</h1><span class="spacer" style="flex:1"></span><a class="btn" href="/api/download?kind=passport&run=${encodeURIComponent(d.run_id)}" download>Download JSON</a><button class="btn sec" data-close="1">Close</button></div>
-   <p class="note">Every consequential effect with its authority and receipt. Click a row to open the retained record. run ${esc(d.run_id)} · ${esc(d.evidence_mode)}</p>
+   <p class="note">Every consequential effect with its authority and receipt. Click a row to open the retained record. Run ${esc(d.run_id)}.</p>
    <table><thead><tr><th>Actor</th><th>Obligation</th><th>Action</th><th>Admitted</th><th>Authorization</th><th>Effect / receipt</th><th>Contract</th><th>Epoch</th><th>Scope</th></tr></thead><tbody>
-   ${d.passport.map((x) => `<tr data-ref="${esc(x.ref)}" style="cursor:pointer"><td>${esc(x.actor_id)}</td><td class="mono">${esc(x.obligation_id)}</td><td>${esc(x.action)}</td><td><span class="st ${x.admission_verdict === "T" ? "ok" : "bad"}">${esc(x.admission_verdict)}</span></td><td class="mono">${esc(x.permit_id || "Z")}</td><td class="mono">${esc(x.effect_id)}<br>${esc(x.receipt_id)}</td><td class="mono">v${x.contract_version} ${esc(x.contract_hash.slice(0, 10))}</td><td>${x.epoch ?? "Z"}</td><td><span class="st warn">${esc(x.effect_scope)}</span></td></tr>`).join("")}
+   ${d.passport.map((x) => `<tr data-ref="${esc(x.ref)}" style="cursor:pointer"><td title="${esc(x.actor_id)}">${esc(party(x.actor_id))}</td><td title="${esc(x.obligation_id)}">${esc(obligationWord(x.obligation_id))}</td><td title="${esc(x.action)}">${esc(ACTION[x.action] || x.action)}</td><td><span class="st ${x.admission_verdict === "T" ? "ok" : "bad"}">${x.admission_verdict === "T" ? "Yes" : "No"}</span></td><td class="mono">${esc(x.permit_id || "Z")}</td><td class="mono">${esc(x.effect_id)}<br>${esc(x.receipt_id)}</td><td class="mono">v${x.contract_version} ${esc(x.contract_hash.slice(0, 10))}</td><td>${x.epoch ?? "—"}</td><td><span class="st warn">${esc(x.effect_scope)}</span></td></tr>`).join("")}
    </tbody></table>
-   <h2>Denied acts</h2><table><tbody>${d.denied_actions.map((x) => `<tr data-ref="${esc(x.ref)}" style="cursor:pointer"><td>${esc(x.actor_id)}</td><td>v${x.contract_version}</td><td><span class="st bad">${esc(x.decision)}</span></td><td>${esc(x.grounds)}</td></tr>`).join("")}</tbody></table>`);
+   <h2>Denied acts</h2><table><tbody>${d.denied_actions.map((x) => `<tr data-ref="${esc(x.ref)}" style="cursor:pointer"><td title="${esc(x.actor_id)}">${esc(party(x.actor_id))}</td><td>version ${x.contract_version}</td><td><span class="st bad">Rejected</span></td><td>${esc(x.grounds.replace(/_/g, " "))}</td></tr>`).join("")}</tbody></table>`);
 }
 (async () => {
   const runs = await (await fetch("/api/runs")).json();
   const sel = $("#runSel");
-  sel.innerHTML = runs.map((r) => `<option value="${esc(r.run_id)}">${esc(r.run_id)} — ${r.evidence_mode === "HISTORIC_REPLAY" ? "historical replay" : "recorded seven-owner run"}</option>`).join("");
+  sel.innerHTML = runs.map((r) => `<option value="${esc(r.run_id)}">${esc(r.run_id)} — ${r.evidence_mode === "HISTORIC_REPLAY" ? "historical replay" : "recorded seven-party run"}</option>`).join("");
   const q = new URLSearchParams(location.search).get("run");
   sel.value = q && runs.some((r) => r.run_id === q) ? q : runs[0].run_id;
   sel.onchange = () => load(sel.value);

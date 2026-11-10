@@ -8,7 +8,7 @@
 
 **Sandbox payments.**
 - The five $99 payments are real PayPal Sandbox transactions, approved by Sandbox buyer accounts. They are test money, not revenue or transaction volume.
-- Production payments additionally require an independent review and acceptance of the payment adapter (A03), which is not signed.
+- Production payments additionally require an independent review and acceptance of the payment adapter, which has not been signed.
 
 **Not profitable.**
 - The buyers pay $495 and the vendor costs are $495, so the contribution is $0 before fees.

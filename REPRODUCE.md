@@ -60,7 +60,7 @@ A fresh run has its own contract, so it shows no PayPal payment.
 Payments are deliberately not automated. They use the LEGION-Commerce payment orchestration at the commits listed in [docs/PAYMENT_RUNTIME.md](docs/PAYMENT_RUNTIME.md), on a Windows host with:
 
 - PayPal Sandbox REST credentials, stored with Windows DPAPI under `%LOCALAPPDATA%\Veraxis\LEGION-Commerce\` (never in this repo);
-- the owner's control key (passphrase-protected);
+- the platform operator's control key (passphrase-protected);
 - one PayPal Sandbox Personal buyer account per buyer.
 
 Steps (Windows PowerShell, inside the LEGION-Commerce checkout):
@@ -69,7 +69,7 @@ Steps (Windows PowerShell, inside the LEGION-Commerce checkout):
    ```powershell
    python -m commerce_demo.lmf007 prepare --merchant <sandbox merchant id> --contract-run <run dir> --payers b1
    ```
-2. The owner reviews and signs it:
+2. The operator reviews and signs it:
    ```powershell
    python -m commerce_demo.mission authorize
    ```
@@ -79,4 +79,4 @@ Steps (Windows PowerShell, inside the LEGION-Commerce checkout):
    ```
    For each payer it prints a PayPal approval link. The buyer approves in a browser on the same machine (the return goes to `127.0.0.1:8765`). The run then captures once and runs the independent readback.
 
-To show the results in the app, copy the run's mission, events, ledger export and readback files (merchant ID redacted) into `demo_evidence/paypal_runs/<run>/`, then rebuild.
+To show the results in the app, copy the run's signed authorization, events, ledger export and readback files (merchant ID redacted) into `demo_evidence/paypal_runs/<run>/`, then rebuild.

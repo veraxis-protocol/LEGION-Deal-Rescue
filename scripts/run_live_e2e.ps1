@@ -1,4 +1,4 @@
-# LEGION Deal Rescue — fresh seven-owner end-to-end run (Windows PowerShell 5.1+).
+# LEGION Deal Rescue — fresh seven-party end-to-end run (Windows PowerShell 5.1+).
 #
 #   .\scripts\run_live_e2e.ps1 -NimKeyFile C:\path\to\nvapi.txt [-Port 8795] [-NoServe]
 #
@@ -6,9 +6,9 @@
 #   1. Clones the EXTERNAL PolyForm-Noncommercial dependencies at their pinned commits into .\external\ (not part of
 #      this Apache-2.0 repository; see NOTICE): LEGION Core d083c44, LEGION-Federation 9d2a32a, LEGION-Marketplace 906ec0f.
 #   2. Creates .\external\.venv and installs LEGION-Marketplace\requirements.lock.
-#   3. Runs ONE fresh A2 episode: 7 owner processes + marketplace + coordinator, NVIDIA NIM decisions, then the
-#      independent read-only Judge (legion_marketplace.judge) while the owners are still alive.
-#   4. Runs the existing 25-case adversarial negative suite against live owner processes.
+#   3. Runs one fresh deal: 7 party processes + marketplace + coordinator, NVIDIA NIM decisions, then the
+#      independent read-only Judge (legion_marketplace.judge) while the parties are still running.
+#   4. Runs the existing 25-case adversarial negative suite against the live party processes.
 #   5. Builds the evidence-linked Deal Dossier, runs the UI evidence auditor and serves the app.
 # All manufacture / shipment / buyer-ledger effects are SIMULATED. This script never calls PayPal.
 param([Parameter(Mandatory = $true)][string]$NimKeyFile, [int]$Port = 8795, [switch]$NoServe)
@@ -38,7 +38,7 @@ $Py = Join-Path $Venv "Scripts\python.exe"
 
 $Stamp = Get-Date -Format "yyyyMMddTHHmmss"
 $Ev = Join-Path $Repo "demo_evidence"
-$Run = Join-Path $Ev "runs\A2-live-$Stamp"
+$Run = Join-Path $Ev "runs\A2-live-$Stamp"   # "A2" = discovery + federation arm of the harness (--arm A2)
 $env:PYTHONPATH = "$(Join-Path $Ext 'LEGION-Federation');$(Join-Path $Ext 'LEGION-Marketplace')"
 $env:LMF_FEDERATION_ROOT = Join-Path $Ext "LEGION-Federation"
 $env:LMF_NIM_KEY_FILE = (Resolve-Path $NimKeyFile).Path

@@ -1,7 +1,7 @@
 """LEGION Deal Rescue - local read-only product server.
 
 Serves the merchant UI and the run-linked evidence. It has no write path: no model calls, no PayPal calls,
-no mutation of run files. `--mode replay` is the only mode implemented here (live payment needs owner authority).
+no mutation of run files. `--mode replay` is the only mode implemented here (payments are made by a separately authorized process).
 
   python -B -m deal_rescue.server --evidence wo004_evidence --port 8795
 """

@@ -1,7 +1,7 @@
 {
  "deal_id": "deal-809b4f82b5bd",
  "contract_id": "contract-coal-b4fa1531f1eb4a82",
- "merchant_role": "demonstration storefront / merchant-of-record CANDIDATE \u2014 not a signing owner",
+ "merchant_role": "demonstration storefront; candidate merchant of record, not a signing party",
  "merchant_of_record_status": "NOT ESTABLISHED",
  "currency": "USD",
  "supplier_moq": 100,

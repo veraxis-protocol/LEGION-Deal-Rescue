@@ -19,7 +19,7 @@ Sandbox amounts are test money, not revenue.
 ## How a payment is made
 
 1. **Consent.** Each buyer's line is bound to that buyer's own signed acceptance of the final contract for exactly 9,900 cents. No buyer's consent is reused for another.
-2. **Authorization.** The owner signs a payment authorization (mission and control state) with the control key, which is passphrase-protected. Customer A was authorized alone first; then B to E were authorized together, one line per buyer.
+2. **Authorization.** The platform operator signs a payment authorization with its control key, which is passphrase-protected. Customer A was authorized alone first; then B to E were authorized together, one line per buyer.
 3. **Admission.** Before each PayPal POST, a fresh admission decision for the exact payer, amount and merchant must return T. It is journaled before the call, and a one-time permit is issued.
 4. **Order.** One order per buyer (Orders v2, intent CAPTURE, effect ID as `invoice_id`).
 5. **Buyer approval.** The buyer approves on PayPal's own page. The return to the local callback is not trusted on its own: the server must GET the order and see `APPROVED` with a payer identity.
@@ -54,6 +54,6 @@ to E used the corrected readback. History: `demo_evidence/paypal_runs/lmf007-202
 ## Limits
 
 - **Sandbox only.** No real money moved.
-- **Production.** Production payments additionally require an independent review and acceptance of the payment adapter (A03), which is not signed. The Sandbox authorization used here has its own signature domains and does not claim production admission.
+- **Production.** Production payments additionally require an independent review and acceptance of the payment adapter, which has not been signed. The Sandbox authorization used here has its own signature domains and does not claim production admission.
 - **Payee.** The payee is a PayPal Sandbox business account. A real merchant of record is not established.
 - **Earlier orders.** Four orders created on 2026-11-07 for an earlier contract were never approved or captured. Their reservations remain held in that run's ledger and were left untouched.
