@@ -41,13 +41,13 @@
   "NetContribution>0": "F",
   "full_commitments_valid": "T (synthetic)",
   "merchant_of_record_identified": "F (Sandbox merchant only)",
-  "purchase_allowed": "PARTIAL (1/5 payers authorized and captured in Sandbox)",
+  "purchase_allowed": "PARTIAL (5/5 payers authorized and captured in Sandbox)",
   "independent_acceptance_possible": "T (synthetic Judge)"
  },
  "metrics": {
   "RescueRate": "5/5 synthetic (accepted rescued / originally unfulfillable, fixture only)",
   "PositiveNetDeals": 0,
-  "ConfirmedSandboxTPV_cents": 9900,
+  "ConfirmedSandboxTPV_cents": 49500,
   "ConfirmedSandboxTPV_note": "PayPal Sandbox test money, not real TPV",
   "RealIncrementalTPV": "Z"
  }

@@ -1,0 +1,116 @@
+{
+ "note": "PUBLIC REDACTED COPY: merchant id replaced, so the owner signature does not verify on this copy; the original signed envelope is in the private evidence package",
+ "payload": {
+  "actor": "agent:procurement-executor",
+  "cap_cents": 39600,
+  "contract_version": "1",
+  "created_at": 1794267854,
+  "currency": "USD",
+  "deadline": 1794289454,
+  "epoch": 1,
+  "federation_contract_hash": "809b4f82b5bd3e3dd130d98ae3ca9644d7bca77818b60284e8d3ac0d9763dc8d",
+  "max_attempts": 1,
+  "merchant_ids": [
+   "SANDBOX_MERCHANT_REDACTED"
+  ],
+  "mission_id": "LMF-007-20261109T234414Z",
+  "obligation_ids": [
+   "pay-b2",
+   "pay-b3",
+   "pay-b4",
+   "pay-b5"
+  ],
+  "obligations": [
+   {
+    "id": "pay-b2",
+    "requirement": "$99.00; payer consent commit-9ef8a556c27c48a3",
+    "service": "payment line of owner:b2"
+   },
+   {
+    "id": "pay-b3",
+    "requirement": "$99.00; payer consent commit-d332f282a3084f94",
+    "service": "payment line of owner:b3"
+   },
+   {
+    "id": "pay-b4",
+    "requirement": "$99.00; payer consent commit-c46aee2c5f2a4e7d",
+    "service": "payment line of owner:b4"
+   },
+   {
+    "id": "pay-b5",
+    "requirement": "$99.00; payer consent commit-5fdb43cd6853409c",
+    "service": "payment line of owner:b5"
+   }
+  ],
+  "owner_control_key_id": "fdaab34c5defcf9805c32bb5",
+  "payer_lines": [
+   {
+    "amount_cents": 9900,
+    "effect_slot": "payer-b2",
+    "obligation_id": "pay-b2",
+    "payer": "owner:b2",
+    "payer_commitment": {
+     "commitment_id": "commit-9ef8a556c27c48a3",
+     "envelope_sha256": "ce6af3b92b7f97ab9c7cc762dd343d79bf582911b6b9e655fe7ff197723ce422",
+     "max_amount_cents": 9900,
+     "signer_key_id": "ed25519:615a26d2e7f701611b11966c"
+    }
+   },
+   {
+    "amount_cents": 9900,
+    "effect_slot": "payer-b3",
+    "obligation_id": "pay-b3",
+    "payer": "owner:b3",
+    "payer_commitment": {
+     "commitment_id": "commit-d332f282a3084f94",
+     "envelope_sha256": "0b0a6eeb5510e501cc5c4922c5b940cf5051ca16160911e290738bd0a6018667",
+     "max_amount_cents": 9900,
+     "signer_key_id": "ed25519:dac64c882122728445f9c2ec"
+    }
+   },
+   {
+    "amount_cents": 9900,
+    "effect_slot": "payer-b4",
+    "obligation_id": "pay-b4",
+    "payer": "owner:b4",
+    "payer_commitment": {
+     "commitment_id": "commit-c46aee2c5f2a4e7d",
+     "envelope_sha256": "8986ca7dc0b64173ee8222e1c9c230402cdd0feacc52548b10dde45f7d3a39ed",
+     "max_amount_cents": 9900,
+     "signer_key_id": "ed25519:146c1c2acd0c363c6e942ddf"
+    }
+   },
+   {
+    "amount_cents": 9900,
+    "effect_slot": "payer-b5",
+    "obligation_id": "pay-b5",
+    "payer": "owner:b5",
+    "payer_commitment": {
+     "commitment_id": "commit-5fdb43cd6853409c",
+     "envelope_sha256": "7e32c36342c5488f0be462afb1f1ea96734bfbccda226ea582fcc5abe90c301f",
+     "max_amount_cents": 9900,
+     "signer_key_id": "ed25519:e6aa1d490585d121c1a0d1a0"
+    }
+   }
+  ],
+  "payer_obligation_ids": [
+   "pay-b2",
+   "pay-b3",
+   "pay-b4",
+   "pay-b5"
+  ],
+  "payment_form": "4 separate PayPal Sandbox orders (one per buyer line), each captured at most once",
+  "profile": "sandbox-demo-v1",
+  "runtime_public_keys": {
+   "core_observer": "MuAvWT3kgqxPSH77G2FRhIX7qg6iANPTM2bUHUgg5ug=",
+   "fulfillment_simulator": "aPnqGgtaiE/u2uJLoQF3yYiw5/+9eS9IRdDLZnNEf08=",
+   "reporter_1": "/3qOhWAY5KdSLsNmG4zHTv6uIkwvOLiS4Tjo3JFNfeU=",
+   "reporter_2": "nXAXPq3VDV6fgTQ++v+loQUQGoteV6j0mnki6TTPzsY=",
+   "reporter_3": "lUvYaUy/SUwrqS6BwXmskVIL+oIVKUq/GB1QQQlH4AQ=",
+   "sandbox_admission": "RFkNwW79tDiu0msHuhtYeevCscomS5TpLEwKEUVE1L4="
+  },
+  "schema": "commerce.sandbox-demo.mission.v1",
+  "statement": "Settle 4 buyer line(s) of federation contract 809b4f82b5bd3e3d as separate PayPal Sandbox payments of $99.00 each to the merchant below, each approved by its own Sandbox buyer. Production and delivery remain SIMULATED."
+ },
+ "signature": "<redacted-copy: see private package>"
+}

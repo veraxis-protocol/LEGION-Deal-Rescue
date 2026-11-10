@@ -57,19 +57,23 @@ class ReleaseTests(unittest.TestCase):
     def test_paypal_truth(self):
         d = self.load("dossier", "WO004-A2-fresh-2", "DEAL_DOSSIER.json")
         p = d["paypal"]
-        self.assertEqual((p["readback_confirmed_captures"], p["provider_confirmed_cents"]), (1, 9900))
-        b1 = p["slots"][0]
-        self.assertEqual((b1["owner_id"], b1["state"], b1["provider_confirmed_cents"]), ("owner:b1", "SANDBOX_PAYMENT_CONFIRMED", 9900))
-        self.assertEqual(b1["contract_hash"], d["terms_versions"][-1]["contract_hash"])
-        self.assertEqual(b1["readback"]["payment_status"], "VERIFIED_COMPLETED")
-        self.assertEqual(b1["readback"]["captures_on_order"], 1)
-        self.assertTrue(all(s["state"] == "NOT_AUTHORIZED" and s["provider_confirmed_cents"] == 0 for s in p["slots"][1:]))
-        self.assertTrue(p["badge"].startswith("PAYPAL_PARTIAL_GO (1/5)"))
-        # a payment bound to fresh-2's contract must NOT appear on fresh-1 (different contract hash)
+        self.assertEqual((p["readback_confirmed_captures"], p["provider_confirmed_cents"]), (5, 49500))
+        v3 = d["terms_versions"][-1]["contract_hash"]
+        caps = set()
+        for s in p["slots"]:
+            self.assertEqual((s["state"], s["provider_confirmed_cents"], s["contract_hash"]), ("SANDBOX_PAYMENT_CONFIRMED", 9900, v3))
+            self.assertEqual(s["readback"]["payment_status"], "VERIFIED_COMPLETED")
+            self.assertEqual(s["readback"]["captures_on_order"], 1)
+            caps.add(s["capture_id"])
+        self.assertEqual(len(caps), 5)                       # five distinct captures, one per buyer
+        self.assertEqual(len({s["payer_commitment_id"] for s in p["slots"]}), 5)   # five distinct buyer consents
+        self.assertEqual(p["badge"], "PAYPAL_PAYMENT_GO (5/5)")
+        # payments bound to fresh-2's contract must NOT appear on fresh-1 (different contract hash)
         self.assertEqual(self.load("dossier", "WO004-A2-fresh-1", "DEAL_DOSSIER.json")["paypal"]["provider_confirmed_cents"], 0)
-        led = self.load("paypal_runs", "lmf007-20261109T232734Z", "LEDGER_EXPORT.json")
-        self.assertEqual(led["network_posts"], 2)   # one create + one capture, no retry
-        self.assertEqual(len(led["effects"]), 1)
+        l1 = self.load("paypal_runs", "lmf007-20261109T232734Z", "LEDGER_EXPORT.json")
+        l2 = self.load("paypal_runs", "lmf007-20261109T234414Z", "LEDGER_EXPORT.json")
+        self.assertEqual((l1["network_posts"], len(l1["effects"])), (2, 1))   # b1: create + capture
+        self.assertEqual((l2["network_posts"], len(l2["effects"])), (8, 4))   # b2-b5: 4 creates + 4 captures, no retry
 
     def test_economics_honest(self):
         e = self.load("ECONOMIC_CASE.json")

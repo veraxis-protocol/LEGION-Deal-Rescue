@@ -1,0 +1,41 @@
+{
+  "capture": {
+    "amount": {
+      "currency_code": "USD",
+      "value": "99.00"
+    },
+    "create_time": "2026-11-10T00:02:41Z",
+    "final_capture": true,
+    "id": "3PG41022DY609720J",
+    "related_order_id": "87755191MF0805623",
+    "status": "COMPLETED",
+    "update_time": "2026-11-10T00:02:41Z"
+  },
+  "capture_digest": "1975b45e93a8240264f42b2b63a345b83e91ead29976092518f6cc7ba0fc46a5",
+  "captures_on_order": 1,
+  "effect_id": "820de32faaef68b8a52f2a153b68090a4254cb4c86df0302c42ebd3d647cefc4",
+  "environment": "PAYPAL_SANDBOX (no real money)",
+  "ledger_effects": 3,
+  "order": {
+    "amount": {
+      "breakdown": {},
+      "currency_code": "USD",
+      "value": "99.00"
+    },
+    "create_time": "2026-11-10T00:02:41Z",
+    "description": "Sandbox bundle; synthetic service fulfilment only",
+    "id": "87755191MF0805623",
+    "intent": "CAPTURE",
+    "invoice_id": "820de32faaef68b8a52f2a153b68090a4254cb4c86df0302c42ebd3d647cefc4",
+    "payee_merchant_id": "SANDBOX_MERCHANT_REDACTED",
+    "payer": "REDACTED (sandbox buyer identifiers not retained)",
+    "status": "COMPLETED",
+    "update_time": "2026-11-10T00:02:41Z"
+  },
+  "order_digest": "233a4a05aa6992422e976e1c7d53e11067aaaf2ae56335417f16475874906c10",
+  "payment_status": "VERIFIED_COMPLETED",
+  "process": "separate (python -m commerce_demo.readback)",
+  "readback_at": 1794268967,
+  "schema": "commerce.demo.paypal-readback.v1",
+  "source": "PAYPAL_SANDBOX_AUTHENTICATED_GET"
+}

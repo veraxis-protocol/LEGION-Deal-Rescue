@@ -4,8 +4,8 @@
  "run_id": "WO004-A2-fresh-2",
  "run_dir_name": "A2-fresh-2",
  "evidence_mode": "FRESH_SYNTHETIC",
- "source_commit": "075be19a559e152325ba62ce490de2a5e74805a5",
- "built_at": "2026-11-09T23:46:21Z",
+ "source_commit": "fcceac22eae5eb7a310d593b5fc57e41b84bebfa",
+ "built_at": "2026-11-10T00:06:01Z",
  "run_files_sha256": {
   "ACTION_PERMITS.jsonl": "ea0b7e2ed4435af42da4de4227061c5ee18754fcc2bd6eff4d3b220f1e078ee8",
   "CONTRACT_VERSIONS.jsonl": "6f28d17274c68e527a66d4d9bcc21b4b11c2852de6a7b67f9cde45cb41fcd676",
@@ -25,7 +25,7 @@
   "world": "SIMULATED \u2014 no physical manufacture or delivery",
   "requests": "DEMO REQUESTS \u2014 SYNTHETIC",
   "replay": "FRESH SYNTHETIC RUN (first attempt, scorer frozen before run)",
-  "paypal": "PAYPAL_PARTIAL_GO (1/5) \u2014 SANDBOX_PAYMENT_CONFIRMED: $99",
+  "paypal": "PAYPAL_PAYMENT_GO (5/5)",
   "economics": "NOT YET PROFITABLE / NOT ECONOMICALLY VALIDATED"
  },
  "requests": [
@@ -1174,11 +1174,54 @@
     "obligation_id": "pay-b2",
     "amount_cents": 9900,
     "currency": "USD",
-    "payee": "UNKNOWN (merchant of record not established)",
-    "state": "NOT_AUTHORIZED",
-    "evidence_mode": "FRESH_SYNTHETIC",
-    "provider_confirmed_cents": 0,
-    "status_source": "no PayPal mission bound to this run's contract"
+    "payee": "Sandbox merchant (id redacted)",
+    "state": "SANDBOX_PAYMENT_CONFIRMED",
+    "evidence_mode": "REAL_SANDBOX (PayPal Sandbox, no real money)",
+    "provider_confirmed_cents": 9900,
+    "status_source": "independent separate-process readback (python -m commerce_demo.readback), fresh PayPal GETs",
+    "mission_id": "LMF-007-20261109T234414Z",
+    "contract_hash": "809b4f82b5bd3e3dd130d98ae3ca9644d7bca77818b60284e8d3ac0d9763dc8d",
+    "payer_commitment_id": "commit-9ef8a556c27c48a3",
+    "order_id": "94R14114MG3843349",
+    "capture_id": "76276237BR937351W",
+    "effect_id": "81cf5ce8e08b732c7da89706cbd995235efdc3f8bea3dd8b77738b660abccfa5",
+    "captured_at": "2026-11-09T23:57:08Z",
+    "readback_at": 1794268651,
+    "readback": {
+     "process": "separate (python -m commerce_demo.readback)",
+     "source": "PAYPAL_SANDBOX_AUTHENTICATED_GET",
+     "environment": "PAYPAL_SANDBOX (no real money)",
+     "payment_status": "VERIFIED_COMPLETED",
+     "captures_on_order": 1,
+     "readback_at": 1794268651,
+     "order": {
+      "amount": {
+       "breakdown": {},
+       "currency_code": "USD",
+       "value": "99.00"
+      },
+      "create_time": "2026-11-09T23:57:08Z",
+      "description": "Sandbox bundle; synthetic service fulfilment only",
+      "id": "94R14114MG3843349",
+      "intent": "CAPTURE",
+      "invoice_id": "81cf5ce8e08b732c7da89706cbd995235efdc3f8bea3dd8b77738b660abccfa5",
+      "payer": "REDACTED (sandbox buyer identifiers not retained)",
+      "status": "COMPLETED",
+      "update_time": "2026-11-09T23:57:08Z"
+     },
+     "capture": {
+      "amount": {
+       "currency_code": "USD",
+       "value": "99.00"
+      },
+      "create_time": "2026-11-09T23:57:08Z",
+      "final_capture": true,
+      "id": "76276237BR937351W",
+      "related_order_id": "94R14114MG3843349",
+      "status": "COMPLETED",
+      "update_time": "2026-11-09T23:57:08Z"
+     }
+    }
    },
    {
     "customer": "Customer C",
@@ -1186,11 +1229,54 @@
     "obligation_id": "pay-b3",
     "amount_cents": 9900,
     "currency": "USD",
-    "payee": "UNKNOWN (merchant of record not established)",
-    "state": "NOT_AUTHORIZED",
-    "evidence_mode": "FRESH_SYNTHETIC",
-    "provider_confirmed_cents": 0,
-    "status_source": "no PayPal mission bound to this run's contract"
+    "payee": "Sandbox merchant (id redacted)",
+    "state": "SANDBOX_PAYMENT_CONFIRMED",
+    "evidence_mode": "REAL_SANDBOX (PayPal Sandbox, no real money)",
+    "provider_confirmed_cents": 9900,
+    "status_source": "independent separate-process readback (python -m commerce_demo.readback), fresh PayPal GETs",
+    "mission_id": "LMF-007-20261109T234414Z",
+    "contract_hash": "809b4f82b5bd3e3dd130d98ae3ca9644d7bca77818b60284e8d3ac0d9763dc8d",
+    "payer_commitment_id": "commit-d332f282a3084f94",
+    "order_id": "9JC70580TU2910239",
+    "capture_id": "71988721JR129760J",
+    "effect_id": "4a2ead186f1bb5d2a540874c121a73755c87c966f1a2a5ef1b255d18172cb92d",
+    "captured_at": "2026-11-10T00:00:28Z",
+    "readback_at": 1794268835,
+    "readback": {
+     "process": "separate (python -m commerce_demo.readback)",
+     "source": "PAYPAL_SANDBOX_AUTHENTICATED_GET",
+     "environment": "PAYPAL_SANDBOX (no real money)",
+     "payment_status": "VERIFIED_COMPLETED",
+     "captures_on_order": 1,
+     "readback_at": 1794268835,
+     "order": {
+      "amount": {
+       "breakdown": {},
+       "currency_code": "USD",
+       "value": "99.00"
+      },
+      "create_time": "2026-11-10T00:00:28Z",
+      "description": "Sandbox bundle; synthetic service fulfilment only",
+      "id": "9JC70580TU2910239",
+      "intent": "CAPTURE",
+      "invoice_id": "4a2ead186f1bb5d2a540874c121a73755c87c966f1a2a5ef1b255d18172cb92d",
+      "payer": "REDACTED (sandbox buyer identifiers not retained)",
+      "status": "COMPLETED",
+      "update_time": "2026-11-10T00:00:28Z"
+     },
+     "capture": {
+      "amount": {
+       "currency_code": "USD",
+       "value": "99.00"
+      },
+      "create_time": "2026-11-10T00:00:28Z",
+      "final_capture": true,
+      "id": "71988721JR129760J",
+      "related_order_id": "9JC70580TU2910239",
+      "status": "COMPLETED",
+      "update_time": "2026-11-10T00:00:28Z"
+     }
+    }
    },
    {
     "customer": "Customer D",
@@ -1198,11 +1284,54 @@
     "obligation_id": "pay-b4",
     "amount_cents": 9900,
     "currency": "USD",
-    "payee": "UNKNOWN (merchant of record not established)",
-    "state": "NOT_AUTHORIZED",
-    "evidence_mode": "FRESH_SYNTHETIC",
-    "provider_confirmed_cents": 0,
-    "status_source": "no PayPal mission bound to this run's contract"
+    "payee": "Sandbox merchant (id redacted)",
+    "state": "SANDBOX_PAYMENT_CONFIRMED",
+    "evidence_mode": "REAL_SANDBOX (PayPal Sandbox, no real money)",
+    "provider_confirmed_cents": 9900,
+    "status_source": "independent separate-process readback (python -m commerce_demo.readback), fresh PayPal GETs",
+    "mission_id": "LMF-007-20261109T234414Z",
+    "contract_hash": "809b4f82b5bd3e3dd130d98ae3ca9644d7bca77818b60284e8d3ac0d9763dc8d",
+    "payer_commitment_id": "commit-c46aee2c5f2a4e7d",
+    "order_id": "87755191MF0805623",
+    "capture_id": "3PG41022DY609720J",
+    "effect_id": "820de32faaef68b8a52f2a153b68090a4254cb4c86df0302c42ebd3d647cefc4",
+    "captured_at": "2026-11-10T00:02:41Z",
+    "readback_at": 1794268967,
+    "readback": {
+     "process": "separate (python -m commerce_demo.readback)",
+     "source": "PAYPAL_SANDBOX_AUTHENTICATED_GET",
+     "environment": "PAYPAL_SANDBOX (no real money)",
+     "payment_status": "VERIFIED_COMPLETED",
+     "captures_on_order": 1,
+     "readback_at": 1794268967,
+     "order": {
+      "amount": {
+       "breakdown": {},
+       "currency_code": "USD",
+       "value": "99.00"
+      },
+      "create_time": "2026-11-10T00:02:41Z",
+      "description": "Sandbox bundle; synthetic service fulfilment only",
+      "id": "87755191MF0805623",
+      "intent": "CAPTURE",
+      "invoice_id": "820de32faaef68b8a52f2a153b68090a4254cb4c86df0302c42ebd3d647cefc4",
+      "payer": "REDACTED (sandbox buyer identifiers not retained)",
+      "status": "COMPLETED",
+      "update_time": "2026-11-10T00:02:41Z"
+     },
+     "capture": {
+      "amount": {
+       "currency_code": "USD",
+       "value": "99.00"
+      },
+      "create_time": "2026-11-10T00:02:41Z",
+      "final_capture": true,
+      "id": "3PG41022DY609720J",
+      "related_order_id": "87755191MF0805623",
+      "status": "COMPLETED",
+      "update_time": "2026-11-10T00:02:41Z"
+     }
+    }
    },
    {
     "customer": "Customer E",
@@ -1210,20 +1339,63 @@
     "obligation_id": "pay-b5",
     "amount_cents": 9900,
     "currency": "USD",
-    "payee": "UNKNOWN (merchant of record not established)",
-    "state": "NOT_AUTHORIZED",
-    "evidence_mode": "FRESH_SYNTHETIC",
-    "provider_confirmed_cents": 0,
-    "status_source": "no PayPal mission bound to this run's contract"
+    "payee": "Sandbox merchant (id redacted)",
+    "state": "SANDBOX_PAYMENT_CONFIRMED",
+    "evidence_mode": "REAL_SANDBOX (PayPal Sandbox, no real money)",
+    "provider_confirmed_cents": 9900,
+    "status_source": "independent separate-process readback (python -m commerce_demo.readback), fresh PayPal GETs",
+    "mission_id": "LMF-007-20261109T234414Z",
+    "contract_hash": "809b4f82b5bd3e3dd130d98ae3ca9644d7bca77818b60284e8d3ac0d9763dc8d",
+    "payer_commitment_id": "commit-5fdb43cd6853409c",
+    "order_id": "5AM5115112156543W",
+    "capture_id": "65542700KX1483810",
+    "effect_id": "352b949754c02d29fd262fe4cd468249ec56724c66704d42a0644bf166e83fb6",
+    "captured_at": "2026-11-10T00:05:15Z",
+    "readback_at": 1794269122,
+    "readback": {
+     "process": "separate (python -m commerce_demo.readback)",
+     "source": "PAYPAL_SANDBOX_AUTHENTICATED_GET",
+     "environment": "PAYPAL_SANDBOX (no real money)",
+     "payment_status": "VERIFIED_COMPLETED",
+     "captures_on_order": 1,
+     "readback_at": 1794269122,
+     "order": {
+      "amount": {
+       "breakdown": {},
+       "currency_code": "USD",
+       "value": "99.00"
+      },
+      "create_time": "2026-11-10T00:05:15Z",
+      "description": "Sandbox bundle; synthetic service fulfilment only",
+      "id": "5AM5115112156543W",
+      "intent": "CAPTURE",
+      "invoice_id": "352b949754c02d29fd262fe4cd468249ec56724c66704d42a0644bf166e83fb6",
+      "payer": "REDACTED (sandbox buyer identifiers not retained)",
+      "status": "COMPLETED",
+      "update_time": "2026-11-10T00:05:15Z"
+     },
+     "capture": {
+      "amount": {
+       "currency_code": "USD",
+       "value": "99.00"
+      },
+      "create_time": "2026-11-10T00:05:15Z",
+      "final_capture": true,
+      "id": "65542700KX1483810",
+      "related_order_id": "5AM5115112156543W",
+      "status": "COMPLETED",
+      "update_time": "2026-11-10T00:05:15Z"
+     }
+    }
    }
   ],
-  "readback_confirmed_captures": 1,
+  "readback_confirmed_captures": 5,
   "slots_total": 5,
-  "provider_confirmed_cents": 9900,
+  "provider_confirmed_cents": 49500,
   "new_provider_posts_this_wo": 0,
   "historic_mission_bound_to_this_contract": false,
   "admission": "sandbox-demo-v1: owner-signed mission per payer + fresh qualified Lean T per POST",
-  "badge": "PAYPAL_PARTIAL_GO (1/5) \u2014 SANDBOX_PAYMENT_CONFIRMED: $99"
+  "badge": "PAYPAL_PAYMENT_GO (5/5)"
  },
  "contract": {
   "deal_id": "deal-809b4f82b5bd",
@@ -1495,26 +1667,26 @@
    {
     "payer": "owner:b2",
     "amount_cents": 9900,
-    "payee": "UNKNOWN (merchant of record not established)",
-    "state": "NOT_AUTHORIZED"
+    "payee": "Sandbox merchant (id redacted)",
+    "state": "SANDBOX_PAYMENT_CONFIRMED"
    },
    {
     "payer": "owner:b3",
     "amount_cents": 9900,
-    "payee": "UNKNOWN (merchant of record not established)",
-    "state": "NOT_AUTHORIZED"
+    "payee": "Sandbox merchant (id redacted)",
+    "state": "SANDBOX_PAYMENT_CONFIRMED"
    },
    {
     "payer": "owner:b4",
     "amount_cents": 9900,
-    "payee": "UNKNOWN (merchant of record not established)",
-    "state": "NOT_AUTHORIZED"
+    "payee": "Sandbox merchant (id redacted)",
+    "state": "SANDBOX_PAYMENT_CONFIRMED"
    },
    {
     "payer": "owner:b5",
     "amount_cents": 9900,
-    "payee": "UNKNOWN (merchant of record not established)",
-    "state": "NOT_AUTHORIZED"
+    "payee": "Sandbox merchant (id redacted)",
+    "state": "SANDBOX_PAYMENT_CONFIRMED"
    }
   ]
  },

@@ -268,26 +268,26 @@
   {
    "payer": "owner:b2",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
-   "state": "NOT_AUTHORIZED"
+   "payee": "Sandbox merchant (id redacted)",
+   "state": "SANDBOX_PAYMENT_CONFIRMED"
   },
   {
    "payer": "owner:b3",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
-   "state": "NOT_AUTHORIZED"
+   "payee": "Sandbox merchant (id redacted)",
+   "state": "SANDBOX_PAYMENT_CONFIRMED"
   },
   {
    "payer": "owner:b4",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
-   "state": "NOT_AUTHORIZED"
+   "payee": "Sandbox merchant (id redacted)",
+   "state": "SANDBOX_PAYMENT_CONFIRMED"
   },
   {
    "payer": "owner:b5",
    "amount_cents": 9900,
-   "payee": "UNKNOWN (merchant of record not established)",
-   "state": "NOT_AUTHORIZED"
+   "payee": "Sandbox merchant (id redacted)",
+   "state": "SANDBOX_PAYMENT_CONFIRMED"
   }
  ]
 }

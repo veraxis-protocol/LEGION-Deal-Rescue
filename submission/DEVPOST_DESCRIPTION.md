@@ -58,7 +58,7 @@ Every number in the UI opens its source record: file, record, JSON path and SHA-
 - **AI:** NVIDIA NIM `nemotron-3.5-lightning-30b-a3b` makes every owner's accept/reject decision and the coordinator's design choices. In each fresh run that is 27 model decisions across 7 owners plus the coordinator.
 - **PayPal:** Orders v2 is the payment rail, one order per buyer and obligation, never a pooled charge.
 
-**Status: one real PayPal Sandbox payment, independently verified (1 of 5).** Customer A's Sandbox buyer approved $99.00 on PayPal; the order was captured once (COMPLETED) under an owner-signed mission bound to the seven-owner contract, with a fresh Lean admission decision before each POST, and a separate-process readback of PayPal's records confirmed it. The other four payers are not yet authorized; we show them as unpaid. Sandbox test money, not revenue.
+**Status: all five buyers paid in PayPal Sandbox, each independently verified (5 of 5, $495.00).** Each customer's own Sandbox buyer approved its own $99.00 order on PayPal; each was captured exactly once (COMPLETED) under an owner-signed mission bound to the seven-owner contract, with a fresh Lean admission decision before every POST, and a separate-process readback of PayPal's records confirmed it. 5 orders, 5 captures, 0 retries, 0 duplicates. Sandbox test money, not revenue.
 
 ## Challenges
 
