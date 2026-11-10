@@ -10,6 +10,7 @@ import json
 import mimetypes
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from deal_rescue.industrial import core as industrial
 from urllib.parse import parse_qs, urlparse
 
 WEB = Path(__file__).parent / "web"
@@ -57,6 +58,20 @@ class H(BaseHTTPRequestHandler):
                 if WEB.resolve() not in p.parents:
                     return self.send(404, {"error": "not found"})
                 return self.send(200, p.read_bytes(), mimetypes.guess_type(str(p))[0] or "application/octet-stream")
+            if u.path == "/api/industrial/registry":
+                return self.send(200, industrial.source_registry())
+            if u.path == "/api/industrial/cases":
+                return self.send(200, industrial.cases_index())
+            if u.path == "/api/industrial/decision":
+                return self.send(200, industrial.run_case(q.get("case", "coalition")))
+            if u.path == "/api/industrial/passport":
+                case = q.get("case", "coalition")
+                return self.send(200, industrial.run_case(case), "application/json",
+                                 {"Content-Disposition": 'attachment; filename="INDUSTRIAL_PASSPORT.json"'})
+            if u.path == "/api/industrial/rfq":
+                case = q.get("case", "coalition")
+                return self.send(200, industrial.supplier_rfq(case).encode("utf-8"), "text/plain; charset=utf-8",
+                                 {"Content-Disposition": 'attachment; filename="RFQ_DRAFT_NOT_SENT.txt"'})
             if u.path == "/api/runs":
                 return self.send(200, [{"run_id": k, "evidence_mode": json.loads((d / "DEAL_DOSSIER.json").read_text())["evidence_mode"]}
                                        for k, (_, d) in RUNS.items()])
