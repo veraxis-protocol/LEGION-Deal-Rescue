@@ -23,7 +23,7 @@ Expected results:
 - Negative matrix: 15/15.
 - `run-2` shows 5 of 5 buyers paid ($495.00, Sandbox). `run-1` shows no payment, because it is a different contract.
 
-Payment adapter tests and payment negative controls:
+Payment adapter tests and payment negative controls (Windows; the adapter uses Windows DPAPI):
 
 ```bash
 pip install -r paypal_adapter/requirements.lock
@@ -50,7 +50,7 @@ Later commits to Federation and Marketplace change documentation only.
 Before running, the script checks the Judge source hash, `9146122791d2d2a6f4cada2019c825b2c4925b6e4182fe91f55a7bae74f2992f`. The model is `nvidia/nemotron-3.5-lightning-30b-a3b`; you can override it with `LMF_NIM_MODEL`.
 
 A fresh run is a new first attempt; its outcome is whatever the Judge returns. Track record so far:
-- three fresh first attempts, all passed;
+- four fresh first attempts, all passed;
 - the first campaign on 2026-11-07 passed 1 of 3 attempts. One NIM provider error failed closed, and one private-data leak was caught by the Judge.
 
 A fresh run has its own contract, so it shows no PayPal payment.

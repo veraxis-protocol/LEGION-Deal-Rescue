@@ -113,6 +113,19 @@ def claims(d, ui_text=""):
     return {"issues": issues, "pass": not issues}
 
 
+def forge_two_confirmed(m, same_capture):
+    """Mutant helper: mark payers A and B confirmed with otherwise well-formed evidence (works on runs with or without payments)."""
+    v3 = m["terms_versions"][-1]["contract_hash"]
+    for i, s in enumerate(m["paypal"]["slots"][:2]):
+        s.update({"state": "SANDBOX_PAYMENT_CONFIRMED", "provider_confirmed_cents": s["amount_cents"], "contract_hash": v3,
+                  "provider_posts": 2, "admission_verdict": "T", "order_id": s.get("order_id") or f"FORGEDORDER{i}",
+                  "capture_id": "FORGEDCAPTURE" if same_capture else (s.get("capture_id") or f"FORGEDCAPTURE{i}"),
+                  "readback": s.get("readback") or {"payment_status": "VERIFIED_COMPLETED"}})
+    conf = [s for s in m["paypal"]["slots"] if s["state"] == "SANDBOX_PAYMENT_CONFIRMED"]
+    m["paypal"]["readback_confirmed_captures"] = len(conf)
+    m["paypal"]["provider_confirmed_cents"] = sum(s["provider_confirmed_cents"] for s in m["paypal"]["slots"])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--evidence", required=True)
@@ -177,8 +190,8 @@ def main():
         ("N11", "false COMPLETE with missing original obligation", [aud_mutant("drop one shipment receipt", lambda m: m.__setitem__("execution", [x for x in m["execution"] if x["obligation_id"] != "ship-owner:b5"]), mission_status)]),
         ("N12", "evidence_mode mixed across run ids", [aud_mutant("figure from another run", lambda m: m["figures"].__setitem__("v3.total", dict(hd["figures"]["v3.total"])), lambda m: provenance(m, frun)["pass"]),
                                                        aud_mutant("historic PayPal state on fresh run", lambda m: m["paypal"]["slots"][-1].update({"evidence_mode": "REAL_SANDBOX (historic)", "contract_hash": "b444a7b9bee7e58b970c65cce3f8e09be9cbd07ed6ab9c696bc2ea2cc2af0448"}), lambda m: claims(m)["pass"]),
-                                                       aud_mutant("same capture attributed to two payers", lambda m: m["paypal"]["slots"][1].update({"capture_id": m["paypal"]["slots"][0]["capture_id"]}), lambda m: claims(m)["pass"]),
-                                                       aud_mutant("confirmed payment without readback", lambda m: m["paypal"]["slots"][1].update({"state": "SANDBOX_PAYMENT_CONFIRMED", "provider_confirmed_cents": 9900, "capture_id": None, "readback": None}), lambda m: claims(m)["pass"]),
+                                                       aud_mutant("same capture attributed to two payers", lambda m: forge_two_confirmed(m, same_capture=True), lambda m: claims(m)["pass"]),
+                                                       aud_mutant("confirmed payment without readback", lambda m: forge_two_confirmed(m, same_capture=False) or m["paypal"]["slots"][1].update({"capture_id": None, "readback": None}), lambda m: claims(m)["pass"]),
                                                        {"run_observation": "fresh run PayPal slots bound to historic mission: %s" % fd["paypal"]["historic_mission_bound_to_this_contract"], "pass": not fd["paypal"]["historic_mission_bound_to_this_contract"]}]),
         ("N13", "caps met but contribution <= 0 -> no PROFITABLE claim", [aud_mutant("badge says PROFITABLE", lambda m: m["badges"].__setitem__("economics", "PROFITABLE"), lambda m: claims(m)["pass"]),
                                                                            {"run_observation": "contribution %d cents; claims check %s" % (fd["economics"]["pass_through_contribution_cents"], report[a.counted]["claims"]["pass"]), "pass": report[a.counted]["claims"]["pass"]}]),

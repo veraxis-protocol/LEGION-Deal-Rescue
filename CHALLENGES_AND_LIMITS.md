@@ -25,7 +25,7 @@
 - The value shown here is per-party signed consent, versioned contracts, admission checks and independent verification, not better matching.
 
 **Reliability.**
-- Three fresh first attempts passed.
+- Four fresh first attempts passed.
 - The first campaign (2026-11-07) failed twice before passing: one AI provider error that failed closed, and one private-data leak that the Judge caught.
 - The sample is small.
 

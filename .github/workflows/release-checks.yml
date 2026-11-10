@@ -30,11 +30,13 @@ jobs:
       - name: Release tests (payments, contract binding, Judge facts, economics, negative matrix)
         run: python -B -m unittest discover -s tests -v
 
-      - name: Payment adapter tests (fake provider, no network)
+      - name: Payment adapter tests (fake provider, no network; Windows-only adapter)
+        if: matrix.os == 'windows-latest'
         working-directory: paypal_adapter
         run: python -B -m unittest discover -s tests -t .
 
-      - name: Payment negative controls (N07, N09, N10, N14)
+      - name: Payment negative controls (N07, N09, N10, N14; Windows-only adapter)
+        if: matrix.os == 'windows-latest'
         run: python -B scripts/run_payment_negatives.py "${RUNNER_TEMP}/payment_negatives.json"
 
       - name: Raw evidence unchanged by the build
@@ -72,5 +74,5 @@ jobs:
 
       - name: No secrets, private identifiers or machine paths
         run: |
-          ! grep -rIlE 'nvapi-[A-Za-z0-9]{8}|client_secret["'"'"' ]*[:=] *["'"'"'][A-Za-z0-9]|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|RGFNDXFWF988G|C:\\\\Users\\\\Administrator|/c/Users/Administrator|Dropbox' \
+          ! grep -rIlE 'nvapi-[A-Za-z0-9]{8}|client_secret["'"'"' ]*[:=] *["'"'"'][A-Za-z0-9]|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|RGFNDXFWF988G|Users[\/]+Administrator|ADMINI~1|Dropbox' \
             --exclude-dir=.git --exclude-dir=.github .

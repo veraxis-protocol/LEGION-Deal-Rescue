@@ -4,8 +4,8 @@
  "run_id": "run-2",
  "run_dir_name": "A2-fresh-2",
  "evidence_mode": "FRESH_SYNTHETIC",
- "source_commit": "603670410c7697c1ca676433bba749af055d49f5",
- "built_at": "2026-11-10T00:27:13Z",
+ "source_commit": "7668f2ce2a83269dde2a55fb4d82d3695dd7bfa6",
+ "built_at": "2026-11-10T00:32:01Z",
  "run_files_sha256": {
   "ACTION_PERMITS.jsonl": "ea0b7e2ed4435af42da4de4227061c5ee18754fcc2bd6eff4d3b220f1e078ee8",
   "CONTRACT_VERSIONS.jsonl": "6f28d17274c68e527a66d4d9bcc21b4b11c2852de6a7b67f9cde45cb41fcd676",

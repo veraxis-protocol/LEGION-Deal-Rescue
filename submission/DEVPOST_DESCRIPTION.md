@@ -67,7 +67,7 @@ Every number in the app opens its source record. The Deal Dossier and Execution 
 
 ## Accomplishments
 
-- Three fresh first attempts with seven independent parties, each passing the Judge (63/63).
+- Four fresh first attempts with seven independent parties, each passing the Judge (63/63).
 - 25 of 25 adversarial negatives, with 0 forbidden effects.
 - Five independently verified Sandbox payments.
 - Every figure in the UI traced to evidence.

@@ -36,7 +36,7 @@ screen links to the exact record it came from: file, record, JSON path and SHA-2
 
 | What | Result | Evidence |
 |---|---|---|
-| Seven-party deal, fresh runs (each a first attempt) | **3 of 3** passed the independent Judge, **63/63 checks** each, 4/4 tamper tests detected | `demo_evidence/runs/`, [VERIFICATION.md](VERIFICATION.md) |
+| Seven-party deal, fresh runs (each a first attempt) | **4 of 4** passed the independent Judge, **63/63 checks** each, 4/4 tamper tests detected | `demo_evidence/runs/`, [VERIFICATION.md](VERIFICATION.md) |
 | Price above caps ($540) | refused by 5 of 5 buyers on their own cap rule | contract versions in each run |
 | Incompatible cheaper design | rejected by the engineer, never offered | qualification records |
 | Adversarial negatives against live parties | **25/25**, 0 forbidden effects | `demo_evidence/negatives/` |
@@ -112,7 +112,7 @@ buyers, and each buyer's approval on PayPal's own page. See [REPRODUCE.md](REPRO
 ```bash
 python -B -m unittest discover -s tests -v                                   # release tests
 pip install -r paypal_adapter/requirements.lock
-cd paypal_adapter && python -B -m unittest discover -s tests -t . && cd ..   # 46 payment adapter tests
+cd paypal_adapter && python -B -m unittest discover -s tests -t . && cd ..   # 46 payment adapter tests (Windows)
 python -B scripts/run_payment_negatives.py                                   # payment negative controls
 ```
 

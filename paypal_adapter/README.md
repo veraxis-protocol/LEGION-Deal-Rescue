@@ -19,7 +19,7 @@ byte-identical to the one that made the five Sandbox captures (see [../docs/PAYM
 - PayPal REST credentials are read from `%LOCALAPPDATA%\Veraxis\LEGION-Commerce\`, sealed with Windows DPAPI.
 - The adapter never imports credentials from the environment, the repository or the browser.
 
-**Tests (no network, fake provider)**
+**Tests (no network, fake provider; Windows, because the adapter uses Windows DPAPI)**
 
 ```bash
 pip install -r requirements.lock
