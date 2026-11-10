@@ -24,7 +24,7 @@ def sh(*args):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--evidence", default="demo_evidence")
-    ap.add_argument("--counted", default="A2-fresh-2", help="run directory name of the counted fresh run")
+    ap.add_argument("--counted", default="A2-fresh-2", help="run directory name of the run whose results are counted")
     ap.add_argument("--negatives", default="negatives", help="dir with NEGATIVE_RESULTS.json (relative to evidence)")
     ap.add_argument("--port", type=int, default=8795)
     ap.add_argument("--no-serve", action="store_true")
@@ -33,7 +33,7 @@ def main():
     runs = sorted(p.name for p in (ev / "runs").iterdir() if p.is_dir())
     ids = {}
     for r in runs:
-        rid = "WO004-" + r if r.startswith("A2-fresh") else r
+        rid = "run-" + r.split("-")[-1] if r.startswith("A2-fresh-") else "run-live-" + r.split("-")[-1] if r.startswith("A2-live-") else r
         ids[r] = rid
         pay = [x for p in sorted((ev / "paypal_runs").glob("*")) if p.is_dir() for x in ("--paypal-run", str(p))] if (ev / "paypal_runs").exists() else []
         print(sh("-m", "deal_rescue.dossier", "--run", str(ev / "runs" / r), "--mode", "FRESH_SYNTHETIC", "--run-id", rid, "--out", str(ev / "dossier" / rid), *pay))

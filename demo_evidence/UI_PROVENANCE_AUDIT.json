@@ -1,5 +1,5 @@
 {
- "WO004-A2-fresh-1": {
+ "run-1": {
   "provenance": {
    "figures": 88,
    "figure_failures": [],
@@ -16,7 +16,7 @@
   },
   "judge": "PASS_COMPLETED"
  },
- "WO004-A2-fresh-2": {
+ "run-2": {
   "provenance": {
    "figures": 88,
    "figure_failures": [],

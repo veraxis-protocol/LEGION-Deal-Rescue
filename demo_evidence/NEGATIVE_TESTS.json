@@ -1,12 +1,9 @@
 {
- "counted_run": "WO004-A2-fresh-2",
+ "counted_run": "run-2",
  "summary": {
-  "attempted": 13,
-  "passed": 13,
-  "blocked": [
-   "N10",
-   "N14"
-  ],
+  "attempted": 15,
+  "passed": 15,
+  "blocked": [],
   "failed": [],
   "harness": {
    "forbidden_effects": 0,
@@ -109,7 +106,7 @@
      "forbidden_effects": 0
     },
     {
-     "observation": "provider POSTs in WO-004: 0",
+     "observation": "10 PayPal POSTs, each under a current signed authorization with admission decision T",
      "pass": true
     }
    ]
@@ -150,7 +147,7 @@
      "forbidden_effects": 0
     },
     {
-     "historic": "WO-LMF-006 A2-attempt-2 Judge FAIL J8 (CUST-b5-1, fixture QF-7 cost) preserved",
+     "historic": "An earlier attempt (2026-11-07) failed Judge check J8 for leaking a party's private values; kept as negative evidence",
      "pass": true
     }
    ]
@@ -158,7 +155,7 @@
   {
    "id": "N07",
    "attack": "duplicate create/capture same obligation",
-   "status": "PASS (synthetic leg; PayPal leg BLOCKED)",
+   "status": "PASS",
    "evidence": [
     {
      "case": "N3-8",
@@ -178,8 +175,12 @@
      "detected": true
     },
     {
-     "paypal_leg": "BLOCKED (not authorized; not exercised)",
-     "pass": null
+     "payment_negative_mock_provider": "tests.test_release_negatives.ReleaseNegatives.test_n07_duplicate_capture_single_post",
+     "pass": true
+    },
+    {
+     "sandbox_observation": "5 confirmed payments, 5 distinct captures, 2 POSTs per payment",
+     "pass": true
     }
    ]
   },
@@ -203,7 +204,7 @@
   {
    "id": "N09",
    "attack": "lost/ambiguous provider response -> HOLD",
-   "status": "PASS (synthetic leg; PayPal leg BLOCKED)",
+   "status": "PASS",
    "evidence": [
     {
      "case": "N3-8",
@@ -212,19 +213,27 @@
      "forbidden_effects": 0
     },
     {
-     "paypal_leg": "BLOCKED: native provider leg not authorized in WO-004 (historic LMF-007 22/22 admission tests not re-run)",
-     "pass": null
+     "payment_negative_mock_provider": "tests.test_gateway.GatewayTests.test_unknown_capture_approved_readback_does_not_retry",
+     "pass": true
     }
    ]
   },
   {
    "id": "N10",
    "attack": "payee identity swap / wrong payer",
-   "status": "BLOCKED",
+   "status": "PASS",
    "evidence": [
     {
-     "paypal_leg": "BLOCKED: not exercised (no authority)",
-     "pass": null
+     "payment_negative_mock_provider": "tests.test_release_negatives.ReleaseNegatives.test_n10_payee_swapped_at_provider_no_capture",
+     "pass": true
+    },
+    {
+     "payment_negative_mock_provider": "tests.test_release_negatives.ReleaseNegatives.test_n10_approved_without_payer_identity_no_capture",
+     "pass": true
+    },
+    {
+     "payment_negative_mock_provider": "tests.test_gateway.GatewayTests.test_t08_unsigned_changed_amount_merchant",
+     "pass": true
     }
    ]
   },
@@ -252,6 +261,11 @@
     },
     {
      "auditor_mutant": "historic PayPal state on fresh run",
+     "result": false,
+     "detected": true
+    },
+    {
+     "auditor_mutant": "same capture attributed to two payers",
      "result": false,
      "detected": true
     },
@@ -285,11 +299,19 @@
   {
    "id": "N14",
    "attack": "callback navigation without provider APPROVED -> no capture",
-   "status": "BLOCKED",
+   "status": "PASS",
    "evidence": [
     {
-     "paypal_leg": "BLOCKED: not exercised (no authority)",
-     "pass": null
+     "payment_negative_mock_provider": "tests.test_release_negatives.ReleaseNegatives.test_n14_capture_without_provider_approval_no_capture",
+     "pass": true
+    },
+    {
+     "payment_negative_mock_provider": "tests.test_approval.ApprovalTests.test_callback_does_not_replace_buyer_approval",
+     "pass": true
+    },
+    {
+     "payment_negative_mock_provider": "tests.test_approval.ApprovalTests.test_forged_callback_no_capture",
+     "pass": true
     }
    ]
   },

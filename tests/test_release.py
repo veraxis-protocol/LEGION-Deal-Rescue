@@ -40,7 +40,7 @@ class ReleaseTests(unittest.TestCase):
             self.assertEqual(v["mission_status"], "SIMULATED_MISSION_VERIFIED", rid)
 
     def test_judge_and_scenario_facts(self):
-        for rid in ("WO004-A2-fresh-1", "WO004-A2-fresh-2"):
+        for rid in ("run-1", "run-2"):
             d = self.load("dossier", rid, "DEAL_DOSSIER.json")
             self.assertEqual(d["judge"]["verdict"], "PASS_COMPLETED")
             self.assertEqual(d["judge"]["checks_passed"], d["judge"]["checks_total"])
@@ -55,7 +55,7 @@ class ReleaseTests(unittest.TestCase):
             self.assertTrue(all(x["mode"] == "SIMULATED" for x in d["execution"]))
 
     def test_paypal_truth(self):
-        d = self.load("dossier", "WO004-A2-fresh-2", "DEAL_DOSSIER.json")
+        d = self.load("dossier", "run-2", "DEAL_DOSSIER.json")
         p = d["paypal"]
         self.assertEqual((p["readback_confirmed_captures"], p["provider_confirmed_cents"]), (5, 49500))
         v3 = d["terms_versions"][-1]["contract_hash"]
@@ -67,9 +67,13 @@ class ReleaseTests(unittest.TestCase):
             caps.add(s["capture_id"])
         self.assertEqual(len(caps), 5)                       # five distinct captures, one per buyer
         self.assertEqual(len({s["payer_commitment_id"] for s in p["slots"]}), 5)   # five distinct buyer consents
-        self.assertEqual(p["badge"], "PAYPAL_PAYMENT_GO (5/5)")
+        self.assertEqual((p["status"], p["badge"]), ("PAYPAL_PAYMENT_GO", "PayPal Sandbox: 5 of 5 paid ($495.00)"))
+        self.assertEqual(p["provider_posts"], 10)
+        for ob in d["contract"]["obligations"]:
+            if ob["kind"] == "pay":
+                self.assertTrue(ob["paypal_effect"].startswith("SANDBOX_PAYMENT_CONFIRMED "), ob)
         # payments bound to fresh-2's contract must NOT appear on fresh-1 (different contract hash)
-        self.assertEqual(self.load("dossier", "WO004-A2-fresh-1", "DEAL_DOSSIER.json")["paypal"]["provider_confirmed_cents"], 0)
+        self.assertEqual(self.load("dossier", "run-1", "DEAL_DOSSIER.json")["paypal"]["provider_confirmed_cents"], 0)
         l1 = self.load("paypal_runs", "lmf007-20261109T232734Z", "LEDGER_EXPORT.json")
         l2 = self.load("paypal_runs", "lmf007-20261109T234414Z", "LEDGER_EXPORT.json")
         self.assertEqual((l1["network_posts"], len(l1["effects"])), (2, 1))   # b1: create + capture
@@ -85,7 +89,7 @@ class ReleaseTests(unittest.TestCase):
     def test_negative_matrix(self):
         n = self.load("NEGATIVE_TESTS.json")["summary"]
         self.assertEqual(n["failed"], [])
-        self.assertEqual(sorted(n["blocked"]), ["N10", "N14"])
+        self.assertEqual(n["blocked"], [])
         self.assertEqual(n["harness"], {"forbidden_effects": 0, "passed": 25, "total": 25})
 
 

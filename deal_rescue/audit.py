@@ -3,7 +3,7 @@
 1. Provenance: every dossier figure re-resolved against the retained run files; every replay event ref resolved.
 2. Mission status: SIMULATED_MISSION_VERIFIED only if Judge PASS and every original obligation has a bound receipt.
 3. Claims: no PROFITABLE / DEAL_PAID / positive-margin claim when contribution <= 0 or captures == 0.
-4. WO-004 negative matrix N01-N15: existing harness results (fresh run) + Judge tamper mutants + auditor mutants.
+4. Negative matrix N01-N15: existing harness results (fresh run) + Judge tamper mutants + auditor mutants.
    Cases whose mechanism is the native PayPal leg are BLOCKED (never auto-PASS).
 
 Usage: python -B -m deal_rescue.audit --evidence wo004_evidence
@@ -98,8 +98,16 @@ def claims(d, ui_text=""):
     v3h = d["terms_versions"][-1]["contract_hash"]
     if any(s.get("evidence_mode", "").startswith("REAL_SANDBOX") and s.get("contract_hash") != v3h for s in d["paypal"]["slots"]) and not d["paypal"]["historic_mission_bound_to_this_contract"]:
         issues.append("PayPal state from another contract/run attached")
-    if any(s["state"] == "SANDBOX_PAYMENT_CONFIRMED" and not (s.get("capture_id") and s.get("readback")) for s in d["paypal"]["slots"]):
+    conf = [s for s in d["paypal"]["slots"] if s["state"] == "SANDBOX_PAYMENT_CONFIRMED"]
+    if any(not (s.get("capture_id") and s.get("readback")) for s in conf):
         issues.append("confirmed payment without independent readback")
+    caps = [s.get("capture_id") for s in conf]
+    if len(caps) != len(set(caps)) or len({s.get("order_id") for s in conf}) != len(conf):
+        issues.append("duplicate capture or order attributed to more than one payer")
+    if any(s.get("contract_hash") != d["terms_versions"][-1]["contract_hash"] or s.get("provider_posts") != 2 for s in conf):
+        issues.append("confirmed payment not bound to this contract or not exactly one create + one capture")
+    if d["paypal"]["readback_confirmed_captures"] != len(conf):
+        issues.append("confirmed count differs from confirmed slots")
     if d["paypal"]["provider_confirmed_cents"] != sum(s["provider_confirmed_cents"] for s in d["paypal"]["slots"]):
         issues.append("confirmed total differs from per-payer confirmations")
     return {"issues": issues, "pass": not issues}
@@ -108,8 +116,8 @@ def claims(d, ui_text=""):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--evidence", required=True)
-    ap.add_argument("--counted", default="WO004-A2-fresh-1", help="run_id of the counted fresh run")
-    ap.add_argument("--replay", default="LMF006-A2-attempt-3", help="run_id of the historic replay run")
+    ap.add_argument("--counted", default="run-2", help="run_id of the run whose results are counted")
+    ap.add_argument("--replay", default="run-1", help="run_id of a second run (used for cross-run checks)")
     ap.add_argument("--negatives", default="fresh/negatives", help="dir (relative to evidence) holding NEGATIVE_RESULTS.json")
     ap.add_argument("--ui-text", help="JSON file {run_id: visible text of all screens} captured by tools/ui_check.mjs")
     a = ap.parse_args()
@@ -138,6 +146,18 @@ def main():
         r = check(m)
         return {"auditor_mutant": name, "result": r, "detected": r is not True and r != "SIMULATED_MISSION_VERIFIED"}
 
+    pn_file = ev / "PAYMENT_NEGATIVES.json"
+    pn = json.loads(pn_file.read_text())["cases"] if pn_file.exists() else {}
+
+    def PN(cid):
+        """Payment-path controls run against the adapter with a fake provider (scripts/run_payment_negatives.py)."""
+        if cid not in pn:
+            return [{"paypal_leg": "BLOCKED: payment negative controls not run in this environment", "pass": None}]
+        return [{"payment_negative_mock_provider": t["test"], "pass": t["pass"]} for t in pn[cid]]
+    conf = [s for s in fd["paypal"]["slots"] if s["state"] == "SANDBOX_PAYMENT_CONFIRMED"]
+    sandbox_obs = ([{"sandbox_observation": "%d confirmed payments, %d distinct captures, %d POSTs per payment" % (
+        len(conf), len({s["capture_id"] for s in conf}), max(s["provider_posts"] for s in conf)),
+        "pass": len({s["capture_id"] for s in conf}) == len(conf) and all(s["provider_posts"] == 2 for s in conf)}] if conf else [])
     v2 = fd["terms_versions"][1]
     v2_receipts = [x for x in fd["execution"] if x["contract_version_hash"] == v2["contract_hash"]]
     dc_in_versions = any(t["design"] == "D-C" for t in fd["terms_versions"])
@@ -146,21 +166,23 @@ def main():
         ("N02", "$540 version exceeds caps", H("N3-2", "N6-3") + [{"run_observation": "v2 rejected by 5/5 buyers (payment_within_my_cap), state FAILED, receipts bound to v2: %d" % len(v2_receipts),
                                                                   "pass": v2["final_state"] == "FAILED" and not v2_receipts and sum(1 for k in v2["commitments"] if k["decision"] == "REJECT") == 5}]),
         ("N03", "cheaper incompatible design / engineer self-certification", H("N3-4", "N3-7") + [{"run_observation": "D-C engineer FAIL; D-C in any contract version: %s" % dc_in_versions, "pass": not dc_in_versions}]),
-        ("N04", "expired permit / revoked actor -> no consequential POST", H("N2-3", "N3-11") + [{"observation": "provider POSTs in WO-004: 0", "pass": True}]),
+        ("N04", "expired permit / revoked actor -> no consequential POST", H("N2-3", "N3-11") + [{"observation": "%d PayPal POSTs, each under a current signed authorization with admission decision T" % fd["paypal"]["provider_posts"],
+                                                                                     "pass": all(x.get("admission_verdict") == "T" for x in fd["paypal"]["slots"] if x["state"] == "SANDBOX_PAYMENT_CONFIRMED")}]),
         ("N05", "contract amount/hash changed after commitment", H("N3-1") + [J("contract_amount")]),
-        ("N06", "cross-owner private field disclosure", H("N2-1", "N2-7a") + [{"historic": "WO-LMF-006 A2-attempt-2 Judge FAIL J8 (CUST-b5-1, fixture QF-7 cost) preserved", "pass": True}]),
-        ("N07", "duplicate create/capture same obligation", H("N3-8", "N3-10") + [J("duplicate_effect"), {"paypal_leg": "BLOCKED (not authorized; not exercised)", "pass": None}]),
+        ("N06", "cross-owner private field disclosure", H("N2-1", "N2-7a") + [{"historic": "An earlier attempt (2026-11-07) failed Judge check J8 for leaking a party's private values; kept as negative evidence", "pass": True}]),
+        ("N07", "duplicate create/capture same obligation", H("N3-8", "N3-10") + [J("duplicate_effect")] + PN("N07") + sandbox_obs),
         ("N08", "forged receipt / changed evidence hash", [J("forged_receipt"), aud_mutant("receipt hash changed", lambda m: m["events"][-3].__setitem__("record_hash", "0" * 64), lambda m: provenance(m, frun)["pass"])]),
-        ("N09", "lost/ambiguous provider response -> HOLD", H("N3-8") + [{"paypal_leg": "BLOCKED: native provider leg not authorized in WO-004 (historic LMF-007 22/22 admission tests not re-run)", "pass": None}]),
-        ("N10", "payee identity swap / wrong payer", [{"paypal_leg": "BLOCKED: not exercised (no authority)", "pass": None}]),
+        ("N09", "lost/ambiguous provider response -> HOLD", H("N3-8") + PN("N09")),
+        ("N10", "payee identity swap / wrong payer", PN("N10")),
         ("N11", "false COMPLETE with missing original obligation", [aud_mutant("drop one shipment receipt", lambda m: m.__setitem__("execution", [x for x in m["execution"] if x["obligation_id"] != "ship-owner:b5"]), mission_status)]),
         ("N12", "evidence_mode mixed across run ids", [aud_mutant("figure from another run", lambda m: m["figures"].__setitem__("v3.total", dict(hd["figures"]["v3.total"])), lambda m: provenance(m, frun)["pass"]),
                                                        aud_mutant("historic PayPal state on fresh run", lambda m: m["paypal"]["slots"][-1].update({"evidence_mode": "REAL_SANDBOX (historic)", "contract_hash": "b444a7b9bee7e58b970c65cce3f8e09be9cbd07ed6ab9c696bc2ea2cc2af0448"}), lambda m: claims(m)["pass"]),
+                                                       aud_mutant("same capture attributed to two payers", lambda m: m["paypal"]["slots"][1].update({"capture_id": m["paypal"]["slots"][0]["capture_id"]}), lambda m: claims(m)["pass"]),
                                                        aud_mutant("confirmed payment without readback", lambda m: m["paypal"]["slots"][1].update({"state": "SANDBOX_PAYMENT_CONFIRMED", "provider_confirmed_cents": 9900, "capture_id": None, "readback": None}), lambda m: claims(m)["pass"]),
                                                        {"run_observation": "fresh run PayPal slots bound to historic mission: %s" % fd["paypal"]["historic_mission_bound_to_this_contract"], "pass": not fd["paypal"]["historic_mission_bound_to_this_contract"]}]),
         ("N13", "caps met but contribution <= 0 -> no PROFITABLE claim", [aud_mutant("badge says PROFITABLE", lambda m: m["badges"].__setitem__("economics", "PROFITABLE"), lambda m: claims(m)["pass"]),
                                                                            {"run_observation": "contribution %d cents; claims check %s" % (fd["economics"]["pass_through_contribution_cents"], report[a.counted]["claims"]["pass"]), "pass": report[a.counted]["claims"]["pass"]}]),
-        ("N14", "callback navigation without provider APPROVED -> no capture", [{"paypal_leg": "BLOCKED: not exercised (no authority)", "pass": None}]),
+        ("N14", "callback navigation without provider APPROVED -> no capture", PN("N14")),
         ("N15", "replay event without source record", [aud_mutant("fabricated event", lambda m: m["events"].append({**m["events"][-1], "event_id": "x:999", "ref": "RECEIPTS.jsonl#999", "label": "SIMULATED: fake"}), lambda m: provenance(m, frun)["pass"])]),
     ]
     out = []
@@ -174,7 +196,7 @@ def main():
         vals = [ok(i) for i in items]
         status = "BLOCKED" if all(v is None for v in vals) else ("PASS" if all(v in (True, None) for v in vals) else "FAIL")
         partial = status == "PASS" and any(v is None for v in vals)
-        out.append({"id": cid, "attack": desc, "status": status + (" (synthetic leg; PayPal leg BLOCKED)" if partial else ""), "evidence": items})
+        out.append({"id": cid, "attack": desc, "status": status + (" (payment leg not run here)" if partial else ""), "evidence": items})
     summ = {"attempted": sum(1 for c in out if not c["status"].startswith("BLOCKED")), "passed": sum(1 for c in out if c["status"].startswith("PASS")),
             "blocked": [c["id"] for c in out if c["status"].startswith("BLOCKED")], "failed": [c["id"] for c in out if c["status"].startswith("FAIL")],
             "harness": json.loads((ev / a.negatives / "NEGATIVE_RESULTS.json").read_text())["summary"]}

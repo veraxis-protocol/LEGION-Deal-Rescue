@@ -1,0 +1,20 @@
+# Dependency map
+
+Verified 2026-11-10 against GitHub. These are all public repositories.
+
+| Repository | Purpose | Revision used by Deal Rescue | Current HEAD | Interface to Deal Rescue | License | Proof / verification scope |
+|---|---|---|---|---|---|---|
+| [LEGION-Deal-Rescue](https://github.com/veraxis-protocol/LEGION-Deal-Rescue) | Merchant application, PayPal adapter, evidence auditor | this repo | `main` | — | **Apache-2.0** | Release tests, auditor, payment negative controls |
+| [LEGION](https://github.com/veraxis-protocol/LEGION) | LEGION Core runtime: worlds, admission, 100 registered workers per collective | `d083c44af2526e38068e0220891cd0bb5fce52af` | `d083c44` | `--core` path for the end-to-end harness; admission runtime source | PolyForm Noncommercial 1.0.0 | Runtime-tested |
+| [LEGION-Formal-Core](https://github.com/veraxis-protocol/LEGION-Formal-Core) | Lean 4 model of single-collective admission, authority, causality, resources, recovery, completion | v1.0.0 = `f5ea79ca438749e2e7282727a75fd891df0bd371` (named by the admission runtime) | v1.1.0 = `25b9e40` | none at run time; proofs back the single-collective admission rules | PolyForm Noncommercial 1.0.0 | Proves the single-collective model only; not the federation or PayPal effects |
+| [LEGION-Federation](https://github.com/veraxis-protocol/LEGION-Federation) | Owner-isolated peers, disclosure policy, signed commitments, multi-party contracts | `9d2a32a5c32758bea1ad2200955da1cc9213356c` | `6ecb00a` (documentation only since the pin) | owner processes started by the harness | PolyForm Noncommercial 1.0.0 | Runtime-tested; 13 worlds × 4 cases; 25 adversarial negatives |
+| [LEGION-Marketplace](https://github.com/veraxis-protocol/LEGION-Marketplace) | Intent publication, discovery, end-to-end harness, independent Judge | `906ec0f553c0f8076127f7abab98825e188342ef` (Judge source SHA-256 `9146122791d2…f2992f`) | `deee2eb` (documentation only since the pin) | `legion_marketplace.e2e`, `.judge`, `.negatives`; run directory format read by `deal_rescue/dossier.py` | PolyForm Noncommercial 1.0.0 | Independent read-only Judge, 63 checks, 4 tamper tests |
+| [LEGION-Commerce](https://github.com/veraxis-protocol/LEGION-Commerce) | PayPal Sandbox gateway, admission bridge, payment orchestration | `0bb385f99915a429d0c03fa8f91a13de4e8a7636`, branch `claude/wo-004-final-release` (b1 at `9e1f3d6`; identical payment path) | default branch `codex/wo-com-a04-paypal-sandbox` = `ff6dcd1` | `commerce_adapter` published here byte-identically; `commerce_demo` / `commerce_bridge` / `commerce_authority` used in place, by hash | no license file | Adapter tests 46/46; independent readback per payment |
+| [ZTL](https://github.com/inventor1975/ZTL) | Zero-trust layer used by the admission runtime | `e1141c6893af6cf49f363620432ca6aaa0b06301` | — | admission runtime source | Apache-2.0 | — |
+| [ztl-swarm](https://github.com/inventor1975/ztl-swarm) | Swarm controller used by the admission runtime | `7d2a8265926aecab9a838b09059bd106941b5c18` | — | admission runtime source | Apache-2.0 | — |
+| Qualified LEGION runtime | Lean-checked decider used for payment admission | `d9d38cd6fd9e93e002b0b5d5135377ce1d33d8c8`; `legion_decide.exe` SHA-256 `99cda684f29afba33e69b8f4811d754c499987c30c07ac1c67f19ec250ade73a` | — | runs inside the payment orchestration | not published | Its source is not public; see CHALLENGES_AND_LIMITS.md |
+
+**Notes**
+- **Federation and Marketplace since the pins.** The commits after the pinned ones (`6ecb00a`, `deee2eb`) change documentation only: they correct their `SOURCE_PINS.json` license wording and add links to this repository. The pinned code is unchanged.
+- **Historical record.** `LEGION-Marketplace/release/PAYPAL_ELIGIBILITY.md` is a dated record from 2026-11-07. It now begins with a note pointing to this repository.
+- **GitHub descriptions.** The GitHub description of LEGION-Federation says "Open-source infrastructure", but its license is PolyForm Noncommercial. Only the owner can change repository descriptions.

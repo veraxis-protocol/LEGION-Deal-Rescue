@@ -118,7 +118,7 @@
    "contract_version": 3,
    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
    "world_effect": "SIMULATED",
-   "paypal_effect": "NONE (not authorized)"
+   "paypal_effect": "NOT_AUTHORIZED"
   },
   {
    "owner_id": "owner:b5",
@@ -141,7 +141,7 @@
    "contract_version": 3,
    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
    "world_effect": "SIMULATED",
-   "paypal_effect": "NONE (not authorized)"
+   "paypal_effect": "NOT_AUTHORIZED"
   },
   {
    "owner_id": "owner:b4",
@@ -164,7 +164,7 @@
    "contract_version": 3,
    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
    "world_effect": "SIMULATED",
-   "paypal_effect": "NONE (not authorized)"
+   "paypal_effect": "NOT_AUTHORIZED"
   },
   {
    "owner_id": "owner:b1",
@@ -187,7 +187,7 @@
    "contract_version": 3,
    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
    "world_effect": "SIMULATED",
-   "paypal_effect": "NONE (not authorized)"
+   "paypal_effect": "NOT_AUTHORIZED"
   },
   {
    "owner_id": "owner:b2",
@@ -210,7 +210,7 @@
    "contract_version": 3,
    "contract_hash": "62881b4e53d54f0f5eeec1702b83378057907cdccf48e0b896a8634fe882331d",
    "world_effect": "SIMULATED",
-   "paypal_effect": "NONE (not authorized)"
+   "paypal_effect": "NOT_AUTHORIZED"
   },
   {
    "owner_id": "owner:b3",

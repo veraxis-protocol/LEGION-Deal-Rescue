@@ -3,9 +3,9 @@ Copyright 2026 Veraxis
 
 This product is licensed under the Apache License, Version 2.0 (see LICENSE).
 
-paypal_adapter/ is copied verbatim from veraxis-protocol/LEGION-Commerce at commit
-ff6dcd193d12eb328d5d863881a8d918b8396040 (WO-COM-A04) and released here under Apache-2.0 by the copyright owner's
-decision of 2026-11-09.
+paypal_adapter/commerce_adapter/ is byte-identical to veraxis-protocol/LEGION-Commerce commerce_adapter/ at commit
+0bb385f99915a429d0c03fa8f91a13de4e8a7636 (the code that made the PayPal Sandbox payments; see docs/PAYMENT_RUNTIME.md)
+and is released here under Apache-2.0 by the copyright owner's decision of 2026-11-09.
 
 External dependencies NOT included in this repository and NOT covered by this license
 (fetched at pinned commits by scripts/run_live_e2e.ps1 for the live seven-owner run only):

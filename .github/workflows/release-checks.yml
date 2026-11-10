@@ -1,0 +1,76 @@
+name: release-checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install payment adapter dependencies
+        run: python -m pip install -r paypal_adapter/requirements.lock
+
+      - name: Rebuild dossiers from raw evidence and audit
+        run: python -B scripts/build_and_serve.py --evidence demo_evidence --no-serve
+
+      - name: Release tests (payments, contract binding, Judge facts, economics, negative matrix)
+        run: python -B -m unittest discover -s tests -v
+
+      - name: Payment adapter tests (fake provider, no network)
+        working-directory: paypal_adapter
+        run: python -B -m unittest discover -s tests -t .
+
+      - name: Payment negative controls (N07, N09, N10, N14)
+        run: python -B scripts/run_payment_negatives.py "${RUNNER_TEMP}/payment_negatives.json"
+
+      - name: Raw evidence unchanged by the build
+        run: git diff --exit-code -- demo_evidence/runs demo_evidence/paypal_runs demo_evidence/negatives
+
+      - name: Payment adapter matches the recorded payment runtime
+        run: |
+          python - <<'EOF'
+          import hashlib, json, pathlib
+          rec = json.loads(pathlib.Path("docs/PAYMENT_RUNTIME.json").read_text())
+          pub = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(pathlib.Path("paypal_adapter/commerce_adapter").glob("*.py"))}
+          ref = {k.split("/", 1)[1]: v for k, v in rec["files_sha256_at_0bb385f"].items() if k.startswith("commerce_adapter/")}
+          assert pub == ref, (pub, ref)
+          print("commerce_adapter byte-identical to LEGION-Commerce 0bb385f")
+          EOF
+
+      - name: Server smoke test (all five payments displayed, no cross-contract payment)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          python -B -m deal_rescue.server --evidence demo_evidence --port 8795 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:8795/api/runs >/dev/null && break; sleep 1; done
+          curl -sf http://127.0.0.1:8795/ | grep -q "LEGION Deal Rescue"
+          curl -sf "http://127.0.0.1:8795/api/dossier?run=run-2" > r2.json
+          curl -sf "http://127.0.0.1:8795/api/dossier?run=run-1" > r1.json
+          curl -sf -o /dev/null "http://127.0.0.1:8795/api/download?kind=passport&run=run-2"
+          python - <<'EOF'
+          import json
+          r2, r1 = json.load(open("r2.json")), json.load(open("r1.json"))
+          p = r2["paypal"]
+          assert p["readback_confirmed_captures"] == 5 and p["provider_confirmed_cents"] == 49500, p["badge"]
+          assert len({s["capture_id"] for s in p["slots"]}) == 5
+          assert r1["paypal"]["provider_confirmed_cents"] == 0
+          print("server OK:", p["badge"])
+          EOF
+
+      - name: No secrets, private identifiers or machine paths
+        run: |
+          ! grep -rIlE 'nvapi-[A-Za-z0-9]{8}|client_secret["'"'"' ]*[:=] *["'"'"'][A-Za-z0-9]|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|RGFNDXFWF988G|C:\\\\Users\\\\Administrator|/c/Users/Administrator|Dropbox' \
+            --exclude-dir=.git --exclude-dir=.github .

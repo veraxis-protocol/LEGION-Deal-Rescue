@@ -1,6 +1,6 @@
 {
  "schema": "legion.deal-rescue.economic-case.v1",
- "run_id": "WO004-A2-fresh-2",
+ "run_id": "run-2",
  "evidence_mode": "FRESH_SYNTHETIC",
  "perspective": "merchant_of_record candidate (pass-through), synthetic fixture prices",
  "formula": "NetContributionCents = buyer_receipts - supplier_costs - engineering_costs - shipping_costs - PayPal_fees - inference_cost - verification_cost - support_cost - expected_loss",

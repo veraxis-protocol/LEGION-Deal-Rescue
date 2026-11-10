@@ -88,6 +88,9 @@ function F(id, fmt) {
   return `<span class="num" tabindex="0" data-fig="${esc(id)}" data-ref="${esc(ref)}" title="${esc(ref || "derived from " + (f.derived_from || []).join(", "))}">${esc(v)}</span>`;
 }
 // R(): a link to the exact retained record.
+// Authorization and permit IDs are long record identifiers; show a readable label and keep the full ID in the tooltip.
+const authLabel = (id) => { const m = /(\d{8}T\d{6}Z)/.exec(id || ""); return m ? `signed ${m[1].slice(0, 4)}-${m[1].slice(4, 6)}-${m[1].slice(6, 8)} ${m[1].slice(9, 11)}:${m[1].slice(11, 13)}Z` : esc(id); };
+const permitLabel = (id) => `<span title="${esc(id)}">permit ${esc((id || "").split("-PERMIT-")[1] || id)}</span>`;
 const R = (ref, text) => `<a href="#" class="mono" data-ref="${esc(ref)}">${esc(text || ref)}</a>`;
 
 document.addEventListener("click", (e) => {
@@ -135,7 +138,7 @@ function s1() {
   const d = S.d;
   return `<h1>${F("req.count_unfulfillable")} customer requests you couldn't accept</h1>
   <p class="lead">Each customer asked for a small batch of the same qualified sensor module. Your factory only takes orders of ${F("contract.moq")} units or more, so none of these orders could be placed on its own.
-  <span class="b sim">DEMO REQUESTS — SYNTHETIC</span> The storefront here is a demonstration merchant (merchant-of-record candidate), not a signing party.</p>
+  <span class="b sim">Demo requests (synthetic)</span> The storefront here is a demonstration merchant (merchant-of-record candidate), not a signing party.</p>
   <div class="grid g5">${d.requests.map((r) => { const L = r.customer.slice(-1); return `<div class="card">
     <h3>${esc(r.customer)}</h3>
     <div class="kv"><span>Wants</span><span>${F(`req.${L}.units`)} sensor modules</span></div>
@@ -213,7 +216,7 @@ function s4() {
    <div>
     <div class="ctrl"><button onclick="playReplay()" id="playBtn">Play</button><button onclick="stopReplay()">Pause</button><button onclick="stepReplay()">Step</button><button onclick="S.replay.i=-1;paintReplay()">Reset</button>
       <label class="note">speed <select id="spd" onchange="S.replay.speed=+this.value"><option value="1">1×</option><option value="4">4×</option><option value="16">16×</option></select></label>
-      <span class="b ${d.evidence_mode === "HISTORIC_REPLAY" ? "z" : "acc"}">${d.evidence_mode === "HISTORIC_REPLAY" ? "HISTORICAL REPLAY" : "REPLAY OF FRESH RUN"}</span><span class="note" id="rpos"></span></div>
+      <span class="b ${d.evidence_mode === "HISTORIC_REPLAY" ? "z" : "acc"}">${d.evidence_mode === "HISTORIC_REPLAY" ? "Historical replay" : "Replay of recorded events"}</span><span class="note" id="rpos"></span></div>
     <div class="tl" id="tl">${d.events.map((e, i) => `<div class="row" id="ev${i}" data-ref="${esc(e.ref.includes("@") || e.ref.includes("#") ? e.ref : "")}"><span class="t">+${(e.t - d.events[0].t).toFixed(2)}s</span><span>${esc(e.label)}</span><span class="note mono">${esc(e.event_id.split(":")[1])} · ${esc(e.scope)}</span></div>`).join("")}</div>
    </div>
    <div>
@@ -223,11 +226,11 @@ function s4() {
      <div class="kv"><span>Tamper tests detected</span><span>${Object.values(j.tamper_mutants || {}).filter((x) => x.detected).length}/${Object.keys(j.tamper_mutants || {}).length}</span></div>
      <div class="kv"><span>Evidence hashes match</span><span class="st ${j.evidence_hashes_match_rendered_files ? "ok" : "bad"}">${j.evidence_hashes_match_rendered_files ? "YES" : "NO"}</span></div>
      <p class="note">Read-only process with its own key; read each owner's world state live. Its verdict is never set by the UI or by the coordinator.</p></div>
-    <div class="card" style="margin-top:12px"><h3>Why this is trusted: earlier attempts</h3>
-     ${hist.map((a, i) => `<div class="kv"><span>A2 attempt ${i + 1}</span><span class="st ${a.judge.verdict === "PASS_COMPLETED" ? "ok" : "bad"}">${esc(a.outcome)} · Judge ${esc(a.judge.verdict)}</span></div>${a.cause ? `<div class="note" style="margin:-2px 0 6px">${esc(a.cause)}</div>` : ""}`).join("")}
-     <div class="kv"><span>Historic first-attempt success</span><span class="st bad">0/1</span></div>
-     ${cf?.A2_fresh_WO004 ? `<div class="kv"><span>WO-004 fresh first attempt</span><span class="st ${cf.A2_fresh_WO004.first_attempt_pass ? "ok" : "bad"}">${esc(cf.A2_fresh_WO004.outcome)} · ${esc(cf.A2_fresh_WO004.judge.verdict)}</span></div>` : ""}
-     <p class="note">Attempt 2 shows the Judge catching a confidentiality leak; it is kept as a negative example.</p></div>
+    <div class="card" style="margin-top:12px"><h3>Track record, including failures</h3>
+     <p class="note" style="margin:0 0 6px">First campaign (2026-11-07):</p>
+     ${hist.map((a, i) => `<div class="kv"><span>Attempt ${i + 1}</span><span class="st ${a.judge.verdict === "PASS_COMPLETED" ? "ok" : "bad"}">${esc(a.outcome)} · Judge ${esc(a.judge.verdict)}</span></div>${a.cause ? `<div class="note" style="margin:-2px 0 6px">${esc(a.cause)}</div>` : ""}`).join("")}
+     ${(cf?.fresh_runs || []).length ? `<p class="note" style="margin:8px 0 6px">Fresh runs (2026-11-09), each a first attempt:</p>${cf.fresh_runs.map((r, i) => `<div class="kv"><span>Run ${i + 1}</span><span class="st ${r.first_attempt_pass ? "ok" : "bad"}">${esc(r.outcome)} · Judge ${esc(r.judge.verdict)}</span></div>`).join("")}` : ""}
+     <p class="note">The Judge failed attempt 2 for leaking an owner's private data; that failure is kept as evidence.</p></div>
    </div>
   </div>
   <div class="cta"><button class="btn" onclick="go(4)">See outcome & PayPal status</button><button class="btn sec" onclick="showPassport()">Open evidence passport</button><button class="btn sec" onclick="go(2)">Back</button></div>`;
@@ -259,7 +262,7 @@ function s5() {
    <div class="card"><div class="note">Before</div><div class="big">${F("req.count_unfulfillable")}</div><div>individually unfulfillable requests</div></div>
    <div class="card"><div class="note">After (simulated)</div><div class="big">${d.judge.verdict === "PASS_COMPLETED" ? 1 : 0}</div><div>Judge-verified synthetic deal · 5 conditional orders · ${F("opp.sum_units")} simulated units</div></div>
    <div class="card"><div class="note">Proposed deal value <span class="b sim">SYNTHETIC WORLD VALUE</span></div><div class="big">${F("econ.proceeds", usd)}</div><div>${F("v3.per_buyer", usd)} per customer</div></div>
-   <div class="card"><div class="note">PayPal Sandbox captures confirmed <span class="b bad">REAL SANDBOX</span></div><div class="big">${usd(p.provider_confirmed_cents)}</div><div>${p.readback_confirmed_captures}/${p.slots_total} payers · real incremental TPV: <b>unknown</b></div></div>
+   <div class="card"><div class="note">Confirmed by PayPal <span class="b ${p.readback_confirmed_captures ? "ok" : "z"}">SANDBOX</span></div><div class="big">${usd(p.provider_confirmed_cents)}</div><div>${p.readback_confirmed_captures}/${p.slots_total} payers · Sandbox test money, not revenue</div></div>
   </div>
   <div class="strip"><b>Two separate states</b><span>FULFILLMENT_WORLD = <span class="st warn">SIMULATED</span></span><span>PAYPAL = ${p.readback_confirmed_captures ? `<span class="st ok">${p.readback_confirmed_captures === p.slots_total ? "" : "PARTIAL: "}${p.readback_confirmed_captures}/${p.slots_total} CAPTURED &amp; INDEPENDENTLY READ BACK (SANDBOX)</span>` : `<span class="st bad">${p.slots.some((s) => s.order_id_masked) ? "BLOCKED (historic orders CREATED, never APPROVED or CAPTURED)" : "UNAUTHORIZED (no order created)"}</span>`}</span><span class="note">A simulated delivery never advances a payment, and a payment would never prove a delivery.</span></div>
   <h2>Five individual payers</h2>
@@ -269,13 +272,15 @@ function s5() {
      <td class="note">${esc(s.evidence_mode)}<br>${esc(s.status_source)}</td></tr>`).join("")}
   </tbody></table></div>
   <div class="grid g2" style="margin-top:14px">
-   <div class="card"><h3>${p.readback_confirmed_captures === p.slots_total ? "How each payment was authorized" : p.readback_confirmed_captures ? "Payment authority (remaining payers)" : "Why no payment can be taken now"}</h3>${p.readback_confirmed_captures ? `<p class="note">${p.readback_confirmed_captures} payer(s) paid under an owner-signed Sandbox mission bound to this contract, with a fresh qualified Lean decision before every PayPal POST and the buyer's own approval on PayPal. Each remaining payer needs its own signed mission line and its own buyer approval. Production admission (below) stays off.</p>` : ""}<p class="note">A PayPal order is only created when all eight authority checks are true. Current read-only result: <b>${esc(pre?.admission || "Z")}</b>. No new PayPal request was sent.</p>
-    <table><tbody>${(pre?.checks || []).map((c) => `<tr><td>${c.n}</td><td>${esc(c.check)}</td><td><span class="st ${c.verdict === "T" ? "ok" : c.verdict === "F" ? "bad" : "z"}">${c.verdict}</span></td></tr>`).join("")}</tbody></table></div>
+   <div class="card"><h3>How each payment is authorized</h3>
+    <p class="note">${p.readback_confirmed_captures ? esc(p.authorization) + `. ${p.provider_posts} PayPal POSTs in total (one order and one capture per payer), no retries.` : "No payment has been authorized for this contract. A payment needs the owner's signed mission line for that buyer, a one-time permit, an admission decision before each PayPal call, and the buyer's own approval on PayPal."}</p>
+    ${p.readback_confirmed_captures ? `<table><thead><tr><th>Payer</th><th>Buyer consent</th><th>Authorization</th><th>Order → capture</th><th>Readback</th></tr></thead><tbody>${p.slots.filter((x) => x.readback).map((x) => `<tr><td>${esc(x.customer)}</td><td class="mono" data-ref="">${esc(x.payer_commitment_id)}</td><td class="mono"><span title="${esc(x.mission_id)}">${authLabel(x.mission_id)}</span> · ${permitLabel(x.permit_id)} · decision ${esc(x.admission_verdict)}</td><td class="mono">${esc(x.order_id)} → ${esc(x.capture_id)}</td><td><span class="st ok">${esc(x.readback.payment_status)}</span></td></tr>`).join("")}</tbody></table>` : ""}
+    <details style="margin-top:8px"><summary class="note">Production admission (not used for Sandbox)</summary><p class="note">Production payments additionally require an independent A03 acceptance of the payment adapter, which is not signed. The gate reading taken on 2026-11-09 before any payment was authorized is kept as a historical record: ${esc(pre?.admission || "Z")}.</p></details></div>
    <div class="card"><h3>Did anyone make a profit?</h3><p><b>No profit is established.</b> At version 3 the customers pay ${F("econ.proceeds", usd)} and the factory, engineer and shipping cost ${F("v3.total", usd)}: contribution ${F("econ.contribution", usd)} before payment fees, AI inference, verification and support (all unknown). Even at the customers' caps, headroom is only ${F("econ.headroom", usd)}.</p>
     <span class="st warn">${esc(e.verdict)}</span><p class="note">Factory price is a quote paid to the factory; its own margin is unknown.</p></div>
   </div>
   <div class="cta"><button class="btn" onclick="showDossier()">Deal Dossier</button><button class="btn sec" onclick="go(3);playReplay()">Replay</button>
-   ${p.readback_confirmed_captures ? `<button class="btn sec" onclick="showReadback()">Inspect PayPal Readback (${p.readback_confirmed_captures}/${p.slots_total})</button>` : `<button class="btn sec" disabled title="No PayPal readback exists for this run: payment not authorized">Inspect PayPal Readback — none (not authorized)</button>`}</div>`;
+   ${p.readback_confirmed_captures ? `<button class="btn sec" onclick="showReadback()">Inspect PayPal Readback (${p.readback_confirmed_captures}/${p.slots_total})</button>` : `<button class="btn sec" disabled title="No PayPal payment exists for this contract">Inspect PayPal Readback — none for this contract</button>`}</div>`;
 }
 // ---------- Dossier & passport
 function showDossier() {
@@ -285,14 +290,14 @@ function showDossier() {
    <p class="note">${esc(c.deal_id)} · run ${esc(d.run_id)} · ${esc(d.evidence_mode)} · built ${esc(d.built_at)} · source ${esc(d.source_commit)}</p>
    <div class="grid g2">
     <div class="card"><h3>1 · Original demand & refusals</h3>${d.requests.map((r) => `<div class="kv"><span>${esc(r.customer)}</span><span>${r.units} units ≤ ${usd(r.max_cents)} · ${esc(r.refusal_reason)}</span></div>`).join("")}</div>
-    <div class="card"><h3>2 · Disclosure boundary</h3><p class="note">Only published projections reached the marketplace. Private costs, customer IDs and rationale text stay inside each owner process; the Judge checks this (J8). The historic attempt 2 failed on exactly this check.</p></div>
+    <div class="card"><h3>2 · Disclosure boundary</h3><p class="note">Only published projections reached the marketplace. Private costs, customer IDs and rationale text stay inside each owner process; the Judge checks this (check J8). An earlier attempt failed on exactly this check and is kept as evidence.</p></div>
     <div class="card"><h3>3 · Parties (7 independent owners)</h3>${c.parties.map((p) => `<div class="kv"><span>${esc(p.owner_id)}</span><span>${esc(p.role)}</span></div>`).join("")}<div class="kv"><span>Merchant</span><span>${esc(c.merchant_role)}</span></div></div>
     <div class="card"><h3>4 · Contract versions</h3>${d.terms_versions.map((v) => `<div class="kv"><span>v${v.version} ${v.design}</span><span>${usd(v.total_cents)} (${usd(v.per_buyer_cents)}/buyer) · ${v.final_state}</span></div>`).join("")}</div>
     <div class="card"><h3>5 · Payment & payee map</h3>${c.payer_payee_map.map((x) => `<div class="kv"><span>${esc(x.payer)}</span><span>${usd(x.amount_cents)} → ${esc(x.payee)}</span></div>`).join("")}<p class="note">Merchant of record: ${esc(c.merchant_of_record_status)}</p></div>
     <div class="card"><h3>6 · Judge</h3><div class="kv"><span>Verdict</span><span>${esc(d.judge.verdict)}</span></div><div class="kv"><span>Judgement id</span><span class="mono">${esc(d.judge.judgement_id)}</span></div><div class="kv"><span>Scope</span><span>${esc(d.judge.scope)}</span></div></div>
     <div class="card"><h3>7 · Economics</h3><div class="kv"><span>Contribution before overhead</span><span>${usd(d.economics.pass_through_contribution_cents)}</span></div>${Object.keys(d.economics.unknown_cost_lines).map((k) => `<div class="kv"><span>${esc(k)}</span><span>Z</span></div>`).join("")}<div class="kv"><span>Verdict</span><span>${esc(d.economics.verdict)}</span></div></div>
-    <div class="card"><h3>8 · Blockers & next action</h3><p class="note">PayPal: ${esc(d.paypal.badge)}. Real demand, incumbent cost (A4), physical delivery and merchant-of-record are not established. Next: owner-signed A03 and new mission; one $99 Sandbox payer slot with provider readback.</p>
-     <p class="note">Baselines: A0 5/5 refused · A3 parity · historic A2 first-attempt ${cf?.A2_historic?.VCC_at_1 ?? "Z"}/1${cf?.A2_fresh_WO004 ? " · WO-004 fresh first attempt " + esc(cf.A2_fresh_WO004.judge.verdict) : ""}.</p></div>
+    <div class="card"><h3>8 · Open items</h3><p class="note">PayPal: ${esc(d.paypal.badge)} (Sandbox test money). Not established: real customer demand, an incumbent intermediary's price, physical delivery, a merchant of record, profit, and independent A03 acceptance for production payments.</p>
+     <p class="note">Baselines: each buyer alone 5/5 refused · central matcher finds the same group (parity) · first campaign 1 pass in 3 attempts${(cf?.fresh_runs || []).length ? ` · fresh runs ${cf.fresh_runs.filter((r) => r.first_attempt_pass).length}/${cf.fresh_runs.length} passed on first attempt` : ""}.</p></div>
    </div>`);
 }
 function showBuyer(L) {
@@ -301,7 +306,7 @@ function showBuyer(L) {
   const k2 = d.terms_versions[1].commitments.find((c) => c.owner_id === o);
   openModal(`<div style="display:flex;gap:10px;align-items:center"><h1 style="margin:0">Offer for ${esc(r.customer)}</h1><span class="spacer" style="flex:1"></span>
     <select onchange="showBuyer(this.value)" aria-label="customer">${"ABCDE".split("").map((x) => `<option ${x === L ? "selected" : ""}>${x}</option>`).join("")}</select><button class="btn sec" data-close="1">Close</button></div>
-   <p class="note">What this customer sees. <span class="b sim">DEMO REQUEST — SYNTHETIC</span> run ${esc(d.run_id)}</p>
+   <p class="note">What this customer sees. <span class="b sim">Demo request (synthetic)</span> run ${esc(d.run_id)}</p>
    <div class="grid g3">
     <div class="card"><h3>You asked for</h3><div class="kv"><span>Units</span><span>${F("req." + L + ".units")}</span></div><div class="kv"><span>Your maximum</span><span>${F("req." + L + ".cap", usd)}</span></div><div class="kv"><span>Alone</span><span>${F("req." + L + ".reason")}</span></div></div>
     <div class="card"><h3>Offer (version ${v3.version})</h3><div class="big">${F("v3.per_buyer", usd)}</div><p class="note">Your share of a 100-unit order, qualified design ${esc(v3.design)}. Earlier version 2 at ${F("v2.per_buyer", usd)}: you signed ${esc(k2 ? k2.decision : "Z")}${k2 && k2.failed_checks !== "none" ? " (" + esc(k2.failed_checks) + ")" : ""}.</p></div>
@@ -316,7 +321,7 @@ function showReadback() {
   openModal(`<div style="display:flex;gap:10px;align-items:center"><h1 style="margin:0">PayPal readback</h1><span class="spacer" style="flex:1"></span><button class="btn sec" data-close="1">Close</button></div>
    <p class="note">Fresh provider GETs in a separate process with a read-only ledger. Sandbox: no real money. Payer identifiers and merchant ID redacted. run ${esc(d.run_id)}</p>
    ${d.paypal.slots.filter((s) => s.readback).map((s) => `<div class="card" style="margin-top:10px"><h3>${esc(s.customer)} · ${usd(s.provider_confirmed_cents)} · ${esc(s.readback.payment_status)}</h3>
-     <div class="kv"><span>Mission / contract</span><span class="mono">${esc(s.mission_id)} / ${esc(s.contract_hash.slice(0, 12))}</span></div>
+     <div class="kv"><span>Authorization / contract</span><span class="mono"><span title="${esc(s.mission_id)}">${authLabel(s.mission_id)}</span> / ${esc(s.contract_hash.slice(0, 12))}</span></div>
      <div class="kv"><span>Buyer's own consent</span><span class="mono">${esc(s.payer_commitment_id)}</span></div>
      <pre class="mono" style="white-space:pre-wrap;background:#fafbfc;padding:10px;border-radius:8px">${esc(JSON.stringify(s.readback, null, 1))}</pre></div>`).join("")}`);
 }
@@ -332,7 +337,7 @@ function showPassport() {
 (async () => {
   const runs = await (await fetch("/api/runs")).json();
   const sel = $("#runSel");
-  sel.innerHTML = runs.map((r) => `<option value="${esc(r.run_id)}">${esc(r.run_id)} — ${r.evidence_mode === "HISTORIC_REPLAY" ? "historical replay" : "fresh synthetic run"}</option>`).join("");
+  sel.innerHTML = runs.map((r) => `<option value="${esc(r.run_id)}">${esc(r.run_id)} — ${r.evidence_mode === "HISTORIC_REPLAY" ? "historical replay" : "recorded seven-owner run"}</option>`).join("");
   const q = new URLSearchParams(location.search).get("run");
   sel.value = q && runs.some((r) => r.run_id === q) ? q : runs[0].run_id;
   sel.onchange = () => load(sel.value);

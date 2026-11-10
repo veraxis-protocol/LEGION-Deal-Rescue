@@ -1,97 +1,131 @@
 # LEGION Deal Rescue
 
-**Turn customer requests you cannot fulfill into verified business opportunities.**
-Find partners. Agree on terms. Verify delivery. Get paid with PayPal when each buyer authorizes it.
+**Turn customer requests you cannot fulfil into verified deals — and get paid through PayPal only when each buyer approves.**
 
-Entry for the [PayPal AI Hackathon](https://paypalaihackathon.devpost.com/rules) · License: **Apache-2.0** (this repository) — see [Licensing](#licensing-read-this) for the external PolyForm-Noncommercial dependencies.
+Apache-2.0 · Entry for the [PayPal AI Hackathon](https://paypalaihackathon.devpost.com/rules)
 
-> **Status, stated plainly (2026-11-09):**
-> - The AI-driven seven-owner deal formation, contract versioning and independent Judge **run end to end** (two fresh first attempts, both Judge `PASS_COMPLETED`, 63/63 checks).
-> - The deal is a **synthetic scenario**: buyers, factory, engineer, manufacture, shipment and buyer-ledger payments are **SIMULATED**.
-> - **PayPal: all five buyers paid in PayPal Sandbox — `PAYPAL_PAYMENT_GO (5/5)`, $495.00 confirmed.** On 2026-11-09 each customer's own Sandbox buyer approved its own $99.00 order on PayPal; each was captured exactly once under an owner-signed mission bound to the seven-owner contract, with a fresh Lean admission decision before every POST, and each was verified by a separate-process readback of PayPal's records (5 distinct orders, 5 distinct captures, 10 POSTs total, 0 retries, 0 duplicates). Sandbox = test money, not real revenue. See [`PAYPAL_STATUS.md`](PAYPAL_STATUS.md).
-> - Economics: the scenario's $495 price equals its $495 vendor cost → **contribution $0 before overhead; not profitable**.
+---
 
-## What it does
+## 1. The problem
 
-A small merchant receives five requests for 20 sensor modules each (max $100 per customer). The factory's minimum order is 100, so each request alone is refused. LEGION:
+Small merchants turn away custom orders every day. A request is often too small for a supplier's minimum order, or it
+needs an independent check nobody can arrange. Several such requests could be served together, but pooling strangers'
+orders needs trust: who agreed to what, whose budget limit applies, who verified the work, and that nobody is charged
+without consent.
 
-1. **Discovers** compatible demand on a marketplace where each of seven independent owners (5 buyers, 1 manufacturer, 1 qualification engineer) publishes only what it chooses to share.
-2. **Negotiates** one 100-unit contract across seven owner processes, each with its own key, private policy and NVIDIA NIM model agent. Every price change creates a new contract version that needs fresh signatures.
-   - v1 $480 → invalidated by an **injected test** price shock.
-   - v2 $540 = $108/buyer → **denied by all five buyers** (each above its own $100 cap).
-   - A cheaper design ($380) **fails the independent engineer** and is never offered.
-   - v3 $495 = $99/buyer → signed by all seven.
-3. **Executes** in each owner's simulated world (manufacture, certification, 5 shipments, 5 ledger payments) with signed receipts.
-4. **Verifies** with an independent, read-only Judge that reads every owner's live state, plus 4 tamper mutants and 25 adversarial negatives.
-5. **Pays** each buyer's own $99 line through PayPal **only** when that buyer approves on PayPal and the owner's authority checks pass. Currently: 5 of 5 paid and independently verified (Sandbox).
+## 2. The product
 
-The merchant UI has five screens (Lost orders · Opportunity · Deal & approval · Work & verification · Payment & outcome), a customer offer view, a downloadable **Deal Dossier** and an **Execution Passport**. Every number links to the exact retained record (file, sequence/line, JSON path, record hash, file SHA-256).
+LEGION Deal Rescue is a merchant workspace that turns individually impossible requests into one verifiable collective
+deal. Seven independent parties (five buyers, a manufacturer, a qualification engineer) each run their own process with
+their own key, private policy and AI agent.
 
-## Quick start (no secrets; Windows, macOS or Linux; Python 3.11+)
+1. **Lost orders.** Five requests for 20 sensor modules each, at most $100 per customer. The factory's minimum order is 100 units, so each request alone is refused.
+2. **Opportunity.** A marketplace sees only what each party chose to publish and finds that the five requests together reach 100 units. A match is not permission.
+3. **Deal & approval.** Every price change creates a new contract version that each party must sign.
+   - $480 is invalidated by a price shock (an injected test event).
+   - $540, which is $108 per buyer, is refused by all five buyers because it is above each buyer's own cap.
+   - A cheaper design fails the engineer's qualification and is never offered.
+   - **$495, which is $99 per buyer**, is signed by all seven.
+4. **Work & verification.** Manufacture, certification, five shipments and five ledger entries are replayed from the recorded events. An independent, read-only Judge reads every party's state and returns its verdict.
+5. **Payment & outcome.** Each buyer pays its own $99 through PayPal. Fulfilment state and payment state are shown separately, and every payment links to PayPal's own records.
+
+The app also has a customer offer view and a downloadable **Deal Dossier** and **Execution Passport**. Every number on
+screen links to the exact record it came from: file, record, JSON path and SHA-256.
+
+## 3. Demonstrated result
+
+| What | Result | Evidence |
+|---|---|---|
+| Seven-party deal, fresh runs (each a first attempt) | **3 of 3** passed the independent Judge, **63/63 checks** each, 4/4 tamper tests detected | `demo_evidence/runs/`, [VERIFICATION.md](VERIFICATION.md) |
+| Price above caps ($540) | refused by 5 of 5 buyers on their own cap rule | contract versions in each run |
+| Incompatible cheaper design | rejected by the engineer, never offered | qualification records |
+| Adversarial negatives against live parties | **25/25**, 0 forbidden effects | `demo_evidence/negatives/` |
+| **PayPal Sandbox payments** | **5 of 5 buyers paid, $495.00**: 5 orders, 5 captures, each confirmed by an independent readback; 10 POSTs, 0 retries, 0 duplicate captures | [PAYPAL_STATUS.md](PAYPAL_STATUS.md), `demo_evidence/paypal_runs/` |
+
+**What is not claimed:**
+- PayPal amounts are **Sandbox test money**, not revenue.
+- Manufacture, shipping and buyer-ledger entries are **simulated**.
+- The deal is **not profitable**: buyers pay $495 and the costs are $495.
+- Production payment acceptance (an independent review of the payment adapter) is **not signed**.
+
+See [CHALLENGES_AND_LIMITS.md](CHALLENGES_AND_LIMITS.md).
+
+## 4. PayPal integration
+
+Each buyer's $99 is a separate PayPal **Orders v2** payment. Every link in the chain below is read from retained evidence:
+
+`contract → buyer's own signed consent → owner-signed payment authorization + one-time permit → admission decision → order → buyer approval on PayPal → server check of APPROVED → capture → independent readback`
+
+The payment adapter keeps:
+- durable reservations;
+- idempotent request IDs;
+- no blind retry after an uncertain response.
+
+It captures only after PayPal itself reports the buyer's approval. A second process re-reads PayPal's records before the app shows a payment as confirmed.
+
+Details: [PAYPAL_STATUS.md](PAYPAL_STATUS.md). The exact code that made the five captures: [docs/PAYMENT_RUNTIME.md](docs/PAYMENT_RUNTIME.md).
+
+## 5. Architecture
+
+| Layer | Component | Where |
+|---|---|---|
+| Parties | 7 owner processes (key, private policy, simulated world, NVIDIA NIM agent) | LEGION-Federation (external) |
+| Discovery & harness | intent publication, matching, end-to-end run, independent Judge | LEGION-Marketplace (external) |
+| Runtime | LEGION Core worlds and admission | LEGION (external) |
+| Payments | PayPal Orders v2 gateway | `paypal_adapter/` (this repo) |
+| Payment orchestration | per-payer authorization, admission, readback | LEGION-Commerce (external, by commit and hash) |
+| Merchant app | dossier builder, read-only server, UI, evidence auditor, economics | `deal_rescue/` (this repo) |
+
+Full dependency map with revisions and licenses: [docs/DEPENDENCY_MAP.md](docs/DEPENDENCY_MAP.md).
+
+## 6. Installation and use
+
+**A. Explore the recorded runs.** Any OS, Python 3.11+, no credentials.
 
 ```bash
 git clone https://github.com/veraxis-protocol/LEGION-Deal-Rescue.git
 cd LEGION-Deal-Rescue
 python -B scripts/build_and_serve.py --evidence demo_evidence
-# open http://127.0.0.1:8795/?run=WO004-A2-fresh-2
+# open http://127.0.0.1:8795/?run=run-2
 ```
 
-This mode **replays two real fresh runs** recorded on 2026-11-09 (`demo_evidence/runs/`). It rebuilds every dossier from the raw journals and re-audits them. It is labelled *replay* in the UI. It makes no model or PayPal calls.
+This rebuilds every dossier from the raw records, re-audits them and serves the app. `run-2` carries the five PayPal
+payments. `run-1` is a separate run with a different contract and correctly shows no payments.
 
-## Full live run (fresh AI execution)
-
-`scripts/run_live_e2e.ps1` runs a **new** seven-owner episode with real NVIDIA NIM decisions and the independent Judge. It needs:
-- Windows PowerShell;
-- git and Python 3.11+;
-- network access to GitHub and `integrate.api.nvidia.com`;
-- your own NVIDIA NIM API key in a local file (never committed).
+**B. Run a fresh seven-party deal with live AI decisions.** Windows PowerShell plus your own NVIDIA NIM key in a local file.
 
 ```powershell
 .\scripts\run_live_e2e.ps1 -NimKeyFile C:\path\to\nvapi.txt
 ```
 
-It clones the PolyForm-Noncommercial LEGION dependencies at pinned commits into `external/`, then:
-1. verifies the Judge source hash;
-2. runs the episode;
-3. runs the 25 negatives;
+The script:
+1. clones the external LEGION components at pinned commits;
+2. runs the seven-party episode;
+3. runs the independent Judge and the 25 adversarial negatives;
 4. builds, audits and serves the result.
 
-Details: [`REPRODUCE.md`](REPRODUCE.md).
+**C. PayPal payments.** These are not part of A or B. Each payment needs a signed owner authorization for specific
+buyers, and each buyer's approval on PayPal's own page. See [REPRODUCE.md](REPRODUCE.md#c-paypal-sandbox-payments).
 
-## Tests
+## 7. Verification
 
 ```bash
-python -B -m unittest discover -s tests -v                                     # app release tests (5)
-cd paypal_adapter && python -B -m unittest discover -s tests -t .             # PayPal adapter mechanism tests (42; needs cryptography)
+python -B -m unittest discover -s tests -v                                   # release tests
+pip install -r paypal_adapter/requirements.lock
+cd paypal_adapter && python -B -m unittest discover -s tests -t . && cd ..   # 46 payment adapter tests
+python -B scripts/run_payment_negatives.py                                   # payment negative controls
 ```
 
-## Repository layout
+GitHub Actions runs these checks on every push (`.github/workflows/release-checks.yml`). Recorded results: [VERIFICATION.md](VERIFICATION.md).
 
-| Path | What | License |
-|---|---|---|
-| `deal_rescue/` | Dossier builder, read-only server, merchant UI, UI-evidence auditor, economic case | Apache-2.0 |
-| `paypal_adapter/` | PayPal Sandbox Orders v2 gateway with durable safety gates. Copied verbatim from `LEGION-Commerce@ff6dcd1` (WO-COM-A04); `A04_README.md` is its original README. | Apache-2.0 (owner decision 2026-11-09) |
-| `scripts/` | Replay builder/server, live E2E launcher | Apache-2.0 |
-| `tests/` | Release acceptance tests | Apache-2.0 |
-| `demo_evidence/` | Two fresh run records (redacted: owner-private configs and journals excluded), negative-suite results, gate readings | Apache-2.0 (data) |
-| `external/` (not in git) | LEGION Core, LEGION-Federation, LEGION-Marketplace at pinned commits | **PolyForm Noncommercial 1.0.0** |
+## 8. Licensing
 
-## Licensing (read this)
+- **This repository is Apache-2.0** ([LICENSE](LICENSE), [NOTICE](NOTICE)).
+- The live seven-party run (B) uses LEGION Core, LEGION-Federation and LEGION-Marketplace.
+  - They remain under **PolyForm Noncommercial 1.0.0**.
+  - They are fetched at pinned commits and are not copied here.
+  - Commercial use of those components requires a separate agreement with Veraxis.
+- Mode A, the tests and the payment adapter run without them.
+- The organizers have not ruled on this dependency structure.
 
-- **This repository is Apache-2.0.** It contains the complete Deal Rescue application, the PayPal adapter, the integration interfaces, the launchers, tests and docs.
-- **The live seven-owner run depends on three external projects**: [LEGION](https://github.com/veraxis-protocol/LEGION) (Core), [LEGION-Federation](https://github.com/veraxis-protocol/LEGION-Federation) and [LEGION-Marketplace](https://github.com/veraxis-protocol/LEGION-Marketplace). These remain under **PolyForm Noncommercial 1.0.0**. They are not copied, modified or relicensed here; the launcher fetches them at pinned commits. Commercial use of those components requires a separate agreement with Veraxis.
-- Replay mode, the UI, the auditor, the tests and the PayPal adapter run without them.
-- **Organizer acceptance of this dependency structure has not been obtained** (no ruling on file).
-
-See [`NOTICE`](NOTICE) and [`PROVENANCE_AND_LICENSE.md`](PROVENANCE_AND_LICENSE.md).
-
-## Honest limits
-
-- Synthetic scenario, not real customers.
-- No physical goods.
-- PayPal payments are Sandbox (test money), not real TPV.
-- No profit at the frozen prices.
-- A central matcher with the same public data finds the same coalition: we claim **no matching advantage**. The difference is per-owner signed consent, private terms, admission checks and independent verification.
-- No unaided user study has been run.
-
-Full list: [`CHALLENGES_AND_LIMITS.md`](CHALLENGES_AND_LIMITS.md).
+See [PROVENANCE_AND_LICENSE.md](PROVENANCE_AND_LICENSE.md).

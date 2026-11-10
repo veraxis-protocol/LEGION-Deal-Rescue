@@ -1,3 +1,6 @@
+> **Dated record.** This is the adapter's original README from its first release in LEGION-Commerce (`ff6dcd1`), kept as
+> written. Its status lines describe that date. Current status: [../../PAYPAL_STATUS.md](../../PAYPAL_STATUS.md).
+
 # LEGION-Commerce 
 
 External Windows-hosted PayPal Sandbox Orders v2 adapter, isolated from LEGION Core.

@@ -1,0 +1,107 @@
+{
+ "schema": "legion.deal-rescue.payment-runtime.v1",
+ "summary": "Code that created the five PayPal Sandbox captures on 2026-11-09/10.",
+ "repository": "https://github.com/veraxis-protocol/LEGION-Commerce",
+ "runs": [
+  {
+   "payers": [
+    "owner:b1"
+   ],
+   "commit": "9e1f3d6591b679d6ffb619433a4d25f1235664af",
+   "note": "payment path identical to 0bb385f; only commerce_demo/readback.py differs (the readback comparison fix applied after b1's capture, before its passing readback)"
+  },
+  {
+   "payers": [
+    "owner:b2",
+    "owner:b3",
+    "owner:b4",
+    "owner:b5"
+   ],
+   "commit": "0bb385f99915a429d0c03fa8f91a13de4e8a7636"
+  }
+ ],
+ "branch": "claude/wo-004-final-release",
+ "command": "python -m commerce_demo.lmf007 run   (after: python -m commerce_demo.lmf007 prepare ...; owner: python -m commerce_demo.mission authorize)",
+ "files_sha256_at_0bb385f": {
+  "commerce_adapter/__init__.py": "f4b5a6451c984786b82936c80f1a08bfe977219a1d9efd5674b089b166abb536",
+  "commerce_adapter/__main__.py": "8e72c9b3391fe6d79a9658ee42f6e1ebbcc1b6f10ea0b97137e568cb4a25dec5",
+  "commerce_adapter/approval.py": "03fd03bde61168bb9b0f6526824a18290ec5a57b53df27d8cb798fa3f0d10937",
+  "commerce_adapter/contracts.py": "ed44966830509ee97a28765eefd23a0f68f49be7b82129ad6dc49e8056c6fbac",
+  "commerce_adapter/gateway.py": "164b414ccf782e73819065fed0f1fbe067e7925f6bbfeb79fcd633a19950f9ea",
+  "commerce_adapter/paypal.py": "9e0f582ce01e261fca18ab4b5273755f122ef33c52cf4754f5d6083d6c7dba4c",
+  "commerce_adapter/readback.py": "66c38645f5aadaa7447800b14d3245e8a4657d63ec0944643460ef0a09c5a5e7",
+  "commerce_authority/__init__.py": "fe0c13612fb9a52b0b064fc72bec8c4f3c00ade3975334b216f12a3e00b21eb5",
+  "commerce_authority/__main__.py": "0557f42659de9053847ec820fe640795a429f1ec80f5edf893e387a0cb236814",
+  "commerce_authority/authority.py": "b9fbaa3810af3d92d4d1a6c3f60d8ba0f0807bb7c6c52751882b2e271b95563f",
+  "commerce_authority/custody.py": "3ad1aefacd571b9674f4a28e1c746b4aae207f5398e93e6fa9874f16a2596e01",
+  "commerce_authority/roles.py": "c23eea39933b8c3226872ed953ec9811d00dc34b452c6ae74c483ebcb22423d6",
+  "commerce_bridge/__init__.py": "a0da880a13feead9e47252ec193ae868b716b057602431a3a6e2af393f685ec5",
+  "commerce_bridge/__main__.py": "f3cb08980be23e38dc6955caed5e1a27d53b345dbb7968a37aa3e05396187e13",
+  "commerce_bridge/admission.py": "caee3fcda3ce24f7ebbd9a6cdf97ffc3daac47e1649ed9c795b4f7597d4514d1",
+  "commerce_bridge/consolidated.py": "97316ffa6f5133cfb8990eaad5fc88c1ccdccaf46faf44b9a1f9f739394387dc",
+  "commerce_bridge/consolidated_worker.py": "e07bdc7215b36f1c528efd622f17793d48adff399068e38073829b30ba3d65cc",
+  "commerce_bridge/core_worker.py": "e69f5c3f27e1e83f3523b282a70c9ebe998c42b1ed668f426c0f007106fd6c70",
+  "commerce_bridge/installation.py": "99dcad9dc930219f5b309daa18c9efc257d52b2bda95a8e4c2499a3ce6ba1d6b",
+  "commerce_bridge/locked_readiness.py": "38a01448f3f9802135a57c4d2eb775f06c6408890d13c702686f5ad86a5ece3a",
+  "commerce_bridge/prepared.py": "b50dd67e564334500f75a91359abca62183e98684b93b8ff42dd7c92a55a04f2",
+  "commerce_bridge/qualified.py": "5aae762b6ec2269c747f5d383e8964b2656acc16e89be5368097d0b06279e51b",
+  "commerce_bridge/qualified_worker.py": "67fd5a646d2ae9b80e62bd9b3846254d30df5f50b714de8aa1883f69a54ab8aa",
+  "commerce_bridge/runtime.py": "b18d78e145affaaa2e855ab019abfd301eb50cc222f03d2abe7e520c9662a10d",
+  "commerce_bridge/sources.py": "edf80bc01665f5b80b7147b771616d859885a8f1ef2aacdb09c2cddce494ea77",
+  "commerce_bridge/transport.py": "bd52414067dd3b0bc9d5fe21eae6d07330a8415969f7f57f50bdd0892a806cc5",
+  "commerce_bridge/witness.py": "75347919cdef4da6ea2a257632202292d3ce5b00695f3d8b6b51425cf26efa93",
+  "commerce_demo/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "commerce_demo/catalog.py": "05b27467c1b0f99bb5586590fcba401e1d488d553834248ebdd858a9ad6a2aa9",
+  "commerce_demo/collective.py": "9122f050f4585a637f010cf289229ba705e6558f9fac5879ee6fd7b95a3b9a0a",
+  "commerce_demo/dashboard.html": "47068aa518a67a7aedef38b34657fd1697bd48fae18edf9687956d2d26bfcad1",
+  "commerce_demo/events.py": "d63d4214f75677096116990e61844125cbbb6c9515f7ad1e6da4bc7660634610",
+  "commerce_demo/formal001_negatives.py": "c084cf41263bdf733d07260c2adcb4106ac0d2afc85596a11a928663ebeb13c2",
+  "commerce_demo/formal003_conformance.py": "e225175c20d9d3d4374af0711b3372d5ef497548048933e272f3f2f813aab610",
+  "commerce_demo/judge.py": "6baa03947498b40d618125fb595db3b6d2880111695ac236f54d8d1f7b2824a2",
+  "commerce_demo/lmf007.py": "ccab05a4fd192e03f77697f7b0d160990750e1db73995ddd4003352f722f5270",
+  "commerce_demo/lmf007_judge.py": "61d7eae139162ace4ce062a78d4909b3be6b537f5167b8910a1b931a0c89c274",
+  "commerce_demo/lmf007_negatives.py": "90e25d1f6729652c62eadf98874463be2e481fcc3d37ff60441533f1194a4799",
+  "commerce_demo/mission.py": "786c83034ad78d6e1737e1fc8020ec13d6bed212ab3b51dd261b0795630894c1",
+  "commerce_demo/negatives.py": "d403b090fa925b6534002eac41c9c04d88b343376e1d604d5028eb9565e3fc72",
+  "commerce_demo/nim.py": "f6e6cfc2bcf012ec973ef91d10364085652a4cb7b16e183592cc15b0e0ceb750",
+  "commerce_demo/readback.py": "5407e2567ce58fdd4768ae805a2331129d4da07b2c69a7b19354575cc40b1d8f",
+  "commerce_demo/run.py": "7089c3fd0b0c15547a7f0dfdbf93d669087d5c9b3d7a6c8d3c01c5f30e4002e2",
+  "commerce_demo/sandbox_admission.py": "f52b353dc210ea189d8d4dd06b994dec6e7ed513fe7122092cd1fd725ac1467a",
+  "design/SOURCE_PINS.json": "ecf8df3b6bbd437a848f1bf945623269c36e165035419951bb3629fd38563d49"
+ },
+ "published_here": {
+  "paypal_adapter/commerce_adapter": {
+   "__init__.py": "f4b5a6451c984786b82936c80f1a08bfe977219a1d9efd5674b089b166abb536",
+   "__main__.py": "8e72c9b3391fe6d79a9658ee42f6e1ebbcc1b6f10ea0b97137e568cb4a25dec5",
+   "approval.py": "03fd03bde61168bb9b0f6526824a18290ec5a57b53df27d8cb798fa3f0d10937",
+   "contracts.py": "ed44966830509ee97a28765eefd23a0f68f49be7b82129ad6dc49e8056c6fbac",
+   "gateway.py": "164b414ccf782e73819065fed0f1fbe067e7925f6bbfeb79fcd633a19950f9ea",
+   "paypal.py": "9e0f582ce01e261fca18ab4b5273755f122ef33c52cf4754f5d6083d6c7dba4c",
+   "readback.py": "66c38645f5aadaa7447800b14d3245e8a4657d63ec0944643460ef0a09c5a5e7"
+  },
+  "identical_to_payment_runtime": true
+ },
+ "admission_runtime_sources": {
+  "LEGION": {
+   "commit": "d083c44af2526e38068e0220891cd0bb5fce52af",
+   "origin": "https://github.com/veraxis-protocol/LEGION (public, PolyForm-NC)"
+  },
+  "LEGION_QUALIFIED": {
+   "commit": "d9d38cd6fd9e93e002b0b5d5135377ce1d33d8c8",
+   "origin": "NOT PUBLISHED (private qualified LEGION runtime, branch formal-core-r2; referenced by LEGION-Formal-Core README)"
+  },
+  "ZTL": {
+   "commit": "e1141c6893af6cf49f363620432ca6aaa0b06301",
+   "origin": "https://github.com/inventor1975/ZTL (public, Apache-2.0)"
+  },
+  "ztl-swarm": {
+   "commit": "7d2a8265926aecab9a838b09059bd106941b5c18",
+   "origin": "https://github.com/inventor1975/ztl-swarm (public, Apache-2.0)"
+  },
+  "qualified_bin/legion_decide.exe": {
+   "sha256": "99cda684f29afba33e69b8f4811d754c499987c30c07ac1c67f19ec250ade73a",
+   "origin": "built from LEGION_QUALIFIED d9d38cd (bit-exact reproduction recorded in the private formal-closure evidence); not published"
+  }
+ },
+ "not_published_here": "commerce_demo, commerce_bridge and commerce_authority (LEGION-Commerce has no license file; referenced by commit and hash) and the qualified LEGION runtime (private)."
+}
