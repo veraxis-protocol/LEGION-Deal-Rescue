@@ -78,6 +78,16 @@ Details: [PAYPAL_STATUS.md](PAYPAL_STATUS.md). The exact code that made the five
 
 Full dependency map with revisions and licenses: [docs/DEPENDENCY_MAP.md](docs/DEPENDENCY_MAP.md).
 
+### Industrial Sourcing (preview)
+
+The header button **Industrial Sourcing** opens a read-only panel that applies the same approach to manufactured parts:
+
+- buyer requests are grouped only when the specification digest, revision, process and material match exactly;
+- four routes are compared: direct purchase, single additive build, split supply and collective procurement;
+- the result is a Federation **proposal** (not an admitted contract), an evidence passport and an **unsent** draft RFQ.
+
+It ships three synthetic scenarios (coalition chosen at $2,300 vs $3,850 direct; direct chosen when it costs $2,000; a revision mismatch that leaves 80 of the required 100 units and is held). Supplier entries are 87 public discovery links, not quotations. Engineering verification stays unproven until an independent ZTL Engineering receipt is supplied. No supplier is contacted and no payment is made. Details: [docs/INDUSTRIAL_SOURCING.md](docs/INDUSTRIAL_SOURCING.md).
+
 ## 6. Installation and use
 
 **A. Explore the recorded runs.** Any OS, Python 3.11+, no credentials.
