@@ -1,1 +1,6 @@
+demo_evidence/** -text
+*.py text eol=lf
+*.md text eol=lf
+*.html text eol=lf
+*.ps1 text eol=crlf
 cad_evidence/** -text
