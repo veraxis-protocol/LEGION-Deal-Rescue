@@ -108,13 +108,13 @@ test_paypal_truth (test_release.ReleaseTests.test_paypal_truth) ... ok
 ERROR: setUpClass (test_pmix_integration.PmixIntegration)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:\Users\Administrator\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\tests\test_pmix_integration.py", line 35, in setUpClass
+  File "<WORKSPACE_USER>\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\tests\test_pmix_integration.py", line 35, in setUpClass
     cls.extraction = pmix.extract(cls.raw)
                      ^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Administrator\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\deal_rescue\industrial\pmix_adapter.py", line 225, in extract
+  File "<WORKSPACE_USER>\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\deal_rescue\industrial\pmix_adapter.py", line 225, in extract
     binary = _binary()
              ^^^^^^^^^
-  File "C:\Users\Administrator\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\deal_rescue\industrial\pmix_adapter.py", line 39, in _binary
+  File "<WORKSPACE_USER>\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\deal_rescue\industrial\pmix_adapter.py", line 39, in _binary
     raise PmixError('PMIX_REQUIRES_LINUX_X86_64_SANDBOX')
 deal_rescue.industrial.pmix_adapter.PmixError: PMIX_REQUIRES_LINUX_X86_64_SANDBOX
 
@@ -122,7 +122,7 @@ deal_rescue.industrial.pmix_adapter.PmixError: PMIX_REQUIRES_LINUX_X86_64_SANDBO
 FAIL: test_endpoint_real_extraction_no_session (test_pmix_integration.EngineeringHTTP.test_endpoint_real_extraction_no_session)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "C:\Users\Administrator\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\tests\test_pmix_integration.py", line 221, in test_endpoint_real_extraction_no_session
+  File "<WORKSPACE_USER>\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\tests\test_pmix_integration.py", line 221, in test_endpoint_real_extraction_no_session
     self.assertEqual(status,200);self.assertEqual(result['extraction'],'T')
                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: 'Z' != 'T'

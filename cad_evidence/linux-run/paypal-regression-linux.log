@@ -66,12 +66,12 @@ test_redirect_never_forwards_auth (tests.test_transport.TransportTests.test_redi
 ERROR: test_401_invalidates_without_post_retry (tests.test_transport.TransportTests.test_401_invalidates_without_post_retry)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 22, in test_401_invalidates_without_post_retry
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 22, in test_401_invalidates_without_post_retry
     client=PayPalSandbox(read_only=False,credential_loader=lambda:("fixture-id","fixture-secret"))
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
     require(os.name == "nt", "WINDOWS_HOST_REQUIRED")
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
     raise Denied(code)
 commerce_adapter.contracts.Denied: WINDOWS_HOST_REQUIRED
 
@@ -79,12 +79,12 @@ commerce_adapter.contracts.Denied: WINDOWS_HOST_REQUIRED
 ERROR: test_http_errors_redacted (tests.test_transport.TransportTests.test_http_errors_redacted)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 44, in test_http_errors_redacted
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 44, in test_http_errors_redacted
     client=PayPalSandbox()
            ^^^^^^^^^^^^^^^
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
     require(os.name == "nt", "WINDOWS_HOST_REQUIRED")
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
     raise Denied(code)
 commerce_adapter.contracts.Denied: WINDOWS_HOST_REQUIRED
 
@@ -92,12 +92,12 @@ commerce_adapter.contracts.Denied: WINDOWS_HOST_REQUIRED
 ERROR: test_oauth_cache_and_renewal (tests.test_transport.TransportTests.test_oauth_cache_and_renewal)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 14, in test_oauth_cache_and_renewal
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 14, in test_oauth_cache_and_renewal
     client=PayPalSandbox(credential_loader=lambda:("fixture-id","fixture-secret"),clock=lambda:now[0])
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
     require(os.name == "nt", "WINDOWS_HOST_REQUIRED")
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
     raise Denied(code)
 commerce_adapter.contracts.Denied: WINDOWS_HOST_REQUIRED
 
@@ -105,12 +105,12 @@ commerce_adapter.contracts.Denied: WINDOWS_HOST_REQUIRED
 ERROR: test_path_injection_disallowed (tests.test_transport.TransportTests.test_path_injection_disallowed)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 36, in test_path_injection_disallowed
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 36, in test_path_injection_disallowed
     client=PayPalSandbox()
            ^^^^^^^^^^^^^^^
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
     require(os.name == "nt", "WINDOWS_HOST_REQUIRED")
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
     raise Denied(code)
 commerce_adapter.contracts.Denied: WINDOWS_HOST_REQUIRED
 
@@ -118,12 +118,12 @@ commerce_adapter.contracts.Denied: WINDOWS_HOST_REQUIRED
 ERROR: test_read_only_disallows_post_before_credentials (tests.test_transport.TransportTests.test_read_only_disallows_post_before_credentials)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 30, in test_read_only_disallows_post_before_credentials
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/tests/test_transport.py", line 30, in test_read_only_disallows_post_before_credentials
     client=PayPalSandbox()
            ^^^^^^^^^^^^^^^
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/paypal.py", line 64, in __init__
     require(os.name == "nt", "WINDOWS_HOST_REQUIRED")
-  File "/mnt/c/Users/Administrator/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
+  File "/mnt/c<WORKSPACE_USER>/Documents/Codex/2026-11-03/codex-wo-nim-connection-001-codex/work/wo-cad-002/repo/paypal_adapter/commerce_adapter/contracts.py", line 16, in require
     raise Denied(code)
 commerce_adapter.contracts.Denied: WINDOWS_HOST_REQUIRED
 

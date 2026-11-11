@@ -1,6 +1,6 @@
 test_approved_callback_captures_and_reads_back (tests.test_approval.ApprovalTests.test_approved_callback_captures_and_reads_back) ... ok
 test_callback_does_not_replace_buyer_approval (tests.test_approval.ApprovalTests.test_callback_does_not_replace_buyer_approval) ... ok
-test_foreign_host_rejected (tests.test_approval.ApprovalTests.test_foreign_host_rejected) ... C:\Users\Administrator\AppData\Local\Python\pythoncore-3.14-64\Lib\tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 403: 'Forbidden'>
+test_foreign_host_rejected (tests.test_approval.ApprovalTests.test_foreign_host_rejected) ... <WORKSPACE_USER>\AppData\Local\Python\pythoncore-3.14-64\Lib\tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 403: 'Forbidden'>
   _warnings.warn(self.warn_message, ResourceWarning)
 ok
 test_forged_callback_no_capture (tests.test_approval.ApprovalTests.test_forged_callback_no_capture) ... ok

@@ -50,7 +50,7 @@ Nothing is mocked to obtain PASS.
 
 C: reached 0 bytes during test dependency provisioning; WSL binaries returned
 I/O error, then Ubuntu stopped with `Wsl/Service/E_FAIL`. A redundant locally
-downloaded ZIP was removed; original Dropbox release remains intact. A previous
+downloaded ZIP was removed; original evidence storage release remains intact. A previous
 temporary-cache deletion was rejected by automatic review and not performed.
 No user documents or other projects were cleaned. Storage/WSL recovery is needed.
 

@@ -24,16 +24,68 @@ jobs:
       - name: Install payment adapter dependencies
         run: python -m pip install -r paypal_adapter/requirements.lock
 
+      - name: Prepare verified pmix release and fixtures
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap util-linux
+          python -B scripts/install_pmix.py vendor/pmix/PAYPAL_CAD_001_RELEASE_20261110.zip
+          command -v prlimit
+          command -v bwrap
+
+      - name: Verify actual pmix sandbox execution
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          PYTHONPATH=tests python -B -m unittest -v test_pmix_integration.PmixIntegration.test_successful_extraction_and_bom_reconciliation
+
+      - name: Reproduce original experiment and prototype
+        if: matrix.os == 'ubuntu-latest'
+        working-directory: external/cad-experiment
+        run: |
+          python3 run_benchmark.py | tee benchmark-ci.log
+          python3 cad_adapter_prototype.py | tee adapter-ci.log
+
       - name: Rebuild dossiers from raw evidence and audit
         run: python -B scripts/build_and_serve.py --evidence demo_evidence --no-serve
 
-      - name: Release tests (payments, contract binding, Judge facts, economics, negative matrix)
-        run: python -B -m unittest discover -s tests -v
+      - name: All LEGION tests including real Linux pmix integration
+        if: matrix.os == 'ubuntu-latest'
+        run: python -B -m unittest discover -s tests -v |& tee "${RUNNER_TEMP}/legion-tests.log"
+
+      - name: Windows LEGION tests (supported release, industrial and demand modules)
+        if: matrix.os == 'windows-latest'
+        run: PYTHONPATH=tests python -B -m unittest -v test_demand_first test_industrial test_release |& tee "${RUNNER_TEMP}/legion-tests.log"
+
+      - uses: actions/setup-node@v4
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          node-version: '22'
+
+      - name: Real browser workflow at 1440px and 390px
+        if: matrix.os == 'ubuntu-latest'
+        env:
+          LEGION_CAD_EVIDENCE: ${{ runner.temp }}/cad-browser
+        run: |
+          npm ci --prefix scripts/pmix-browser --ignore-scripts
+          scripts/pmix-browser/node_modules/.bin/playwright install --with-deps chromium
+          node scripts/test_pmix_browser.cjs
+
+      - uses: actions/upload-artifact@v4
+        if: always() && matrix.os == 'ubuntu-latest'
+        with:
+          name: cad-browser-and-regressions
+          path: |
+            ${{ runner.temp }}/cad-browser/
+            ${{ runner.temp }}/legion-tests.log
+            external/cad-experiment/benchmark-ci.log
+            external/cad-experiment/adapter-ci.log
+            external/cad-experiment/BENCHMARK_RESULTS.json
+            external/cad-experiment/ADAPTER_RESULTS.json
 
       - name: Payment adapter tests (fake provider, no network; Windows-only adapter)
         if: matrix.os == 'windows-latest'
         working-directory: paypal_adapter
-        run: python -B -m unittest discover -s tests -t .
+        run: python -B -m unittest discover -s tests -t . -v
 
       - name: Payment negative controls (N07, N09, N10, N14; Windows-only adapter)
         if: matrix.os == 'windows-latest'
