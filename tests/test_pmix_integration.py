@@ -49,6 +49,7 @@ class PmixIntegration(unittest.TestCase):
     def test_all_26_reference_steps_parse_in_sandbox(self):
         benchmark=json.loads((EXPERIMENT/'BENCHMARK_RESULTS.json').read_text())
         self.assertEqual(len(benchmark['cases']),26)
+        audit=[]
         for case in benchmark['cases']:
             with self.subTest(case=case['case']):
                 data=(EXPERIMENT/case['source_path']).read_bytes()
@@ -57,6 +58,32 @@ class PmixIntegration(unittest.TestCase):
                 self.assertTrue(result['bom'])
                 self.assertEqual(result['engineering_verdict'],'Z')
                 self.assertFalse(result['checkout_enabled'])
+                critical=0
+                for part in result['bom']:
+                    for field in part['fields'].values():
+                        self.assertEqual(field['file_sha256'],case['sha256'])
+                        self.assertEqual(field['engineering_verdict'],'Z')
+                        if field['value'] is not None:
+                            self.assertTrue(field['source_refs'])
+                            self.assertEqual(field['extraction'],'T')
+                            critical+=1
+                        else:self.assertEqual(field['extraction'],'Z')
+                engineering=result['engineering']
+                for category in ('dimensions','tolerances','datums'):
+                    for record in engineering['semantic'][category]:
+                        self.assertTrue(record['source_refs'])
+                        self.assertEqual(record['file_sha256'],case['sha256'])
+                        self.assertEqual(record['engineering_verdict'],'Z')
+                        critical+=1
+                audit.append({'case':case['case'],'sha256':case['sha256'],
+                              'critical_fields_with_provenance':critical,
+                              'dimensions':len(engineering['semantic']['dimensions']),
+                              'gdt':len(engineering['semantic']['tolerances']),
+                              'datums':len(engineering['semantic']['datums']),
+                              'unsupported':len(engineering['unknown']),
+                              'diagnostics':len(engineering['diagnostics']),
+                              'engineering_verdict':'Z','checkout_enabled':False})
+        print('PMIX_REFERENCE_AUDIT '+json.dumps(audit),flush=True)
 
     def test_gdt_dimension_units_source_refs(self):
         x=pmix.extract(raw('nist_ctc_01_asme1_ap242-e1.stp','nist'))
@@ -91,8 +118,17 @@ class PmixIntegration(unittest.TestCase):
         # Controlled STEP mutation is parsed by pmix, not by adapter string logic.
         data=raw('assembly_two_parts.stp')
         self.assertIn(b"PRODUCT_DEFINITION_FORMATION('A',",data)
-        a=pmix.extract(data.replace(b"PRODUCT_DEFINITION_FORMATION('A',",b"PRODUCT_DEFINITION_FORMATION('REV-A',"))
-        b=pmix.extract(data.replace(b"PRODUCT_DEFINITION_FORMATION('A',",b"PRODUCT_DEFINITION_FORMATION('REV-B',"))
+        self.assertIn(b"PRODUCT_DEFINITION_FORMATION('B',",data)
+        def revised(revision):
+            # This fixture explicitly contains both A and B formations. Replace
+            # both in the controlled variants, rather than assuming all were A.
+            changed=data
+            for original in (b'A',b'B'):
+                changed=changed.replace(b"PRODUCT_DEFINITION_FORMATION('"+original+b"',",
+                                        b"PRODUCT_DEFINITION_FORMATION('"+revision+b"',")
+            return pmix.extract(changed)
+        a=revised(b'REV-A')
+        b=revised(b'REV-B')
         self.assertEqual({p['revision'] for p in a['bom']},{'REV-A'})
         self.assertEqual({p['revision'] for p in b['bom']},{'REV-B'})
         self.assertNotEqual(a['file_sha256'],b['file_sha256'])

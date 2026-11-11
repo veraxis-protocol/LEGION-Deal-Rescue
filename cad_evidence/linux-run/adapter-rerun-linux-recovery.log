@@ -1,0 +1,3 @@
+two_parts {'SYN-BLOCK': 1, 'SYN-PLATE': 1} gate Z checkout False
+repeated_part {'SYN-BRACKET': 1, 'SYN-PIN': 2} gate Z checkout False
+ADAPTER_CONTRACT_TESTS 7 / 7

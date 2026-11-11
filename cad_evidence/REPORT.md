@@ -1,75 +1,25 @@
-# WO-CAD-002 — partial implementation / NO-GO
+# WO-CAD-002 acceptance
 
-Baseline: `805a30b1a38772b0683cb91941da633706571b34`.
-Development branch: `wo-cad-002-pmix-integration`. This is not DONE or accepted.
+GO for the read-only pmix 0.16.1 integration on the tested hosts and reference corpus. Production engineering qualification remains Z. Baseline commit 805a30b1a38772b0683cb91941da633706571b34.
 
-## Evidence and actual extraction
+| Check | Result |
+|---|---|
+| Original experiment and prototype | 22/22 and 7/7 |
+| Original reference STEP extract and product | 26/26 each |
+| Installed adapter inside unprivileged Linux bubblewrap | 26/26 |
+| Existing LEGION and new integration tests | 100/100 and 29/29 |
+| Build and audit | PASS |
+| PayPal on Windows Python 3.14 with existing lock | 46/46 |
+| Browser Drawing to Parts and confirmation at 1440px and 390px | PASS at both |
 
-The original report, benchmark, checks, adapter, source manifest and negatives
-were read before edits. All 134 SHA256SUMS entries verified before executing the
-bundled pinned binary in WSL. Original commands actually ran: **22/22 + 7/7**, with
-**26/26 extract and 26/26 product** results. The replay measured 287 dimensions,
-380 GD&T tolerances, 127 datums, 33 product records and five assembly relations.
-Seventeen unsupported entities and 20 diagnostics remain visible; no recall or
-independent industrial accuracy claim is made. Archive source SHA-256 and binary
-pin are recorded in `docs/PMIX_INSTALL.md`.
+The verified installer checked the original ZIP, binary digest and manifest members. The full Linux suite ran against that installed binary and fixture directory. The real adapter retained file SHA-256 and source entity references for 860 critical fields and PMI records. Extracted records include 287 dimensions, 380 GD&T tolerances and 127 datums. The original parser reported 17 unsupported entities and 20 diagnostics. Assembly evidence included SYN-BRACKET ×1 with SYN-ALLOY-17 and SYN-PIN ×2 with SYN-STEEL-4.
 
-The new mapping code independently mapped all 26 archived actual JSON outputs,
-retaining Z and disabled checkout. This validates JSON mapping only, not new
-sandbox execution. Source/quantity example: SYN-BRACKET=1, SYN-PIN=2, explicit
-materials SYN-ALLOY-17 and SYN-STEEL-4; unspecified revision/process remain Z.
+The tested flows produced zero unsupported engineering approvals, supplier requests or payment effects. STEP intent confirmation is bound to the drawing and selected quantities. Engineering and execution gates stayed Z after confirmation. Negative tests cover incompatible specifications, missing values, parser failures and authorization boundaries. Existing ZTL, Federation and PayPal authorization code retains its baseline behavior.
 
-## Changes prepared
+Linux executed the PayPal suite with five existing WINDOWS_HOST_REQUIRED errors. Windows is the supported DPAPI host and passed all 46 tests with the exact lock. The earlier Windows-only pmix attempts and storage failure are retained as historical evidence. The recovered run corrected the revision test setup to replace both original revision labels in its controlled variants. Assertions continued to require the exact revised values.
 
-* Existing pmix JSON → provenance-bearing STEP BOM/engineering evidence adapter.
-* Mandatory bubblewrap namespaces and subprocess resource/time/output limits;
-  hash verification on each execution; no unsafe platform/sandbox fallback.
-* Existing CSV/JSON/DXF/SVG/PDF behavior retained; STEP gets 16 MiB cap.
-* Read-only engineering-extract API, bounded JSON/socket read, no commerce session.
-* STEP selection bound to file digest/part/quantity; strict engineering compatibility
-  screening; no coalition, quote, supplier order or payment authority from extraction.
-* Five-screen browser flow, specifications/evidence and mandatory parts confirmation.
-* 29 new test methods, real browser test driver, pinned archive installer and docs.
+The Linux server ran as an ordinary WSL user with bubblewrap 0.9.0 and util-linux 2.39.3. Browser tests used Playwright 1.62.1 and Windows Chrome 156.0.8078.76 against that local backend. Installation and replay instructions are in docs/PMIX_INSTALL.md.
 
-## Executed validation and blockers
+L1 verified the reference extraction, quantity reconciliation, provenance and fail-closed purchasing gates. L2 supports drawing review and selection. GAIA2 Pass@1 and cost were outside this experiment. L3 verified the separation of extraction, buyer intent and authority in the exercised paths.
 
-Existing LEGION tests: **100/100 PASS** inside full discovery. Build/audit PASS.
-PayPal regression: **46/46 PASS** (Windows Python 3.11.9, cryptography 46.0.3,
-cffi 2.0.0, pycparser 2.23; no live calls).
-
-Full discovery is **FAIL**, not a regression acceptance pass: 104 executed,
-103 passed, one new HTTP failure and one class-setup error. Twenty-five new
-binary integration methods could not execute after setup failed on Windows.
-The setup error is mandatory Linux sandbox availability, not a skipped test.
-The Linux smoke attempt failed at OS execution before pmix, with I/O error.
-
-Both browser sizes actually ran and **FAIL** because real components were not
-extracted on the Windows fallback server. No JS page errors; observed POSTs
-before confirmation were extraction only. Screenshots are failure evidence.
-Nothing is mocked to obtain PASS.
-
-C: reached 0 bytes during test dependency provisioning; WSL binaries returned
-I/O error, then Ubuntu stopped with `Wsl/Service/E_FAIL`. A redundant locally
-downloaded ZIP was removed; original Dropbox release remains intact. A previous
-temporary-cache deletion was rejected by automatic review and not performed.
-No user documents or other projects were cleaned. Storage/WSL recovery is needed.
-
-## Required continuation / six-part evidence path
-
-Gap: new Linux isolation, complete integration suite and successful browser
-extraction. Required evidence: sandbox output, all 129 discovered tests passing,
-26 isolated reference parses, 46 PayPal passes, build PASS and two browser PASSes.
-Obtain it by restoring host storage and Ubuntu, installing pins and following
-`docs/PMIX_INSTALL.md`. Independently feasible checks already executed are logged
-above; the unsafe sandbox bypass was not used. PASS requires every work-order
-condition, FAIL any mismatch/unauthorized effect, PARTIAL missing execution.
-Next: recover at least 2–3 GB, rerun the sandbox smoke then all suites unchanged;
-repair actual defects if found. If unavailable, keep draft/NO-GO and no integration
-release. Independent held-out engineering qualification remains Z and requires
-engineer-adjudicated immutable inputs as specified in the installation document.
-
-Work type: CAPABILITY EXPANSION with INVARIANT VERIFICATION. L1 checks extraction,
-provenance, quantities, compatibility and no-effect boundaries. L2 enables review
-of actual STEP demand; no GAIA2 ≥95% Pass@1 or cost improvement was measured.
-L3 preserves separation of parsing, engineering truth, user intent and authority;
-full new-chain correctness requires the execution evidence above.
+General industrial accuracy and part-to-PMI association require an independent held-out CAD corpus with engineer-adjudicated ground truth. Freeze its hashes and score the same pinned adapter against agreed accuracy thresholds, critical provenance and zero unsupported approvals. PASS requires all three. Wrong results FAIL and missing ground truth yields PARTIAL. The present run independently verified the 26 reference cases. Keep production qualification Z until the held-out test passes.

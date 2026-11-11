@@ -1,64 +1,90 @@
 {
   "work_order": "WO-CAD-002",
-  "decision": "NO-GO",
-  "completion": "PARTIAL_IMPLEMENTATION_BLOCKED_NOT_DONE",
-  "baseline_commit": "805a30b1a38772b0683cb91941da633706571b34",
+  "decision": "GO",
+  "scope": "Read-only STEP integration on the reference corpus and tested hosts",
   "production_engineering_qualification": "Z",
-  "original_experiment_reproduced": {
-    "binary_sha256_verified_before_execution": true,
-    "manifest_members_verified": 134,
-    "checks_passed": 22,
+  "baseline_commit": "805a30b1a38772b0683cb91941da633706571b34",
+  "experiment": {
+    "experiment": "WO-CAD-001",
+    "sample_count": 26,
+    "nist_count": 20,
+    "synthetic_count": 6,
+    "pmix_version": "0.16.1",
+    "pmix_sha256": "cc44b80916fd03c03b74bfa5b011061583c2b96cfc0ca0685ca93cfe1ca0ae43",
+    "pmix_parse_pass": 26,
+    "pmix_product_pass": 26,
+    "baseline_extracted": 0,
+    "baseline_unknown": 20,
+    "baseline_rejected": 6,
+    "pmix_dimensions": 287,
+    "pmix_gdt_tolerances": 380,
+    "pmix_datums": 127,
+    "pmix_parts": 33,
+    "pmix_relations": 5,
+    "pmix_unknown_entities": 17,
+    "pmix_diagnostics": 20,
+    "pmix_extract_p50_ms": 85.42,
+    "pmix_extract_p95_ms": 165.59,
+    "checks_pass": 22,
     "checks_total": 22,
-    "adapter_checks_passed": 7,
-    "adapter_checks_total": 7,
-    "step_extract_passed": 26,
-    "step_product_passed": 26,
-    "step_total": 26,
-    "dimensions": 287,
-    "gdt_tolerances": 380,
-    "datums": 127,
-    "unsupported_entities": 17,
-    "diagnostics": 20
+    "evidence_scope": "DIRECT LOCAL BIN+NIST CORPUS TEST; not independent manufacturing validation"
   },
-  "new_adapter_archived_json_mapping": {
-    "mapped": 26,
+  "prototype": {
+    "tests_passed": 7,
+    "tests_total": 7,
+    "status": "T:read_only_extract,Z:engineering,Z:quote,F:checkout_enabled"
+  },
+  "reference_sandbox_parse": {
+    "passed": 26,
     "total": 26,
-    "scope": "Original actual pmix outputs mapped on Windows; not a new isolated parse"
+    "critical_records_with_sha256_and_entity_refs": 860
   },
   "regressions": {
-    "existing_legion_passed": 100,
-    "existing_legion_total": 100,
+    "legion_existing": "100/100",
+    "pmix_integration": "29/29",
+    "full_linux": "129/129",
     "build_audit": "PASS",
-    "paypal_passed": 46,
-    "paypal_total": 46,
-    "full_discovery": "FAIL",
-    "full_discovery_executed": 104,
-    "full_discovery_passed": 103,
-    "full_discovery_failed": 1,
-    "full_discovery_setup_errors": 1,
-    "new_tests_defined": 29,
-    "new_http_passed": 3,
-    "new_http_failed": 1,
-    "new_integration_methods_blocked_by_setup": 25,
-    "new_linux_sandbox_acceptance": "NOT_ESTABLISHED"
+    "paypal_windows_exact_lock": "46/46",
+    "paypal_linux_observation": "41/46 with five existing WINDOWS_HOST_REQUIRED errors"
   },
-  "browser_e2e": {"1440": "FAIL", "390": "FAIL", "reason": "Real endpoint returns Z on Windows; no pmix component extraction", "page_errors": 0},
-  "zero_failure_checks": {
-    "observed_unsupported_engineering_approvals": 0,
-    "observed_supplier_order_or_payment_effects": 0,
-    "browser_post_requests_before_confirmation": ["/api/industrial/engineering-extract"],
-    "scope": "Reproduced original experiment, archived JSON adapter mapping, executed Windows regression and HTTP/browser checks; not full new Linux E2E acceptance"
-  },
-  "root_cause": {
-    "verified": ["C: free space reached zero", "WSL utilities returned Input/output error", "Ubuntu stopped and WSL reported Wsl/Service/E_FAIL", "native Windows does not satisfy Linux sandbox requirements"],
-    "inference": "Host storage exhaustion prevented Linux sandbox validation; environment recovery still required"
-  },
-  "evidence_to_action": {
-    "gap": "New adapter binary execution inside mandatory isolation, all 29 integration checks and successful two-size browser extraction",
-    "required_evidence": "Successful sandbox execution logs; complete 129-test discovery with zero failures/errors/skips; 46 PayPal passes; successful build; 26 isolated reference parses; both browser sizes PASS",
-    "acquisition": "Restore at least 2-3 GB host free space and working Ubuntu/namespace support; follow docs/PMIX_INSTALL.md and rerun unchanged tests",
-    "immediate_execution": "Original 22+7 and 26 reference runs reproduced before disk failure; existing Windows regressions/build/PayPal run; all original JSON mapped; full discovery and browser E2E attempted without substitutes",
-    "acceptance": "GO only if every WO-CAD-002 acceptance condition passes. FAIL for any mismatch/effect/failing test; PARTIAL for missing execution/ground truth. Production qualification remains Z pending independent held-out dataset",
-    "next_action": "Recover storage/WSL, run pinned installation and real sandbox smoke test, repair any genuine implementation failures, rerun all required suites. If recovery unavailable keep draft PR and NO-GO; do not disable isolation or mock extraction"
+  "browser": [
+    {
+      "width": 1440,
+      "status": "PASS",
+      "post_requests": [
+        "/api/industrial/engineering-extract",
+        "/api/industrial/intake"
+      ],
+      "errors": [],
+      "parts_confirmed": true,
+      "engineering_verdict": "Z",
+      "payment_effects": 0,
+      "supplier_requests_sent": 0,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "post_requests": [
+        "/api/industrial/engineering-extract",
+        "/api/industrial/intake"
+      ],
+      "errors": [],
+      "parts_confirmed": true,
+      "engineering_verdict": "Z",
+      "payment_effects": 0,
+      "supplier_requests_sent": 0,
+      "horizontal_overflow": false
+    }
+  ],
+  "observed_unsupported_engineering_approvals": 0,
+  "observed_supplier_order_or_payment_effects": 0,
+  "qualification_next_evidence": {
+    "gap": "General industrial extraction accuracy and part-to-PMI association",
+    "required": "Independent held-out CAD files with engineer-adjudicated field and association ground truth",
+    "method": "Freeze dataset hashes and thresholds, run the same pinned adapter and score field accuracy, provenance and unsafe approvals",
+    "executed": "26 real reference parses and per-record provenance audit",
+    "acceptance": "PASS requires agreed accuracy threshold, complete critical provenance and zero unsupported approvals. Wrong results FAIL. Missing ground truth PARTIAL.",
+    "next": "Obtain independent dataset before production engineering qualification. Until then retain Z."
   }
 }

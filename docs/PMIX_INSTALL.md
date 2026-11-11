@@ -30,17 +30,34 @@ python3 cad_adapter_prototype.py
 cd ../..
 python3 -B -m unittest discover -s tests -v
 python3 -B scripts/build_and_serve.py --evidence demo_evidence --no-serve
-cd paypal_adapter
-python3 -B -m unittest discover -s tests -t . -v
 ```
 
-The PayPal tests additionally require `cryptography==46.0.3` per existing lock.
-For browser tests use Playwright **1.56.0** and its supported Chromium, or set
+Run the unchanged PayPal suite on **Windows**, its existing supported DPAPI host;
+do not remove `WINDOWS_HOST_REQUIRED` to run it on Linux:
+
+```powershell
+cd paypal_adapter
+python -m pip install -r requirements.lock
+python -B -m unittest discover -s tests -t . -v
+```
+
+The accepted run used Windows Python 3.14 and the unchanged lock:
+`cryptography==46.0.3`, `cffi==2.1.1`, `pycparser==3.12`.
+For browser tests use Playwright **1.62.1** and its supported Chromium, or set
 `CHROME_EXECUTABLE` to an existing Chrome. `PYTHON` selects the test server's Python.
 
 ```sh
+npm ci --prefix scripts/pmix-browser --ignore-scripts
+# If no existing Chrome is selected, install this Playwright version's Chromium:
+scripts/pmix-browser/node_modules/.bin/playwright install chromium
 node scripts/test_pmix_browser.cjs
 ```
+
+Windows browser tests may target the Linux server through localhost forwarding:
+start `python3 -B -m deal_rescue.server --evidence demo_evidence --port 18896` in
+the Linux checkout with the verified binary installed, then set
+`LEGION_CAD_BASE_URL=http://127.0.0.1:18896` before the browser test. Without this
+variable the test driver starts and cleans up its own server.
 
 For an external verified install set `LEGION_PMIX_BINARY` and
 `LEGION_CAD_EXPERIMENT`. The binary digest is checked on every extraction.

@@ -12,7 +12,7 @@
    const nav=$('#df-stages');if(nav)nav.innerHTML=stages.map(s=>`<span ${s===name?'aria-current="step"':''} style="padding:6px;${s===name?'font-weight:bold;background:#dbe6ff':''}">${E(s)}</span>`).join(' → ');
    panel.dataset.screen=name;
  }
- const style=`position:fixed;inset:2vh 2vw;background:#f6f8fb;color:#152033;z-index:10001;overflow:auto;padding:24px 4vw;border:1px solid #dce4f1;border-radius:16px;box-shadow:0 20px 80px #091c4059;font:15px/1.5 system-ui`;
+ const style=`position:fixed;inset:2vh 2vw;background:#f6f8fb;color:#152033;z-index:10001;overflow:auto;overflow-wrap:anywhere;padding:24px 4vw;border:1px solid #dce4f1;border-radius:16px;box-shadow:0 20px 80px #091c4059;font:15px/1.5 system-ui`;
  function mount(){
    if($('#legion-start-drawing'))return;
    const btn=document.createElement('button');btn.id='legion-start-drawing';btn.textContent='Start with a drawing / BOM';
@@ -26,7 +26,7 @@
  function open(){mount();panel.hidden=false;renderForm();}
  function close(){if(panel)panel.hidden=true;}
  function renderForm(){
-   panel.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:start;gap:16px"><div><h1 style="margin:0">LEGION · Industrial Orders</h1><p>Upload drawing → Review parts → Find suppliers and peers → Validate cost & MOQ → Confirm feasibility → PayPal authorization</p></div><button id="df-close">Close</button></div>
+   panel.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:start;gap:16px"><div><h1 style="margin:0">LEGION · Industrial Orders</h1><p>Review drawing evidence and confirm the components you intend to purchase before sourcing.</p></div><button id="df-close">Close</button></div>
    <nav id="df-stages" aria-label="Purchasing workflow" style="display:flex;flex-wrap:wrap;gap:4px"></nav>
    <p style="padding:12px;border:1px solid #e9dba8;background:#fff8e4">Extraction is not engineering approval. Missing information remains Z. External RFQs, supplier orders and PayPal remain disabled. Demo inputs are clearly marked synthetic.</p>
    <form id="df-form" style="background:white;padding:20px;border-radius:12px;display:grid;gap:12px;max-width:900px">
@@ -85,7 +85,8 @@
      <p>Quantity: ${E(p.quantity)} · Revision: ${E(p.revision??'Z')} · Material: ${E(p.material??'Z')} · Process: ${E(p.process??'Z')}</p>
      <p>STEP source entities: ${E((p.source_refs||[]).join(', ')||p.origin||'Z')}</p>
      <details><summary>Component specifications and provenance</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere">${E(JSON.stringify(p.fields||p,null,2))}</pre></details></section>`).join('')||'<p>No extractable BOM. Provide a structured BOM or resolve parser diagnostics.</p>'}
-     <p>Dimensions: ${E(eng.semantic?.dimensions?.length??0)} · GD&amp;T: ${E(eng.semantic?.tolerances?.length??0)} · Units: ${E(JSON.stringify(evidence.units||{}))}</p>
+     <p>Drawing-level dimensions: ${E(eng.semantic?.dimensions?.length??0)} · GD&amp;T: ${E(eng.semantic?.tolerances?.length??0)} · Units: ${E(JSON.stringify(evidence.units||{}))}. PMI association with a specific component requires engineering review.</p>
+     <p role="status">Unsupported entities: ${E(eng.unknown?.length??0)} ${E([...new Set((eng.unknown||[]).map(x=>x.kind))].filter(Boolean).join(', '))} · Diagnostics: ${E((eng.diagnostics?.length??0)+(evidence.assembly?.diagnostics?.length??0)+(intake.diagnostics?.length??0))}. ${E((intake.diagnostics||[]).join('; '))}</p>
      <details><summary>Engineering evidence, unsupported features and parser diagnostics</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere">${E(JSON.stringify(intake,null,2))}</pre></details>
      <label><input id="df-parts-consent" type="checkbox"> I confirm the selected components and quantities are my purchase intent, not engineering approval.</label>
      <p><button id="df-source" disabled>Confirm parts → LEGION AT WORK</button> <button id="df-back">Back to drawing</button></p>`;
