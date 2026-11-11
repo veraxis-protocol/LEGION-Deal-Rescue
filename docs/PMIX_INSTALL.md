@@ -18,17 +18,22 @@ No change is made to ZTL, Federation or PayPal authorization rules.
   deployment policy. If blocked, extraction returns Z with diagnostics: do not
   disable isolation or run the purchasing server as privileged root to bypass it.
 
-Obtain the already approved `PAYPAL_CAD_001_RELEASE_20261110.zip` from the PayPal
-working folder. The installer verifies ZIP, binary and manifest members before
-installing under ignored `external/`; it makes no network calls:
+The repository includes the immutable original release under `vendor/pmix/`.
+The installer checks the archive, executable and every manifest member before
+Linux test execution. CI uses the same local archive and needs no file-storage
+credential or temporary download URL.
 
 ```sh
-python3 -B scripts/install_pmix.py /path/PAYPAL_CAD_001_RELEASE_20261110.zip
+sudo apt-get update
+sudo apt-get install -y bubblewrap util-linux
+python3 -B scripts/install_pmix.py vendor/pmix/PAYPAL_CAD_001_RELEASE_20261110.zip
+PYTHONPATH=tests python3 -B -m unittest -v test_pmix_integration.PmixIntegration.test_successful_extraction_and_bom_reconciliation
 cd external/cad-experiment
 python3 run_benchmark.py
 python3 cad_adapter_prototype.py
 cd ../..
 python3 -B -m unittest discover -s tests -v
+PYTHONPATH=. python3 -B scripts/audit_pmix_provenance.py
 python3 -B scripts/build_and_serve.py --evidence demo_evidence --no-serve
 ```
 
@@ -88,7 +93,7 @@ Raw pmix JSON, unknown features, diagnostics, normalized/declared units, origina
 STEP entity references and input SHA-256 are exposed for review. Missing field
 values remain null/Z, including unspecified process and revision.
 
-The five-screen flow is DRAWING → PARTS → LEGION AT WORK → REVIEW → PAYPAL.
+The five-screen flow is DRAWING â†’ PARTS â†’ LEGION AT WORK â†’ REVIEW â†’ PAYPAL.
 PARTS requires explicit selection and intent confirmation before the read-only
 planner. STEP results always hold for independent engineering proof. Exact
 part/revision/material/process/file/engineering-digest comparisons are screening
@@ -104,3 +109,19 @@ those immutable inputs, score every critical field and false approval, and retai
 source digests/annotations. PASS requires the agreed field accuracy threshold,
 complete provenance and zero unsupported approvals/effects; mismatches FAIL,
 missing ground truth PARTIAL. Without that dataset keep Z and hold procurement.
+
+
+## Hosted verification
+
+Both `release-checks` matrix jobs must pass on the exact PR head. Ubuntu runs
+all 129 tests, the original benchmark and prototype, the independent reference
+provenance audit and the real browser flow at both supported widths. Windows
+runs the three supported LEGION modules (100 tests), all 46 PayPal adapter
+tests and N07/N09/N10/N14. Both jobs retain the dossier audit, evidence
+immutability check, payment runtime pin check and secret scan. Ubuntu also
+runs the existing server smoke test.
+
+The browser driver records actual API responses and verifies the exact five
+screen transitions, buyer confirmation and Z payment and engineering gates.
+Find the screenshots, API traces and test logs in the Linux Actions artifact.
+The verified release package carries the final exact-head CI attestation.

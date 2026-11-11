@@ -1,0 +1,163 @@
+{
+  "result": "PASS",
+  "cases": [
+    {
+      "case": "01_nist_ctc_01_asme1_ap242-e1",
+      "sha256": "036683e8358ac27d51a92c35362e175c91bc44d3b600a5c605fb496865edcd37",
+      "critical_records": 23,
+      "valid_entity_links": 64
+    },
+    {
+      "case": "02_nist_ctc_02_asme1_ap242-e2",
+      "sha256": "99a0a2079ddeb64d05c2432cbe931fa17c89da60d8b0bcb0b11bd0ed94fa2e68",
+      "critical_records": 41,
+      "valid_entity_links": 120
+    },
+    {
+      "case": "03_nist_ctc_03_asme1_ap242-e2",
+      "sha256": "196b665776e759282f80fc8fb27d7bceb995df77cf78b7ce48347535a4d6cb5f",
+      "critical_records": 31,
+      "valid_entity_links": 97
+    },
+    {
+      "case": "04_nist_ctc_04_asme1_ap242-e2",
+      "sha256": "7eaea9d2cf417a73d20f8ee840a9d346b0ee5f558a4ab1bf2326a323bd423182",
+      "critical_records": 28,
+      "valid_entity_links": 90
+    },
+    {
+      "case": "05_nist_ctc_05_asme1_ap242-e1",
+      "sha256": "7f04f14be27918d31aef5b6d9ff74d547382ad469e45495c5b710baaa772323d",
+      "critical_records": 23,
+      "valid_entity_links": 61
+    },
+    {
+      "case": "06_nist_ftc_06_asme1_ap242-e2",
+      "sha256": "b87afb7f25adc0d44d12e182209d50f0b085b533c0742fb8ffd58f4c87403447",
+      "critical_records": 64,
+      "valid_entity_links": 207
+    },
+    {
+      "case": "07_nist_ftc_07_asme1_ap242-e2",
+      "sha256": "aa8115c12e12a99cc439477cbfd222916f9ec629fbb3c9002b18e0c264c9a892",
+      "critical_records": 51,
+      "valid_entity_links": 177
+    },
+    {
+      "case": "08_nist_ftc_08_asme1_ap242-e2",
+      "sha256": "7b9283b4288d152fd181d76c39285d7c79fbba34fda1e14a41ac4a983f6d68b3",
+      "critical_records": 56,
+      "valid_entity_links": 162
+    },
+    {
+      "case": "09_nist_ftc_08_asme1_ap242-e4-tg",
+      "sha256": "40cd4e5e2e02b5742e0884ba5b132f2e37d2215c45f57afb48962a05a060c384",
+      "critical_records": 2,
+      "valid_entity_links": 6
+    },
+    {
+      "case": "10_nist_ftc_09_asme1_ap242-e1",
+      "sha256": "f1215fe15a78085a9fa78dd81714caf774b59071be92580b04ebfdc19f52a1bd",
+      "critical_records": 65,
+      "valid_entity_links": 221
+    },
+    {
+      "case": "11_nist_ftc_10_asme1_ap242-e2",
+      "sha256": "9d7711f48e81831c5d1838fdac5c11c0de1aa9b61f3c1d67930a7638b3b25e69",
+      "critical_records": 79,
+      "valid_entity_links": 265
+    },
+    {
+      "case": "12_nist_ftc_11_asme1_ap242-e3",
+      "sha256": "2d05bd399463a9ced7b84a479872a759f170fe92f7a62f8194e83df77f86f117",
+      "critical_records": 14,
+      "valid_entity_links": 44
+    },
+    {
+      "case": "13_nist_stc_06_asme1_ap242-e3",
+      "sha256": "71777c28da76da0e8a667e4cbe792d5f72c09b5c56440c9744d3d50ca96ecc8d",
+      "critical_records": 50,
+      "valid_entity_links": 162
+    },
+    {
+      "case": "14_nist_stc_07_asme1_ap242-e3",
+      "sha256": "2dddf9b8894bc241f7ffddf3dc4502baa3d49c374e8784039d14b86473d54832",
+      "critical_records": 74,
+      "valid_entity_links": 258
+    },
+    {
+      "case": "15_nist_stc_08_asme1_ap242-e3",
+      "sha256": "64f24b914910ce8e20c9e4bd59637b4fd155715c7c7b51689466534ed7db1442",
+      "critical_records": 47,
+      "valid_entity_links": 131
+    },
+    {
+      "case": "16_nist_stc_09_asme1_ap242-e4",
+      "sha256": "41026b1f0d81830c6092b5147e0e084d2fa163169161c31af4ce06493d3c7d33",
+      "critical_records": 58,
+      "valid_entity_links": 202
+    },
+    {
+      "case": "17_nist_stc_10_asme1_ap242-e2",
+      "sha256": "fba4f46cab1ce1402362038036884631b4a41afe1c9efc5681d358c39db7ed5f",
+      "critical_records": 75,
+      "valid_entity_links": 248
+    },
+    {
+      "case": "18_nist_ctc_04_asme1_ap242-e1",
+      "sha256": "20b43b54ce25d4ed17cff794084c406e831c687f5b62471d3371eef33669e355",
+      "critical_records": 28,
+      "valid_entity_links": 90
+    },
+    {
+      "case": "19_nist_ftc_08_asme1_ap242-e1-tg",
+      "sha256": "841a9ac51a32fe25b872f283b0b8770c77fee4e34adc8499f88a6e1bafd8e578",
+      "critical_records": 2,
+      "valid_entity_links": 6
+    },
+    {
+      "case": "20_nist_ftc_11_asme1_ap242-e2",
+      "sha256": "20a92edf514ae0989d556f9c7b9f065aed741cfbb361b7fe4cb7938a1eb5c232",
+      "critical_records": 14,
+      "valid_entity_links": 44
+    },
+    {
+      "case": "21_assembly_two_parts",
+      "sha256": "ae793550181e3b972493d98ecab3c5b481c4b4aceff5a90d98d09d505049ae11",
+      "critical_records": 6,
+      "valid_entity_links": 30
+    },
+    {
+      "case": "22_assembly_properties",
+      "sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+      "critical_records": 6,
+      "valid_entity_links": 30
+    },
+    {
+      "case": "23_dimension_basics",
+      "sha256": "5ddeb6b541bbcee206832a1f1c91a298fe17ed24096cc8136e1ac63089a44aff",
+      "critical_records": 7,
+      "valid_entity_links": 25
+    },
+    {
+      "case": "24_plate_one_hole",
+      "sha256": "eb3c5fb4ed729675cbc87c28346e06684f1762c83a2ab89a455f67a3e92450b6",
+      "critical_records": 2,
+      "valid_entity_links": 6
+    },
+    {
+      "case": "25_property_basics",
+      "sha256": "94de94d3f72d1f8c8ef34ef9c2e3fd673f11a292a47b27fc0b6778d42406acba",
+      "critical_records": 3,
+      "valid_entity_links": 8
+    },
+    {
+      "case": "26_tolerance_datum_basics",
+      "sha256": "f346ee58aea184e417918cdc1d3189e1b1741eee12f164dc1324ac85c58e20d9",
+      "critical_records": 11,
+      "valid_entity_links": 34
+    }
+  ],
+  "critical_records": 860,
+  "files": 26
+}

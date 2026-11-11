@@ -1,0 +1,72 @@
+{
+ "at": "2026-11-11T14:33:55Z",
+ "provider": "FakePayPal (MOCK_ONLY; no network, no money)",
+ "python": "3.14.7",
+ "cases": {
+  "N07": [
+   {
+    "test": "tests.test_release_negatives.ReleaseNegatives.test_n07_duplicate_capture_single_post",
+    "pass": true,
+    "output_tail": [
+     "OK"
+    ]
+   }
+  ],
+  "N09": [
+   {
+    "test": "tests.test_gateway.GatewayTests.test_unknown_capture_approved_readback_does_not_retry",
+    "pass": true,
+    "output_tail": [
+     "OK"
+    ]
+   }
+  ],
+  "N10": [
+   {
+    "test": "tests.test_release_negatives.ReleaseNegatives.test_n10_payee_swapped_at_provider_no_capture",
+    "pass": true,
+    "output_tail": [
+     "OK"
+    ]
+   },
+   {
+    "test": "tests.test_release_negatives.ReleaseNegatives.test_n10_approved_without_payer_identity_no_capture",
+    "pass": true,
+    "output_tail": [
+     "OK"
+    ]
+   },
+   {
+    "test": "tests.test_gateway.GatewayTests.test_t08_unsigned_changed_amount_merchant",
+    "pass": true,
+    "output_tail": [
+     "OK"
+    ]
+   }
+  ],
+  "N14": [
+   {
+    "test": "tests.test_release_negatives.ReleaseNegatives.test_n14_capture_without_provider_approval_no_capture",
+    "pass": true,
+    "output_tail": [
+     "OK"
+    ]
+   },
+   {
+    "test": "tests.test_approval.ApprovalTests.test_callback_does_not_replace_buyer_approval",
+    "pass": true,
+    "output_tail": [
+     "OK"
+    ]
+   },
+   {
+    "test": "tests.test_approval.ApprovalTests.test_forged_callback_no_capture",
+    "pass": true,
+    "output_tail": [
+     "OK"
+    ]
+   }
+  ]
+ },
+ "all_pass": true
+}

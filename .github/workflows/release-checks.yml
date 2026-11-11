@@ -27,8 +27,11 @@ jobs:
       - name: Prepare verified pmix release and fixtures
         if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y bubblewrap util-linux
+          apt_options=(-o Acquire::Retries=1 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20)
+          if ! sudo apt-get "${apt_options[@]}" install -y bubblewrap util-linux; then
+            sudo apt-get "${apt_options[@]}" -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/ubuntu.sources -o Dir::Etc::sourceparts=- update
+            sudo apt-get "${apt_options[@]}" install -y bubblewrap util-linux
+          fi
           python -B scripts/install_pmix.py vendor/pmix/PAYPAL_CAD_001_RELEASE_20261110.zip
           command -v prlimit
           command -v bwrap
@@ -52,6 +55,10 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: python -B -m unittest discover -s tests -v |& tee "${RUNNER_TEMP}/legion-tests.log"
 
+      - name: Verify all 860 critical records against source STEP files
+        if: matrix.os == 'ubuntu-latest'
+        run: PYTHONPATH=. python -B scripts/audit_pmix_provenance.py | tee "${RUNNER_TEMP}/pmix-provenance.json"
+
       - name: Windows LEGION tests (supported release, industrial and demand modules)
         if: matrix.os == 'windows-latest'
         run: PYTHONPATH=tests python -B -m unittest -v test_demand_first test_industrial test_release |& tee "${RUNNER_TEMP}/legion-tests.log"
@@ -67,7 +74,7 @@ jobs:
           LEGION_CAD_EVIDENCE: ${{ runner.temp }}/cad-browser
         run: |
           npm ci --prefix scripts/pmix-browser --ignore-scripts
-          scripts/pmix-browser/node_modules/.bin/playwright install --with-deps chromium
+          scripts/pmix-browser/node_modules/.bin/playwright install chromium
           node scripts/test_pmix_browser.cjs
 
       - uses: actions/upload-artifact@v4
@@ -77,6 +84,7 @@ jobs:
           path: |
             ${{ runner.temp }}/cad-browser/
             ${{ runner.temp }}/legion-tests.log
+            ${{ runner.temp }}/pmix-provenance.json
             external/cad-experiment/benchmark-ci.log
             external/cad-experiment/adapter-ci.log
             external/cad-experiment/BENCHMARK_RESULTS.json
@@ -126,5 +134,7 @@ jobs:
 
       - name: No secrets, private identifiers or machine paths
         run: |
-          ! grep -rIlE 'nvapi-[A-Za-z0-9]{8}|client_secret["'"'"' ]*[:=] *["'"'"'][A-Za-z0-9]|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|RGFNDXFWF988G|Users[\/]+Administrator|ADMINI~1|Dropbox' \
-            --exclude-dir=.git --exclude-dir=.github .
+          result=0
+          grep -rIlE 'nvapi-[A-Za-z0-9]{8}|client_secret["'"'"' ]*[:=] *["'"'"'][A-Za-z0-9]|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|RGFNDXFWF988G|Users[\/]+Administrator|ADMINI~1|Dropbox' \
+            --exclude-dir=.git --exclude-dir=.github . || result=$?
+          test "$result" -eq 1

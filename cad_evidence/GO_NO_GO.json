@@ -1,90 +1,20 @@
 {
-  "work_order": "WO-CAD-002",
-  "decision": "GO",
-  "scope": "Read-only STEP integration on the reference corpus and tested hosts",
+  "work_order": "WO-CAD-003",
+  "decision": "NO-GO",
+  "gate": "Exact-head GitHub Actions acceptance is recorded after this source snapshot is pushed. See the final release package for the verified decision.",
   "production_engineering_qualification": "Z",
-  "baseline_commit": "805a30b1a38772b0683cb91941da633706571b34",
-  "experiment": {
-    "experiment": "WO-CAD-001",
-    "sample_count": 26,
-    "nist_count": 20,
-    "synthetic_count": 6,
-    "pmix_version": "0.16.1",
-    "pmix_sha256": "cc44b80916fd03c03b74bfa5b011061583c2b96cfc0ca0685ca93cfe1ca0ae43",
-    "pmix_parse_pass": 26,
-    "pmix_product_pass": 26,
-    "baseline_extracted": 0,
-    "baseline_unknown": 20,
-    "baseline_rejected": 6,
-    "pmix_dimensions": 287,
-    "pmix_gdt_tolerances": 380,
-    "pmix_datums": 127,
-    "pmix_parts": 33,
-    "pmix_relations": 5,
-    "pmix_unknown_entities": 17,
-    "pmix_diagnostics": 20,
-    "pmix_extract_p50_ms": 85.42,
-    "pmix_extract_p95_ms": 165.59,
-    "checks_pass": 22,
-    "checks_total": 22,
-    "evidence_scope": "DIRECT LOCAL BIN+NIST CORPUS TEST; not independent manufacturing validation"
-  },
-  "prototype": {
-    "tests_passed": 7,
-    "tests_total": 7,
-    "status": "T:read_only_extract,Z:engineering,Z:quote,F:checkout_enabled"
-  },
-  "reference_sandbox_parse": {
-    "passed": 26,
-    "total": 26,
-    "critical_records_with_sha256_and_entity_refs": 860
-  },
-  "regressions": {
-    "legion_existing": "100/100",
-    "pmix_integration": "29/29",
-    "full_linux": "129/129",
+  "local": {
+    "experiment": "22/22",
+    "prototype": "7/7",
+    "step_bubblewrap": "26/26",
+    "legion_linux": "129/129",
+    "legion_windows": "100/100",
+    "paypal_windows": "46/46",
     "build_audit": "PASS",
-    "paypal_windows_exact_lock": "46/46",
-    "paypal_linux_observation": "41/46 with five existing WINDOWS_HOST_REQUIRED errors"
-  },
-  "browser": [
-    {
-      "width": 1440,
-      "status": "PASS",
-      "post_requests": [
-        "/api/industrial/engineering-extract",
-        "/api/industrial/intake"
-      ],
-      "errors": [],
-      "parts_confirmed": true,
-      "engineering_verdict": "Z",
-      "payment_effects": 0,
-      "supplier_requests_sent": 0,
-      "horizontal_overflow": false
-    },
-    {
-      "width": 390,
-      "status": "PASS",
-      "post_requests": [
-        "/api/industrial/engineering-extract",
-        "/api/industrial/intake"
-      ],
-      "errors": [],
-      "parts_confirmed": true,
-      "engineering_verdict": "Z",
-      "payment_effects": 0,
-      "supplier_requests_sent": 0,
-      "horizontal_overflow": false
-    }
-  ],
-  "observed_unsupported_engineering_approvals": 0,
-  "observed_supplier_order_or_payment_effects": 0,
-  "qualification_next_evidence": {
-    "gap": "General industrial extraction accuracy and part-to-PMI association",
-    "required": "Independent held-out CAD files with engineer-adjudicated field and association ground truth",
-    "method": "Freeze dataset hashes and thresholds, run the same pinned adapter and score field accuracy, provenance and unsafe approvals",
-    "executed": "26 real reference parses and per-record provenance audit",
-    "acceptance": "PASS requires agreed accuracy threshold, complete critical provenance and zero unsupported approvals. Wrong results FAIL. Missing ground truth PARTIAL.",
-    "next": "Obtain independent dataset before production engineering qualification. Until then retain Z."
+    "browser_1440": "PASS",
+    "browser_390": "PASS",
+    "valid_critical_records": 860,
+    "unsupported_approvals": 0,
+    "unauthorized_effects": 0
   }
 }
