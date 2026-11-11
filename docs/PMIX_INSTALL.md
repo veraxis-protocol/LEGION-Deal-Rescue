@@ -93,7 +93,7 @@ Raw pmix JSON, unknown features, diagnostics, normalized/declared units, origina
 STEP entity references and input SHA-256 are exposed for review. Missing field
 values remain null/Z, including unspecified process and revision.
 
-The five-screen flow is DRAWING Ã¢â€ â€™ PARTS Ã¢â€ â€™ LEGION AT WORK Ã¢â€ â€™ REVIEW Ã¢â€ â€™ PAYPAL.
+The five-screen flow is DRAWING ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ PARTS ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ LEGION AT WORK ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ REVIEW ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ PAYPAL.
 PARTS requires explicit selection and intent confirmation before the read-only
 planner. STEP results always hold for independent engineering proof. Exact
 part/revision/material/process/file/engineering-digest comparisons are screening
@@ -127,3 +127,12 @@ The browser driver records actual API responses and verifies the exact five
 screen transitions, buyer confirmation and Z payment and engineering gates.
 Find the screenshots, API traces and test logs in the Linux Actions artifact.
 The verified release package carries the final exact-head CI attestation.
+
+
+On Ubuntu 24.04 with AppArmor user namespace restrictions enabled, configure
+an executable-specific user namespace policy for the installed bwrap. CI
+loads `.github/apparmor/pmix-bwrap` on its disposable runner. It keeps the
+system-wide restriction and the adapter's namespace, capability and resource
+limits in place. For deployment, use a policy approved for the installed
+binary and run the ordinary-user extraction smoke test before serving uploads.
+See the [Ubuntu 24.04 release notes](https://documentation.ubuntu.com/release-notes/24.04/#unprivileged-user-namespace-restrictions).

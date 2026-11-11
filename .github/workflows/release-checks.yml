@@ -32,6 +32,9 @@ jobs:
           sudo dpkg --install vendor/ubuntu-noble/bubblewrap_0.9.0-1ubuntu0.3_amd64.deb
           dpkg-query -W util-linux
           test "$(id -u)" -ne 0
+          if [ "$(cat /proc/sys/kernel/apparmor_restrict_unprivileged_userns 2>/dev/null || echo 0)" = 1 ]; then
+            sudo apparmor_parser --replace .github/apparmor/pmix-bwrap
+          fi
           python -B scripts/install_pmix.py vendor/pmix/PAYPAL_CAD_001_RELEASE_20261110.zip
           command -v prlimit
           command -v bwrap
