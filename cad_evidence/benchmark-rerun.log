@@ -1,0 +1,51 @@
+01/26 nist_ctc_01_asme1_ap242-e1.stp              base=Z        PMI=  61 parts= 1 pmix=0/0
+02/26 nist_ctc_02_asme1_ap242-e2.stp              base=Z        PMI= 111 parts= 1 pmix=0/0
+03/26 nist_ctc_03_asme1_ap242-e2.stp              base=Z        PMI=  69 parts= 1 pmix=0/0
+04/26 nist_ctc_04_asme1_ap242-e2.stp              base=Z        PMI= 235 parts= 1 pmix=0/0
+05/26 nist_ctc_05_asme1_ap242-e1.stp              base=Z        PMI=  45 parts= 1 pmix=0/0
+06/26 nist_ftc_06_asme1_ap242-e2.stp              base=Z        PMI= 215 parts= 1 pmix=0/0
+07/26 nist_ftc_07_asme1_ap242-e2.stp              base=Z        PMI= 221 parts= 1 pmix=0/0
+08/26 nist_ftc_08_asme1_ap242-e2.stp              base=REJECTED PMI= 196 parts= 1 pmix=0/0
+09/26 nist_ftc_08_asme1_ap242-e4-tg.stp           base=REJECTED PMI=  21 parts= 1 pmix=0/0
+10/26 nist_ftc_09_asme1_ap242-e1.stp              base=REJECTED PMI= 235 parts= 4 pmix=0/0
+11/26 nist_ftc_10_asme1_ap242-e2.stp              base=Z        PMI= 261 parts= 1 pmix=0/0
+12/26 nist_ftc_11_asme1_ap242-e3.stp              base=Z        PMI=  30 parts= 1 pmix=0/0
+13/26 nist_stc_06_asme1_ap242-e3.stp              base=Z        PMI= 160 parts= 1 pmix=0/0
+14/26 nist_stc_07_asme1_ap242-e3.stp              base=Z        PMI= 228 parts= 1 pmix=0/0
+15/26 nist_stc_08_asme1_ap242-e3.stp              base=REJECTED PMI= 179 parts= 1 pmix=0/0
+16/26 nist_stc_09_asme1_ap242-e4.stp              base=Z        PMI= 201 parts= 1 pmix=0/0
+17/26 nist_stc_10_asme1_ap242-e2.stp              base=REJECTED PMI= 253 parts= 1 pmix=0/0
+18/26 nist_ctc_04_asme1_ap242-e1.stp              base=Z        PMI= 235 parts= 1 pmix=0/0
+19/26 nist_ftc_08_asme1_ap242-e1-tg.stp           base=REJECTED PMI=  21 parts= 1 pmix=0/0
+20/26 nist_ftc_11_asme1_ap242-e2.stp              base=Z        PMI=  30 parts= 1 pmix=0/0
+21/26 assembly_two_parts.stp                      base=Z        PMI=   0 parts= 3 pmix=0/0
+22/26 assembly_properties.stp                     base=Z        PMI=   0 parts= 3 pmix=0/0
+23/26 dimension_basics.stp                        base=Z        PMI=   8 parts= 1 pmix=0/0
+24/26 plate_one_hole.stp                          base=Z        PMI=   0 parts= 1 pmix=0/0
+25/26 property_basics.stp                         base=Z        PMI=   2 parts= 1 pmix=0/0
+26/26 tolerance_datum_basics.stp                  base=Z        PMI=  16 parts= 1 pmix=0/0
+SUMMARY {
+  "experiment": "WO-CAD-001",
+  "sample_count": 26,
+  "nist_count": 20,
+  "synthetic_count": 6,
+  "pmix_version": "0.16.1",
+  "pmix_sha256": "cc44b80916fd03c03b74bfa5b011061583c2b96cfc0ca0685ca93cfe1ca0ae43",
+  "pmix_parse_pass": 26,
+  "pmix_product_pass": 26,
+  "baseline_extracted": 0,
+  "baseline_unknown": 20,
+  "baseline_rejected": 6,
+  "pmix_dimensions": 287,
+  "pmix_gdt_tolerances": 380,
+  "pmix_datums": 127,
+  "pmix_parts": 33,
+  "pmix_relations": 5,
+  "pmix_unknown_entities": 17,
+  "pmix_diagnostics": 20,
+  "pmix_extract_p50_ms": 76.22,
+  "pmix_extract_p95_ms": 149.53,
+  "checks_pass": 22,
+  "checks_total": 22,
+  "evidence_scope": "DIRECT LOCAL BIN+NIST CORPUS TEST; not independent manufacturing validation"
+}

@@ -2,7 +2,7 @@
 
 Supported: CSV, JSON BOM, DXF ASCII BLOCK INSERT occurrences, SVG structured
 BOM annotations, text-only PDF BOM lines when pypdf is installed.
-STEP/STL geometry, scanned PDFs and unsupported DXF yield Z and require user BOM.
+STEP uses pinned, sandboxed pmix. STL, scanned PDFs and unsupported DXF yield Z.
 All formats are strictly bounded; no user files are retained or sent to suppliers.
 """
 from __future__ import annotations
@@ -96,10 +96,30 @@ def _pdf_text(data):
     except Exception:raise IntakeError('UNREADABLE_PDF')
 
 def extract(filename: str, data: bytes):
-    if not isinstance(data,bytes) or not data or len(data)>MAX_BYTES:raise IntakeError('INVALID_SIZE_MAX_2MB')
+    if not isinstance(filename,str):raise IntakeError('INVALID_FILENAME')
     if '/' in filename or '\\' in filename or '\x00' in filename or len(filename)>200:raise IntakeError('INVALID_FILENAME')
     ext='.'+filename.rsplit('.',1)[-1].lower() if '.' in filename else ''
     if ext not in ALLOW:raise IntakeError('UNSUPPORTED_EXTENSION')
+    if ext in ('.step','.stp'):
+        from . import pmix_adapter
+        if not isinstance(data,bytes) or not 0<len(data)<=pmix_adapter.MAX_BYTES:
+            raise IntakeError('INVALID_STEP_SIZE_MAX_16MB')
+        sha=hashlib.sha256(data).hexdigest()
+        try:
+            evidence=pmix_adapter.extract(data)
+            rows=evidence['bom']
+            return {'schema':'legion.cad-bom-intake.v1','filename':filename,
+                    'file_sha256':sha,'format':'STEP','extraction':'T' if rows else 'Z',
+                    'bom':rows,'engineering_evidence':evidence,
+                    'reason':'PMIX_EXTRACTED_REVIEW_REQUIRED' if rows else 'NO_PRODUCT_BOM_EXTRACTED',
+                    'evidence_scope':'EXTRACTED_NOT_ENGINEERING_PROOF',
+                    'engineering_verdict':'Z','raw_file_retained':False,'sent_to_suppliers':False}
+        except pmix_adapter.PmixError as exc:
+            return {'schema':'legion.cad-bom-intake.v1','filename':filename,
+                    'file_sha256':sha,'format':'STEP','extraction':'Z','bom':[],
+                    'engineering_verdict':'Z','reason':'PMIX_EXTRACTION_FAILED',
+                    'diagnostics':[str(exc)],'raw_file_retained':False,'sent_to_suppliers':False}
+    if not isinstance(data,bytes) or not data or len(data)>MAX_BYTES:raise IntakeError('INVALID_SIZE_MAX_2MB')
     sha=hashlib.sha256(data).hexdigest();rows=[]
     if ext=='.csv':
         try:rows=_rows(csv.DictReader(io.StringIO(data.decode('utf-8-sig'))),'CSV_BOM')
@@ -112,7 +132,7 @@ def extract(filename: str, data: bytes):
         try:rows=_svg_annotations(data)
         except ET.ParseError as e:raise IntakeError('INVALID_SVG') from e
     elif ext=='.pdf':rows=_pdf_text(data)
-    # STEP/STL are geometry, not part/BOM evidence. No fictitious CAD understanding.
+    # STL geometry is not part/BOM evidence.
     status='T' if rows else 'Z'
     return {'schema':'legion.cad-bom-intake.v1','filename':filename,'file_sha256':sha,
             'format':ext[1:].upper(),'extraction':status,'bom':rows,

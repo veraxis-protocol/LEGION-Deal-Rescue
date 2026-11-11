@@ -226,14 +226,87 @@ def _one_line(intake,part,claim):
             'supplier_quote_verified':False,'paypal_payment_authorized':False,
             'supplier_verified_shipping':False,'assumed_same_fixture_shipping_for_all_routes':True}
 
+def engineering_compatibility(left, right):
+    """Exact evidence equality is screening only, never engineering approval."""
+    keys=('part_no','revision','material','process','file_sha256','engineering_digest')
+    missing=[k for k in keys if left.get(k) in (None,'','Z') or right.get(k) in (None,'','Z')]
+    if missing:return {'verdict':Z,'why':'ENGINEERING_FIELDS_MISSING','fields':missing}
+    return {'verdict':T if all(left[k]==right[k] for k in keys) else F,
+            'why':'EXACT_ENGINEERING_EVIDENCE_COMPARISON','procurement_eligible':False}
+
+
+def _engineering_intake(intake, claim):
+    """Review selected STEP leaves, without invoking demo quotes or coalition code.
+
+    A buyer selection is intent only. This path cannot dispatch RFQs, admit a
+    coalition, mint a demo payment session, or enter the payment adapter.
+    """
+    evidence=intake.get('engineering_evidence') or {}
+    digest=core.digest(evidence.get('engineering',{}))
+    selected=claim.get('selected_parts') or []
+    confirmed=(claim.get('parts_confirmed') is True and
+               claim.get('drawing_sha256')==intake['file_sha256'])
+    results=[]
+    known={p['part_id']:p for p in intake['bom']}
+    if not isinstance(selected,list) or any(not isinstance(p,dict) for p in selected):
+        raise ValueError('INVALID_PART_SELECTION')
+    seen=set()
+    for selection in selected:
+        pid=selection.get('part_id')
+        if pid not in known or pid in seen:raise ValueError('UNKNOWN_OR_DUPLICATE_PART_SELECTION')
+        seen.add(pid)
+        p=known[pid]
+        if type(selection.get('quantity')) is not int or selection['quantity']!=p['quantity']:
+            raise ValueError('SELECTION_QUANTITY_MISMATCH')
+        candidate=dict(p,engineering_digest=digest)
+        supplied=dict(claim.get('requirements') or {},
+                      revision=(claim.get('requirements') or {}).get('spec_revision'),
+                      file_sha256=claim.get('drawing_sha256'),
+                      engineering_digest=claim.get('engineering_digest'))
+        comparison=engineering_compatibility(candidate,supplied)
+        results.append({'part_id':pid,'part_no':p['part_no'],'quantity':p['quantity'],
+                        'engineering_digest':digest,'engineering_compatibility':comparison,
+                        'status':'HOLD_ENGINEERING_PROOF_REQUIRED' if confirmed else 'AWAITING_PART_CONFIRMATION',
+                        'specifications':p['fields'],'engineering_evidence':p,
+                        'candidate_sources':core.shortlist_sources(p['process']) if
+                            confirmed and comparison['verdict']==T else [],
+                        'supplier_quote_verified':False,'paypal_payment_authorized':False,
+                        'execution_gate':Z})
+    return {'schema':'legion.demand-first.v1','intake':intake,'lines':results,
+            'overall':'HOLD_ENGINEERING_PROOF_REQUIRED' if confirmed and results else 'CONFIRM_PARTS_REQUIRED',
+            'parts_confirmed':confirmed and bool(results),'engineering_digest':digest,
+            'engineering_verdict':Z,'production_qualification':Z,
+            'live_execution_gate':Z,'new_paypal_captures':0,'supplier_requests_sent':0,
+            'customer_call_to_action':'INDEPENDENT_ENGINEERING_REVIEW_REQUIRED',
+            'existing_historic_paypal_payments_reused':False,
+            'evidence_sha256':core.digest({'intake':intake,'claim':claim,'lines':results})}
+
+
 def run_intake(filename,data,claim):
+    if not isinstance(claim,dict):raise ValueError('INVALID_CLAIM')
     intake=cad_bom.extract(filename,data)
     if intake['extraction']!=T:
         return {'schema':'legion.demand-first.v1','intake':intake,'lines':[],
                 'overall':'NEEDS_HUMAN_BOM','live_execution_gate':Z,'new_paypal_captures':0}
+    if intake['format']=='STEP':return _engineering_intake(intake,claim)
     # A full BOM cannot be admitted if only one line is checked.
     results=[]
-    for p in intake['bom']:
+    to_plan=intake['bom']
+    if 'parts_confirmed' in claim:
+        if claim.get('parts_confirmed') is not True or claim.get('drawing_sha256')!=intake['file_sha256']:
+            raise ValueError('PART_CONFIRMATION_NOT_BOUND_TO_DRAWING')
+        selected=claim.get('selected_parts')
+        if not isinstance(selected,list) or not selected:raise ValueError('NO_PARTS_SELECTED')
+        known={p['part_no']:p for p in to_plan};seen=set();chosen=[]
+        for s in selected:
+            if not isinstance(s,dict) or s.get('part_no') not in known or s['part_no'] in seen:
+                raise ValueError('UNKNOWN_OR_DUPLICATE_PART_SELECTION')
+            p=known[s['part_no']]
+            if type(s.get('quantity')) is not int or s['quantity']!=p['quantity']:
+                raise ValueError('SELECTION_QUANTITY_MISMATCH')
+            seen.add(s['part_no']);chosen.append(p)
+        to_plan=chosen
+    for p in to_plan:
         spec=(claim.get('requirements') or {}).get('part_no')
         if p['part_no']!=spec:
             results.append({'part_no':p['part_no'],'status':'NEEDS_PART_REQUIREMENTS',

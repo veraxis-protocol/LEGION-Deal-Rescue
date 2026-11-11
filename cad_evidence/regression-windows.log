@@ -1,0 +1,136 @@
+test_direct_retail_without_discovery_consent (test_demand_first.BuyerEntryAlternatives.test_direct_retail_without_discovery_consent) ... ok
+test_existing_supplier_batch_80_plus_20 (test_demand_first.BuyerEntryAlternatives.test_existing_supplier_batch_80_plus_20) ... ok
+test_no_live_direct_unauthorized_quote (test_demand_first.BuyerEntryAlternatives.test_no_live_direct_unauthorized_quote) ... ok
+test_retail_more_expensive_than_coalition (test_demand_first.BuyerEntryAlternatives.test_retail_more_expensive_than_coalition) ... ok
+test_csv_quantity_aggregation (test_demand_first.CADIntake.test_csv_quantity_aggregation) ... ok
+test_drawing_digest_stable (test_demand_first.CADIntake.test_drawing_digest_stable) ... ok
+test_dxf_blocks_not_placements (test_demand_first.CADIntake.test_dxf_blocks_not_placements) ... ok
+test_dxf_multiple_components (test_demand_first.CADIntake.test_dxf_multiple_components) ... ok
+test_empty_dxf_never_invents_bom (test_demand_first.CADIntake.test_empty_dxf_never_invents_bom) ... ok
+test_json_bom_20 (test_demand_first.CADIntake.test_json_bom_20) ... ok
+test_real_dxf_insert_count (test_demand_first.CADIntake.test_real_dxf_insert_count) ... ok
+test_reject_bad_quantity (test_demand_first.CADIntake.test_reject_bad_quantity) ... ok
+test_reject_external_xml_entity_no_expansion (test_demand_first.CADIntake.test_reject_external_xml_entity_no_expansion) ... ok
+test_reject_oversized_file (test_demand_first.CADIntake.test_reject_oversized_file) ... ok
+test_reject_path_traversal (test_demand_first.CADIntake.test_reject_path_traversal) ... ok
+test_step_never_claims_bom (test_demand_first.CADIntake.test_step_never_claims_bom) ... ok
+test_svg_explicit_annotations (test_demand_first.CADIntake.test_svg_explicit_annotations) ... ok
+test_amounts_are_cents_and_exact (test_demand_first.DemandFirst.test_amounts_are_cents_and_exact) ... ok
+test_budget_cap_prevents_confirmation (test_demand_first.DemandFirst.test_budget_cap_prevents_confirmation) ... ok
+test_fixture_status_never_real_authority (test_demand_first.DemandFirst.test_fixture_status_never_real_authority) ... ok
+test_material_mismatch_cannot_group (test_demand_first.DemandFirst.test_material_mismatch_cannot_group) ... ok
+test_missing_payment_fee_holds (test_demand_first.DemandFirst.test_missing_payment_fee_holds) ... ok
+test_missing_taxes_holds (test_demand_first.DemandFirst.test_missing_taxes_holds) ... ok
+test_multi_component_bom_cannot_complete (test_demand_first.DemandFirst.test_multi_component_bom_cannot_complete) ... ok
+test_optin_is_explicit_and_revocable (test_demand_first.DemandFirst.test_optin_is_explicit_and_revocable) ... ok
+test_part_number_missing_in_bom_rejected (test_demand_first.DemandFirst.test_part_number_missing_in_bom_rejected) ... ok
+test_positive_buyer_intake_to_demand_pool (test_demand_first.DemandFirst.test_positive_buyer_intake_to_demand_pool) ... ok
+test_real_claim_cannot_use_demo_peers (test_demand_first.DemandFirst.test_real_claim_cannot_use_demo_peers) ... ok
+test_real_paypal_cannot_be_bound_to_new_contract (test_demand_first.DemandFirst.test_real_paypal_cannot_be_bound_to_new_contract) ... ok
+test_revision_mismatch_cannot_group (test_demand_first.DemandFirst.test_revision_mismatch_cannot_group) ... ok
+test_supplier_listing_never_accepted_quote (test_demand_first.DemandFirst.test_supplier_listing_never_accepted_quote) ... ok
+test_unknown_shipping_holds (test_demand_first.DemandFirst.test_unknown_shipping_holds) ... ok
+test_unsupported_geometry_no_fabricated_bom (test_demand_first.DemandFirst.test_unsupported_geometry_no_fabricated_bom) ... ok
+test_cross_contract_idempotency_fails (test_demand_first.DemoIntent.test_cross_contract_idempotency_fails) ... ok
+test_customer_can_confirm_demo_review (test_demand_first.DemoIntent.test_customer_can_confirm_demo_review) ... ok
+test_hash_mutant_fails (test_demand_first.DemoIntent.test_hash_mutant_fails) ... ok
+test_idempotent_retry (test_demand_first.DemoIntent.test_idempotent_retry) ... ok
+test_price_changed_fails (test_demand_first.DemoIntent.test_price_changed_fails) ... ok
+test_requires_click (test_demand_first.DemoIntent.test_requires_click) ... ok
+test_wrong_buyer_fails (test_demand_first.DemoIntent.test_wrong_buyer_fails) ... ok
+test_100_metadata_preflight_tasks (test_demand_first.Dispatch.test_100_metadata_preflight_tasks) ... ok
+test_actual_100_preflight_receipts_no_agents (test_demand_first.Dispatch.test_actual_100_preflight_receipts_no_agents) ... ok
+test_bad_spec_F (test_demand_first.ProviderContracts.test_bad_spec_F) ... ok
+test_capacity_F (test_demand_first.ProviderContracts.test_capacity_F) ... ok
+test_external_quote_rejected_on_self_attestation (test_demand_first.ProviderContracts.test_external_quote_rejected_on_self_attestation) ... ok
+test_moq_F (test_demand_first.ProviderContracts.test_moq_F) ... ok
+test_quote_can_earn_T_from_independent_verifier (test_demand_first.ProviderContracts.test_quote_can_earn_T_from_independent_verifier) ... ok
+test_unknown_shipping_Z (test_demand_first.ProviderContracts.test_unknown_shipping_Z) ... ok
+test_unusable_expiry_F (test_demand_first.ProviderContracts.test_unusable_expiry_F) ... ok
+test_wrong_destination_F (test_demand_first.ProviderContracts.test_wrong_destination_F) ... ok
+test_1_missing_Z (test_demand_first.RealAdmissionContract.test_1_missing_Z) ... ok
+test_changed_epoch_F (test_demand_first.RealAdmissionContract.test_changed_epoch_F) ... ok
+test_earns_T_only_with_all_ten_independently_accepted_receipts (test_demand_first.RealAdmissionContract.test_earns_T_only_with_all_ten_independently_accepted_receipts) ... ok
+test_no_paypal_call_for_even_T (test_demand_first.RealAdmissionContract.test_no_paypal_call_for_even_T) ... ok
+test_no_verifier_never_T (test_demand_first.RealAdmissionContract.test_no_verifier_never_T) ... ok
+test_one_independently_denied_F (test_demand_first.RealAdmissionContract.test_one_independently_denied_F) ... ok
+test_price_receipt_mismatch_F (test_demand_first.RealAdmissionContract.test_price_receipt_mismatch_F) ... ok
+test_revoked_F (test_demand_first.RealAdmissionContract.test_revoked_F) ... ok
+test_verifier_unavailable_Z (test_demand_first.RealAdmissionContract.test_verifier_unavailable_Z) ... ok
+test_wrong_buyer_F (test_demand_first.RealAdmissionContract.test_wrong_buyer_F) ... ok
+test_wrong_evidence_F (test_demand_first.RealAdmissionContract.test_wrong_evidence_F) ... ok
+test_demo_opt_in_is_not_live_authority (test_industrial.Demand.test_demo_opt_in_is_not_live_authority) ... ok
+test_duplicate_buyer_is_denied (test_industrial.Demand.test_duplicate_buyer_is_denied) ... ok
+test_invalid_qty_budget_fails (test_industrial.Demand.test_invalid_qty_budget_fails) ... ok
+test_material_process_or_hash_prevents_merge (test_industrial.Demand.test_material_process_or_hash_prevents_merge) ... ok
+test_missing_fields_hold (test_industrial.Demand.test_missing_fields_hold) ... ok
+test_real_unverified_optin_unknown (test_industrial.Demand.test_real_unverified_optin_unknown) ... ok
+test_revocation_and_consent_scope (test_industrial.Demand.test_revocation_and_consent_scope) ... ok
+test_self_attested_real_optin_does_not_pass (test_industrial.Demand.test_self_attested_real_optin_does_not_pass) ... ok
+test_spec_revision_prevents_superficial_merge (test_industrial.Demand.test_spec_revision_prevents_superficial_merge) ... ok
+test_changed_revision_no_false_coalition (test_industrial.EndToEnd.test_changed_revision_no_false_coalition) ... ok
+test_coalition_route_numerical_on_demo_fixture (test_industrial.EndToEnd.test_coalition_route_numerical_on_demo_fixture) ... ok
+test_direct_route_must_win_when_cheaper (test_industrial.EndToEnd.test_direct_route_must_win_when_cheaper) ... ok
+test_missing_case_rejected (test_industrial.EndToEnd.test_missing_case_rejected) ... ok
+test_no_z_to_t_and_no_payment_transfer (test_industrial.EndToEnd.test_no_z_to_t_and_no_payment_transfer) ... ok
+test_passport_deterministic (test_industrial.EndToEnd.test_passport_deterministic) ... ok
+test_rfq_excludes_private_buyer_identity_or_cad (test_industrial.EndToEnd.test_rfq_excludes_private_buyer_identity_or_cad) ... ok
+test_claimed_proof_without_independent_verifier_is_Z (test_industrial.Proofs.test_claimed_proof_without_independent_verifier_is_Z) ... ok
+test_external_rejection_cannot_be_faked (test_industrial.Proofs.test_external_rejection_cannot_be_faked) ... ok
+test_forged_request_digest_F (test_industrial.Proofs.test_forged_request_digest_F) ... ok
+test_no_ztl_receipt_is_Z (test_industrial.Proofs.test_no_ztl_receipt_is_Z) ... ok
+test_stubbed_positive_isolated_contract_only (test_industrial.Proofs.test_stubbed_positive_isolated_contract_only) ... ok
+test_wrong_verifier_pin_F (test_industrial.Proofs.test_wrong_verifier_pin_F) ... ok
+test_capacity_and_moq_negative (test_industrial.Quotations.test_capacity_and_moq_negative) ... ok
+test_due_date_critical (test_industrial.Quotations.test_due_date_critical) ... ok
+test_fixture_only_not_actual_supplier_quote (test_industrial.Quotations.test_fixture_only_not_actual_supplier_quote) ... ok
+test_missing_quote_fields_do_not_pass (test_industrial.Quotations.test_missing_quote_fields_do_not_pass) ... ok
+test_nonbinding_budget_blocks (test_industrial.Quotations.test_nonbinding_budget_blocks) ... ok
+test_quotes_research_only_when_unconfirmed (test_industrial.Quotations.test_quotes_research_only_when_unconfirmed) ... ok
+test_self_attested_supplier_quote_does_not_pass (test_industrial.Quotations.test_self_attested_supplier_quote_does_not_pass) ... ok
+test_wrong_revision_digest_material_rejected (test_industrial.Quotations.test_wrong_revision_digest_material_rejected) ... ok
+test_87_discovery_entries_not_quoted (test_industrial.Registry.test_87_discovery_entries_not_quoted) ... ok
+test_hp_48_member_index_exact_and_no_double_claim (test_industrial.Registry.test_hp_48_member_index_exact_and_no_double_claim) ... ok
+test_no_filename_traversal (test_industrial.Registry.test_no_filename_traversal) ... ok
+test_shortlist_unknown_capability (test_industrial.Registry.test_shortlist_unknown_capability) ... ok
+test_bad_base64_rejected (test_pmix_integration.EngineeringHTTP.test_bad_base64_rejected) ... ok
+test_cross_origin_denied (test_pmix_integration.EngineeringHTTP.test_cross_origin_denied) ... ok
+test_endpoint_real_extraction_no_session (test_pmix_integration.EngineeringHTTP.test_endpoint_real_extraction_no_session) ... FAIL
+test_legacy_csv_endpoint_preserved (test_pmix_integration.EngineeringHTTP.test_legacy_csv_endpoint_preserved) ... ok
+setUpClass (test_pmix_integration.PmixIntegration) ... ERROR
+test_build_and_audit_pass (test_release.ReleaseTests.test_build_and_audit_pass) ... ok
+test_economics_honest (test_release.ReleaseTests.test_economics_honest) ... ok
+test_judge_and_scenario_facts (test_release.ReleaseTests.test_judge_and_scenario_facts) ... ok
+test_negative_matrix (test_release.ReleaseTests.test_negative_matrix) ... ok
+test_paypal_truth (test_release.ReleaseTests.test_paypal_truth) ... ok
+
+======================================================================
+ERROR: setUpClass (test_pmix_integration.PmixIntegration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\tests\test_pmix_integration.py", line 35, in setUpClass
+    cls.extraction = pmix.extract(cls.raw)
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\deal_rescue\industrial\pmix_adapter.py", line 225, in extract
+    binary = _binary()
+             ^^^^^^^^^
+  File "C:\Users\Administrator\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\deal_rescue\industrial\pmix_adapter.py", line 39, in _binary
+    raise PmixError('PMIX_REQUIRES_LINUX_X86_64_SANDBOX')
+deal_rescue.industrial.pmix_adapter.PmixError: PMIX_REQUIRES_LINUX_X86_64_SANDBOX
+
+======================================================================
+FAIL: test_endpoint_real_extraction_no_session (test_pmix_integration.EngineeringHTTP.test_endpoint_real_extraction_no_session)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Documents\Codex\2026-11-03\codex-wo-nim-connection-001-codex\work\wo-cad-002\repo\tests\test_pmix_integration.py", line 221, in test_endpoint_real_extraction_no_session
+    self.assertEqual(status,200);self.assertEqual(result['extraction'],'T')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'Z' != 'T'
+- Z
++ T
+
+
+----------------------------------------------------------------------
+Ran 104 tests in 2.016s
+
+FAILED (failures=1, errors=1)

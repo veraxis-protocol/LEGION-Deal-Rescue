@@ -1,0 +1,122 @@
+[
+  {
+    "name": "NIST CTC01 #120 size 35.0 mm",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "NIST CTC01 size tolerance -0.2/0.0",
+    "pass": true,
+    "details": {
+      "type": "plus_minus",
+      "lower": {
+        "value": -0.2,
+        "unit": "mm"
+      },
+      "upper": {
+        "value": 0.0,
+        "unit": "mm"
+      }
+    }
+  },
+  {
+    "name": "NIST CTC01 #21 position tolerance 0.75",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "26 baseline runs",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "20 independent NIST source files",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "All baseline STEP runs no extracted BOM",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "PMIX parsed all STEP files",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "PMIX product parsed all STEP files",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "No invalid PMI #entity references",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "At least one NIST PMI dimension",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "At least one NIST GD&T tolerance",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "Assembly two parts parsed as multi-part",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "Max 2MB baseline rejects present",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "PMIX replay deterministic byte-for-byte",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "PMIX features plate_one_hole.stp",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "PMIX features plate_hole_larger.stp",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "PMIX features plate_hole_moved.stp",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "PMIX features plate_one_hole_inches.stp",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "Hole \u00d88 vs changed \u00d810 detected",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "Moved hole origin 20->25 mm",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "Unit normalization inch == mm feature",
+    "pass": true,
+    "details": null
+  },
+  {
+    "name": "Invalid STEP rejected by pmix",
+    "pass": true,
+    "details": null
+  }
+]

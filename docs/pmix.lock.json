@@ -1,0 +1,13 @@
+{
+  "parser": "pmix",
+  "version": "0.16.1",
+  "upstream": "https://github.com/jchultarsky101/pmix",
+  "commit": "7fdaed5404678bdda689aa879c27b36441b1fc55",
+  "platform": "x86_64-unknown-linux-gnu",
+  "artifact_id": 10306453408,
+  "binary_sha256": "cc44b80916fd03c03b74bfa5b011061583c2b96cfc0ca0685ca93cfe1ca0ae43",
+  "release_zip_sha256": "02afba7871dbad8d2f41c913d952cf5857378b41ee3e50a030b217fce51e5871",
+  "browser_test_dependency": "playwright==1.56.0",
+  "required_os_tools": ["bubblewrap", "util-linux/prlimit"],
+  "os_dependency_execution_status": "BLOCKED_BY_STORAGE_WSL_FAILURE"
+}
