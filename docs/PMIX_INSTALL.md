@@ -93,7 +93,7 @@ Raw pmix JSON, unknown features, diagnostics, normalized/declared units, origina
 STEP entity references and input SHA-256 are exposed for review. Missing field
 values remain null/Z, including unspecified process and revision.
 
-The five-screen flow is DRAWING â†’ PARTS â†’ LEGION AT WORK â†’ REVIEW â†’ PAYPAL.
+The five-screen flow is DRAWING Ã¢â€ â€™ PARTS Ã¢â€ â€™ LEGION AT WORK Ã¢â€ â€™ REVIEW Ã¢â€ â€™ PAYPAL.
 PARTS requires explicit selection and intent confirmation before the read-only
 planner. STEP results always hold for independent engineering proof. Exact
 part/revision/material/process/file/engineering-digest comparisons are screening
@@ -113,7 +113,9 @@ missing ground truth PARTIAL. Without that dataset keep Z and hold procurement.
 
 ## Hosted verification
 
-Both `release-checks` matrix jobs must pass on the exact PR head. Ubuntu runs
+Both `release-checks` matrix jobs must pass on the exact PR head. The Linux job uses
+Ubuntu 24.04 with the verified bubblewrap package in `vendor/ubuntu-noble/` and
+checks the runner-provided util-linux/prlimit. Ubuntu runs
 all 129 tests, the original benchmark and prototype, the independent reference
 provenance audit and the real browser flow at both supported widths. Windows
 runs the three supported LEGION modules (100 tests), all 46 PayPal adapter
