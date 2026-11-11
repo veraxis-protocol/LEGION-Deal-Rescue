@@ -1,0 +1,20 @@
+[
+  {
+    "width": 1440,
+    "status": "FAIL",
+    "error": "AssertionError [ERR_ASSERTION]: real pmix must extract both components",
+    "post_requests": [
+      "/api/industrial/engineering-extract"
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "status": "FAIL",
+    "error": "AssertionError [ERR_ASSERTION]: real pmix must extract both components",
+    "post_requests": [
+      "/api/industrial/engineering-extract"
+    ],
+    "errors": []
+  }
+]

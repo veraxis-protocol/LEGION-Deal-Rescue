@@ -13,7 +13,7 @@ from pathlib import Path
 import base64
 import binascii
 import secrets
-from deal_rescue.industrial import core as industrial, workflow as industrial_flow, demo_intent
+from deal_rescue.industrial import core as industrial, workflow as industrial_flow, demo_intent, cad_bom
 from urllib.parse import parse_qs, urlparse
 
 WEB = Path(__file__).parent / "web"
@@ -46,6 +46,7 @@ class H(BaseHTTPRequestHandler):
         b = body if isinstance(body, bytes) else json.dumps(body, indent=1).encode()
         self.send_response(code)
         self.send_header("Content-Type", ctype)
+        self.send_header("Content-Length", str(len(b)))
         self.send_header("Cache-Control", "no-store")
         for k, v in (extra or {}).items():
             self.send_header(k, v)
@@ -55,7 +56,7 @@ class H(BaseHTTPRequestHandler):
     def do_POST(self):
         """Only bounded in-memory CAD intake + optional DEMO intent. No provider POST."""
         u = urlparse(self.path)
-        if u.path not in ("/api/industrial/intake", "/api/industrial/demo-confirm"):
+        if u.path not in ("/api/industrial/intake", "/api/industrial/engineering-extract", "/api/industrial/demo-confirm"):
             return self.send(405, {"error":"METHOD_NOT_ALLOWED"})
         if self.headers.get("Content-Type", "").split(";")[0].strip().lower() != "application/json":
             return self.send(415, {"error":"JSON_ONLY"})
@@ -65,12 +66,18 @@ class H(BaseHTTPRequestHandler):
             return self.send(403, {"error":"CROSS_ORIGIN_POST_DENIED"})
         try:
             size=int(self.headers.get("Content-Length", "-1"))
-            if not 0<size<=2900000: return self.send(413,{"error":"REQUEST_TOO_LARGE"})
+            limit=23000000 if u.path in ("/api/industrial/engineering-extract","/api/industrial/intake") else 2900000
+            if not 0<size<=limit: return self.send(413,{"error":"REQUEST_TOO_LARGE"})
+            self.connection.settimeout(10)
             body=json.loads(self.rfile.read(size))
             if not isinstance(body,dict):return self.send(400,{"error":"OBJECT_EXPECTED"})
-            if u.path=="/api/industrial/intake":
+            if u.path in ("/api/industrial/intake","/api/industrial/engineering-extract"):
                 raw=base64.b64decode(body.get("file_b64", ""),validate=True)
-                if len(raw)>2097152:return self.send(413,{"error":"FILE_TOO_LARGE"})
+                filename=body.get('filename','')
+                is_step=isinstance(filename,str) and filename.lower().endswith(('.step','.stp'))
+                if len(raw)>(16777216 if is_step else 2097152):return self.send(413,{"error":"FILE_TOO_LARGE"})
+                if u.path=="/api/industrial/engineering-extract":
+                    return self.send(200,cad_bom.extract(filename,raw))
                 result=industrial_flow.run_intake(body.get("filename",""),raw,body.get("claim",{}))
                 if result['overall']=="DEMO_FEASIBLE_NEEDS_ACTUAL_AUTHORITY":
                     session=secrets.token_urlsafe(24)

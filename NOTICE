@@ -1,6 +1,11 @@
 LEGION Deal Rescue
 Copyright 2026 Veraxis
 
+Optional STEP extraction uses pmix v0.16.1 by Julian Chultarsky,
+https://github.com/jchultarsky101/pmix (MIT; third_party/pmix.LICENSE.md).
+Its binary is not committed here and is separately checksum-pinned.
+Reference STEP fixtures retain NIST/pmix attribution and are not held-out data.
+
 This product is licensed under the Apache License, Version 2.0 (see LICENSE).
 
 paypal_adapter/commerce_adapter/ is byte-identical to veraxis-protocol/LEGION-Commerce commerce_adapter/ at commit

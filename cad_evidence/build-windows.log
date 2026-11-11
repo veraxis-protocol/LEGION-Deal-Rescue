@@ -1,0 +1,32 @@
+{"run_id": "run-1", "events": 75, "figures": 88, "judge": "PASS_COMPLETED", "judge_hashes_match": true, "paypal_bound": false}
+{"run_id": "run-2", "events": 75, "figures": 88, "judge": "PASS_COMPLETED", "judge_hashes_match": true, "paypal_bound": false}
+{"contribution": 0, "fees": 1975, "upper_bound": -1975, "break_even_price": 10310, "self_tests": "PASS"}
+{
+ "audit": {
+  "run-1": {
+   "coverage": 100.0,
+   "prov": true,
+   "mission": "SIMULATED_MISSION_VERIFIED",
+   "claims": true
+  },
+  "run-2": {
+   "coverage": 100.0,
+   "prov": true,
+   "mission": "SIMULATED_MISSION_VERIFIED",
+   "claims": true
+  }
+ },
+ "negatives": {
+  "attempted": 15,
+  "passed": 15,
+  "blocked": [],
+  "failed": [],
+  "harness": {
+   "forbidden_effects": 0,
+   "passed": 25,
+   "total": 25
+  }
+ }
+}
+
+{"runs": ["run-1", "run-2"], "counted": "run-2", "audit_all_pass": true}

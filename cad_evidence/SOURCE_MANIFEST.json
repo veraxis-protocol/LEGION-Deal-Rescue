@@ -1,0 +1,540 @@
+{
+  "source": "pmix official release CI artifacts plus pinned LEGION blob",
+  "pmix_artifact_id": 10306453408,
+  "source_artifact_id": 10306463705,
+  "baseline_blob_sha1": "d29a76dfad2b02ba9cb85831c763019c39b4858f",
+  "files": {
+    "ADAPTER_RESULTS.json": {
+      "sha256": "05b6c78218781fb4f1f4fc0067a8d8d28a3e7943b4fad58f7c28f39be582b85a",
+      "bytes": 119
+    },
+    "BENCHMARK_RESULTS.json": {
+      "sha256": "4d73150620ee310a93fc8d799158b1f67bf5fb04af19ed557c0be0c805ddbee6",
+      "bytes": 31360
+    },
+    "CHECKS.json": {
+      "sha256": "9ac1be8dba9636e8d8c0ed3c6bad95e3cc085d2f7e0eb93a7634d0a7b27a3bea",
+      "bytes": 2284
+    },
+    "GO_NO_GO.json": {
+      "sha256": "3a587249eb78c6409881de97b51de825c7692e9246526c8fc90397b0e3c19f12",
+      "bytes": 868
+    },
+    "PER_FILE_METRICS.csv": {
+      "sha256": "d38b4900b67b5f40478d5e14eeb7e2b26b2ae482b5237d8b3d711db299129180",
+      "bytes": 8516
+    },
+    "REPRODUCE.md": {
+      "sha256": "16e2db2154e156e8224d1f2eb53ec8f0fe5d524b9fe257e483316a9c233248b3",
+      "bytes": 482
+    },
+    "WO_CAD_001_REPORT.md": {
+      "sha256": "9311fd967e3ed8048be9d34c83654b8401c5445bded5d19b65518e97d940c328",
+      "bytes": 5996
+    },
+    "baseline/deal_rescue/industrial/cad_bom.py": {
+      "sha256": "54cedb31b75c95551c7e5e4206845c522035698b0838ea03eb72859e722fe211",
+      "bytes": 5824
+    },
+    "cad_adapter_prototype.py": {
+      "sha256": "1085bce9a087497ede319265dc931bf0e168bdf963a163534476d71cbac3f16e",
+      "bytes": 4088
+    },
+    "logs/01_nist_ctc_01_asme1_ap242-e1.json": {
+      "sha256": "91fd8886230595a7a74bfaa2b70c815a8996348ef9af6b85899f96fc45bef099",
+      "bytes": 337
+    },
+    "logs/02_nist_ctc_02_asme1_ap242-e2.json": {
+      "sha256": "3ed2619a2187a53aef34d9f24f3105a1b40ac1b60c15e74a24eba794f6a2ce5f",
+      "bytes": 338
+    },
+    "logs/03_nist_ctc_03_asme1_ap242-e2.json": {
+      "sha256": "79bc384b92d32ce91c9c862c3fa5a29167eb7366333f5f824111b0afb1902d26",
+      "bytes": 337
+    },
+    "logs/04_nist_ctc_04_asme1_ap242-e2.json": {
+      "sha256": "30b288941c1ab470f623c4e9e8d49dfb2f60e5ef4aa688f45a0f6cb62d96c41f",
+      "bytes": 337
+    },
+    "logs/05_nist_ctc_05_asme1_ap242-e1.json": {
+      "sha256": "6f7285cd2efedede4ef26068a3d3116190338856b67f18e1425ebc62dfefd848",
+      "bytes": 337
+    },
+    "logs/06_nist_ftc_06_asme1_ap242-e2.json": {
+      "sha256": "9e99059734f840774b46fbc650ab031b8021653cb2f581b7be27785499612cdc",
+      "bytes": 337
+    },
+    "logs/07_nist_ftc_07_asme1_ap242-e2.json": {
+      "sha256": "654b6dd4ced9662ec9183194061cefe69b5548d87952c249b14d008b24b7f415",
+      "bytes": 337
+    },
+    "logs/08_nist_ftc_08_asme1_ap242-e2.json": {
+      "sha256": "dd086ed5725e0911a29a5899166af28745b56fda08d9be99fe33f60962675ccc",
+      "bytes": 327
+    },
+    "logs/09_nist_ftc_08_asme1_ap242-e4-tg.json": {
+      "sha256": "6239a84093550559b727d29ce66012892b8cec05676f3dc88442230da77e1cb6",
+      "bytes": 327
+    },
+    "logs/10_nist_ftc_09_asme1_ap242-e1.json": {
+      "sha256": "5125bf3c36eed84e78af6b56623f060b9e7ec33fe66f6dc413233c1081a21fdf",
+      "bytes": 327
+    },
+    "logs/11_nist_ftc_10_asme1_ap242-e2.json": {
+      "sha256": "f45420acf70962d6b4e4c19bdcd63a0656e4f824c05e2a4b3fc97236cd3b5e2d",
+      "bytes": 338
+    },
+    "logs/12_nist_ftc_11_asme1_ap242-e3.json": {
+      "sha256": "01a61d85c837650297d5031f18f3005518f269cbb358e80bea78be5333c87721",
+      "bytes": 338
+    },
+    "logs/13_nist_stc_06_asme1_ap242-e3.json": {
+      "sha256": "e081c0580c3f8f027e56a2c7cbe60b00318092df1733d84d6f9a93f4eac2216f",
+      "bytes": 337
+    },
+    "logs/14_nist_stc_07_asme1_ap242-e3.json": {
+      "sha256": "0fb3aea7c0cb93e41aa3893a823d6c62c679df2a089e5542a7f1541d328d6e5f",
+      "bytes": 339
+    },
+    "logs/15_nist_stc_08_asme1_ap242-e3.json": {
+      "sha256": "b5bfaff2a2ee71b80237aeff46bad177d13a34ee52abb84ccad7aeb086c48299",
+      "bytes": 326
+    },
+    "logs/16_nist_stc_09_asme1_ap242-e4.json": {
+      "sha256": "215d4b6b5f2021a147d13ec517064d73d9aa39b0e126eff2a1dc39b7ee984ec9",
+      "bytes": 336
+    },
+    "logs/17_nist_stc_10_asme1_ap242-e2.json": {
+      "sha256": "ec77097b6924117f56671b3c3a5e30dd3503d7bfaed3bb9817c4fc547c55fe5c",
+      "bytes": 328
+    },
+    "logs/18_nist_ctc_04_asme1_ap242-e1.json": {
+      "sha256": "2bbefa80269dc25ac9ca70ac9defac1201742bfc6890f4872e38bf11cd611dc3",
+      "bytes": 337
+    },
+    "logs/19_nist_ftc_08_asme1_ap242-e1-tg.json": {
+      "sha256": "9ce927556fe33f1ba33d26364dc4f04040ac5fd6eb90a278532d8a5fbb63b617",
+      "bytes": 326
+    },
+    "logs/20_nist_ftc_11_asme1_ap242-e2.json": {
+      "sha256": "cdb0f49edd1c154e5b23eac17213c2a21d96954033651a4958e1652aaaa9e5c4",
+      "bytes": 337
+    },
+    "logs/21_assembly_two_parts.json": {
+      "sha256": "3ddeae5b0a81802671f4ad6d3c08a0ffc2512d460077c89e5e29249aff7bbc31",
+      "bytes": 336
+    },
+    "logs/22_assembly_properties.json": {
+      "sha256": "22152a5dab7760a34321f476b671fc40cf999e278faf6237bcd47b909ac0a905",
+      "bytes": 335
+    },
+    "logs/23_dimension_basics.json": {
+      "sha256": "61077381f6963d12d0ac2b1e89cb49dc7bbcf9204f1b1d3435ffb8eb5615d2cd",
+      "bytes": 335
+    },
+    "logs/24_plate_one_hole.json": {
+      "sha256": "7f40a85aea02b5a07799bc1f8154d77e99d37ceac079673fc8a96769410b7e2c",
+      "bytes": 335
+    },
+    "logs/25_property_basics.json": {
+      "sha256": "40e1d2bef5dfe327647ff840636534c2867a2d9c8a77b3020b1c020b5e8731dd",
+      "bytes": 335
+    },
+    "logs/26_tolerance_datum_basics.json": {
+      "sha256": "8dbf57595f813a67f28731669dda105d106a8cce7ad3da52400769389613f015",
+      "bytes": 335
+    },
+    "logs/adapter_stdout.log": {
+      "sha256": "d8164686ff782c699b9dab5cccf93e7fe2f4d9808ebf359b0db60c28890c7b35",
+      "bytes": 163
+    },
+    "logs/benchmark_stdout.log": {
+      "sha256": "b70153e8a8b86786886b914dbaea350a785a72cfbe63b74e01e337eaaf83817f",
+      "bytes": 3102
+    },
+    "outputs/01_nist_ctc_01_asme1_ap242-e1_extract.json": {
+      "sha256": "af705cde89ccf56582687b9381c94b2ecbc281212a7c4072da8e5a45a64f3065",
+      "bytes": 86549
+    },
+    "outputs/01_nist_ctc_01_asme1_ap242-e1_product.json": {
+      "sha256": "dde1cb8ec19a51ad5add919f111ce9341b29df5c655b885f7199b51b117f931f",
+      "bytes": 1040
+    },
+    "outputs/02_nist_ctc_02_asme1_ap242-e2_extract.json": {
+      "sha256": "815750f9235c69fcafc66cafdf01f1e9e7de99472ba0e01f4ba311b35e04747f",
+      "bytes": 260761
+    },
+    "outputs/02_nist_ctc_02_asme1_ap242-e2_product.json": {
+      "sha256": "00f311fc99b676d5d5e65c2f7485ecd6e9d6c4a543ad40d146902c83591b203e",
+      "bytes": 1111
+    },
+    "outputs/03_nist_ctc_03_asme1_ap242-e2_extract.json": {
+      "sha256": "eb9980a6e7b531253e49b48670e88121060644ee2167361155e0529a5a4ac8ea",
+      "bytes": 166605
+    },
+    "outputs/03_nist_ctc_03_asme1_ap242-e2_product.json": {
+      "sha256": "208662c270ea085d5a9b0b02b97bd4061298122e54c7efd405c6d10bfb630f0e",
+      "bytes": 1048
+    },
+    "outputs/04_nist_ctc_04_asme1_ap242-e2_extract.json": {
+      "sha256": "d7fcc6dff403b91a221424f024f094af4dc834309ffdd10f32767b9a89109db2",
+      "bytes": 301048
+    },
+    "outputs/04_nist_ctc_04_asme1_ap242-e2_product.json": {
+      "sha256": "a893a8c0c01639bab6e1c02b523af5aa2d86f1424dc44757d6df5addaf42ecc9",
+      "bytes": 1147
+    },
+    "outputs/05_nist_ctc_05_asme1_ap242-e1_extract.json": {
+      "sha256": "5e72c2c5d0f0d16f86d2af876d6f658165cb8b7372c2f7ee6a7106643f56ebfd",
+      "bytes": 91659
+    },
+    "outputs/05_nist_ctc_05_asme1_ap242-e1_product.json": {
+      "sha256": "34ba5949c78a0ac1ea1112838906bea34fcd0a203f13ce30464f1442816332ff",
+      "bytes": 1058
+    },
+    "outputs/06_nist_ftc_06_asme1_ap242-e2_extract.json": {
+      "sha256": "e8df67faae1f10b5c582644952f729db486c0713d5f8132125bf1a0e761f4858",
+      "bytes": 407654
+    },
+    "outputs/06_nist_ftc_06_asme1_ap242-e2_product.json": {
+      "sha256": "8835c9269d24712727205a3087610685558f4262fb210a8c656b2607c00127a6",
+      "bytes": 1096
+    },
+    "outputs/07_nist_ftc_07_asme1_ap242-e2_extract.json": {
+      "sha256": "22359c25c017e05af9f167a933632cb37a51a84ae5727b0e71d03cca97a613fa",
+      "bytes": 510230
+    },
+    "outputs/07_nist_ftc_07_asme1_ap242-e2_product.json": {
+      "sha256": "e9a7791bf20253f0b7030a8a79f843332ce52ca1cc40610c9dcc6a9c40a7f9a0",
+      "bytes": 1071
+    },
+    "outputs/08_nist_ftc_08_asme1_ap242-e2_extract.json": {
+      "sha256": "e39a79b2242cbfdbd534f77986a40b08304429b465d72fbecea06b03026ba6ec",
+      "bytes": 259255
+    },
+    "outputs/08_nist_ftc_08_asme1_ap242-e2_product.json": {
+      "sha256": "c4a2e8258d2fb1a371de2d014b91bb27cb9476756171b578d1a7512ea8fa941f",
+      "bytes": 1018
+    },
+    "outputs/09_nist_ftc_08_asme1_ap242-e4-tg_extract.json": {
+      "sha256": "4adf76ff843696f034fd09aa62f83038dbab17efe95f32f37fd53c149ca9d8b2",
+      "bytes": 269044
+    },
+    "outputs/09_nist_ftc_08_asme1_ap242-e4-tg_product.json": {
+      "sha256": "2597e1ddec92509a57f30b0fa1d0d24d19f56d456bff2ea3ec5a5d3083dcfb6a",
+      "bytes": 725
+    },
+    "outputs/10_nist_ftc_09_asme1_ap242-e1_extract.json": {
+      "sha256": "57f70cbc9b2ae8f9625384dd6d354a2a83928614076e7c2d6212f56b0bb378a6",
+      "bytes": 283936
+    },
+    "outputs/10_nist_ftc_09_asme1_ap242-e1_product.json": {
+      "sha256": "94683e86b928c0a075aa87dc7300b7fe5f64abfd97c00a59b27597ab83e0e900",
+      "bytes": 2057
+    },
+    "outputs/11_nist_ftc_10_asme1_ap242-e2_extract.json": {
+      "sha256": "401e2478d0ac526c7704a8baf2107b09fb7ae0811e2efa40096bf1fe53bea2e1",
+      "bytes": 383149
+    },
+    "outputs/11_nist_ftc_10_asme1_ap242-e2_product.json": {
+      "sha256": "365e39ccae0e55791029e9ee1a5cde1f1419af19dc9a1da1389309e8c4f62b32",
+      "bytes": 1390
+    },
+    "outputs/12_nist_ftc_11_asme1_ap242-e3_extract.json": {
+      "sha256": "7504219c58c1cfa8ed4ec0db4d195f1258a5738631b0ffc6623fda90b7caf878",
+      "bytes": 72006
+    },
+    "outputs/12_nist_ftc_11_asme1_ap242-e3_product.json": {
+      "sha256": "5e80f0646a564ddd08a51be84ba6bb08a69dc92089fe0e53fa9f9b930a797ce2",
+      "bytes": 1011
+    },
+    "outputs/13_nist_stc_06_asme1_ap242-e3_extract.json": {
+      "sha256": "bf955f352c587d8aa9384e3278778f992933ceefc808f297aa9df0480b0fe869",
+      "bytes": 681008
+    },
+    "outputs/13_nist_stc_06_asme1_ap242-e3_product.json": {
+      "sha256": "242a2adaefc92a13484796ad554c67eed06791dfdb42eb41be7067ccc7e78cfb",
+      "bytes": 988
+    },
+    "outputs/14_nist_stc_07_asme1_ap242-e3_extract.json": {
+      "sha256": "07a7433872a2edac0429cc4603fb484276a500172c1dde92268774a3d9c6d784",
+      "bytes": 538592
+    },
+    "outputs/14_nist_stc_07_asme1_ap242-e3_product.json": {
+      "sha256": "c0f683397df2c00af66c86184a62c035fced47809618f7162b32c51bf2330084",
+      "bytes": 1110
+    },
+    "outputs/15_nist_stc_08_asme1_ap242-e3_extract.json": {
+      "sha256": "2c906ee5fbb8fdccc556b0669c4570a33453e95ce0c6ea7c4ff9f1f9381a2df8",
+      "bytes": 314439
+    },
+    "outputs/15_nist_stc_08_asme1_ap242-e3_product.json": {
+      "sha256": "d8257dd9e68b8d67c4a58c99f1c31cc53223eae8441f92190ba1daef34ae7387",
+      "bytes": 1139
+    },
+    "outputs/16_nist_stc_09_asme1_ap242-e4_extract.json": {
+      "sha256": "1778334b787ee905df971e819a51db8c3ace4198dbdbe890ac9f14ce4f7d3975",
+      "bytes": 255295
+    },
+    "outputs/16_nist_stc_09_asme1_ap242-e4_product.json": {
+      "sha256": "bfeccc6c1f9ea9028e93a063da4b4873da763ca45b58608ce69787fba4492454",
+      "bytes": 1264
+    },
+    "outputs/17_nist_stc_10_asme1_ap242-e2_extract.json": {
+      "sha256": "82a27882c09c1c41daded023212b935fbc7a99685600809907615372fdedb83f",
+      "bytes": 499127
+    },
+    "outputs/17_nist_stc_10_asme1_ap242-e2_product.json": {
+      "sha256": "2a450ccf842abaa33e1f0ac2f8591feb0642b0dd677bb93aa577bc68693fa8a9",
+      "bytes": 990
+    },
+    "outputs/18_nist_ctc_04_asme1_ap242-e1_extract.json": {
+      "sha256": "c3c53f9093f145eed4f7124e8de59ac44fbaa183cc79d11148db3e092f32c4ec",
+      "bytes": 301048
+    },
+    "outputs/18_nist_ctc_04_asme1_ap242-e1_product.json": {
+      "sha256": "5799f8c81e4696e89850111e9122547af9251453d1519cbda476e4e59e7f6179",
+      "bytes": 1147
+    },
+    "outputs/19_nist_ftc_08_asme1_ap242-e1-tg_extract.json": {
+      "sha256": "1577e83d712fbebccca86fcf9a4da1605216ab42da830cfd5b4094202db79e8d",
+      "bytes": 269044
+    },
+    "outputs/19_nist_ftc_08_asme1_ap242-e1-tg_product.json": {
+      "sha256": "7126e4d7c2b024fc39a7456bdabd658df8431bcc3625cadf8f65efa30bc8dbdd",
+      "bytes": 725
+    },
+    "outputs/20_nist_ftc_11_asme1_ap242-e2_extract.json": {
+      "sha256": "0021463ad99bab6333460d3f061dcd5c7234315597f48b25f8a03aff7399886e",
+      "bytes": 72006
+    },
+    "outputs/20_nist_ftc_11_asme1_ap242-e2_product.json": {
+      "sha256": "ddf53db1688233b163aac95d890d707a2bdaca4ea4de46d55efd3bcc71a0e8af",
+      "bytes": 1011
+    },
+    "outputs/21_assembly_two_parts_extract.json": {
+      "sha256": "226a09a0fa0ddec964fbd8fd8150dda85ed7ca1f7e549a56c1ef889cf6423ed2",
+      "bytes": 586
+    },
+    "outputs/21_assembly_two_parts_product.json": {
+      "sha256": "cae2f5fbcbe2110f04fb3ecb1075453ce816c067258ab0c5f36cb863969bc5a7",
+      "bytes": 2545
+    },
+    "outputs/22_assembly_properties_extract.json": {
+      "sha256": "acb30b17112c54aa75c1dc5911f6861b7b0359d9c54e9d40800b444c877e97a6",
+      "bytes": 3096
+    },
+    "outputs/22_assembly_properties_product.json": {
+      "sha256": "568a54a07e9c076202b4f2c5e1dd8c04b92372c3554f1f5bca1cb803aab45e23",
+      "bytes": 1700
+    },
+    "outputs/23_dimension_basics_extract.json": {
+      "sha256": "ba3934859446d82d32c37e47ec0de10767172569cb4007c8c293afa0dcfa51ea",
+      "bytes": 4950
+    },
+    "outputs/23_dimension_basics_product.json": {
+      "sha256": "3caa58d3ca807bf4ce12ff04fb5da4391365e3a4033ae17d9443c14f69434fdb",
+      "bytes": 685
+    },
+    "outputs/24_plate_one_hole_extract.json": {
+      "sha256": "271084967915eafcee9e9aa3651c54bd210cc83b38495c49898e733359a78643",
+      "bytes": 582
+    },
+    "outputs/24_plate_one_hole_product.json": {
+      "sha256": "b6a2c3d14581e29e1affb2476302af03b104ca505b95991469355cb4a38d7c23",
+      "bytes": 942
+    },
+    "outputs/25_property_basics_extract.json": {
+      "sha256": "472c09061f97aa621b3f4ab2e8a27df70f5cd68b4dad0c7733a1d8be6eea49be",
+      "bytes": 5953
+    },
+    "outputs/25_property_basics_product.json": {
+      "sha256": "a8fc66ceaa31957e7392b9c77b8351c68feb7fc0f5ff26b7ff511e4a72c592cb",
+      "bytes": 684
+    },
+    "outputs/26_tolerance_datum_basics_extract.json": {
+      "sha256": "ce9c47af25b00946830ef7b15a6db510086740ac96775c5ccde8fbd9392f64f1",
+      "bytes": 10301
+    },
+    "outputs/26_tolerance_datum_basics_product.json": {
+      "sha256": "988c3fda8abb1f8ece704c30be40859bea7a82a4d5ae2f87fd4fb6f68209eca7",
+      "bytes": 691
+    },
+    "outputs/LEGION_repeated_part_ADAPTER.json": {
+      "sha256": "ac9dcbfd581e81143b8fce7b18979c51aa3cc3faf5012a543d6489163f380a47",
+      "bytes": 1542
+    },
+    "outputs/LEGION_two_parts_ADAPTER.json": {
+      "sha256": "c93cbd01f2c6c1c9de8033b47e06f4c00bf3daf2cb00041a5ef87340a88ccc36",
+      "bytes": 1554
+    },
+    "outputs/features_plate_hole_larger.json": {
+      "sha256": "27ef17bda187ec723beb4b3430a3508bff97a22a0ba39a60b84cae4830591b40",
+      "bytes": 2070
+    },
+    "outputs/features_plate_hole_moved.json": {
+      "sha256": "25f0c38349c939e2e453470b9328b792e25d64c19d4b327f7003416bca1e1404",
+      "bytes": 2068
+    },
+    "outputs/features_plate_one_hole.json": {
+      "sha256": "d01765e2c62eefd8e7afb0911ebc33a072b65fb49210f06982fffae7cae96ac1",
+      "bytes": 2066
+    },
+    "outputs/features_plate_one_hole_inches.json": {
+      "sha256": "08c65aba197ee2bd99243ff5d1707d498828570cb3839baf8703b1a1963a92df",
+      "bytes": 2073
+    },
+    "outputs/replay_extract.json": {
+      "sha256": "af705cde89ccf56582687b9381c94b2ecbc281212a7c4072da8e5a45a64f3065",
+      "bytes": 86549
+    },
+    "outputs/sample_extract.json": {
+      "sha256": "af705cde89ccf56582687b9381c94b2ecbc281212a7c4072da8e5a45a64f3065",
+      "bytes": 86549
+    },
+    "outputs/sample_features.json": {
+      "sha256": "d01765e2c62eefd8e7afb0911ebc33a072b65fb49210f06982fffae7cae96ac1",
+      "bytes": 2066
+    },
+    "outputs/sample_product.json": {
+      "sha256": "cae2f5fbcbe2110f04fb3ecb1075453ce816c067258ab0c5f36cb863969bc5a7",
+      "bytes": 2545
+    },
+    "run_benchmark.py": {
+      "sha256": "346a09e5532552e788445f47c36bcd809f6f008b65d36e1de071970c6a7dbc86",
+      "bytes": 11596
+    },
+    "tools/pmix-0.16.1/LICENSE.md": {
+      "sha256": "44d4211c4232d50175b46c2f332dba3c7aed1097b1cec610291a3cffc29e237a",
+      "bytes": 1076
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/README.md": {
+      "sha256": "964b901943136e3c02881133f976e45957fab01afaaaf92a32e5a85e4e8b8f7e",
+      "bytes": 2238
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ctc_01_asme1_ap242-e1.stp": {
+      "sha256": "036683e8358ac27d51a92c35362e175c91bc44d3b600a5c605fb496865edcd37",
+      "bytes": 395283
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ctc_02_asme1_ap242-e2.stp": {
+      "sha256": "99a0a2079ddeb64d05c2432cbe931fa17c89da60d8b0bcb0b11bd0ed94fa2e68",
+      "bytes": 1981342
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ctc_03_asme1_ap242-e2.stp": {
+      "sha256": "196b665776e759282f80fc8fb27d7bceb995df77cf78b7ce48347535a4d6cb5f",
+      "bytes": 673846
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ctc_04_asme1_ap242-e2.stp": {
+      "sha256": "7eaea9d2cf417a73d20f8ee840a9d346b0ee5f558a4ab1bf2326a323bd423182",
+      "bytes": 1287291
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ctc_05_asme1_ap242-e1.stp": {
+      "sha256": "7f04f14be27918d31aef5b6d9ff74d547382ad469e45495c5b710baaa772323d",
+      "bytes": 878030
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ftc_06_asme1_ap242-e2.stp": {
+      "sha256": "b87afb7f25adc0d44d12e182209d50f0b085b533c0742fb8ffd58f4c87403447",
+      "bytes": 1971192
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ftc_07_asme1_ap242-e2.stp": {
+      "sha256": "aa8115c12e12a99cc439477cbfd222916f9ec629fbb3c9002b18e0c264c9a892",
+      "bytes": 1478375
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ftc_08_asme1_ap242-e2.stp": {
+      "sha256": "7b9283b4288d152fd181d76c39285d7c79fbba34fda1e14a41ac4a983f6d68b3",
+      "bytes": 4722264
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ftc_08_asme1_ap242-e4-tg.stp": {
+      "sha256": "40cd4e5e2e02b5742e0884ba5b132f2e37d2215c45f57afb48962a05a060c384",
+      "bytes": 2120559
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ftc_09_asme1_ap242-e1.stp": {
+      "sha256": "f1215fe15a78085a9fa78dd81714caf774b59071be92580b04ebfdc19f52a1bd",
+      "bytes": 6109836
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ftc_10_asme1_ap242-e2.stp": {
+      "sha256": "9d7711f48e81831c5d1838fdac5c11c0de1aa9b61f3c1d67930a7638b3b25e69",
+      "bytes": 1879881
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_ftc_11_asme1_ap242-e3.stp": {
+      "sha256": "2d05bd399463a9ced7b84a479872a759f170fe92f7a62f8194e83df77f86f117",
+      "bytes": 1946454
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_stc_06_asme1_ap242-e3.stp": {
+      "sha256": "71777c28da76da0e8a667e4cbe792d5f72c09b5c56440c9744d3d50ca96ecc8d",
+      "bytes": 1006401
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_stc_07_asme1_ap242-e3.stp": {
+      "sha256": "2dddf9b8894bc241f7ffddf3dc4502baa3d49c374e8784039d14b86473d54832",
+      "bytes": 1945387
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_stc_08_asme1_ap242-e3.stp": {
+      "sha256": "64f24b914910ce8e20c9e4bd59637b4fd155715c7c7b51689466534ed7db1442",
+      "bytes": 2251152
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_stc_09_asme1_ap242-e4.stp": {
+      "sha256": "41026b1f0d81830c6092b5147e0e084d2fa163169161c31af4ce06493d3c7d33",
+      "bytes": 968495
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/nist_stc_10_asme1_ap242-e2.stp": {
+      "sha256": "fba4f46cab1ce1402362038036884631b4a41afe1c9efc5681d358c39db7ed5f",
+      "bytes": 4875056
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/previous/nist_ctc_04_asme1_ap242-e1.stp": {
+      "sha256": "20b43b54ce25d4ed17cff794084c406e831c687f5b62471d3371eef33669e355",
+      "bytes": 1287291
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/previous/nist_ftc_08_asme1_ap242-e1-tg.stp": {
+      "sha256": "841a9ac51a32fe25b872f283b0b8770c77fee4e34adc8499f88a6e1bafd8e578",
+      "bytes": 2120356
+    },
+    "tools/pmix-0.16.1/tests/fixtures/nist/previous/nist_ftc_11_asme1_ap242-e2.stp": {
+      "sha256": "20a92edf514ae0989d556f9c7b9f065aed741cfbb361b7fe4cb7938a1eb5c232",
+      "bytes": 1946454
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/README.md": {
+      "sha256": "9c15b6802a2339cf5a8610cb48b2826151aaa54de7fc36992d64c2bcf986364c",
+      "bytes": 5334
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/assembly_properties.stp": {
+      "sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+      "bytes": 3293
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/assembly_two_parts.stp": {
+      "sha256": "ae793550181e3b972493d98ecab3c5b481c4b4aceff5a90d98d09d505049ae11",
+      "bytes": 14239
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/dimension_basics.stp": {
+      "sha256": "5ddeb6b541bbcee206832a1f1c91a298fe17ed24096cc8136e1ac63089a44aff",
+      "bytes": 4646
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/plate_hole_larger.stp": {
+      "sha256": "12be95d7670727f25c17067ae543bb19d33ba632f18abd0e9ad579af377f1179",
+      "bytes": 8556
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/plate_hole_moved.stp": {
+      "sha256": "ed2a6f01ad60548b32588e6805a417e20ae1f7917748481c9ce62aec18af9638",
+      "bytes": 8547
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/plate_one_hole.stp": {
+      "sha256": "eb3c5fb4ed729675cbc87c28346e06684f1762c83a2ab89a455f67a3e92450b6",
+      "bytes": 8538
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/plate_one_hole_inches.stp": {
+      "sha256": "76e6087d26db36f75602e903c1afe2f68f598d465f04904c10dba33eb295dfc8",
+      "bytes": 8701
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/property_basics.stp": {
+      "sha256": "94de94d3f72d1f8c8ef34ef9c2e3fd673f11a292a47b27fc0b6778d42406acba",
+      "bytes": 4341
+    },
+    "tools/pmix-0.16.1/tests/fixtures/synthetic/tolerance_datum_basics.stp": {
+      "sha256": "f346ee58aea184e417918cdc1d3189e1b1741eee12f164dc1324ac85c58e20d9",
+      "bytes": 6817
+    },
+    "tools/pmix-x86_64-unknown-linux-gnu/pmix": {
+      "sha256": "cc44b80916fd03c03b74bfa5b011061583c2b96cfc0ca0685ca93cfe1ca0ae43",
+      "bytes": 4706120
+    }
+  }
+}

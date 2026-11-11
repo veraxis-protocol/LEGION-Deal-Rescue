@@ -1,0 +1,1968 @@
+[
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:18897/api/industrial/engineering-extract",
+    "status": 200,
+    "request": {
+      "filename": "assembly_properties.stp",
+      "claim": {
+        "demo": true,
+        "buyer_id": "DEMO-BUYER-NEW",
+        "requirements": {
+          "part_no": "SLS-BRACKET-REV-C",
+          "spec_revision": "REV-C",
+          "spec_digest": "45fb81e09beb1bff53d8519b84cdbed21291af89a197a41f760471fd54248182",
+          "process": "SLS",
+          "material": "PA12"
+        },
+        "budget_cents": 78000,
+        "own_shipping_cents": 2500,
+        "due_date": "2026-12-10",
+        "taxes_cents": 0,
+        "payment_fees_cents": 0,
+        "discovery_consent": false,
+        "fixture_case": "coalition"
+      },
+      "uploaded_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320"
+    },
+    "response": {
+      "schema": "legion.cad-bom-intake.v1",
+      "filename": "assembly_properties.stp",
+      "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+      "format": "STEP",
+      "extraction": "T",
+      "bom": [
+        {
+          "part_id": "part:77a3b981f71010c8",
+          "part_no": "SYN-BRACKET",
+          "description": "bracket",
+          "quantity": 1,
+          "revision": null,
+          "material": "SYN-ALLOY-17",
+          "process": null,
+          "fields": {
+            "part_no": {
+              "value": "SYN-BRACKET",
+              "extraction": "T",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": [
+                "#22",
+                "#21",
+                "#20"
+              ]
+            },
+            "revision": {
+              "value": null,
+              "extraction": "Z",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": []
+            },
+            "material": {
+              "value": "SYN-ALLOY-17",
+              "extraction": "T",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": [
+                "#60",
+                "#61",
+                "#62",
+                "#63"
+              ]
+            },
+            "process": {
+              "value": null,
+              "extraction": "Z",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": []
+            },
+            "quantity": {
+              "value": 1,
+              "extraction": "T",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": [
+                "#20",
+                "#21",
+                "#22",
+                "#40",
+                "#41",
+                "#42"
+              ]
+            }
+          },
+          "properties": [
+            {
+              "id": "prop:b199248d31684323",
+              "name": "Mass (g)",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "number",
+                "value": 41.5
+              },
+              "part": "bracket_left",
+              "unmapped": [],
+              "source_refs": [
+                "#64",
+                "#67",
+                "#66",
+                "#65"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:bracket_left.Material",
+              "name": "Material",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "text",
+                "value": "SYN-ALLOY-17"
+              },
+              "part": "bracket_left",
+              "unmapped": [],
+              "source_refs": [
+                "#60",
+                "#63",
+                "#62",
+                "#61"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            }
+          ],
+          "source_refs": [
+            "#22",
+            "#21",
+            "#20"
+          ],
+          "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+          "origin": "PMIX_STEP_PRODUCT",
+          "verification": "EXTRACTED_NOT_ENGINEERING_PROVED",
+          "engineering_verdict": "Z",
+          "procurement_eligible": false
+        },
+        {
+          "part_id": "part:e167b8c772a2f170",
+          "part_no": "SYN-PIN",
+          "description": "pin",
+          "quantity": 2,
+          "revision": null,
+          "material": "SYN-STEEL-4",
+          "process": null,
+          "fields": {
+            "part_no": {
+              "value": "SYN-PIN",
+              "extraction": "T",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": [
+                "#32",
+                "#31",
+                "#30"
+              ]
+            },
+            "revision": {
+              "value": null,
+              "extraction": "Z",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": []
+            },
+            "material": {
+              "value": "SYN-STEEL-4",
+              "extraction": "T",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": [
+                "#70",
+                "#71",
+                "#72",
+                "#73",
+                "#80",
+                "#81",
+                "#82",
+                "#83"
+              ]
+            },
+            "process": {
+              "value": null,
+              "extraction": "Z",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": []
+            },
+            "quantity": {
+              "value": 2,
+              "extraction": "T",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": [
+                "#30",
+                "#31",
+                "#32",
+                "#40",
+                "#41",
+                "#42"
+              ]
+            }
+          },
+          "properties": [
+            {
+              "id": "prop:624e38676d973cba",
+              "name": "Mass (g)",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "number",
+                "value": 2.75
+              },
+              "part": "pin_lower",
+              "unmapped": [],
+              "source_refs": [
+                "#84",
+                "#87",
+                "#86",
+                "#85"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:9dbd22f8d6ab5235",
+              "name": "Mass (g)",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "number",
+                "value": 2.75
+              },
+              "part": "pin_upper",
+              "unmapped": [],
+              "source_refs": [
+                "#74",
+                "#77",
+                "#76",
+                "#75"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:pin_lower.Material",
+              "name": "Material",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "text",
+                "value": "SYN-STEEL-4"
+              },
+              "part": "pin_lower",
+              "unmapped": [],
+              "source_refs": [
+                "#80",
+                "#83",
+                "#82",
+                "#81"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:pin_upper.Material",
+              "name": "Material",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "text",
+                "value": "SYN-STEEL-4"
+              },
+              "part": "pin_upper",
+              "unmapped": [],
+              "source_refs": [
+                "#70",
+                "#73",
+                "#72",
+                "#71"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            }
+          ],
+          "source_refs": [
+            "#32",
+            "#31",
+            "#30"
+          ],
+          "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+          "origin": "PMIX_STEP_PRODUCT",
+          "verification": "EXTRACTED_NOT_ENGINEERING_PROVED",
+          "engineering_verdict": "Z",
+          "procurement_eligible": false
+        }
+      ],
+      "engineering_evidence": {
+        "schema": "legion.pmix-engineering.v1",
+        "parser": "pmix 0.16.1",
+        "parser_sha256": "cc44b80916fd03c03b74bfa5b011061583c2b96cfc0ca0685ca93cfe1ca0ae43",
+        "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+        "bom": [
+          {
+            "part_id": "part:77a3b981f71010c8",
+            "part_no": "SYN-BRACKET",
+            "description": "bracket",
+            "quantity": 1,
+            "revision": null,
+            "material": "SYN-ALLOY-17",
+            "process": null,
+            "fields": {
+              "part_no": {
+                "value": "SYN-BRACKET",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#22",
+                  "#21",
+                  "#20"
+                ]
+              },
+              "revision": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "material": {
+                "value": "SYN-ALLOY-17",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#60",
+                  "#61",
+                  "#62",
+                  "#63"
+                ]
+              },
+              "process": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "quantity": {
+                "value": 1,
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#20",
+                  "#21",
+                  "#22",
+                  "#40",
+                  "#41",
+                  "#42"
+                ]
+              }
+            },
+            "properties": [
+              {
+                "id": "prop:b199248d31684323",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 41.5
+                },
+                "part": "bracket_left",
+                "unmapped": [],
+                "source_refs": [
+                  "#64",
+                  "#67",
+                  "#66",
+                  "#65"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:bracket_left.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-ALLOY-17"
+                },
+                "part": "bracket_left",
+                "unmapped": [],
+                "source_refs": [
+                  "#60",
+                  "#63",
+                  "#62",
+                  "#61"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              }
+            ],
+            "source_refs": [
+              "#22",
+              "#21",
+              "#20"
+            ],
+            "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+            "origin": "PMIX_STEP_PRODUCT",
+            "verification": "EXTRACTED_NOT_ENGINEERING_PROVED",
+            "engineering_verdict": "Z",
+            "procurement_eligible": false
+          },
+          {
+            "part_id": "part:e167b8c772a2f170",
+            "part_no": "SYN-PIN",
+            "description": "pin",
+            "quantity": 2,
+            "revision": null,
+            "material": "SYN-STEEL-4",
+            "process": null,
+            "fields": {
+              "part_no": {
+                "value": "SYN-PIN",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#32",
+                  "#31",
+                  "#30"
+                ]
+              },
+              "revision": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "material": {
+                "value": "SYN-STEEL-4",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#70",
+                  "#71",
+                  "#72",
+                  "#73",
+                  "#80",
+                  "#81",
+                  "#82",
+                  "#83"
+                ]
+              },
+              "process": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "quantity": {
+                "value": 2,
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#30",
+                  "#31",
+                  "#32",
+                  "#40",
+                  "#41",
+                  "#42"
+                ]
+              }
+            },
+            "properties": [
+              {
+                "id": "prop:624e38676d973cba",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 2.75
+                },
+                "part": "pin_lower",
+                "unmapped": [],
+                "source_refs": [
+                  "#84",
+                  "#87",
+                  "#86",
+                  "#85"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:9dbd22f8d6ab5235",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 2.75
+                },
+                "part": "pin_upper",
+                "unmapped": [],
+                "source_refs": [
+                  "#74",
+                  "#77",
+                  "#76",
+                  "#75"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:pin_lower.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-STEEL-4"
+                },
+                "part": "pin_lower",
+                "unmapped": [],
+                "source_refs": [
+                  "#80",
+                  "#83",
+                  "#82",
+                  "#81"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:pin_upper.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-STEEL-4"
+                },
+                "part": "pin_upper",
+                "unmapped": [],
+                "source_refs": [
+                  "#70",
+                  "#73",
+                  "#72",
+                  "#71"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              }
+            ],
+            "source_refs": [
+              "#32",
+              "#31",
+              "#30"
+            ],
+            "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+            "origin": "PMIX_STEP_PRODUCT",
+            "verification": "EXTRACTED_NOT_ENGINEERING_PROVED",
+            "engineering_verdict": "Z",
+            "procurement_eligible": false
+          }
+        ],
+        "assembly": {
+          "schema_version": 1,
+          "source": {
+            "file_name": "input.stp",
+            "format": "STEP",
+            "schema": "AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF",
+            "writer": "pmix",
+            "time_stamp": "2026-09-09T00:00:00"
+          },
+          "units": {
+            "length": "mm",
+            "angle": "deg",
+            "declared_length": "mm",
+            "declared_angle": "rad"
+          },
+          "parts": [
+            {
+              "id": "part:5d9da29581d2d325",
+              "number": "SYN-ASM",
+              "name": "synthetic_assembly",
+              "occurrences": 0,
+              "source_refs": [
+                "#12",
+                "#11",
+                "#10"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "part:77a3b981f71010c8",
+              "number": "SYN-BRACKET",
+              "name": "bracket",
+              "occurrences": 1,
+              "source_refs": [
+                "#22",
+                "#21",
+                "#20"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "part:e167b8c772a2f170",
+              "number": "SYN-PIN",
+              "name": "pin",
+              "occurrences": 2,
+              "source_refs": [
+                "#32",
+                "#31",
+                "#30"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            }
+          ],
+          "relations": [
+            {
+              "id": "use:0d7ede34ba96d616",
+              "parent": "part:5d9da29581d2d325",
+              "child": "part:77a3b981f71010c8",
+              "name": "bracket_left",
+              "source_refs": [
+                "#40"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "use:34ffa9f92f4f65ec",
+              "parent": "part:5d9da29581d2d325",
+              "child": "part:e167b8c772a2f170",
+              "name": "pin_lower",
+              "source_refs": [
+                "#42"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "use:a256cc1d7b461e7f",
+              "parent": "part:5d9da29581d2d325",
+              "child": "part:e167b8c772a2f170",
+              "name": "pin_upper",
+              "source_refs": [
+                "#41"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            }
+          ],
+          "unattached": [],
+          "roots": [
+            "part:5d9da29581d2d325"
+          ],
+          "diagnostics": []
+        },
+        "engineering": {
+          "schema_version": 1,
+          "source": {
+            "file_name": "input.stp",
+            "format": "STEP",
+            "schema": "AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF",
+            "writer": "pmix synthetic",
+            "time_stamp": "2026-09-09T00:00:00"
+          },
+          "units": {
+            "length": "mm",
+            "angle": "rad"
+          },
+          "properties": [
+            {
+              "id": "prop:624e38676d973cba",
+              "name": "Mass (g)",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "number",
+                "value": 2.75
+              },
+              "part": "pin_lower",
+              "unmapped": [],
+              "source_refs": [
+                "#84",
+                "#87",
+                "#86",
+                "#85"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:937ec9ad03852a64",
+              "name": "Component Count",
+              "category": "Assembly Metadata",
+              "kind": "user",
+              "value": {
+                "type": "integer",
+                "value": 3
+              },
+              "part": "synthetic_assembly",
+              "unmapped": [],
+              "source_refs": [
+                "#50",
+                "#53",
+                "#52",
+                "#51"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:9dbd22f8d6ab5235",
+              "name": "Mass (g)",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "number",
+                "value": 2.75
+              },
+              "part": "pin_upper",
+              "unmapped": [],
+              "source_refs": [
+                "#74",
+                "#77",
+                "#76",
+                "#75"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:b199248d31684323",
+              "name": "Mass (g)",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "number",
+                "value": 41.5
+              },
+              "part": "bracket_left",
+              "unmapped": [],
+              "source_refs": [
+                "#64",
+                "#67",
+                "#66",
+                "#65"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:bracket_left.Material",
+              "name": "Material",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "text",
+                "value": "SYN-ALLOY-17"
+              },
+              "part": "bracket_left",
+              "unmapped": [],
+              "source_refs": [
+                "#60",
+                "#63",
+                "#62",
+                "#61"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:pin_lower.Material",
+              "name": "Material",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "text",
+                "value": "SYN-STEEL-4"
+              },
+              "part": "pin_lower",
+              "unmapped": [],
+              "source_refs": [
+                "#80",
+                "#83",
+                "#82",
+                "#81"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            },
+            {
+              "id": "prop:pin_upper.Material",
+              "name": "Material",
+              "category": "Component Metadata",
+              "kind": "user",
+              "value": {
+                "type": "text",
+                "value": "SYN-STEEL-4"
+              },
+              "part": "pin_upper",
+              "unmapped": [],
+              "source_refs": [
+                "#70",
+                "#73",
+                "#72",
+                "#71"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "engineering_verdict": "Z"
+            }
+          ],
+          "semantic": {
+            "features": [],
+            "datums": [],
+            "datum_systems": [],
+            "dimensions": [],
+            "tolerances": [],
+            "notes": [],
+            "other": []
+          },
+          "presentation": {
+            "annotations": [],
+            "views": []
+          },
+          "unknown": [],
+          "diagnostics": []
+        },
+        "units": {
+          "length": "mm",
+          "angle": "rad"
+        },
+        "pmi_association": "DOCUMENT_SCOPE_NOT_AUTOMATIC_PART_QUALIFICATION",
+        "engineering_verdict": "Z",
+        "production_qualification": "Z",
+        "procurement_eligible": false,
+        "checkout_enabled": false,
+        "payment_effects": 0,
+        "supplier_effects": 0,
+        "source_ref_scheme": "STEP_P21_ENTITY_NUMBER_IN_ORIGINAL_FILE",
+        "parser_stderr": {
+          "extract": "",
+          "product": ""
+        }
+      },
+      "reason": "PMIX_EXTRACTED_REVIEW_REQUIRED",
+      "evidence_scope": "EXTRACTED_NOT_ENGINEERING_PROOF",
+      "engineering_verdict": "Z",
+      "raw_file_retained": false,
+      "sent_to_suppliers": false
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:18897/api/industrial/intake",
+    "status": 200,
+    "request": {
+      "filename": "assembly_properties.stp",
+      "claim": {
+        "demo": true,
+        "buyer_id": "DEMO-BUYER-NEW",
+        "requirements": {
+          "part_no": "SLS-BRACKET-REV-C",
+          "spec_revision": "REV-C",
+          "spec_digest": "45fb81e09beb1bff53d8519b84cdbed21291af89a197a41f760471fd54248182",
+          "process": "SLS",
+          "material": "PA12"
+        },
+        "budget_cents": 78000,
+        "own_shipping_cents": 2500,
+        "due_date": "2026-12-10",
+        "taxes_cents": 0,
+        "payment_fees_cents": 0,
+        "discovery_consent": false,
+        "fixture_case": "coalition",
+        "parts_confirmed": true,
+        "drawing_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+        "selected_parts": [
+          {
+            "part_id": "part:77a3b981f71010c8",
+            "part_no": "SYN-BRACKET",
+            "quantity": 1
+          }
+        ]
+      },
+      "uploaded_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320"
+    },
+    "response": {
+      "schema": "legion.demand-first.v1",
+      "intake": {
+        "schema": "legion.cad-bom-intake.v1",
+        "filename": "assembly_properties.stp",
+        "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+        "format": "STEP",
+        "extraction": "T",
+        "bom": [
+          {
+            "part_id": "part:77a3b981f71010c8",
+            "part_no": "SYN-BRACKET",
+            "description": "bracket",
+            "quantity": 1,
+            "revision": null,
+            "material": "SYN-ALLOY-17",
+            "process": null,
+            "fields": {
+              "part_no": {
+                "value": "SYN-BRACKET",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#22",
+                  "#21",
+                  "#20"
+                ]
+              },
+              "revision": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "material": {
+                "value": "SYN-ALLOY-17",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#60",
+                  "#61",
+                  "#62",
+                  "#63"
+                ]
+              },
+              "process": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "quantity": {
+                "value": 1,
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#20",
+                  "#21",
+                  "#22",
+                  "#40",
+                  "#41",
+                  "#42"
+                ]
+              }
+            },
+            "properties": [
+              {
+                "id": "prop:b199248d31684323",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 41.5
+                },
+                "part": "bracket_left",
+                "unmapped": [],
+                "source_refs": [
+                  "#64",
+                  "#67",
+                  "#66",
+                  "#65"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:bracket_left.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-ALLOY-17"
+                },
+                "part": "bracket_left",
+                "unmapped": [],
+                "source_refs": [
+                  "#60",
+                  "#63",
+                  "#62",
+                  "#61"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              }
+            ],
+            "source_refs": [
+              "#22",
+              "#21",
+              "#20"
+            ],
+            "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+            "origin": "PMIX_STEP_PRODUCT",
+            "verification": "EXTRACTED_NOT_ENGINEERING_PROVED",
+            "engineering_verdict": "Z",
+            "procurement_eligible": false
+          },
+          {
+            "part_id": "part:e167b8c772a2f170",
+            "part_no": "SYN-PIN",
+            "description": "pin",
+            "quantity": 2,
+            "revision": null,
+            "material": "SYN-STEEL-4",
+            "process": null,
+            "fields": {
+              "part_no": {
+                "value": "SYN-PIN",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#32",
+                  "#31",
+                  "#30"
+                ]
+              },
+              "revision": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "material": {
+                "value": "SYN-STEEL-4",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#70",
+                  "#71",
+                  "#72",
+                  "#73",
+                  "#80",
+                  "#81",
+                  "#82",
+                  "#83"
+                ]
+              },
+              "process": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "quantity": {
+                "value": 2,
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#30",
+                  "#31",
+                  "#32",
+                  "#40",
+                  "#41",
+                  "#42"
+                ]
+              }
+            },
+            "properties": [
+              {
+                "id": "prop:624e38676d973cba",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 2.75
+                },
+                "part": "pin_lower",
+                "unmapped": [],
+                "source_refs": [
+                  "#84",
+                  "#87",
+                  "#86",
+                  "#85"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:9dbd22f8d6ab5235",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 2.75
+                },
+                "part": "pin_upper",
+                "unmapped": [],
+                "source_refs": [
+                  "#74",
+                  "#77",
+                  "#76",
+                  "#75"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:pin_lower.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-STEEL-4"
+                },
+                "part": "pin_lower",
+                "unmapped": [],
+                "source_refs": [
+                  "#80",
+                  "#83",
+                  "#82",
+                  "#81"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:pin_upper.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-STEEL-4"
+                },
+                "part": "pin_upper",
+                "unmapped": [],
+                "source_refs": [
+                  "#70",
+                  "#73",
+                  "#72",
+                  "#71"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              }
+            ],
+            "source_refs": [
+              "#32",
+              "#31",
+              "#30"
+            ],
+            "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+            "origin": "PMIX_STEP_PRODUCT",
+            "verification": "EXTRACTED_NOT_ENGINEERING_PROVED",
+            "engineering_verdict": "Z",
+            "procurement_eligible": false
+          }
+        ],
+        "engineering_evidence": {
+          "schema": "legion.pmix-engineering.v1",
+          "parser": "pmix 0.16.1",
+          "parser_sha256": "cc44b80916fd03c03b74bfa5b011061583c2b96cfc0ca0685ca93cfe1ca0ae43",
+          "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+          "bom": [
+            {
+              "part_id": "part:77a3b981f71010c8",
+              "part_no": "SYN-BRACKET",
+              "description": "bracket",
+              "quantity": 1,
+              "revision": null,
+              "material": "SYN-ALLOY-17",
+              "process": null,
+              "fields": {
+                "part_no": {
+                  "value": "SYN-BRACKET",
+                  "extraction": "T",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": [
+                    "#22",
+                    "#21",
+                    "#20"
+                  ]
+                },
+                "revision": {
+                  "value": null,
+                  "extraction": "Z",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": []
+                },
+                "material": {
+                  "value": "SYN-ALLOY-17",
+                  "extraction": "T",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": [
+                    "#60",
+                    "#61",
+                    "#62",
+                    "#63"
+                  ]
+                },
+                "process": {
+                  "value": null,
+                  "extraction": "Z",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": []
+                },
+                "quantity": {
+                  "value": 1,
+                  "extraction": "T",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": [
+                    "#20",
+                    "#21",
+                    "#22",
+                    "#40",
+                    "#41",
+                    "#42"
+                  ]
+                }
+              },
+              "properties": [
+                {
+                  "id": "prop:b199248d31684323",
+                  "name": "Mass (g)",
+                  "category": "Component Metadata",
+                  "kind": "user",
+                  "value": {
+                    "type": "number",
+                    "value": 41.5
+                  },
+                  "part": "bracket_left",
+                  "unmapped": [],
+                  "source_refs": [
+                    "#64",
+                    "#67",
+                    "#66",
+                    "#65"
+                  ],
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "engineering_verdict": "Z"
+                },
+                {
+                  "id": "prop:bracket_left.Material",
+                  "name": "Material",
+                  "category": "Component Metadata",
+                  "kind": "user",
+                  "value": {
+                    "type": "text",
+                    "value": "SYN-ALLOY-17"
+                  },
+                  "part": "bracket_left",
+                  "unmapped": [],
+                  "source_refs": [
+                    "#60",
+                    "#63",
+                    "#62",
+                    "#61"
+                  ],
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "engineering_verdict": "Z"
+                }
+              ],
+              "source_refs": [
+                "#22",
+                "#21",
+                "#20"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "origin": "PMIX_STEP_PRODUCT",
+              "verification": "EXTRACTED_NOT_ENGINEERING_PROVED",
+              "engineering_verdict": "Z",
+              "procurement_eligible": false
+            },
+            {
+              "part_id": "part:e167b8c772a2f170",
+              "part_no": "SYN-PIN",
+              "description": "pin",
+              "quantity": 2,
+              "revision": null,
+              "material": "SYN-STEEL-4",
+              "process": null,
+              "fields": {
+                "part_no": {
+                  "value": "SYN-PIN",
+                  "extraction": "T",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": [
+                    "#32",
+                    "#31",
+                    "#30"
+                  ]
+                },
+                "revision": {
+                  "value": null,
+                  "extraction": "Z",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": []
+                },
+                "material": {
+                  "value": "SYN-STEEL-4",
+                  "extraction": "T",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": [
+                    "#70",
+                    "#71",
+                    "#72",
+                    "#73",
+                    "#80",
+                    "#81",
+                    "#82",
+                    "#83"
+                  ]
+                },
+                "process": {
+                  "value": null,
+                  "extraction": "Z",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": []
+                },
+                "quantity": {
+                  "value": 2,
+                  "extraction": "T",
+                  "engineering_verdict": "Z",
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "source_refs": [
+                    "#30",
+                    "#31",
+                    "#32",
+                    "#40",
+                    "#41",
+                    "#42"
+                  ]
+                }
+              },
+              "properties": [
+                {
+                  "id": "prop:624e38676d973cba",
+                  "name": "Mass (g)",
+                  "category": "Component Metadata",
+                  "kind": "user",
+                  "value": {
+                    "type": "number",
+                    "value": 2.75
+                  },
+                  "part": "pin_lower",
+                  "unmapped": [],
+                  "source_refs": [
+                    "#84",
+                    "#87",
+                    "#86",
+                    "#85"
+                  ],
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "engineering_verdict": "Z"
+                },
+                {
+                  "id": "prop:9dbd22f8d6ab5235",
+                  "name": "Mass (g)",
+                  "category": "Component Metadata",
+                  "kind": "user",
+                  "value": {
+                    "type": "number",
+                    "value": 2.75
+                  },
+                  "part": "pin_upper",
+                  "unmapped": [],
+                  "source_refs": [
+                    "#74",
+                    "#77",
+                    "#76",
+                    "#75"
+                  ],
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "engineering_verdict": "Z"
+                },
+                {
+                  "id": "prop:pin_lower.Material",
+                  "name": "Material",
+                  "category": "Component Metadata",
+                  "kind": "user",
+                  "value": {
+                    "type": "text",
+                    "value": "SYN-STEEL-4"
+                  },
+                  "part": "pin_lower",
+                  "unmapped": [],
+                  "source_refs": [
+                    "#80",
+                    "#83",
+                    "#82",
+                    "#81"
+                  ],
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "engineering_verdict": "Z"
+                },
+                {
+                  "id": "prop:pin_upper.Material",
+                  "name": "Material",
+                  "category": "Component Metadata",
+                  "kind": "user",
+                  "value": {
+                    "type": "text",
+                    "value": "SYN-STEEL-4"
+                  },
+                  "part": "pin_upper",
+                  "unmapped": [],
+                  "source_refs": [
+                    "#70",
+                    "#73",
+                    "#72",
+                    "#71"
+                  ],
+                  "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                  "engineering_verdict": "Z"
+                }
+              ],
+              "source_refs": [
+                "#32",
+                "#31",
+                "#30"
+              ],
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "origin": "PMIX_STEP_PRODUCT",
+              "verification": "EXTRACTED_NOT_ENGINEERING_PROVED",
+              "engineering_verdict": "Z",
+              "procurement_eligible": false
+            }
+          ],
+          "assembly": {
+            "schema_version": 1,
+            "source": {
+              "file_name": "input.stp",
+              "format": "STEP",
+              "schema": "AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF",
+              "writer": "pmix",
+              "time_stamp": "2026-09-09T00:00:00"
+            },
+            "units": {
+              "length": "mm",
+              "angle": "deg",
+              "declared_length": "mm",
+              "declared_angle": "rad"
+            },
+            "parts": [
+              {
+                "id": "part:5d9da29581d2d325",
+                "number": "SYN-ASM",
+                "name": "synthetic_assembly",
+                "occurrences": 0,
+                "source_refs": [
+                  "#12",
+                  "#11",
+                  "#10"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "part:77a3b981f71010c8",
+                "number": "SYN-BRACKET",
+                "name": "bracket",
+                "occurrences": 1,
+                "source_refs": [
+                  "#22",
+                  "#21",
+                  "#20"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "part:e167b8c772a2f170",
+                "number": "SYN-PIN",
+                "name": "pin",
+                "occurrences": 2,
+                "source_refs": [
+                  "#32",
+                  "#31",
+                  "#30"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              }
+            ],
+            "relations": [
+              {
+                "id": "use:0d7ede34ba96d616",
+                "parent": "part:5d9da29581d2d325",
+                "child": "part:77a3b981f71010c8",
+                "name": "bracket_left",
+                "source_refs": [
+                  "#40"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "use:34ffa9f92f4f65ec",
+                "parent": "part:5d9da29581d2d325",
+                "child": "part:e167b8c772a2f170",
+                "name": "pin_lower",
+                "source_refs": [
+                  "#42"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "use:a256cc1d7b461e7f",
+                "parent": "part:5d9da29581d2d325",
+                "child": "part:e167b8c772a2f170",
+                "name": "pin_upper",
+                "source_refs": [
+                  "#41"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              }
+            ],
+            "unattached": [],
+            "roots": [
+              "part:5d9da29581d2d325"
+            ],
+            "diagnostics": []
+          },
+          "engineering": {
+            "schema_version": 1,
+            "source": {
+              "file_name": "input.stp",
+              "format": "STEP",
+              "schema": "AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF",
+              "writer": "pmix synthetic",
+              "time_stamp": "2026-09-09T00:00:00"
+            },
+            "units": {
+              "length": "mm",
+              "angle": "rad"
+            },
+            "properties": [
+              {
+                "id": "prop:624e38676d973cba",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 2.75
+                },
+                "part": "pin_lower",
+                "unmapped": [],
+                "source_refs": [
+                  "#84",
+                  "#87",
+                  "#86",
+                  "#85"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:937ec9ad03852a64",
+                "name": "Component Count",
+                "category": "Assembly Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "integer",
+                  "value": 3
+                },
+                "part": "synthetic_assembly",
+                "unmapped": [],
+                "source_refs": [
+                  "#50",
+                  "#53",
+                  "#52",
+                  "#51"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:9dbd22f8d6ab5235",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 2.75
+                },
+                "part": "pin_upper",
+                "unmapped": [],
+                "source_refs": [
+                  "#74",
+                  "#77",
+                  "#76",
+                  "#75"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:b199248d31684323",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 41.5
+                },
+                "part": "bracket_left",
+                "unmapped": [],
+                "source_refs": [
+                  "#64",
+                  "#67",
+                  "#66",
+                  "#65"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:bracket_left.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-ALLOY-17"
+                },
+                "part": "bracket_left",
+                "unmapped": [],
+                "source_refs": [
+                  "#60",
+                  "#63",
+                  "#62",
+                  "#61"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:pin_lower.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-STEEL-4"
+                },
+                "part": "pin_lower",
+                "unmapped": [],
+                "source_refs": [
+                  "#80",
+                  "#83",
+                  "#82",
+                  "#81"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:pin_upper.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-STEEL-4"
+                },
+                "part": "pin_upper",
+                "unmapped": [],
+                "source_refs": [
+                  "#70",
+                  "#73",
+                  "#72",
+                  "#71"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              }
+            ],
+            "semantic": {
+              "features": [],
+              "datums": [],
+              "datum_systems": [],
+              "dimensions": [],
+              "tolerances": [],
+              "notes": [],
+              "other": []
+            },
+            "presentation": {
+              "annotations": [],
+              "views": []
+            },
+            "unknown": [],
+            "diagnostics": []
+          },
+          "units": {
+            "length": "mm",
+            "angle": "rad"
+          },
+          "pmi_association": "DOCUMENT_SCOPE_NOT_AUTOMATIC_PART_QUALIFICATION",
+          "engineering_verdict": "Z",
+          "production_qualification": "Z",
+          "procurement_eligible": false,
+          "checkout_enabled": false,
+          "payment_effects": 0,
+          "supplier_effects": 0,
+          "source_ref_scheme": "STEP_P21_ENTITY_NUMBER_IN_ORIGINAL_FILE",
+          "parser_stderr": {
+            "extract": "",
+            "product": ""
+          }
+        },
+        "reason": "PMIX_EXTRACTED_REVIEW_REQUIRED",
+        "evidence_scope": "EXTRACTED_NOT_ENGINEERING_PROOF",
+        "engineering_verdict": "Z",
+        "raw_file_retained": false,
+        "sent_to_suppliers": false
+      },
+      "lines": [
+        {
+          "part_id": "part:77a3b981f71010c8",
+          "part_no": "SYN-BRACKET",
+          "quantity": 1,
+          "engineering_digest": "7483df5459e287db8dde210185873c499463702f0b8de4e9f871623ae8056a07",
+          "engineering_compatibility": {
+            "verdict": "Z",
+            "why": "ENGINEERING_FIELDS_MISSING",
+            "fields": [
+              "revision",
+              "process",
+              "engineering_digest"
+            ]
+          },
+          "status": "HOLD_ENGINEERING_PROOF_REQUIRED",
+          "specifications": {
+            "part_no": {
+              "value": "SYN-BRACKET",
+              "extraction": "T",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": [
+                "#22",
+                "#21",
+                "#20"
+              ]
+            },
+            "revision": {
+              "value": null,
+              "extraction": "Z",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": []
+            },
+            "material": {
+              "value": "SYN-ALLOY-17",
+              "extraction": "T",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": [
+                "#60",
+                "#61",
+                "#62",
+                "#63"
+              ]
+            },
+            "process": {
+              "value": null,
+              "extraction": "Z",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": []
+            },
+            "quantity": {
+              "value": 1,
+              "extraction": "T",
+              "engineering_verdict": "Z",
+              "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+              "source_refs": [
+                "#20",
+                "#21",
+                "#22",
+                "#40",
+                "#41",
+                "#42"
+              ]
+            }
+          },
+          "engineering_evidence": {
+            "part_id": "part:77a3b981f71010c8",
+            "part_no": "SYN-BRACKET",
+            "description": "bracket",
+            "quantity": 1,
+            "revision": null,
+            "material": "SYN-ALLOY-17",
+            "process": null,
+            "fields": {
+              "part_no": {
+                "value": "SYN-BRACKET",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#22",
+                  "#21",
+                  "#20"
+                ]
+              },
+              "revision": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "material": {
+                "value": "SYN-ALLOY-17",
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#60",
+                  "#61",
+                  "#62",
+                  "#63"
+                ]
+              },
+              "process": {
+                "value": null,
+                "extraction": "Z",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": []
+              },
+              "quantity": {
+                "value": 1,
+                "extraction": "T",
+                "engineering_verdict": "Z",
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "source_refs": [
+                  "#20",
+                  "#21",
+                  "#22",
+                  "#40",
+                  "#41",
+                  "#42"
+                ]
+              }
+            },
+            "properties": [
+              {
+                "id": "prop:b199248d31684323",
+                "name": "Mass (g)",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "number",
+                  "value": 41.5
+                },
+                "part": "bracket_left",
+                "unmapped": [],
+                "source_refs": [
+                  "#64",
+                  "#67",
+                  "#66",
+                  "#65"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              },
+              {
+                "id": "prop:bracket_left.Material",
+                "name": "Material",
+                "category": "Component Metadata",
+                "kind": "user",
+                "value": {
+                  "type": "text",
+                  "value": "SYN-ALLOY-17"
+                },
+                "part": "bracket_left",
+                "unmapped": [],
+                "source_refs": [
+                  "#60",
+                  "#63",
+                  "#62",
+                  "#61"
+                ],
+                "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+                "engineering_verdict": "Z"
+              }
+            ],
+            "source_refs": [
+              "#22",
+              "#21",
+              "#20"
+            ],
+            "file_sha256": "4fe9bc014f9ede4f19d308c62d7285911ec9dd0ecadcdacec5a45f9777213320",
+            "origin": "PMIX_STEP_PRODUCT",
+            "verification": "EXTRACTED_NOT_ENGINEERING_PROVED",
+            "engineering_verdict": "Z",
+            "procurement_eligible": false
+          },
+          "candidate_sources": [],
+          "supplier_quote_verified": false,
+          "paypal_payment_authorized": false,
+          "execution_gate": "Z"
+        }
+      ],
+      "overall": "HOLD_ENGINEERING_PROOF_REQUIRED",
+      "parts_confirmed": true,
+      "engineering_digest": "7483df5459e287db8dde210185873c499463702f0b8de4e9f871623ae8056a07",
+      "engineering_verdict": "Z",
+      "production_qualification": "Z",
+      "live_execution_gate": "Z",
+      "new_paypal_captures": 0,
+      "supplier_requests_sent": 0,
+      "customer_call_to_action": "INDEPENDENT_ENGINEERING_REVIEW_REQUIRED",
+      "existing_historic_paypal_payments_reused": false,
+      "evidence_sha256": "feb9d79c27e0009fe4a2a0d6272d64fba66716c236ade36fac3ea03f30f4dbf2"
+    }
+  }
+]

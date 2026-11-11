@@ -1,0 +1,30 @@
+[
+  {
+    "width": 1440,
+    "status": "PASS",
+    "post_requests": [
+      "/api/industrial/engineering-extract",
+      "/api/industrial/intake"
+    ],
+    "errors": [],
+    "parts_confirmed": true,
+    "engineering_verdict": "Z",
+    "payment_effects": 0,
+    "supplier_requests_sent": 0,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 390,
+    "status": "PASS",
+    "post_requests": [
+      "/api/industrial/engineering-extract",
+      "/api/industrial/intake"
+    ],
+    "errors": [],
+    "parts_confirmed": true,
+    "engineering_verdict": "Z",
+    "payment_effects": 0,
+    "supplier_requests_sent": 0,
+    "horizontal_overflow": false
+  }
+]

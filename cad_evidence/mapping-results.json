@@ -1,0 +1,162 @@
+{
+  "scope": "Mapping archived original pmix JSON; NOT a new sandbox parse",
+  "mapped": 26,
+  "cases": [
+    {
+      "case": "01_nist_ctc_01_asme1_ap242-e1",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "02_nist_ctc_02_asme1_ap242-e2",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "03_nist_ctc_03_asme1_ap242-e2",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "04_nist_ctc_04_asme1_ap242-e2",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "05_nist_ctc_05_asme1_ap242-e1",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "06_nist_ftc_06_asme1_ap242-e2",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "07_nist_ftc_07_asme1_ap242-e2",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "08_nist_ftc_08_asme1_ap242-e2",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "09_nist_ftc_08_asme1_ap242-e4-tg",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "10_nist_ftc_09_asme1_ap242-e1",
+      "mapped_bom": 4,
+      "quantity": 4,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "11_nist_ftc_10_asme1_ap242-e2",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "12_nist_ftc_11_asme1_ap242-e3",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "13_nist_stc_06_asme1_ap242-e3",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "14_nist_stc_07_asme1_ap242-e3",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "15_nist_stc_08_asme1_ap242-e3",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "16_nist_stc_09_asme1_ap242-e4",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "17_nist_stc_10_asme1_ap242-e2",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "18_nist_ctc_04_asme1_ap242-e1",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "19_nist_ftc_08_asme1_ap242-e1-tg",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "20_nist_ftc_11_asme1_ap242-e2",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "21_assembly_two_parts",
+      "mapped_bom": 2,
+      "quantity": 2,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "22_assembly_properties",
+      "mapped_bom": 2,
+      "quantity": 3,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "23_dimension_basics",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "24_plate_one_hole",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "25_property_basics",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    },
+    {
+      "case": "26_tolerance_datum_basics",
+      "mapped_bom": 1,
+      "quantity": 1,
+      "engineering_verdict": "Z"
+    }
+  ]
+}
