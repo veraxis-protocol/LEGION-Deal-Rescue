@@ -1,7 +1,7 @@
 {
   "work_order": "WO-CAD-003",
-  "decision": "NO-GO",
-  "gate": "Exact-head GitHub Actions acceptance is recorded after this source snapshot is pushed. See the final release package for the verified decision.",
+  "decision": "GO",
+  "gate": "GO applies to the verified code commit. The final evidence-only revision must pass its own exact-head checks before merge.",
   "production_engineering_qualification": "Z",
   "local": {
     "experiment": "22/22",
@@ -16,5 +16,23 @@
     "valid_critical_records": 860,
     "unsupported_approvals": 0,
     "unauthorized_effects": 0
-  }
+  },
+  "verified_code_commit": "ef352ebf311d0d705d80cfdc657ee7cb81a432a9",
+  "required_actions": [
+    {
+      "id": 43041027077,
+      "event": "pull_request",
+      "sha": "ef352ebf311d0d705d80cfdc657ee7cb81a432a9",
+      "conclusion": "success",
+      "url": "https://github.com/veraxis-protocol/LEGION-Deal-Rescue/actions/runs/43041027077"
+    },
+    {
+      "id": 43041018119,
+      "event": "push",
+      "sha": "ef352ebf311d0d705d80cfdc657ee7cb81a432a9",
+      "conclusion": "success",
+      "url": "https://github.com/veraxis-protocol/LEGION-Deal-Rescue/actions/runs/43041018119"
+    }
+  ],
+  "ci_matrix_jobs": "4/4"
 }

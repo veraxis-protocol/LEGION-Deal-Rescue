@@ -20,3 +20,11 @@ failed with `PMIX_EXTRACT_FAILED: bwrap: loopback: Failed RTM_NEWADDR: Operation
 The responsible layer was Ubuntu's AppArmor user namespace policy. CI now
 loads the executable-specific bwrap profile where that policy is active.
 The adapter still requires the full sandbox and the original smoke assertion.
+
+GitHub Actions accepted code commit ef352ebf311d0d705d80cfdc657ee7cb81a432a9 with four successful matrix jobs.
+
+- pull_request run 43041027077 passed Ubuntu and Windows. https://github.com/veraxis-protocol/LEGION-Deal-Rescue/actions/runs/43041027077
+
+- push run 43041018119 passed Ubuntu and Windows. https://github.com/veraxis-protocol/LEGION-Deal-Rescue/actions/runs/43041018119
+
+The final evidence revision requires a fresh exact-head check before merge. The reproducible package records that result alongside the full logs.
