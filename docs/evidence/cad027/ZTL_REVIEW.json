@@ -1,158 +1,87 @@
 {
- "schema": "legion.cad027.ztl-review.v1",
- "brick": {
-  "stand": "ztl-stand/1",
-  "quantities": {
-   "L_cad": {
-    "role": "given",
-    "range": [
-     "169.9995",
-     "170.0005"
-    ],
-    "unit": "mm",
-    "ground": "STEP XCAF bbox of RAIL-170 in reBot_B601_DM_v1.1_20260625.step sha256 a1e301ee03d46589"
-   },
-   "L_spec": {
-    "role": "given",
-    "value": "170",
-    "unit": "mm",
-    "ground": "readme.md purchased parts: Linear rail MGN9-170mm"
-   },
-   "dL": {
-    "role": "derived",
-    "unit": "mm"
-   }
-  },
-  "slots": {},
-  "catalog": {},
-  "laws": [
-   {
-    "zfl": "dL == L_cad - L_spec",
-    "source": "deviation of the modelled rail length from the purchase spec"
-   }
-  ],
-  "requirements": [
-   {
-    "quantity": "dL",
-    "op": "within",
-    "value": [
-     "-0.02",
-     "0.02"
-    ],
-    "why": "readme.md Machining Specifications: key dimension tolerance +-0.02 mm"
-   }
-  ]
- },
- "inputs_with_sources": {
-  "L_cad": {
-   "value": null,
-   "range": [
-    "169.9995",
-    "170.0005"
-   ],
-   "unit": "mm",
-   "ground": "STEP XCAF bbox of RAIL-170 in reBot_B601_DM_v1.1_20260625.step sha256 a1e301ee03d46589"
-  },
-  "L_spec": {
-   "value": "170",
-   "range": null,
-   "unit": "mm",
-   "ground": "readme.md purchased parts: Linear rail MGN9-170mm"
-  }
- },
- "ztl_output": {
-  "stand": "ztl-stand/1",
-  "judge": "ZTL 1b204ee",
-  "designs_tried": 1,
-  "failed_at_nominal": 0,
-  "judged": 1,
-  "undecided": 0,
-  "units": "checked: every law's dimensions agree",
-  "designs": [
-   {
-    "design": "",
-    "verdict": "EARNED",
-    "guaranteed": {
-     "dL": [
-      "-1/2000 (~-0.0005)",
-      "1/2000 (~0.0005)"
-     ]
+ "schema": "legion.cad027.ztl-review.v2",
+ "production_verdict": "OPEN",
+ "production_scope": "reBot predicates whose inputs AND requirement are stated by the sources; none is complete, so the stand is not called on invented values",
+ "predicates": [
+  {
+   "id": "rail_length_tolerance",
+   "verdict": "OPEN",
+   "stand_called": false,
+   "requirement": "MGN9-170 rail length within its manufacturing tolerance",
+   "inputs": {
+    "L_spec": {
+     "value": "170 mm",
+     "source": "readme.md line 150"
+    },
+    "L_cad": {
+     "value": "170.000 mm",
+     "source": "STEP XCAF bbox (nominal model; 0.001 mm is representation rounding, not manufacturing precision)"
     }
-   }
-  ],
-  "designs_count": {
-   "EARNED": 1
-  },
-  "verdict": "EARNED",
-  "design": {},
-  "guaranteed": {
-   "dL": [
-    "-1/2000 (~-0.0005)",
-    "1/2000 (~0.0005)"
+   },
+   "tolerance": {
+    "part": "MGN9-170mm linear rail (purchased)",
+    "verdict": "Z",
+    "rail_source": {
+     "document": "hardware/reBot_B601_DM/readme.md",
+     "line": 150,
+     "text": "| Linear rail | MGN9-170mm | 1 | 23 $/unit | [Amazong](https://www.amazon.com/uxcell-Sliding-Carriage-Bearing-Printers/dp/B0D54L45WM/ref=sr_1_1?dib=eyJ2IjoiMSJ9.qNphfY5r4UgLDHslIliMBhC45qBKTl37lJseObJSBp79RJ4VJnAH-lYAMo-rwPiu_uqWmkN7ms4kfAokYvod1seWb5-z2_kVgVuzrCXdiRycNXjrdv3qi5Awuno0_vEqjT4WJ569tAmqm_Rujrdxss7VfpLizFxq6-R8DucuvqZ0M0Y4go9PzRFEFPu4csskz7-UkM1CUidHoKmrT-I7R1Ta0dijj2SYlR_zW0si75k.nRJTebbqw-bFyzkdU8MztHnGdt9qwnHr_gIqa-MDxEQ&dib_tag=se&keywords=MGN9&qid=1774771864&sr=8-1) |"
+    },
+    "only_tolerance_in_sources": {
+     "document": "hardware/reBot_B601_DM/readme.md",
+     "line": 129,
+     "text": "- Key dimension tolerance: ±0.02 mm GB/T1840-M",
+     "section": "CNC Machined Metal Parts (line 98)",
+     "applies_to": "CNC machined metal parts",
+     "applies_to_purchased_rail": false,
+     "why": "the rail is listed under Purchased Parts (line 134), outside the section the tolerance belongs to"
+    },
+    "missing": [
+     "manufacturer length tolerance for MGN9-170 rail (datasheet)"
+    ]
+   },
+   "RAIL_TOLERANCE": "Z",
+   "missing": [
+    "manufacturer length tolerance for MGN9-170 rail (datasheet)"
    ]
   },
-  "guaranteed_unit": {
-   "dL": "mm"
-  },
-  "how": {
-   "dL": "ZTL, outer range"
-  },
-  "requirements": [
-   {
-    "quantity": "dL",
-    "op": "within",
-    "value": [
-     "-0.02",
-     "0.02"
-    ],
-    "why": "readme.md Machining Specifications: key dimension tolerance +-0.02 mm"
-   }
-  ],
-  "rests_on": "ZTL disposition ON CREDIT: the tolerances and ranges are the brick's data (the given quantities and the catalog's datasheet values) \u2014 taken as stated, not verified",
-  "checker": "not run (work mode: ZTL's verdict; --dev runs the independent checker)",
-  "judge_log": [
-   "dL -> [-1/2000000, 1/2000000] by [dL == L_cad - L_spec]"
-  ],
-  "checked_by": "ZTL (work mode; a refutation's witness recomputed exactly; --dev adds the independent checker on every design)",
-  "stand_called": true,
-  "seconds": 1.51,
-  "via": "ztl-engineer/mcp_server.py tools/call check_design -> python -m ustand.stand"
- },
- "verdict": "EARNED",
- "guaranteed": {
-  "dL": [
-   "-1/2000 (~-0.0005)",
-   "1/2000 (~0.0005)"
-  ]
- },
- "judge": "ZTL 1b204ee",
- "scope": "ONE predicate: modelled MGN9 rail length vs readme spec within +-0.02 mm. EARNED here does not approve any part or the assembly.",
- "negative_tests": [
   {
-   "case": "modelled length +0.05 mm (out of tolerance)",
-   "verdict": "REFUTED",
-   "why": "every design in the catalog violates a requirement at a concrete point",
-   "pass": true
-  },
-  {
-   "case": "tolerance tightened to +-0.0001 mm",
-   "verdict": "REFUTED",
-   "why": "every design in the catalog violates a requirement at a concrete point",
-   "pass": true
-  },
-  {
-   "case": "spec changed to MGN9-150",
-   "verdict": "REFUTED",
-   "why": "every design in the catalog violates a requirement at a concrete point",
-   "pass": true
-  },
-  {
-   "case": "no law (malformed brick)",
-   "verdict": "BRICK ERROR",
-   "why": "BrickError: laws: must be a non-empty list",
-   "pass": true
+   "id": "joint2_load_torque",
+   "verdict": "OPEN",
+   "stand_called": false,
+   "requirement": "joint 2 holding torque at the recommended load stays within its motor rating",
+   "inputs": {
+    "payload": {
+     "value": "< 1.5 kg",
+     "source": "Performance_Testing.md line 83: - Load: < 1.5 kg"
+    },
+    "radius": {
+     "value": "< 450 mm",
+     "source": "Performance_Testing.md line 84: - Working radius: < 70% reach (450 mm)"
+    },
+    "motor_curve": {
+     "value": "12 Nm load curve (Damiao 43 series)",
+     "source": "Performance_Testing.md line 74"
+    }
+   },
+   "missing": [
+    "arm self-weight and centre of mass (no masses or densities in the sources)",
+    "which motor is joint 2 and its rated (continuous) torque, as opposed to the curve title",
+    "joint-2 axis position relative to the payload in the reference posture"
+   ]
   }
  ],
+ "requirements_digest": "b8281a214b2e35833dfa228731e855797be334c188e7bb1cc67cac12f0488278",
+ "integration_test": {
+  "label": "TEST_SCENARIO_NOT_REBOT",
+  "brick_source": "ztl-stand examples/divider-1pct-req-1pct.json",
+  "brick_sha256": "e43ec13dc2945705d9af64fd43b240d047d241f9cb74f8e0e1f8cad8877723d5",
+  "verdict": "EARNED",
+  "judge": "ZTL 1b204ee",
+  "stand_called": true,
+  "seconds": 1.43,
+  "via": "ztl-engineer/mcp_server.py tools/call check_design -> python -m ustand.stand",
+  "scope": "integration health of the ZTL route only; says nothing about the reBot arm"
+ },
  "cad025": {
   "gate": "deal_rescue.industrial.ztl_gate (CAD-025)",
   "spec_validation": {
@@ -164,7 +93,5 @@
   "engineering_admission": "Z",
   "why": "CAD-025 grants engineering T only for an Ed25519-signed attestation from the configured independent verifier covering every part and requirement; none exists here."
  },
- "engineering_admission": "Z",
- "ztl_engineer_commit": "91d1167",
- "ztl_stand_commit": "ae6744f"
+ "engineering_admission": "Z"
 }

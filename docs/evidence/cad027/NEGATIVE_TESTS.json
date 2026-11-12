@@ -1,0 +1,76 @@
+{
+ "schema": "legion.cad027.negatives.v2",
+ "rows": [
+  {
+   "test": "unconfirmed tolerance",
+   "expected": "RAIL_TOLERANCE=Z, verdict OPEN, stand not called",
+   "observed": "RAIL_TOLERANCE=Z, verdict OPEN, stand_called=False",
+   "pass": true,
+   "detail": "RAIL_TOLERANCE=Z: no source states a tolerance for the purchased MGN9 rail"
+  },
+  {
+   "test": "changed requirement (payload 1.5->2.5 kg; rail 170->150 mm)",
+   "expected": "digest changes",
+   "observed": "b8281a214b2e vs 2de55c80a8f2 / 85290494e73e",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "test": "SHA substitution (tampered copy of the real STEP)",
+   "expected": "drawing F, run blocked, demo F",
+   "observed": "drawing F, xcaf False, demo F",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "test": "quantity change (02_Motor_Front_Spacer 4->3 in XCAF result)",
+   "expected": "BOM F with mismatch listed",
+   "observed": "BOM F, mismatches [{'part_id': '02_MOTOR_FRONT_SPACER', 'readme': 4, 'step': 3}, {'part_id': 'DM_MOTOR1_WIRING_HARNESS_CLIP', 'readme': 2, 'step': 0}]",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "test": "incomplete specification (real reBot spec)",
+   "expected": "CAD-025 refuses, admission not T",
+   "observed": "REFUSED PART_FIELD_MISSING_MATERIAL_GRADE, admission Z",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "test": "unsigned ZTL response (valid spec, no JWS)",
+   "expected": "admission F, never T",
+   "observed": "spec VALID, admission F CERTIFICATE_MISSING",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "test": "rerun with identical inputs",
+   "expected": "identical verdicts",
+   "observed": "{\"demo\": \"T\", \"bom\": \"T\", \"ztl_production\": \"OPEN\", \"rail_tolerance\": \"Z\", \"ztl_integration_test\": \"EARNED\", \"engineering_admission\": \"Z\", \"digest\": \"b8281a214b2e35833dfa228731e855797be334c188e7bb1cc67cac12f0488278\", \"instances\": \"97fac854d509abfcc391823a5b5da4e98a71d991cb5eee6e419f5135708b9622\"}",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "test": "DEMO_GO vs ENGINEERING_ADMISSION",
+   "expected": "DEMO_GO T while ENGINEERING_ADMISSION Z",
+   "observed": "T / Z",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "test": "no production EARNED",
+   "expected": "0",
+   "observed": 0,
+   "pass": true,
+   "detail": null
+  }
+ ],
+ "passed": 9,
+ "total": 9,
+ "forbidden_effects": {
+  "supplier_requests": 0,
+  "paypal_calls": 0,
+  "cad_transmitted": 0
+ },
+ "forbidden_effects_total": 0
+}

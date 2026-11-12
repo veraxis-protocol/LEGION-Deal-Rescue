@@ -1,0 +1,110 @@
+{
+ "schema": "legion.cad027.provenance.v1",
+ "documents": {
+  "step": {
+   "path": "hardware/reBot_B601_DM/reBot_B601_DM_v1.1_20260625.step",
+   "sha256": "a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+  },
+  "readme": {
+   "path": "hardware/reBot_B601_DM/readme.md",
+   "sha256": "6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee"
+  },
+  "performance_testing": {
+   "path": "hardware/reBot_B601_DM/performance_testing/Performance_Testing.md",
+   "sha256": "aca81d5e96e62f57df9318babbd34ea2096fc35656394de783057344ba350f76"
+  },
+  "archive": {
+   "path": "CAD027_REBOT_INPUT_COMPLETE.zip",
+   "sha256": "c2641de66d12958989f94abc45e42e93cb7b491fd8b44d576b52911321f46ec2"
+  }
+ },
+ "bom_fields": {
+  "quantity/material/process": "readme.md tables (line per row in BOM_VERIFIED.json)",
+  "tolerances": "readme.md line 129, CNC machined parts only; printed parts: not stated",
+  "geometry/instances": "STEP via OpenCascade XCAF"
+ },
+ "tolerance_applicability": {
+  "part": "MGN9-170mm linear rail (purchased)",
+  "verdict": "Z",
+  "rail_source": {
+   "document": "hardware/reBot_B601_DM/readme.md",
+   "line": 150,
+   "text": "| Linear rail | MGN9-170mm | 1 | 23 $/unit | [Amazong](https://www.amazon.com/uxcell-Sliding-Carriage-Bearing-Printers/dp/B0D54L45WM/ref=sr_1_1?dib=eyJ2IjoiMSJ9.qNphfY5r4UgLDHslIliMBhC45qBKTl37lJseObJSBp79RJ4VJnAH-lYAMo-rwPiu_uqWmkN7ms4kfAokYvod1seWb5-z2_kVgVuzrCXdiRycNXjrdv3qi5Awuno0_vEqjT4WJ569tAmqm_Rujrdxss7VfpLizFxq6-R8DucuvqZ0M0Y4go9PzRFEFPu4csskz7-UkM1CUidHoKmrT-I7R1Ta0dijj2SYlR_zW0si75k.nRJTebbqw-bFyzkdU8MztHnGdt9qwnHr_gIqa-MDxEQ&dib_tag=se&keywords=MGN9&qid=1774771864&sr=8-1) |"
+  },
+  "only_tolerance_in_sources": {
+   "document": "hardware/reBot_B601_DM/readme.md",
+   "line": 129,
+   "text": "- Key dimension tolerance: ±0.02 mm GB/T1840-M",
+   "section": "CNC Machined Metal Parts (line 98)",
+   "applies_to": "CNC machined metal parts",
+   "applies_to_purchased_rail": false,
+   "why": "the rail is listed under Purchased Parts (line 134), outside the section the tolerance belongs to"
+  },
+  "missing": [
+   "manufacturer length tolerance for MGN9-170 rail (datasheet)"
+  ]
+ },
+ "ztl_predicates": [
+  {
+   "id": "rail_length_tolerance",
+   "requirement": "MGN9-170 rail length within its manufacturing tolerance",
+   "verdict": "OPEN",
+   "inputs": {
+    "L_spec": {
+     "value": "170 mm",
+     "source": "readme.md line 150"
+    },
+    "L_cad": {
+     "value": "170.000 mm",
+     "source": "STEP XCAF bbox (nominal model; 0.001 mm is representation rounding, not manufacturing precision)"
+    }
+   },
+   "missing": [
+    "manufacturer length tolerance for MGN9-170 rail (datasheet)"
+   ]
+  },
+  {
+   "id": "joint2_load_torque",
+   "requirement": "joint 2 holding torque at the recommended load stays within its motor rating",
+   "verdict": "OPEN",
+   "inputs": {
+    "payload": {
+     "value": "< 1.5 kg",
+     "source": "Performance_Testing.md line 83: - Load: < 1.5 kg"
+    },
+    "radius": {
+     "value": "< 450 mm",
+     "source": "Performance_Testing.md line 84: - Working radius: < 70% reach (450 mm)"
+    },
+    "motor_curve": {
+     "value": "12 Nm load curve (Damiao 43 series)",
+     "source": "Performance_Testing.md line 74"
+    }
+   },
+   "missing": [
+    "arm self-weight and centre of mass (no masses or densities in the sources)",
+    "which motor is joint 2 and its rated (continuous) torque, as opposed to the curve title",
+    "joint-2 axis position relative to the payload in the reference posture"
+   ]
+  }
+ ],
+ "ztl_integration_test": {
+  "label": "TEST_SCENARIO_NOT_REBOT",
+  "brick_source": "ztl-stand examples/divider-1pct-req-1pct.json",
+  "brick_sha256": "e43ec13dc2945705d9af64fd43b240d047d241f9cb74f8e0e1f8cad8877723d5",
+  "verdict": "EARNED",
+  "judge": "ZTL 1b204ee",
+  "stand_called": true,
+  "seconds": 1.43,
+  "via": "ztl-engineer/mcp_server.py tools/call check_design -> python -m ustand.stand",
+  "scope": "integration health of the ZTL route only; says nothing about the reBot arm"
+ },
+ "representation_vs_manufacturing": "STEP coordinates are a nominal model rounded to 0.001 mm; no manufacturing precision is derived from them",
+ "toolchain": {
+  "ztl-engineer": "91d1167",
+  "ztl-stand": "ae6744f",
+  "ZTL judge": "ZTL 1b204ee",
+  "cadquery-ocp": "8.0.1",
+  "pmix release": "vendor/pmix/PAYPAL_CAD_001_RELEASE_20261110.zip (installer-pinned SHA)"
+ }
+}
