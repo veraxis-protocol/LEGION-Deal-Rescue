@@ -52,3 +52,37 @@ def verify_against(doc: dict, current: dict) -> list:
     """Stale-evidence check: fields of a recorded JUDGE_GO_NO_GO that no longer match the current run."""
     keys = ("git_commit", "cad_sha256", "source_manifest_sha256", "bom_digest", "requirements_digest")
     return [k for k in keys if doc.get(k) != current.get(k)]
+
+
+TIMELINE = ("started_utc", "preflight_finished_utc", "browser_e2e_finished_utc", "finished_utc")
+
+
+def check_timeline(doc: dict) -> dict:
+    """started_utc <= preflight_finished_utc <= browser_e2e_finished_utc <= finished_utc, all present and ISO-8601."""
+    from datetime import datetime
+    times = []
+    for k in TIMELINE:
+        v = doc.get(k)
+        if not v:
+            return {"ok": False, "why": f"MISSING {k}"}
+        try:
+            times.append(datetime.fromisoformat(v))
+        except (TypeError, ValueError):
+            return {"ok": False, "why": f"NOT_ISO8601 {k}={v!r}"}
+    for (a, ta), (b, tb) in zip(zip(TIMELINE, times), list(zip(TIMELINE, times))[1:]):
+        if ta > tb:
+            return {"ok": False, "why": f"ORDER {a} > {b}"}
+    return {"ok": True, "why": None}
+
+
+def finalize(doc: dict, browser: dict, now_iso: str) -> dict:
+    """Close a JUDGE_GO_NO_GO after the browser E2E: record its finish time, only then set finished_utc, and allow
+    final=T only if every required gate is T, nothing required was skipped and the timeline is complete and ordered."""
+    doc["gates"]["browser_e2e"] = browser["verdict"]
+    doc["browser_e2e"] = {k: browser[k] for k in ("verdict", "checks", "console_errors", "failed_requests", "screenshots")}
+    doc["browser_e2e_finished_utc"] = browser["finished_utc"]
+    doc["finished_utc"] = now_iso
+    tl = check_timeline(doc)
+    doc["timeline"] = tl
+    doc["final"] = final_verdict(doc["gates"], doc.get("skipped_required", 0)) if tl["ok"] else F
+    return doc

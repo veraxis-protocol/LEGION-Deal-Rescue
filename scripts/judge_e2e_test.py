@@ -140,12 +140,12 @@ def main(argv=None) -> int:
     gp = out / "JUDGE_GO_NO_GO.json"
     if gp.is_file():
         go = json.loads(gp.read_text(encoding="utf-8"))
-        go["gates"]["browser_e2e"] = result["verdict"]
-        go["browser_e2e"] = {"verdict": result["verdict"], "checks": f"{result['passed']}/{result['total']}",
-                             "console_errors": sum(len(v["console_errors"]) for v in result["viewports"]),
-                             "failed_requests": sum(len(v["failed_requests"]) for v in result["viewports"]),
-                             "screenshots": len(result["screenshots"])}
-        go["final"] = P.final_verdict(go["gates"], go.get("skipped_required", 0))
+        browser = {"verdict": result["verdict"], "checks": f"{result['passed']}/{result['total']}",
+                   "console_errors": sum(len(v["console_errors"]) for v in result["viewports"]),
+                   "failed_requests": sum(len(v["failed_requests"]) for v in result["viewports"]),
+                   "screenshots": len(result["screenshots"]), "finished_utc": result["finished_utc"]}
+        # finished_utc is set only now, after the browser result has been checked
+        go = P.finalize(go, browser, datetime.now(timezone.utc).isoformat())
         gp.write_text(json.dumps(go, indent=1, ensure_ascii=False), encoding="utf-8")
     print(json.dumps({"browser_e2e": result["verdict"], "checks": f"{result['passed']}/{result['total']}",
                       "console_errors": [v["console_errors"] for v in result["viewports"]]}))

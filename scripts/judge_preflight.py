@@ -297,10 +297,13 @@ def main(argv=None) -> int:
                                                            for k, v in tests.items()},
                    "skipped_required": skipped_required, "negative_tests": f"{neg['passed']}/{neg['total']}",
                    "external_effects": {"paypal_calls": 0, "supplier_requests": 0, "cad_transmitted": 0, "new_live_paypal_capture": "Z/NOT_EXECUTED"},
-                   "gates": gates, "finished_utc": datetime.now(timezone.utc).isoformat()})
+                   "gates": gates, "preflight_finished_utc": datetime.now(timezone.utc).isoformat(),
+                   "browser_e2e_finished_utc": None, "finished_utc": None})
     if neg["passed"] != neg["total"]:
         gates["tests"] = F
-    result["final"] = P.final_verdict(gates, skipped_required)
+    # final=T is only possible after the browser E2E closes the timeline (scripts/judge_e2e_test.py -> P.finalize)
+    result["final"] = F if P.final_verdict(gates, skipped_required) == F else Z
+    result["timeline"] = P.check_timeline(result)
     ev["JUDGE_GO_NO_GO"] = write(out, "JUDGE_GO_NO_GO.json", result)
     print(json.dumps({"final": result["final"], "gates": gates, "negatives": result["negative_tests"],
                       "skipped_required": skipped_required}))

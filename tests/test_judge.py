@@ -92,6 +92,50 @@ class Verdict(unittest.TestCase):
         self.assertEqual(P.verify_against({**cur, "bom_digest": "x"}, cur), ["bom_digest"])
 
 
+class Timeline(unittest.TestCase):
+    """started_utc <= preflight_finished_utc <= browser_e2e_finished_utc <= finished_utc; final=T only after all."""
+
+    def doc(self, **kw):
+        d = {"gates": {k: "T" for k in P.REQUIRED}, "skipped_required": 0, "started_utc": "2026-11-12T17:00:00+00:00",
+             "preflight_finished_utc": "2026-11-12T17:02:00+00:00", "browser_e2e_finished_utc": None, "finished_utc": None}
+        d["gates"]["browser_e2e"] = "Z"
+        d.update(kw)
+        return d
+
+    def browser(self, verdict="T", finished="2026-11-12T17:03:00+00:00"):
+        return {"verdict": verdict, "checks": "42/42", "console_errors": 0, "failed_requests": 0, "screenshots": 14,
+                "finished_utc": finished}
+
+    def test_ordered_timeline_allows_T(self):
+        d = P.finalize(self.doc(), self.browser(), "2026-11-12T17:03:05+00:00")
+        self.assertTrue(d["timeline"]["ok"])
+        self.assertEqual(d["final"], "T")
+        self.assertEqual(d["finished_utc"], "2026-11-12T17:03:05+00:00")
+
+    def test_preflight_alone_is_never_T(self):
+        d = self.doc()
+        self.assertFalse(P.check_timeline(d)["ok"])          # no browser / finished time yet
+        self.assertEqual(P.final_verdict(d["gates"], 0), "Z")
+
+    def test_finished_before_browser_blocks_go(self):
+        d = P.finalize(self.doc(), self.browser(finished="2026-11-12T17:03:00+00:00"), "2026-11-12T17:02:30+00:00")
+        self.assertEqual((d["timeline"]["ok"], d["final"]), (False, "F"))
+        self.assertIn("ORDER", d["timeline"]["why"])
+
+    def test_browser_before_preflight_blocks_go(self):
+        d = P.finalize(self.doc(), self.browser(finished="2026-11-12T17:01:00+00:00"), "2026-11-12T17:03:05+00:00")
+        self.assertEqual(d["final"], "F")
+
+    def test_missing_timestamp_blocks_go(self):
+        d = P.finalize(self.doc(preflight_finished_utc=None), self.browser(), "2026-11-12T17:03:05+00:00")
+        self.assertEqual((d["final"], d["timeline"]["why"]), ("F", "MISSING preflight_finished_utc"))
+
+    def test_failed_browser_is_not_T_even_when_ordered(self):
+        d = P.finalize(self.doc(), self.browser("F"), "2026-11-12T17:03:05+00:00")
+        self.assertTrue(d["timeline"]["ok"])
+        self.assertEqual(d["final"], "F")
+
+
 class CadStatus(unittest.TestCase):
     def test_unconfigured_is_explained(self):
         s = R.cad_status(None)

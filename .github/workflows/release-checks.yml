@@ -185,6 +185,14 @@ jobs:
           assert g["gates"]["browser_e2e"] == "T", g.get("browser_e2e")
           assert g["final"] == "T", g["gates"]
           assert g["engineering_admission"] == "Z" and g["ztl_verdict"]["production"] == "OPEN"
+          # timeline, checked independently of the code that wrote it
+          from datetime import datetime
+          keys = ("started_utc", "preflight_finished_utc", "browser_e2e_finished_utc", "finished_utc")
+          ts = [datetime.fromisoformat(g[k]) for k in keys]
+          b = json.load(open("judge_out/BROWSER_E2E_RESULT.json"))
+          assert g["browser_e2e_finished_utc"] == b["finished_utc"], "browser finish time not taken from the E2E result"
+          assert all(x <= y for x, y in zip(ts, ts[1:])), dict(zip(keys, map(str, ts)))
+          print("timeline ordered:", dict(zip(keys, map(str, ts))))
           EOF
 
       - name: Publish the verdict and log tail as annotations (readable without signing in)
