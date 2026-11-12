@@ -187,6 +187,29 @@ jobs:
           assert g["engineering_admission"] == "Z" and g["ztl_verdict"]["production"] == "OPEN"
           EOF
 
+      - name: Publish the verdict and log tail as annotations (readable without signing in)
+        if: always()
+        run: |
+          python - <<'EOF'
+          import json, pathlib
+          o = pathlib.Path("judge_out")
+          g = o / "JUDGE_GO_NO_GO.json"
+          if g.is_file():
+              d = json.loads(g.read_text())
+              print("::notice title=JUDGE_GO_NO_GO::" + json.dumps({k: d.get(k) for k in ("final", "gates", "skipped_required", "negative_tests", "error", "unsupported")}))
+              print("::notice title=tests::" + json.dumps(d.get("tests")))
+          for name in ("CLEAN_CLONE_LOG.txt", "TESTS_FULL_SUITE.log", "TESTS_REQUIRED_REAL.log", "SERVER.log"):
+              p = o / name
+              if p.is_file():
+                  tail = p.read_text(errors="replace")[-1500:].replace("%", "%25").replace(chr(13), "").replace(chr(10), "%0A")
+                  print(f"::notice title={name} tail::{tail}")
+          b = o / "BROWSER_E2E_RESULT.json"
+          if b.is_file():
+              d = json.loads(b.read_text())
+              bad = [c for c in d["checks"] if not c["pass"]][:8]
+              print("::notice title=browser e2e::" + json.dumps({"verdict": d["verdict"], "failed": bad, "viewports": d["viewports"]})[:3000])
+          EOF
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
