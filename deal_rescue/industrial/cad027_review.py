@@ -26,7 +26,7 @@ from deal_rescue.industrial import cad_xcaf, ztl_gate
 T, F, Z = "T", "F", "Z"
 PINNED_STEP_SHA256 = "a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
 PINNED_STEP_NAME = "reBot_B601_DM_v1.1_20260625.step"
-CNC_TOLERANCE = "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit"
+CNC_TOLERANCE = "±0.02 mm key dimensions, GB/T1840-M (readme Machining Specifications); mating parts H7 / interference fit"
 STAND_TIME_LIMIT_S = 120
 
 
@@ -128,33 +128,119 @@ def reconcile(xcaf: dict, readme: dict, readme_sha256: str) -> dict:
 
 
 # ---------------------------------------------------------------- ZTL Engineer (real stand)
-def rail_length_brick(xcaf: dict, readme_text: str) -> dict:
-    """Predicate with every value sourced: modelled MGN9 rail length vs the readme purchase spec, within the
-    readme key-dimension tolerance. The STEP value is the XCAF bounding-box extent rounded to 0.001 mm, so it is
-    given as a +-0.0005 mm range (no other uncertainty claimed)."""
+# Provenance rule (WO-CAD027-REVIEW-CLOSURE-002): a predicate goes to the stand only when EVERY input and the
+# requirement itself come from a source that states them for THIS part. STEP geometry is a nominal model: its
+# 0.001 mm rounding is representation precision, never manufacturing precision.
+
+class ToleranceUnsupported(ValueError):
+    """No source states a tolerance that applies to this part."""
+
+
+def _line_of(text: str, needle: str):
+    for i, line in enumerate(text.splitlines(), 1):
+        if needle in line:
+            return i, line.strip()
+    return None, None
+
+
+def tolerance_for_purchased_rail(readme_text: str) -> dict:
+    """The readme's only tolerance sits under 'CNC Machined Metal Parts / Machining Specifications'. It applies to
+    machined parts, not to the purchased MGN9 rail. No other source states a rail tolerance -> Z."""
+    tol_line, tol_text = _line_of(readme_text, "Key dimension tolerance")
+    rail_line, rail_text = _line_of(readme_text, "MGN9-170mm")
+    cnc_line, _ = _line_of(readme_text, "## 🔩 CNC Machined Metal Parts")
+    bought_line, _ = _line_of(readme_text, "## 🛒 Purchased Parts")
+    return {"part": "MGN9-170mm linear rail (purchased)", "verdict": Z,
+            "rail_source": {"document": "hardware/reBot_B601_DM/readme.md", "line": rail_line, "text": rail_text},
+            "only_tolerance_in_sources": {"document": "hardware/reBot_B601_DM/readme.md", "line": tol_line,
+                                          "text": tol_text, "section": f"CNC Machined Metal Parts (line {cnc_line})",
+                                          "applies_to": "CNC machined metal parts",
+                                          "applies_to_purchased_rail": False,
+                                          "why": f"the rail is listed under Purchased Parts (line {bought_line}), "
+                                                 "outside the section the tolerance belongs to"},
+            "missing": ["manufacturer length tolerance for MGN9-170 rail (datasheet)"]}
+
+
+def rail_length_brick(xcaf: dict, readme_text: str, tolerance_mm: tuple | None = None,
+                      tolerance_source: str | None = None) -> dict:
+    """Rail length check. Without an explicitly sourced tolerance it raises ToleranceUnsupported (verdict Z).
+    The STEP length is the nominal model value, given exactly: no manufacturing spread is claimed from it."""
     m = re.search(r"\|\s*Linear rail\s*\|\s*MGN9-(\d+)mm\s*\|", readme_text)
     if not m:
         raise ValueError("RAIL_SPEC_NOT_IN_README")
+    if tolerance_mm is None or not tolerance_source:
+        raise ToleranceUnsupported("RAIL_TOLERANCE=Z: no source states a tolerance for the purchased MGN9 rail")
     geo = xcaf["geometry"].get("RAIL-170")
     if not geo or not geo.get("bbox"):
         raise ValueError("RAIL_NOT_IN_STEP")
     from decimal import Decimal
-    length = Decimal(f"{max(geo['bbox']):.3f}")
-    half = Decimal("0.0005")
-    lo, hi = str(length - half), str(length + half)
+    length = str(Decimal(f"{max(geo['bbox']):.3f}"))
     return {
         "stand": "ztl-stand/1",
         "quantities": {
-            "L_cad": {"role": "given", "range": [lo, hi], "unit": "mm",
-                      "ground": f"STEP XCAF bbox of RAIL-170 in {xcaf['file']} sha256 {xcaf['sha256'][:16]}"},
+            "L_cad": {"role": "given", "value": length, "unit": "mm",
+                      "ground": f"STEP nominal model, XCAF bbox of RAIL-170 in {xcaf['file']}"},
             "L_spec": {"role": "given", "value": m.group(1), "unit": "mm",
                        "ground": "readme.md purchased parts: Linear rail MGN9-" + m.group(1) + "mm"},
             "dL": {"role": "derived", "unit": "mm"}},
         "slots": {}, "catalog": {},
         "laws": [{"zfl": "dL == L_cad - L_spec", "source": "deviation of the modelled rail length from the purchase spec"}],
-        "requirements": [{"quantity": "dL", "op": "within", "value": ["-0.02", "0.02"],
-                          "why": "readme.md Machining Specifications: key dimension tolerance +-0.02 mm"}],
+        "requirements": [{"quantity": "dL", "op": "within", "value": [str(tolerance_mm[0]), str(tolerance_mm[1])],
+                          "why": tolerance_source}],
     }
+
+
+def production_predicates(xcaf: dict, readme_text: str, perf_text: str | None) -> list:
+    """Candidate reBot engineering predicates and whether the sources allow a stand check. None is invented."""
+    preds = []
+    rail = tolerance_for_purchased_rail(readme_text)
+    preds.append({"id": "rail_length_tolerance", "verdict": "OPEN", "stand_called": False,
+                  "requirement": "MGN9-170 rail length within its manufacturing tolerance",
+                  "inputs": {"L_spec": {"value": "170 mm", "source": f"readme.md line {rail['rail_source']['line']}"},
+                             "L_cad": {"value": f"{max(xcaf['geometry'].get('RAIL-170', {}).get('bbox') or [0]):.3f} mm",
+                                       "source": "STEP XCAF bbox (nominal model; 0.001 mm is representation rounding, "
+                                                 "not manufacturing precision)"}},
+                  "tolerance": rail, "RAIL_TOLERANCE": Z,
+                  "missing": rail["missing"]})
+    load = {"id": "joint2_load_torque", "verdict": "OPEN", "stand_called": False,
+            "requirement": "joint 2 holding torque at the recommended load stays within its motor rating"}
+    if perf_text:
+        l_line, l_text = _line_of(perf_text, "- Load: < 1.5 kg")
+        r_line, r_text = _line_of(perf_text, "Working radius: < 70% reach (450 mm)")
+        c_line, c_text = _line_of(perf_text, "12Nm Load Curve</p>")
+        load["inputs"] = {
+            "payload": {"value": "< 1.5 kg", "source": f"Performance_Testing.md line {l_line}: {l_text}"},
+            "radius": {"value": "< 450 mm", "source": f"Performance_Testing.md line {r_line}: {r_text}"},
+            "motor_curve": {"value": "12 Nm load curve (Damiao 43 series)", "source": f"Performance_Testing.md line {c_line}"}}
+        load["missing"] = ["arm self-weight and centre of mass (no masses or densities in the sources)",
+                           "which motor is joint 2 and its rated (continuous) torque, as opposed to the curve title",
+                           "joint-2 axis position relative to the payload in the reference posture"]
+    else:
+        load["missing"] = ["Performance_Testing.md not supplied"]
+    preds.append(load)
+    return preds
+
+
+def integration_test_scenario(ztl_engineer_dir: str | None) -> dict:
+    """SEPARATELY LABELLED TEST: proves the real stand is reachable and answers, using ztl-stand's own shipped
+    example brick (a resistor divider). It is NOT a reBot check and approves nothing about the arm."""
+    root = Path(ztl_engineer_dir or os.environ.get("ZTL_ENGINEER_DIR", "")).resolve()
+    example = Path(os.environ.get("ZTL_ENGINEER_STAND", root.parent / "ztl-stand")) / "examples" / "divider-1pct-req-1pct.json"
+    if not example.is_file():
+        return {"label": "TEST_SCENARIO_NOT_REBOT", "verdict": "OPEN", "stand_called": False, "why": f"missing {example}"}
+    brick = json.loads(example.read_text(encoding="utf-8"))
+    out = check_design(brick, ztl_engineer_dir)
+    return {"label": "TEST_SCENARIO_NOT_REBOT", "brick_source": "ztl-stand examples/divider-1pct-req-1pct.json",
+            "brick_sha256": hashlib.sha256(example.read_bytes()).hexdigest(),
+            "verdict": out.get("verdict"), "judge": out.get("judge"), "stand_called": out.get("stand_called"),
+            "seconds": out.get("seconds"), "via": out.get("via"),
+            "scope": "integration health of the ZTL route only; says nothing about the reBot arm"}
+
+
+def requirements_digest(preds: list) -> str:
+    """Fingerprint of the sourced requirements and inputs: any change in a source line changes it."""
+    keep = [{k: p.get(k) for k in ("id", "requirement", "inputs", "missing")} for p in preds]
+    return hashlib.sha256(json.dumps(keep, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
 def check_design(brick: dict, ztl_engineer_dir: str | None = None, time_limit_s: int = STAND_TIME_LIMIT_S) -> dict:
@@ -175,7 +261,7 @@ def check_design(brick: dict, ztl_engineer_dir: str | None = None, time_limit_s:
     reply = next((json.loads(l) for l in (p.stdout or "").splitlines()
                   if l.strip().startswith("{") and json.loads(l).get("id") == 1), None)
     if not reply or "result" not in reply:
-        return {"verdict": "OPEN", "stand_called": True, "why": "NO_MCP_REPLY", "stderr": p.stderr[-800:]}
+        return {"verdict": "OPEN", "stand_called": True, "why": "NO_MCP_REPLY", "stderr": (p.stderr or "")[-800:]}
     text = reply["result"]["content"][0]["text"]
     try:
         out = json.loads(text)
@@ -186,6 +272,15 @@ def check_design(brick: dict, ztl_engineer_dir: str | None = None, time_limit_s:
     out["via"] = "ztl-engineer/mcp_server.py tools/call check_design -> python -m ustand.stand"
     return out
 
+
+def ztl_review(xcaf: dict, readme_text: str, perf_text: str | None, ztl_engineer_dir: str | None) -> dict:
+    preds = production_predicates(xcaf, readme_text, perf_text)
+    decided = [p for p in preds if p["verdict"] in ("EARNED", "REFUTED")]
+    return {"production_verdict": "OPEN" if not decided else ("REFUTED" if any(p["verdict"] == "REFUTED" for p in decided) else "EARNED"),
+            "production_scope": "reBot predicates whose inputs AND requirement are stated by the sources; none is "
+                                "complete, so the stand is not called on invented values",
+            "predicates": preds, "requirements_digest": requirements_digest(preds),
+            "integration_test": integration_test_scenario(ztl_engineer_dir)}
 
 # ---------------------------------------------------------------- CAD-025 linkage
 def cad025_spec(bom: dict, step_sha: str, readme_sha: str) -> dict:
@@ -226,51 +321,33 @@ def cad025_gate(spec: dict, unsigned_ztl_result: dict | None = None, env: dict |
 
 
 # ---------------------------------------------------------------- pipeline
-def run(step_path, readme_path, ztl_engineer_dir=None, expected_sha256=PINNED_STEP_SHA256, stages=4) -> dict:
-    step_path, readme_path = Path(step_path), Path(readme_path)
-    started = datetime.now(timezone.utc).isoformat()
-    readme_bytes = readme_path.read_bytes()
-    readme_sha = hashlib.sha256(readme_bytes).hexdigest()
-    readme_text = readme_bytes.decode("utf-8")
-    report = {"schema": "legion.cad027.demo.v1", "run_utc": started,
-              "drawing": {"file": step_path.name, "bytes": step_path.stat().st_size,
-                          "expected_sha256": expected_sha256, "readme": readme_path.name, "readme_sha256": readme_sha}}
-    try:
-        xcaf = cad_xcaf.read_assembly(step_path, expected_sha256)
-    except cad_xcaf.SourceMismatch as e:
-        report["drawing"].update(status=F, error=str(e))
-        report["overall"] = {"demo": F, "engineering_admission": Z, "blocked_at": "drawing"}
-        return report
-    report["drawing"].update(status=T, sha256=xcaf["sha256"])
-    report["xcaf"] = xcaf
-    if stages < 2:
-        return report
-    bom = reconcile(xcaf, parse_readme(readme_text), readme_sha)
-    report["bom"] = bom
-    bom_ok = bom["mandatory_positions_matched"] == bom["mandatory_positions"] and \
-        bom["mandatory_instances_step"] == bom["mandatory_instances_readme"]
-    report["bom_status"] = T if bom_ok else F
-    if stages < 3:
-        return report
-    brick = rail_length_brick(xcaf, readme_text)
-    ztl = check_design(brick, ztl_engineer_dir)
-    report["ztl"] = {"brick": brick, "result": ztl, "verdict": ztl.get("verdict"),
-                     "guaranteed": ztl.get("guaranteed"), "judge": ztl.get("judge"),
-                     "scope": "ONE predicate: modelled MGN9 rail length vs readme spec within +-0.02 mm. "
-                              "EARNED here does not approve any part or the assembly."}
-    spec = cad025_spec(bom, xcaf["sha256"], readme_sha)
-    report["cad025"] = cad025_gate(spec, unsigned_ztl_result=ztl)
-    report["overall"] = {
-        "demo": T if bom_ok and ztl.get("stand_called") and ztl.get("verdict") in ("EARNED", "REFUTED", "OPEN") else F,
-        "ocp_xcaf": T, "bom": report["bom_status"], "ztl_predicate": ztl.get("verdict"),
-        "engineering_admission": report["cad025"]["engineering_admission"],
-        "missing_for_engineering_T": ["per-part dimensional requirements and tolerances for printed parts",
-                                      "material grade certificates", "surface finish per part",
-                                      "inspection requirements", "functional requirements",
-                                      "independent Ed25519 attestation (CAD-025)"],
-        "external_effects": {"supplier_requests": 0, "paypal_calls": 0, "cad_transmitted": 0}}
-    report["finished_utc"] = datetime.now(timezone.utc).isoformat()
-    return report
+MISSING_FOR_ENGINEERING_T = ["per-part dimensional requirements and tolerances for printed parts",
+                             "manufacturer tolerance for the purchased MGN9-170 rail",
+                             "material grade certificates", "surface finish per part",
+                             "inspection requirements", "functional requirements",
+                             "independent Ed25519 attestation (CAD-025)"]
+
+
+def bom_status(bom: dict) -> str:
+    return T if (bom["mandatory_positions_matched"] == bom["mandatory_positions"] and
+                 bom["mandatory_instances_step"] == bom["mandatory_instances_readme"]) else F
+
+
+def demo_status(r: dict) -> str:
+    """DEMO_GO = the software route works on the real file with correctly scoped results. It is NOT engineering
+    admission (that is CAD-025's T, which needs a signed independent attestation)."""
+    z = r.get("ztl", {})
+    ok = (r["drawing"]["status"] == T and r.get("bom_status") == T
+          and z.get("production_verdict") in ("EARNED", "REFUTED", "OPEN")
+          and z.get("integration_test", {}).get("stand_called") is True
+          and all(p["verdict"] != "EARNED" or p.get("stand_called") for p in z.get("predicates", []))
+          and r.get("cad025", {}).get("engineering_admission") in (Z, T))
+    return T if ok else F
+
+
+def run(step_path, readme_path, ztl_engineer_dir=None, perf_path=None) -> dict:
+    """Whole pipeline in one call (tests, CLI). Same code path as the UI's staged run."""
+    return StagedRun(step_path, readme_path, ztl_engineer_dir, perf_path).stage(4)
 
 
 def mutate_quantity(bom_xcaf: dict, part: str, delta: int) -> dict:
@@ -282,22 +359,30 @@ def mutate_quantity(bom_xcaf: dict, part: str, delta: int) -> dict:
 class StagedRun:
     """One demo run, advanced one stage at a time by the UI. Each stage uses the previous stage's real output."""
 
-    def __init__(self, step_path, readme_path, ztl_engineer_dir):
+    def __init__(self, step_path, readme_path, ztl_engineer_dir, perf_path=None):
         self.step_path, self.readme_path, self.ztl_dir = Path(step_path), Path(readme_path), ztl_engineer_dir
+        self.perf_path = Path(perf_path) if perf_path else None
         self.report = None
 
     def configured(self):
         return self.step_path.is_file() and self.readme_path.is_file()
 
+    def _perf_text(self):
+        return self.perf_path.read_text(encoding="utf-8") if self.perf_path and self.perf_path.is_file() else None
+
     def stage(self, n: int) -> dict:
         if n == 1 or self.report is None:
             rb = self.readme_path.read_bytes()
-            self.report = {"schema": "legion.cad027.demo.v1", "run_utc": datetime.now(timezone.utc).isoformat(),
-                           "stage": 0, "drawing": {"file": self.step_path.name, "bytes": self.step_path.stat().st_size,
-                                                   "expected_sha256": PINNED_STEP_SHA256,
-                                                   "sha256": cad_xcaf.sha256_file(self.step_path),
-                                                   "readme": "hardware/reBot_B601_DM/readme.md",
-                                                   "readme_sha256": hashlib.sha256(rb).hexdigest()}}
+            docs = {"readme": {"path": "hardware/reBot_B601_DM/readme.md", "sha256": hashlib.sha256(rb).hexdigest()}}
+            if self.perf_path and self.perf_path.is_file():
+                docs["performance_testing"] = {"path": "hardware/reBot_B601_DM/performance_testing/Performance_Testing.md",
+                                               "sha256": cad_xcaf.sha256_file(self.perf_path)}
+            self.report = {"schema": "legion.cad027.demo.v2", "run_utc": datetime.now(timezone.utc).isoformat(),
+                           "stage": 0, "source_documents": docs,
+                           "drawing": {"file": self.step_path.name, "bytes": self.step_path.stat().st_size,
+                                       "expected_sha256": PINNED_STEP_SHA256,
+                                       "sha256": cad_xcaf.sha256_file(self.step_path),
+                                       "readme": docs["readme"]["path"], "readme_sha256": docs["readme"]["sha256"]}}
             d = self.report["drawing"]
             d["status"] = T if d["sha256"] == PINNED_STEP_SHA256 else F
             self.report["stage"] = 1
@@ -310,30 +395,22 @@ class StagedRun:
             r["xcaf"] = xcaf
             r["bom"] = reconcile(xcaf, parse_readme(self.readme_path.read_text(encoding="utf-8")),
                                  r["drawing"]["readme_sha256"])
-            b = r["bom"]
-            r["bom_status"] = T if (b["mandatory_positions_matched"] == b["mandatory_positions"] and
-                                    b["mandatory_instances_step"] == b["mandatory_instances_readme"]) else F
+            r["bom_status"] = bom_status(r["bom"])
             r["stage"] = 2
         if n >= 3 and r["stage"] < 3:
-            brick = rail_length_brick(r["xcaf"], self.readme_path.read_text(encoding="utf-8"))
-            ztl = check_design(brick, self.ztl_dir)
-            r["ztl"] = {"brick": brick, "result": ztl, "verdict": ztl.get("verdict"), "guaranteed": ztl.get("guaranteed"),
-                        "judge": ztl.get("judge"),
-                        "scope": "ONE predicate: modelled MGN9 rail length vs readme spec within +-0.02 mm. "
-                                 "EARNED here does not approve any part or the assembly."}
-            r["cad025"] = cad025_gate(cad025_spec(r["bom"], r["drawing"]["sha256"], r["drawing"]["readme_sha256"]), ztl)
+            r["ztl"] = ztl_review(r["xcaf"], self.readme_path.read_text(encoding="utf-8"), self._perf_text(), self.ztl_dir)
+            r["cad025"] = cad025_gate(cad025_spec(r["bom"], r["drawing"]["sha256"], r["drawing"]["readme_sha256"]),
+                                      r["ztl"])
             r["stage"] = 3
         if n >= 4 and r["stage"] < 4:
-            ztl = r["ztl"]["result"]
             r["overall"] = {
-                "demo": T if r["bom_status"] == T and ztl.get("stand_called") and
-                ztl.get("verdict") in ("EARNED", "REFUTED", "OPEN") else F,
-                "ocp_xcaf": T, "bom": r["bom_status"], "ztl_predicate": ztl.get("verdict"),
+                "demo": demo_status(r), "demo_means": "software route works on the real file; NOT engineering admission",
+                "ocp_xcaf": T, "bom": r["bom_status"],
+                "ztl_production": r["ztl"]["production_verdict"],
+                "rail_tolerance": Z,
+                "ztl_integration_test": r["ztl"]["integration_test"].get("verdict"),
                 "engineering_admission": r["cad025"]["engineering_admission"],
-                "missing_for_engineering_T": ["per-part dimensional requirements and tolerances for printed parts",
-                                              "material grade certificates", "surface finish per part",
-                                              "inspection requirements", "functional requirements",
-                                              "independent Ed25519 attestation (CAD-025)"],
+                "missing_for_engineering_T": MISSING_FOR_ENGINEERING_T,
                 "external_effects": {"supplier_requests": 0, "paypal_calls": 0, "cad_transmitted": 0}}
             r["finished_utc"] = datetime.now(timezone.utc).isoformat()
             r["stage"] = 4

@@ -64,17 +64,19 @@
    $('#c27-next').onclick=()=>show(2);
  }
  async function review(){
-   const r=await stage(3),z=r.ztl,c=r.cad025;
-   const q=z.brick.quantities;
+   const r=await stage(3),z=r.ztl,c=r.cad025,t=z.integration_test;
+   const pred=p=>`<div class="card" style="border:1px solid #e3e6ee"><b>${esc(p.requirement)}</b> — ZTL ${badge(p.verdict)} ${p.RAIL_TOLERANCE?'· RAIL_TOLERANCE '+badge(p.RAIL_TOLERANCE):''} · stand called: ${p.stand_called?'yes':'no (inputs incomplete; nothing invented)'}
+     <table><tr><th>Input</th><th>Value</th><th>Source</th></tr>${Object.entries(p.inputs||{}).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(v.value)}</td><td>${esc(v.source)}</td></tr>`).join('')}</table>
+     ${p.tolerance?`<p>Only tolerance in the sources: “${esc(p.tolerance.only_tolerance_in_sources.text)}” — readme line ${p.tolerance.only_tolerance_in_sources.line}, section ${esc(p.tolerance.only_tolerance_in_sources.section)}. Applies to the purchased rail: <b>no</b> (${esc(p.tolerance.only_tolerance_in_sources.why)}).</p>`:''}
+     <p>Missing source data: ${p.missing.map(esc).join('; ')}</p></div>`;
    $('#c27-body').innerHTML=`<div class="card"><h3>3. Engineering review — ZTL Engineer</h3>
-   <p>Checked requirement: <b>${esc(z.brick.requirements[0].why)}</b></p>
-   <table><tr><th>Input</th><th>Value</th><th>Source</th></tr>
-   ${Object.entries(q).filter(([,v])=>v.role==='given').map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(v.value??v.range.join(' … '))} ${esc(v.unit)}</td><td>${esc(v.ground)}</td></tr>`).join('')}
-   <tr><td>law</td><td colspan=2><code>${esc(z.brick.laws[0].zfl)}</code></td></tr></table>
-   <p>ZTL stand verdict: ${badge(z.verdict)} · judge ${esc(z.judge)} · guaranteed dL ${esc(JSON.stringify(z.guaranteed))} · ${esc(z.result.via)} (${z.result.seconds}s)</p>
-   <p><b>Scope:</b> ${esc(z.scope)}</p>
+   <p>reBot production verdict: ${badge(z.production_verdict)} — ${esc(z.production_scope)}</p>
+   ${z.predicates.map(pred).join('')}
+   <p style="color:#555">STEP geometry is a nominal model: its 0.001 mm rounding is representation precision, not manufacturing precision.</p>
+   <div class="card" style="border:2px dashed #c9a400"><b>Integration test scenario — NOT a reBot check</b><br>
+   Real ZTL stand on ${esc(t.brick_source)}: ${badge(t.verdict)} · judge ${esc(t.judge)} · ${esc(t.via)} (${t.seconds}s)<br>${esc(t.scope)}</div>
    <h4>CAD-025 engineering gate</h4>
-   <p>Spec: ${esc(c.spec_validation.status)} ${esc(c.spec_validation.code||'')} · admission ${badge(c.engineering_admission)} (${esc(c.admission_code||'')})</p>
+   <p>Spec: ${esc(c.spec_validation.status)} ${esc(c.spec_validation.code||'')} · ENGINEERING_ADMISSION ${badge(c.engineering_admission)} (${esc(c.admission_code||'')})</p>
    <p>${esc(c.why)}</p><button class="go" id="c27-next">Show result</button></div>`;
    $('#c27-next').onclick=()=>show(3);
  }
@@ -84,8 +86,10 @@
    <table><tr><td>Source</td><td>${esc(r.drawing.file)} <code>${esc(r.drawing.sha256)}</code></td></tr>
    <tr><td>Assembly read (OCP/XCAF)</td><td>${badge(o.ocp_xcaf)}</td></tr>
    <tr><td>BOM vs factory readme</td><td>${badge(o.bom)} ${r.bom.mandatory_positions_matched}/${r.bom.mandatory_positions} parts, ${r.bom.mandatory_instances_step}/${r.bom.mandatory_instances_readme} instances</td></tr>
-   <tr><td>ZTL predicate (rail length)</td><td>${badge(o.ztl_predicate)} — one requirement only</td></tr>
-   <tr><td>Engineering admission</td><td>${badge(o.engineering_admission)}</td></tr>
+   <tr><td>ZTL, reBot production predicates</td><td>${badge(o.ztl_production)} — no predicate has complete sourced inputs · RAIL_TOLERANCE ${badge(o.rail_tolerance)}</td></tr>
+   <tr><td>ZTL integration test (not reBot)</td><td>${badge(o.ztl_integration_test)} — the stand route works; approves nothing about the arm</td></tr>
+   <tr><td>ENGINEERING_ADMISSION</td><td>${badge(o.engineering_admission)}</td></tr>
+   <tr><td>DEMO_GO</td><td>${badge(o.demo)} — ${esc(o.demo_means)}</td></tr>
    <tr><td>Missing for engineering T</td><td>${o.missing_for_engineering_T.map(esc).join('<br>')}</td></tr>
    <tr><td>External effects</td><td>0 supplier requests · 0 PayPal calls · CAD not transmitted</td></tr></table>
    <p>Run ${esc(r.run_utc)} → ${esc(r.finished_utc)} · <a href="/api/industrial/cad027/report.json" download>Download JSON report</a></p></div>`;

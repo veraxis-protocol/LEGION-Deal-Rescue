@@ -1,5 +1,6 @@
-"""CAD-027 demo tests. Tests marked REAL need the local reBot STEP/readme (not in the repo, 34.8 MB) and the
-ztl-engineer checkout:  CAD027_STEP, CAD027_README, ZTL_ENGINEER_DIR. Without them they are skipped, never faked."""
+"""CAD-027 demo tests. Tests marked REAL need the local reBot STEP/readme/performance doc (not in the repo) and the
+ztl-engineer checkout: CAD027_STEP, CAD027_README, CAD027_PERF, ZTL_ENGINEER_DIR. Without them they are skipped,
+never faked."""
 import copy
 import json
 import os
@@ -11,8 +12,9 @@ from deal_rescue.industrial import cad027_review as R, cad_xcaf, ztl_gate
 
 STEP = os.environ.get("CAD027_STEP", "")
 README = os.environ.get("CAD027_README", "")
+PERF = os.environ.get("CAD027_PERF", "")
 ZTL = os.environ.get("ZTL_ENGINEER_DIR", "")
-HAVE_REAL = Path(STEP).is_file() and Path(README).is_file()
+HAVE_REAL = Path(STEP).is_file() and Path(README).is_file() and Path(PERF).is_file()
 HAVE_ZTL = Path(ZTL, "mcp_server.py").is_file()
 try:
     import OCP  # noqa: F401
@@ -37,59 +39,103 @@ MINI_README = """## 🖨️ 3D Printed Parts
 |----------|------|--------|----------|------|------|------|
 | Rack | x | 02_Rack.step | Aluminum Alloy 5052 | 2 | CNC | |
 
+### 🧩 Machining Specifications
+- Key dimension tolerance: ±0.02 mm GB/T1840-M
+
 ## 🛒 Purchased Parts (Standard Parts)
 
   | Name | Specification / Model | Quantity | Reference Price | Notes |
   |------|----------|------|----------|------|
   | Linear rail | MGN9-170mm | 1 | 23 $/unit | x |
 """
+MINI_PERF = """1. **Recommended Working Conditions**
+   - Load: < 1.5 kg
+   - Working radius: < 70% reach (450 mm)
+<p align="center">Damiao 43 Series Motor 12Nm Load Curve</p>
+"""
 MINI_XCAF = {"file": "mini.step", "sha256": "a" * 64, "length_unit": "mm",
              "instances": {"01_Finger": 2, "02_Rack": 2, "RAIL-170": 1, "KM3-7": 64},
              "geometry": {"01_Finger": {"solids": 1, "faces": 10, "bbox": [1, 2, 3], "volume": 1.0},
                           "02_Rack": {"solids": 1, "faces": 10, "bbox": [90, 6, 12], "volume": 1.0},
                           "RAIL-170": {"solids": 1, "faces": 47, "bbox": [9.0, 6.5, 170.0], "volume": 1.0}}}
+TEST_ONLY_TOL = ((-0.02, 0.02), "TEST SCENARIO ONLY: synthetic tolerance, not a reBot source")
+
+
+def bom(xcaf=MINI_XCAF, text=MINI_README):
+    return R.reconcile(xcaf, R.parse_readme(text), "b" * 64)
 
 
 class Offline(unittest.TestCase):
-    def bom(self, xcaf=MINI_XCAF, text=MINI_README):
-        return R.reconcile(xcaf, R.parse_readme(text), "b" * 64)
-
     def test_bom_matches_source(self):
-        b = self.bom()
+        b = bom()
         self.assertEqual((b["mandatory_positions"], b["mandatory_positions_matched"]), (2, 2))
         self.assertEqual(b["mandatory_instances_step"], b["mandatory_instances_readme"])
+        self.assertEqual(R.bom_status(b), "T")
         self.assertEqual(b["optional"][0]["step_quantity"], 0)          # optional shown separately, not mandatory
         self.assertIn("KM3-7", b["purchased_and_fasteners_in_step"])     # fasteners listed, not force-matched
 
-    def test_quantity_change_detected(self):
+    def test_quantity_change_gives_F(self):
         x = copy.deepcopy(MINI_XCAF)
         x["instances"]["02_Rack"] = 3
-        b = self.bom(x)
-        self.assertEqual(b["mandatory_positions_matched"], 1)
+        b = bom(x)
+        self.assertEqual(R.bom_status(b), "F")
         self.assertIn({"part_id": "02_RACK", "readme": 2, "step": 3}, b["mismatches"])
 
     def test_material_or_tolerance_change_detected(self):
-        base = R.cad025_spec(self.bom(), "a" * 64, "b" * 64)
-        changed = R.cad025_spec(self.bom(text=MINI_README.replace("Aluminum Alloy 5052", "Aluminum Alloy 6061")),
-                                "a" * 64, "b" * 64)
+        base = R.cad025_spec(bom(), "a" * 64, "b" * 64)
+        changed = R.cad025_spec(bom(text=MINI_README.replace("Aluminum Alloy 5052", "Aluminum Alloy 6061")), "a" * 64, "b" * 64)
         self.assertNotEqual(ztl_gate.spec_digest(base), ztl_gate.spec_digest(changed))
         tol = copy.deepcopy(base)
         tol["bom"][1]["dimensional_tolerances"] = "+-0.05 mm"
         self.assertNotEqual(ztl_gate.spec_digest(base), ztl_gate.spec_digest(tol))
 
+    def test_unconfirmed_tolerance_gives_Z(self):
+        with self.assertRaises(R.ToleranceUnsupported):
+            R.rail_length_brick(MINI_XCAF, MINI_README)                  # no sourced tolerance -> no brick
+        rail = R.production_predicates(MINI_XCAF, MINI_README, MINI_PERF)[0]
+        self.assertEqual((rail["RAIL_TOLERANCE"], rail["verdict"], rail["stand_called"]), ("Z", "OPEN", False))
+        only = rail["tolerance"]["only_tolerance_in_sources"]
+        self.assertIn("±0.02 mm GB/T1840-M", only["text"])
+        self.assertFalse(only["applies_to_purchased_rail"])
+
+    def test_step_rounding_is_not_manufacturing_precision(self):
+        rail = R.production_predicates(MINI_XCAF, MINI_README, MINI_PERF)[0]
+        self.assertIn("not manufacturing precision", rail["inputs"]["L_cad"]["source"])
+        brick = R.rail_length_brick(MINI_XCAF, MINI_README, *TEST_ONLY_TOL)
+        self.assertEqual(brick["quantities"]["L_cad"]["value"], "170.000")   # nominal, exact: no invented spread
+        self.assertNotIn("range", brick["quantities"]["L_cad"])
+
+    def test_no_production_predicate_earned_without_stand(self):
+        for p in R.production_predicates(MINI_XCAF, MINI_README, MINI_PERF):
+            self.assertNotEqual(p["verdict"], "EARNED")
+            self.assertTrue(p["missing"])
+            for v in p.get("inputs", {}).values():
+                self.assertTrue(v["source"])
+
+    def test_changed_requirement_detected(self):
+        d0 = R.requirements_digest(R.production_predicates(MINI_XCAF, MINI_README, MINI_PERF))
+        d1 = R.requirements_digest(R.production_predicates(MINI_XCAF, MINI_README, MINI_PERF.replace("1.5 kg", "2.5 kg")))
+        d2 = R.requirements_digest(R.production_predicates(MINI_XCAF, MINI_README.replace("MGN9-170mm", "MGN9-150mm"), MINI_PERF))
+        self.assertNotEqual(d0, d1)
+        self.assertNotEqual(d0, d2)
+
+    def test_rerun_identical_verdicts_offline(self):
+        a = R.production_predicates(MINI_XCAF, MINI_README, MINI_PERF)
+        b = R.production_predicates(copy.deepcopy(MINI_XCAF), MINI_README, MINI_PERF)
+        self.assertEqual(json.dumps(a, sort_keys=True), json.dumps(b, sort_keys=True))
+
     def test_no_values_are_invented(self):
-        b = self.bom()
-        finger = next(r for r in b["rows"] if r["part_id"] == "01_FINGER")
+        finger = next(r for r in bom()["rows"] if r["part_id"] == "01_FINGER")
         self.assertIsNone(finger["tolerances"])                          # printed part: readme states none
         self.assertIn("dimensional_tolerances", finger["missing_requirements"])
 
-    def test_missing_requirements_give_Z_not_T(self):
-        out = R.cad025_gate(R.cad025_spec(self.bom(), "a" * 64, "b" * 64), {"verdict": "EARNED"})
+    def test_incomplete_spec_blocks_admission(self):
+        out = R.cad025_gate(R.cad025_spec(bom(), "a" * 64, "b" * 64), {"production_verdict": "OPEN"})
         self.assertEqual(out["engineering_admission"], "Z")
         self.assertEqual(out["spec_validation"]["status"], "REFUSED")
 
-    def test_unsigned_result_fails_cad025(self):
-        # A spec complete enough to pass validation; verifier configured with a TEST key generated here (never shipped).
+    def test_unsigned_ztl_result_blocks_admission(self):
+        # Spec complete enough to pass validation; verifier configured with a TEST key generated here (never shipped).
         from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
         from cryptography.hazmat.primitives import serialization
         src = "c" * 64
@@ -104,12 +150,12 @@ class Offline(unittest.TestCase):
         env = {"LEGION_ZTL_ATTESTATION_URL": "https://verifier.example.com/attest", "LEGION_BACKEND_TOKEN": "t",
                "LEGION_ZTL_VERIFY_KEY_PEM": pem, "LEGION_ZTL_VERIFY_KID": "k1", "LEGION_ZTL_CURRENT_EPOCH": "1",
                "LEGION_ZTL_POLICY_SHA256": "d" * 64, "LEGION_ZTL_STAND_COMMIT": "e" * 40}
-        out = R.cad025_gate(spec, {"verdict": "EARNED"}, env=env)   # stub returns attestation_jws=None
+        out = R.cad025_gate(spec, {"verdict": "EARNED"}, env=env)   # stub verifier returns attestation_jws=None
         self.assertEqual(out["spec_validation"]["status"], "VALID")
         self.assertEqual(out["admission"], "F")
         self.assertNotEqual(out["engineering_admission"], "T")
 
-    def test_sha_substitution_blocked(self):
+    def test_sha_substitution_gives_F(self):
         with tempfile.TemporaryDirectory() as d:
             fake = Path(d) / R.PINNED_STEP_NAME
             fake.write_bytes(b"ISO-10303-21;\nEND-ISO-10303-21;\n")
@@ -122,34 +168,37 @@ class Offline(unittest.TestCase):
             self.assertNotIn("xcaf", r)
             self.assertEqual(r["overall"]["demo"], "F")
 
-    def test_brick_values_are_sourced(self):
-        brick = R.rail_length_brick(MINI_XCAF, MINI_README)
-        q = brick["quantities"]
-        self.assertEqual(q["L_spec"]["value"], "170")
-        self.assertEqual(q["L_cad"]["range"], ["169.9995", "170.0005"])
-        self.assertTrue(all(v.get("ground") for v in q.values() if v["role"] == "given"))
+    def test_demo_go_is_not_engineering_admission(self):
+        report = {"drawing": {"status": "T"}, "bom_status": "T",
+                  "ztl": {"production_verdict": "OPEN", "predicates": [{"verdict": "OPEN"}],
+                          "integration_test": {"stand_called": True}},
+                  "cad025": {"engineering_admission": "Z"}}
+        self.assertEqual(R.demo_status(report), "T")
+        bad = copy.deepcopy(report)
+        bad["ztl"]["predicates"] = [{"verdict": "EARNED", "stand_called": False}]   # EARNED without the stand
+        self.assertEqual(R.demo_status(bad), "F")
 
 
 @unittest.skipUnless(HAVE_ZTL, "ZTL_ENGINEER_DIR not set: real stand not available")
 class RealStand(unittest.TestCase):
-    def test_earned_for_sourced_rail(self):
-        out = R.check_design(R.rail_length_brick(MINI_XCAF, MINI_README), ZTL)
-        self.assertTrue(out["stand_called"])
-        self.assertEqual(out["verdict"], "EARNED")
+    def test_integration_scenario_earned_and_labelled(self):
+        t = R.integration_test_scenario(ZTL)
+        self.assertEqual((t["label"], t["verdict"], t["stand_called"]), ("TEST_SCENARIO_NOT_REBOT", "EARNED", True))
 
-    def test_out_of_tolerance_is_refuted(self):
+    def test_test_tolerance_out_of_range_is_refuted(self):
         x = copy.deepcopy(MINI_XCAF)
         x["geometry"]["RAIL-170"]["bbox"] = [9.0, 6.5, 170.05]
-        out = R.check_design(R.rail_length_brick(x, MINI_README), ZTL)
-        self.assertEqual(out["verdict"], "REFUTED")
+        self.assertEqual(R.check_design(R.rail_length_brick(x, MINI_README, *TEST_ONLY_TOL), ZTL)["verdict"], "REFUTED")
 
-    def test_tightened_tolerance_changes_verdict(self):
-        b = R.rail_length_brick(MINI_XCAF, MINI_README)
-        b["requirements"][0]["value"] = ["-0.0001", "0.0001"]
-        self.assertNotEqual(R.check_design(b, ZTL)["verdict"], "EARNED")
+    def test_tightened_test_tolerance_changes_verdict(self):
+        x = copy.deepcopy(MINI_XCAF)
+        x["geometry"]["RAIL-170"]["bbox"] = [9.0, 6.5, 170.001]
+        self.assertEqual(R.check_design(R.rail_length_brick(x, MINI_README, *TEST_ONLY_TOL), ZTL)["verdict"], "EARNED")
+        tight = R.rail_length_brick(x, MINI_README, (-0.0001, 0.0001), TEST_ONLY_TOL[1])
+        self.assertEqual(R.check_design(tight, ZTL)["verdict"], "REFUTED")
 
 
-@unittest.skipUnless(HAVE_REAL and HAVE_OCP, "CAD027_STEP / CAD027_README / OCP not available")
+@unittest.skipUnless(HAVE_REAL and HAVE_OCP, "CAD027_STEP / CAD027_README / CAD027_PERF / OCP not available")
 class RealStep(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -157,7 +206,7 @@ class RealStep(unittest.TestCase):
 
     def test_step_opens_with_xcaf_structure(self):
         self.assertEqual(self.a["verdict"], "T_XCAF_STRUCTURE")
-        self.assertEqual((self.a["leaf_definitions"], self.a["leaf_instances"]), (64, 326))
+        self.assertEqual((self.a["assemblies"], self.a["leaf_definitions"], self.a["leaf_instances"]), (33, 64, 326))
         self.assertEqual(self.a["length_unit"], "mm")
 
     def test_bom_40_of_40_and_53_of_53(self):
@@ -168,10 +217,24 @@ class RealStep(unittest.TestCase):
         self.assertEqual([(o["part_id"], o["quantity"], o["step_quantity"]) for o in b["optional"]],
                          [("DM_MOTOR1_WIRING_HARNESS_CLIP", 2, 0)])
 
-    def test_rerun_reproduces(self):
+    def test_rerun_reproduces_geometry(self):
         again = cad_xcaf.read_assembly(STEP, R.PINNED_STEP_SHA256)
         self.assertEqual(json.dumps(again["instances"], sort_keys=True), json.dumps(self.a["instances"], sort_keys=True))
         self.assertEqual(json.dumps(again["geometry"], sort_keys=True), json.dumps(self.a["geometry"], sort_keys=True))
+
+    @unittest.skipUnless(HAVE_ZTL, "ZTL_ENGINEER_DIR not set")
+    def test_full_run_scoped_verdicts_and_rerun_identical(self):
+        def verdicts(r):
+            return {**{k: r["overall"][k] for k in ("demo", "bom", "ztl_production", "rail_tolerance",
+                                                     "ztl_integration_test", "engineering_admission")},
+                    "digest": r["ztl"]["requirements_digest"], "cad025": r["cad025"].get("admission_code")}
+        r1, r2 = (R.run(STEP, README, ZTL, PERF) for _ in range(2))
+        self.assertEqual(verdicts(r1), verdicts(r2))
+        self.assertEqual(verdicts(r1)["demo"], "T")
+        self.assertEqual(verdicts(r1)["ztl_production"], "OPEN")
+        self.assertEqual(verdicts(r1)["rail_tolerance"], "Z")
+        self.assertEqual(verdicts(r1)["engineering_admission"], "Z")
+        self.assertEqual(r1["overall"]["external_effects"], {"supplier_requests": 0, "paypal_calls": 0, "cad_transmitted": 0})
 
 
 if __name__ == "__main__":

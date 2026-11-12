@@ -195,12 +195,13 @@ def main():
     ap.add_argument("--cad027-step", default=None, help="local reBot STEP (not in the repo)")
     ap.add_argument("--cad027-readme", default=None, help="local factory readme.md")
     ap.add_argument("--ztl-engineer", default=None, help="local ztl-engineer checkout (mcp_server.py)")
+    ap.add_argument("--cad027-perf", default=None, help="local reBot Performance_Testing.md")
     ap.add_argument("--mode", default="replay", choices=["replay"])
     a = ap.parse_args()
     EV = Path(a.evidence).resolve()
     DEMO_LEDGER = Path(a.industrial_demo_ledger).resolve() if a.industrial_demo_ledger else None
     if a.cad027_step:
-        CAD027 = cad027_review.StagedRun(a.cad027_step, a.cad027_readme, a.ztl_engineer)
+        CAD027 = cad027_review.StagedRun(a.cad027_step, a.cad027_readme, a.ztl_engineer, a.cad027_perf)
     for d in sorted((EV / "dossier").iterdir()):
         dj = json.loads((d / "DEAL_DOSSIER.json").read_text())
         RUNS[dj["run_id"]] = (EV / "runs" / dj["run_dir_name"], d)
