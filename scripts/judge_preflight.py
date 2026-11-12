@@ -272,7 +272,7 @@ def main(argv=None) -> int:
                             cwd=ROOT, capture_output=True, text=True)
         tests["pmix_install"] = {"ok": pm.returncode == 0, "output": (pm.stdout + pm.stderr).strip()[-300:],
                                  "bubblewrap": shutil.which("bwrap"), "ran": 0, "skipped": 0}
-        tests["full_suite"] = run_unittests(["discover", "-s", "tests", "-t", "."], env, out / "TESTS_FULL_SUITE.log")
+        tests["full_suite"] = run_unittests(["discover", "-s", "tests"], env, out / "TESTS_FULL_SUITE.log")
     else:
         mods = ["tests.test_cad027_demo", "tests.test_cad025_ztl_gate", "tests.test_judge", "tests.test_demand_first",
                 "tests.test_industrial", "tests.test_release"]
