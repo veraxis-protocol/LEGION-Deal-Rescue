@@ -120,7 +120,32 @@
      <h3>Detected component list</h3><table style="width:100%;background:white"><thead><tr><th>Part</th><th>Qty</th><th>Origin</th></tr></thead><tbody>${r.intake.bom.map(p=>`<tr><td>${E(p.part_no)}</td><td>${E(p.quantity)}</td><td>${E(p.origin)}</td></tr>`).join('')}</tbody></table>
      <h3>Procurement decisions</h3>${lines||'<p>Missing machine-readable BOM. Upload CSV/JSON or provide BOM manually.</p>'}
      ${r.customer_call_to_action==='REVIEW_AND_CONFIRM_DEMO_ONLY'?`<button id="df-confirm" style="padding:11px;background:#164ac1;color:white;border:0;border-radius:8px">Confirm demo feasibility review — NOT an order</button>`:''}
+     <label>Manufacturing specification (source-bound JSON; optional until issued by the buyer/manufacturer)
+       <input id="df-ztl-spec-file" type="file" accept=".json,application/json"></label>
+     <button id="df-ztl-review" type="button">Verify engineering with ZTL Engineer</button>
+     <p id="df-ztl-result" role="status">ZTL engineering: Z — full source-grounded proof required. No supplier or PayPal effects.</p>
      <button id="df-passport">Download evidence passport</button> <button id="df-payment-review">PayPal gate status</button><div id="df-confirm-result"></div></section>`;
+   $('#df-ztl-review').onclick=async()=>{
+     const id='CAD_'+String(r.intake.file_sha256||'').slice(0,20);
+     const state=$('#df-ztl-result');
+     state.textContent='Checking independent engineering admission…';
+     try{
+       const file=$('#df-ztl-spec-file').files?.[0];
+       if(!file){state.textContent='ZTL engineering: Z — attach manufacturer-sourced complete JSON specification; procurement blocked.';return;}
+       if(file.size>100000){state.textContent='ZTL engineering: Z — specification JSON exceeds 100 KB';return;}
+       const spec=JSON.parse(await file.text());
+       if(!spec||spec.drawing_sha256?.toLowerCase()!==r.intake.file_sha256.toLowerCase()){
+         state.textContent='ZTL engineering: F — spec drawing SHA-256 does not match uploaded drawing';return;
+       }
+       const response=await fetch('/api/industrial/ztl-admission',{method:'POST',
+         headers:{'Content-Type':'application/json'},body:JSON.stringify({contract_id:id,spec})});
+       const decision=await response.json();
+       $('#df-ztl-result').textContent=response.ok
+         ? 'ZTL engineering: T (signed). Procurement and PayPal remain separate gates.'
+         : 'ZTL engineering: HOLD — '+String(decision.code||'SOURCE_REQUIREMENTS_MISSING')+
+           '. Procurement and PayPal blocked.';
+     }catch(e){$('#df-ztl-result').textContent='ZTL engineering: Z — verification unavailable; procurement blocked.'}
+   };
    $('#df-payment-review').onclick=()=>{stage('PAYPAL');$('#df-confirm-result').textContent='PayPal authorization: Z. No payment or supplier order is enabled by extraction or purchase-intent confirmation.'};
    $('#df-passport').onclick=()=>{
      const obj=new Blob([JSON.stringify(r,null,2)],{type:'application/json'}),url=URL.createObjectURL(obj),a=document.createElement('a');

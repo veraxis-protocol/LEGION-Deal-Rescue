@@ -1,0 +1,1629 @@
+{
+ "drawing": {
+  "file": "reBot_B601_DM_v1.1_20260625.step",
+  "bytes": 34840241,
+  "expected_sha256": "a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2",
+  "sha256": "a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2",
+  "readme": "hardware/reBot_B601_DM/readme.md",
+  "readme_sha256": "6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+  "status": "T"
+ },
+ "bom_status": "T",
+ "schema": "legion.cad027.bom.v1",
+ "mandatory_positions": 40,
+ "mandatory_positions_matched": 40,
+ "mandatory_instances_readme": 53,
+ "mandatory_instances_step": 53,
+ "optional": [
+  {
+   "part_id": "DM_MOTOR1_WIRING_HARNESS_CLIP",
+   "file": "DM_Motor1_wiring_harness_clip.stp",
+   "readme_line": 79,
+   "quantity": 2,
+   "material": "Bambu Lab Black ABS",
+   "manufacturing_process": "FDM 3D printing (0.4 mm nozzle, 0.2 mm layer height, 30% infill)",
+   "tolerances": null,
+   "group": "optional",
+   "step_name": null,
+   "step_quantity": 0,
+   "quantity_match": false,
+   "geometry": null,
+   "sources": {
+    "quantity_material_process": "readme.md line 79 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  }
+ ],
+ "rows": [
+  {
+   "part_id": "01_BASE_PLATE",
+   "file": "01_BASE_Plate.step",
+   "readme_line": 54,
+   "quantity": 1,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 30% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_BASE_Plate",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 149,
+    "bbox": [
+     140.001,
+     200.001,
+     14.754
+    ],
+    "volume": 385497.173,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 54 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_BASE_LINK",
+   "file": "01_BASE_Link.step",
+   "readme_line": 55,
+   "quantity": 1,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 30% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_BASE_Link",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 102,
+    "bbox": [
+     92.0,
+     92.0,
+     63.7
+    ],
+    "volume": 247061.678,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 55 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_UPPER_ARM_FULLER_L",
+   "file": "01_Upper_Arm_Fuller_L.step",
+   "readme_line": 56,
+   "quantity": 1,
+   "material": "Bambu PLA Black & Green",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 15% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Upper_Arm_Fuller_L",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 74,
+    "bbox": [
+     20.616,
+     133.65,
+     34.616
+    ],
+    "volume": 71697.413,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 56 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_UPPER_ARM_FULLER_R",
+   "file": "01_Upper_Arm_Fuller_R.step",
+   "readme_line": 57,
+   "quantity": 1,
+   "material": "Bambu PLA Black & Green",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 15% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Upper_Arm_Fuller_R",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 74,
+    "bbox": [
+     20.616,
+     133.65,
+     34.616
+    ],
+    "volume": 71697.425,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 57 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_UPPER_ARM_FULLER_M",
+   "file": "01_Upper_Arm_Fuller_M.step",
+   "readme_line": 58,
+   "quantity": 1,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 30% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Upper_Arm_Fuller_M",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 58,
+    "bbox": [
+     59.35,
+     189.933,
+     53.6
+    ],
+    "volume": 196502.591,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 58 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_UPPER_ARM_LIMIT",
+   "file": "01_Upper_Arm_Limit.step",
+   "readme_line": 59,
+   "quantity": 1,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 30% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Upper_Arm_Limit",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 18,
+    "bbox": [
+     71.24,
+     21.193,
+     17.842
+    ],
+    "volume": 21261.084,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 59 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_ARM_HANDLE",
+   "file": "01_Arm_Handle.step",
+   "readme_line": 60,
+   "quantity": 1,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 30% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Arm_Handle",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 29,
+    "bbox": [
+     65.206,
+     26.617,
+     23.211
+    ],
+    "volume": 23313.059,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 60 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_LOWER_ARM_FILLER_L",
+   "file": "01_Lower_Arm_Filler_L.step",
+   "readme_line": 61,
+   "quantity": 1,
+   "material": "Bambu PLA Black & Green",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 15% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Lower_Arm_Filler_L",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 235,
+    "bbox": [
+     18.916,
+     125.051,
+     31.603
+    ],
+    "volume": 57486.363,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 61 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_LOWER_ARM_FILLER_R",
+   "file": "01_Lower_Arm_Filler_R.step",
+   "readme_line": 62,
+   "quantity": 1,
+   "material": "Bambu PLA Black & Green",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 15% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Lower_Arm_Filler_R",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 232,
+    "bbox": [
+     18.916,
+     125.051,
+     31.603
+    ],
+    "volume": 57486.346,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 62 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_LOWER_ARM_FILLER_M",
+   "file": "01_Lower_Arm_Filler_M.step",
+   "readme_line": 63,
+   "quantity": 1,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 30% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Lower_Arm_Filler_M",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 56,
+    "bbox": [
+     63.85,
+     194.395,
+     38.6
+    ],
+    "volume": 149338.149,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 63 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_UPPER_ARM_COVER",
+   "file": "01_Upper_Arm_Cover.step",
+   "readme_line": 64,
+   "quantity": 1,
+   "material": "Bambu PLA Green",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 15% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Upper_Arm_Cover",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 159,
+    "bbox": [
+     58.322,
+     73.826,
+     24.943
+    ],
+    "volume": 10754.011,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 64 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_LOWER_ARM_COVER",
+   "file": "01_Lower_Arm_Cover.step",
+   "readme_line": 65,
+   "quantity": 1,
+   "material": "Bambu PLA Green",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 15% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Lower_Arm_Cover",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 180,
+    "bbox": [
+     67.35,
+     100.838,
+     27.729
+    ],
+    "volume": 17895.961,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 65 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_MOTOR_COVER",
+   "file": "01_Motor_Cover.step",
+   "readme_line": 66,
+   "quantity": 1,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 30% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Motor_Cover",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 66,
+    "bbox": [
+     63.079,
+     94.822,
+     33.838
+    ],
+    "volume": 21328.497,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 66 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_LOWER_ARM_LIMIT",
+   "file": "01_Lower_Arm_Limit.step",
+   "readme_line": 67,
+   "quantity": 1,
+   "material": "Bambu PLA Green",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 15% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Lower_Arm_Limit",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 26,
+    "bbox": [
+     40.0,
+     13.0,
+     35.934
+    ],
+    "volume": 13619.328,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 67 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_RAIL_BRACKET",
+   "file": "01-Rail-Bracket.step",
+   "readme_line": 68,
+   "quantity": 1,
+   "material": "Bambu PLA Green",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 15% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Rail_Bracket",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 75,
+    "bbox": [
+     184.07,
+     30.0,
+     68.066
+    ],
+    "volume": 43335.706,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 68 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_FINGER",
+   "file": "01_Finger.step",
+   "readme_line": 69,
+   "quantity": 2,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 45% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Finger",
+   "step_quantity": 2,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 69,
+    "bbox": [
+     31.391,
+     39.228,
+     64.823
+    ],
+    "volume": 22535.297,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 69 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_JOINT5_CABLE_RESTRAINT_A",
+   "file": "01_Joint5_Cable Restraint_A.step",
+   "readme_line": 70,
+   "quantity": 1,
+   "material": "Bambu PLA Green",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 15% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Joint5_Cable Restraint_A",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 90,
+    "bbox": [
+     79.011,
+     17.511,
+     63.011
+    ],
+    "volume": 12708.768,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 70 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_JOINT6_7_CABLE_RESTRAINT_A",
+   "file": "01_Joint6_7_Cable Restraint_A.step",
+   "readme_line": 71,
+   "quantity": 2,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 30% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Joint6_7_Cable Restraint_A",
+   "step_quantity": 2,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 118,
+    "bbox": [
+     77.016,
+     12.437,
+     63.516
+    ],
+    "volume": 11813.271,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 71 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "01_JOINT6_7_CABLE_RESTRAINT_B",
+   "file": "01_Joint6_7_Cable Restraint_B.step",
+   "readme_line": 72,
+   "quantity": 2,
+   "material": "Bambu ABS Black",
+   "manufacturing_process": "FDM 3D printing (0.4 nozzle, 0.2 layer height, 30% infill)",
+   "tolerances": null,
+   "group": "printed",
+   "step_name": "01_Joint6_7_Cable Restraint_B",
+   "step_quantity": 2,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 105,
+    "bbox": [
+     77.015,
+     21.121,
+     65.488
+    ],
+    "volume": 4354.526,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 72 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "dimensional_tolerances",
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_BASE_REINFORCEMENT_PART",
+   "file": "02_Base_Reinforcement_Part.step",
+   "readme_line": 105,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Base_Reinforcement_Part",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 103,
+    "bbox": [
+     92.005,
+     92.005,
+     6.955
+    ],
+    "volume": 27284.499,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 105 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_ARM_YAW_LIMIT",
+   "file": "02_Arm_Yaw_Limit.step",
+   "readme_line": 106,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Arm_Yaw_Limit",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 57,
+    "bbox": [
+     77.002,
+     77.002,
+     7.102
+    ],
+    "volume": 12608.648,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 106 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_MOTOR_FRONT_SPACER",
+   "file": "02_Motor_Front_Spacer.step",
+   "readme_line": 107,
+   "quantity": 4,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Motor_Front_Spacer",
+   "step_quantity": 4,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 33,
+    "bbox": [
+     34.8,
+     34.8,
+     4.0
+    ],
+    "volume": 2728.463,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 107 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_MOTOR_BACK_SPACER",
+   "file": "02_Motor_Back_Spacer.step",
+   "readme_line": 108,
+   "quantity": 3,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Motor_Back_Spacer",
+   "step_quantity": 3,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 23,
+    "bbox": [
+     5.0,
+     57.0,
+     57.0
+    ],
+    "volume": 9709.288,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 108 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_FLANGE",
+   "file": "02_FLANGE.step",
+   "readme_line": 109,
+   "quantity": 3,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_FLANGE",
+   "step_quantity": 3,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 31,
+    "bbox": [
+     9.75,
+     34.8,
+     34.8
+    ],
+    "volume": 4154.28,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 109 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_WRIST_BRACKET",
+   "file": "02_Wrist_Bracket.step",
+   "readme_line": 110,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Wrist_Bracket",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 65,
+    "bbox": [
+     60.75,
+     8.0,
+     92.922
+    ],
+    "volume": 23890.764,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 110 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_GRIPPER_CONNECTOR_A",
+   "file": "02_Gripper_Connector_A.step",
+   "readme_line": 111,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Gripper_Connector_A",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 248,
+    "bbox": [
+     35.62,
+     6.02,
+     34.433
+    ],
+    "volume": 3200.127,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 111 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_GRIPPER_CONNECTOR_B",
+   "file": "02_Gripper_Connector_B.step",
+   "readme_line": 112,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Gripper_Connector_B",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 61,
+    "bbox": [
+     56.802,
+     56.802,
+     9.502
+    ],
+    "volume": 15100.508,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 112 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_SLIDER_BRACKET",
+   "file": "02_Slider_Bracket.step",
+   "readme_line": 113,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Slider_Bracket",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 57,
+    "bbox": [
+     176.285,
+     3.0,
+     68.466
+    ],
+    "volume": 8187.262,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 113 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_SLIDER_EXTENSION",
+   "file": "02_Slider_Extension.step",
+   "readme_line": 114,
+   "quantity": 2,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Slider_Extension",
+   "step_quantity": 2,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 20,
+    "bbox": [
+     26.2,
+     17.8,
+     38.44
+    ],
+    "volume": 10223.294,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 114 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_LOWER_UPPER_LINK_L",
+   "file": "02_Lower_Upper_Link_L.step",
+   "readme_line": 115,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Lower_Upper_Link_L",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 32,
+    "bbox": [
+     5.0,
+     76.177,
+     99.0
+    ],
+    "volume": 19411.168,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 115 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_LOWER_UPPER_LINK_R",
+   "file": "02_Lower_Upper_Link_R.step",
+   "readme_line": 116,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Lower_Upper_Link_R",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 32,
+    "bbox": [
+     5.0,
+     76.177,
+     99.0
+    ],
+    "volume": 19411.168,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 116 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_LOWER_WRIST_LINK_L",
+   "file": "02_Lower_Wrist_Link_L.step",
+   "readme_line": 117,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Lower_Wrist_Link_L",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 49,
+    "bbox": [
+     3.0,
+     103.943,
+     82.963
+    ],
+    "volume": 12283.605,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 117 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_LOWER_WRIST_LINK_R",
+   "file": "02_Lower_Wrist_Link_R.step",
+   "readme_line": 118,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Lower_Wrist_Link_R",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 49,
+    "bbox": [
+     3.0,
+     103.943,
+     82.963
+    ],
+    "volume": 12283.605,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 118 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_GEAR_CONNECTOR",
+   "file": "02_Gear_Connector.step",
+   "readme_line": 119,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Gear_Connector",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 39,
+    "bbox": [
+     35.002,
+     9.502,
+     35.002
+    ],
+    "volume": 2401.212,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 119 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "02_RACK",
+   "file": "02_Rack.step",
+   "readme_line": 120,
+   "quantity": 2,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "02_Rack",
+   "step_quantity": 2,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 226,
+    "bbox": [
+     89.999,
+     6.0,
+     12.002
+    ],
+    "volume": 5588.088,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 120 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "03_LINK1",
+   "file": "03_Link1.step",
+   "readme_line": 121,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC + Sheet Metal",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "03_Link1",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 68,
+    "bbox": [
+     77.533,
+     83.89,
+     84.192
+    ],
+    "volume": 42600.877,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 121 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "03_LINK2",
+   "file": "03_Link2.step",
+   "readme_line": 122,
+   "quantity": 2,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC + Sheet Metal",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "03_Link2",
+   "step_quantity": 2,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 90,
+    "bbox": [
+     23.0,
+     321.0,
+     57.0
+    ],
+    "volume": 35628.419,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 122 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "03_LINK3_L",
+   "file": "03_Link3_L.step",
+   "readme_line": 123,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC + Sheet Metal",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "03_Link3_L",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 111,
+    "bbox": [
+     28.625,
+     297.826,
+     57.0
+    ],
+    "volume": 28018.882,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 123 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "03_LINK3_R",
+   "file": "03_Link3_R.step",
+   "readme_line": 124,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC + Sheet Metal",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "03_Link3_R",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 132,
+    "bbox": [
+     27.625,
+     297.826,
+     57.0
+    ],
+    "volume": 27979.478,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 124 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  },
+  {
+   "part_id": "03_LINK5",
+   "file": "03_Link5.step",
+   "readme_line": 125,
+   "quantity": 1,
+   "material": "Aluminum Alloy 5052",
+   "manufacturing_process": "CNC + Sheet Metal",
+   "tolerances": "+-0.02 mm key dimensions (GB/T1804-M); mating parts H7 / interference fit",
+   "group": "cnc",
+   "step_name": "03_Link5",
+   "step_quantity": 1,
+   "quantity_match": true,
+   "geometry": {
+    "solids": 1,
+    "faces": 34,
+    "bbox": [
+     50.0,
+     60.0,
+     60.0
+    ],
+    "volume": 16268.253,
+    "unit": "mm"
+   },
+   "sources": {
+    "quantity_material_process": "readme.md line 125 sha256 6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee",
+    "step_quantity_geometry": "reBot_B601_DM_v1.1_20260625.step XCAF sha256 a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"
+   },
+   "missing_requirements": [
+    "material_grade_certificate",
+    "surface_finish_per_part",
+    "inspection_requirements",
+    "functional_requirements"
+   ]
+  }
+ ],
+ "mismatches": [
+  {
+   "part_id": "DM_MOTOR1_WIRING_HARNESS_CLIP",
+   "readme": 2,
+   "step": 0
+  }
+ ],
+ "purchased_readme": [
+  {
+   "name": "Brushless motor",
+   "model": "DM4310(V4)",
+   "quantity_text": "4",
+   "readme_line": 144
+  },
+  {
+   "name": "Brushless motor",
+   "model": "DM4340P(V4)",
+   "quantity_text": "3",
+   "readme_line": 145
+  },
+  {
+   "name": "CAN-USB driver board",
+   "model": "",
+   "quantity_text": "1",
+   "readme_line": 146
+  },
+  {
+   "name": "Bearing",
+   "model": "6707ZZ",
+   "quantity_text": "1",
+   "readme_line": 147
+  },
+  {
+   "name": "Bearing",
+   "model": "6803ZZ",
+   "quantity_text": "3",
+   "readme_line": 148
+  },
+  {
+   "name": "Bearing",
+   "model": "AXK5578",
+   "quantity_text": "1",
+   "readme_line": 149
+  },
+  {
+   "name": "Linear rail",
+   "model": "MGN9-170mm",
+   "quantity_text": "1",
+   "readme_line": 150
+  },
+  {
+   "name": "Slider block",
+   "model": "MGN9",
+   "quantity_text": "2",
+   "readme_line": 151
+  },
+  {
+   "name": "Gear",
+   "model": "Module 1, boss type, 16 teeth, 6 mm bore",
+   "quantity_text": "1",
+   "readme_line": 152
+  },
+  {
+   "name": "Silicone pad",
+   "model": "30x9x2mm",
+   "quantity_text": "1",
+   "readme_line": 153
+  },
+  {
+   "name": "Screw",
+   "model": "HM3-12mm screw",
+   "quantity_text": "14+",
+   "readme_line": 154
+  },
+  {
+   "name": "Screw",
+   "model": "HM3-25mm screw",
+   "quantity_text": "14+",
+   "readme_line": 155
+  },
+  {
+   "name": "Screw",
+   "model": "HM3-6mm screw",
+   "quantity_text": "16+",
+   "readme_line": 156
+  },
+  {
+   "name": "Screw",
+   "model": "HM4-75mm set screw",
+   "quantity_text": "4+",
+   "readme_line": 157
+  },
+  {
+   "name": "Screw",
+   "model": "KM3*12mm screw",
+   "quantity_text": "30+",
+   "readme_line": 158
+  },
+  {
+   "name": "Screw",
+   "model": "KM3*16mm screw",
+   "quantity_text": "34+",
+   "readme_line": 159
+  },
+  {
+   "name": "Screw",
+   "model": "KM3*7mm screw",
+   "quantity_text": "76+",
+   "readme_line": 160
+  },
+  {
+   "name": "Screw",
+   "model": "KM3*9mm screw",
+   "quantity_text": "31+",
+   "readme_line": 161
+  },
+  {
+   "name": "Screw",
+   "model": "KM3*8mm Socket Micro Profile Head Screw",
+   "quantity_text": "31+",
+   "readme_line": 162
+  },
+  {
+   "name": "Screw",
+   "model": "KA3*12mm",
+   "quantity_text": "72+",
+   "readme_line": 163
+  },
+  {
+   "name": "Dowel pin",
+   "model": "M4*8mm",
+   "quantity_text": "Several",
+   "readme_line": 164
+  },
+  {
+   "name": "Dowel pin",
+   "model": "M4*12mm",
+   "quantity_text": "Several",
+   "readme_line": 165
+  },
+  {
+   "name": "Screwdriver set",
+   "model": "Hex key set",
+   "quantity_text": "1",
+   "readme_line": 166
+  },
+  {
+   "name": "<img src=\"./Purchased_Parts/XT30_2+2.png\" width=\"80\">",
+   "model": "XT30 2+2 350mm",
+   "quantity_text": "2",
+   "readme_line": 167
+  },
+  {
+   "name": "<img src=\"./Purchased_Parts/XT30_2+2.png\" width=\"80\">",
+   "model": "XT30 2+2 350mm",
+   "quantity_text": "1",
+   "readme_line": 168
+  },
+  {
+   "name": "<img src=\"./Purchased_Parts/XT30_2+2.png\" width=\"80\">",
+   "model": "XT30 2+2 200mm",
+   "quantity_text": "3",
+   "readme_line": 169
+  },
+  {
+   "name": "<img src=\"./Purchased_Parts/XT30_2+2.png\" width=\"80\">",
+   "model": "XT30 2+2 200mm",
+   "quantity_text": "1",
+   "readme_line": 170
+  }
+ ],
+ "purchased_readme_positions": 27,
+ "purchased_and_fasteners_in_step": {
+  "6707ZZ": 1,
+  "6803ZZ": 3,
+  "AXK5578": 1,
+  "DM-J4310": 4,
+  "DM-J4340P": 3,
+  "GEAR-1M16C": 1,
+  "HM3-12": 7,
+  "HM3-26": 6,
+  "HM3-6": 8,
+  "HM4-75": 4,
+  "KA3-12": 60,
+  "KM3-12": 22,
+  "KM3-16": 26,
+  "KM3-7": 64,
+  "KM3-8-XIAO": 5,
+  "KM3-9": 34,
+  "PIN-D3L8": 2,
+  "PIN-D4L10": 6,
+  "PIN-D4L14": 3,
+  "PIN-D4L7": 6,
+  "RAIL-170": 1,
+  "S-M4-5-JIMI": 2,
+  "SILICONE-L30W9H2": 2,
+  "SLIDER": 2
+ },
+ "purchased_exact_code_matches": [
+  "6707ZZ",
+  "6803ZZ",
+  "AXK5578"
+ ],
+ "note": "Purchased rows use model names (e.g. DM4310) that differ from STEP product names (DM-J4310); they are listed side by side, not force-matched. Readme fastener counts are minimums ('14+')."
+}

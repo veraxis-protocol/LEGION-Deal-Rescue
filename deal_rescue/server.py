@@ -13,13 +13,16 @@ from pathlib import Path
 import base64
 import binascii
 import secrets
-from deal_rescue.industrial import core as industrial, workflow as industrial_flow, demo_intent, cad_bom
+from deal_rescue.industrial import core as industrial, workflow as industrial_flow, demo_intent, cad_bom, ztl_gate
+from deal_rescue.industrial import admission as commerce_admission
+from deal_rescue.industrial import cad027_review
 from urllib.parse import parse_qs, urlparse
 
 WEB = Path(__file__).parent / "web"
 EV = None
 DEMO_SESSIONS = {}
 DEMO_LEDGER = None
+CAD027 = None  # cad027_review.StagedRun when --cad027-step is given
 RUNS = {}  # run_id -> (run_dir, dossier_dir)
 
 
@@ -56,7 +59,8 @@ class H(BaseHTTPRequestHandler):
     def do_POST(self):
         """Only bounded in-memory CAD intake + optional DEMO intent. No provider POST."""
         u = urlparse(self.path)
-        if u.path not in ("/api/industrial/intake", "/api/industrial/engineering-extract", "/api/industrial/demo-confirm"):
+        if u.path not in ("/api/industrial/intake", "/api/industrial/engineering-extract", "/api/industrial/demo-confirm",
+                          "/api/industrial/ztl-admission", "/api/industrial/procurement-request"):
             return self.send(405, {"error":"METHOD_NOT_ALLOWED"})
         if self.headers.get("Content-Type", "").split(";")[0].strip().lower() != "application/json":
             return self.send(415, {"error":"JSON_ONLY"})
@@ -66,11 +70,33 @@ class H(BaseHTTPRequestHandler):
             return self.send(403, {"error":"CROSS_ORIGIN_POST_DENIED"})
         try:
             size=int(self.headers.get("Content-Length", "-1"))
-            limit=23000000 if u.path in ("/api/industrial/engineering-extract","/api/industrial/intake") else 2900000
+            limit=23000000 if u.path in ("/api/industrial/engineering-extract","/api/industrial/intake") else 100000 if u.path in ("/api/industrial/ztl-admission", "/api/industrial/procurement-request") else 2900000
             if not 0<size<=limit: return self.send(413,{"error":"REQUEST_TOO_LARGE"})
             self.connection.settimeout(10)
             body=json.loads(self.rfile.read(size))
             if not isinstance(body,dict):return self.send(400,{"error":"OBJECT_EXPECTED"})
+            if u.path in ("/api/industrial/ztl-admission", "/api/industrial/procurement-request"):
+                try:
+                    proof=ztl_gate.engineering_admission(body.get('contract_id'), body.get('spec'))
+                except ztl_gate.GateError as exc:
+                    return self.send(exc.status, ztl_gate.denial(exc))
+                if u.path == "/api/industrial/procurement-request":
+                    # The existing Deal Rescue server is a REPLAY server. A valid
+                    # engineering certificate is necessary but not sufficient for an
+                    # order: all ten separate commerce obligations remain closed.
+                    decision=commerce_admission.decide(body.get('commercial_context'),
+                                                       body.get('commercial_receipts'))
+                    return self.send(409, {'engineering_admission':'T',
+                                           'code':'COMMERCIAL_EXECUTION_NOT_AUTHORIZED',
+                                           'commerce_verdict':decision['verdict'],
+                                           'commerce_obligations':decision.get('gates'),
+                                           'procurement_authorized':False,
+                                           'payment_authorized':False,
+                                           'supplier_requests_sent':0,'paypal_captures':0})
+                return self.send(200, {'engineering_admission':'T', 'proof':proof,
+                                       'procurement_authorized':False,
+                                       'payment_authorized':False,
+                                       'supplier_requests_sent':0,'paypal_captures':0})
             if u.path in ("/api/industrial/intake","/api/industrial/engineering-extract"):
                 raw=base64.b64decode(body.get("file_b64", ""),validate=True)
                 filename=body.get('filename','')
@@ -105,6 +131,22 @@ class H(BaseHTTPRequestHandler):
                 if WEB.resolve() not in p.parents:
                     return self.send(404, {"error": "not found"})
                 return self.send(200, p.read_bytes(), mimetypes.guess_type(str(p))[0] or "application/octet-stream")
+            if u.path == "/api/industrial/cad027/status":
+                return self.send(200, {"configured": bool(CAD027 and CAD027.configured()),
+                                       "file": CAD027.step_path.name if CAD027 else None})
+            if u.path == "/api/industrial/cad027/stage":
+                if not (CAD027 and CAD027.configured()):
+                    return self.send(503, {"error": "CAD027_NOT_CONFIGURED"})
+                n = int(q.get("n", "1"))
+                if n not in (1, 2, 3, 4):
+                    return self.send(400, {"error": "STAGE_1_TO_4"})
+                return self.send(200, CAD027.stage(n))
+            if u.path == "/api/industrial/cad027/report.json":
+                if not (CAD027 and CAD027.report and CAD027.report.get("stage") == 4):
+                    return self.send(409, {"error": "RUN_ALL_FOUR_STAGES_FIRST"})
+                return self.send(200, CAD027.report, extra={"Content-Disposition": "attachment; filename=CAD027_REPORT.json"})
+            if u.path == "/api/industrial/ztl-gate/status":
+                return self.send(200, ztl_gate.status())
             if u.path == "/api/industrial/registry":
                 return self.send(200, industrial.source_registry())
             if u.path == "/api/industrial/cases":
@@ -145,15 +187,20 @@ class H(BaseHTTPRequestHandler):
 
 
 def main():
-    global EV, DEMO_LEDGER
+    global EV, DEMO_LEDGER, CAD027
     ap = argparse.ArgumentParser()
     ap.add_argument("--evidence", required=True)
     ap.add_argument("--industrial-demo-ledger", default=None, help="Optional NEW test-only intent ledger")
     ap.add_argument("--port", type=int, default=8795)
+    ap.add_argument("--cad027-step", default=None, help="local reBot STEP (not in the repo)")
+    ap.add_argument("--cad027-readme", default=None, help="local factory readme.md")
+    ap.add_argument("--ztl-engineer", default=None, help="local ztl-engineer checkout (mcp_server.py)")
     ap.add_argument("--mode", default="replay", choices=["replay"])
     a = ap.parse_args()
     EV = Path(a.evidence).resolve()
     DEMO_LEDGER = Path(a.industrial_demo_ledger).resolve() if a.industrial_demo_ledger else None
+    if a.cad027_step:
+        CAD027 = cad027_review.StagedRun(a.cad027_step, a.cad027_readme, a.ztl_engineer)
     for d in sorted((EV / "dossier").iterdir()):
         dj = json.loads((d / "DEAL_DOSSIER.json").read_text())
         RUNS[dj["run_id"]] = (EV / "runs" / dj["run_dir_name"], d)
