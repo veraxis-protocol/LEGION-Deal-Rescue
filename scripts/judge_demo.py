@@ -91,8 +91,8 @@ def outer(args) -> int:
                            "check network access to pypi.org; supported: Python 3.12-3.14 on x86_64/arm64")
     if not args.no_e2e:
         cmd = [py, "-m", "playwright", "install", "chromium"]
-        if args.ci and platform.system() == "Linux":
-            cmd.insert(4, "--with-deps")
+        if args.ci and platform.system() == "Linux" and os.environ.get("CI") == "true":
+            cmd.insert(4, "--with-deps")    # system libraries via sudo: only on a CI runner
         if run(cmd, cwd=ROOT).returncode:
             return unsupported("headless Chromium for the browser E2E could not be installed",
                                "rerun with --no-e2e (browser_e2e stays Z) or use the judge-e2e CI job")

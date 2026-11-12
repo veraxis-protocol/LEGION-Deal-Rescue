@@ -266,6 +266,12 @@ def main(argv=None) -> int:
                CAD027_PERF=cad["performance"]["path"], ZTL_ENGINEER_DIR=ztl_dir, PYTHONUTF8="1")
     tests = {"required_real": run_unittests(["tests.judge_real_cad027"], env, out / "TESTS_REQUIRED_REAL.log")}
     if a.full_suite:
+        # pmix fixtures and binary from the vendored, SHA-pinned release (same installer as CI); needs Linux bubblewrap
+        pm = subprocess.run([sys.executable, "-B", str(ROOT / "scripts" / "install_pmix.py"),
+                             str(ROOT / "vendor" / "pmix" / "PAYPAL_CAD_001_RELEASE_20261110.zip")],
+                            cwd=ROOT, capture_output=True, text=True)
+        tests["pmix_install"] = {"ok": pm.returncode == 0, "output": (pm.stdout + pm.stderr).strip()[-300:],
+                                 "bubblewrap": shutil.which("bwrap"), "ran": 0, "skipped": 0}
         tests["full_suite"] = run_unittests(["discover", "-s", "tests", "-t", "."], env, out / "TESTS_FULL_SUITE.log")
     else:
         mods = ["tests.test_cad027_demo", "tests.test_cad025_ztl_gate", "tests.test_judge", "tests.test_demand_first",
