@@ -1,0 +1,31 @@
+{
+ "schema": "legion.judge.source-manifest.v1",
+ "purpose": "Every external input the Judge Mode fetches, pinned by commit and SHA-256. A file whose size or hash differs is refused.",
+ "cad": {
+  "repository": "https://github.com/Seeed-Projects/reBot-DevArm",
+  "license": "CERN-OHL-W-2.0 (fetched at run time, not redistributed here)",
+  "commit": "22f002a230670f96abcd3805e0daa63bdf42f354",
+  "step_last_changed_in": "4dc330ca519af324bdb030e44c7b213843184901",
+  "raw_url": "https://raw.githubusercontent.com/Seeed-Projects/reBot-DevArm/{commit}/{path}",
+  "files": {
+   "step": {"path": "hardware/reBot_B601_DM/reBot_B601_DM_v1.1_20260625.step", "bytes": 34840241,
+            "sha256": "a1e301ee03d46589e26d3fc2272d19ba53c1878f0104274695e5c9a88aa512d2"},
+   "readme": {"path": "hardware/reBot_B601_DM/readme.md", "bytes": 35415,
+              "sha256": "6776445eb8f994fdfea0897626fc3b2ae021d22b7ec82940b9313d021e26dcee"},
+   "performance": {"path": "hardware/reBot_B601_DM/performance_testing/Performance_Testing.md", "bytes": 4165,
+                   "sha256": "aca81d5e96e62f57df9318babbd34ea2096fc35656394de783057344ba350f76"}
+  }
+ },
+ "ztl": {
+  "ztl-engineer": {"repository": "https://github.com/inventor1975/ztl-engineer", "license": "Apache-2.0",
+                   "commit": "91d11672cb1986a7fb185d3ae5110d7209b36b97"},
+  "ztl-stand": {"repository": "https://github.com/inventor1975/ztl-stand", "license": "Apache-2.0",
+                "commit": "ae6744feb3d96fff4f970763e87144fe224a6489"},
+  "ZTL": {"repository": "https://github.com/inventor1975/ZTL", "license": "Apache-2.0",
+          "commit": "1b204ee73a6e0d928edeb8efdd3fa9567547de60"}
+ },
+ "python": {"minimum": "3.12", "requirements": "requirements-judge.txt", "e2e_requirements": "requirements-judge-e2e.txt"},
+ "commerce": {"evidence": "demo_evidence", "contract_hash": "809b4f82b5bd3e3dd130d98ae3ca9644d7bca77818b60284e8d3ac0d9763dc8d",
+              "captures": ["0DR81708WC9477605", "76276237BR937351W", "71988721JR129760J", "3PG41022DY609720J", "65542700KX1483810"],
+              "provider_confirmed_cents": 49500}
+}

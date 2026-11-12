@@ -4,9 +4,13 @@ The demo takes one real STEP assembly through OpenCascade XCAF to get the parts,
 
 **DEMO_GO = T** means the software route works on the real file and every result stays within its proven scope. It is **not** engineering admission. **ENGINEERING_ADMISSION** stays **Z** until two things exist: a complete set of sourced engineering requirements, and an independent Ed25519-signed attestation (CAD-025).
 
+## Easiest way: Judge Mode
+
+`python -m scripts.judge_demo` fetches every input below from its pinned source, verifies its SHA-256, configures the server and opens the 7-screen walkthrough. See the [README](../README.md#judge-quickstart-one-command). The rest of this page explains what runs underneath.
+
 ## Inputs
 
-None of these files are in this repository.
+None of these files are in this repository. Their pins are listed in `scripts/judge_manifest.json`.
 
 | Input | Details |
 |---|---|
@@ -19,6 +23,7 @@ None of these files are in this repository.
 ## Run
 
 ```bash
+# manual alternative to Judge Mode:
 python -B -m deal_rescue.server --evidence demo_evidence --port 8801 \
   --cad027-step <path>/reBot_B601_DM_v1.1_20260625.step \
   --cad027-readme <path>/readme.md \
@@ -53,19 +58,11 @@ STEP coordinates are a nominal model rounded to 0.001 mm. That is the precision 
 
 ## Tests
 
-The full suite runs on Linux; pmix needs bubblewrap:
-
-```bash
-python -B scripts/install_pmix.py vendor/pmix/PAYPAL_CAD_001_RELEASE_20261110.zip   # pinned fixtures, as in CI
-CAD027_STEP=... CAD027_README=... CAD027_PERF=... ZTL_ENGINEER_DIR=... python -B -m unittest discover -s tests -v
-```
-
-`tests/test_cad027_demo.py` has 20 tests:
-- **Offline** (always run): BOM matching; a quantity change gives F; a material or tolerance change is detected; an unconfirmed tolerance gives Z; STEP rounding is not treated as manufacturing precision; no production predicate is EARNED without the stand; a changed requirement is detected; a rerun gives identical verdicts; no values are invented; an incomplete spec or an unsigned ZTL result blocks admission; a substituted SHA gives F; DEMO_GO is not admission.
-- **Real stand:** the labelled integration scenario is EARNED; REFUTED and tightened-tolerance cases use a tolerance marked as a test.
-- **Real STEP:** 33/64/326; 40/40 and 53/53; a rerun reproduces the geometry; a full run gives identical scoped verdicts twice.
-
-Without the real inputs, those tests are skipped, never faked.
+| Suite | When it runs | Contents |
+|---|---|---|
+| `tests/test_cad027_demo.py` | Offline; always runs, including in plain `discover` | BOM matching; quantity change gives F; material or tolerance change is detected; unconfirmed tolerance gives Z; STEP rounding is not treated as manufacturing precision; no production EARNED without the stand; changed requirement is detected; rerun is identical; no invented values; incomplete spec or unsigned ZTL blocks admission; substituted SHA gives F; DEMO_GO is not admission. |
+| `tests/judge_real_cad027.py` | **Required, never skips** | The real STEP (33/64/326; 40/40 and 53/53; rerun geometry; full run with identical scoped verdicts twice) and the real ZTL stand (labelled integration EARNED; REFUTED and tightened-tolerance cases with a tolerance marked as a test; an unavailable stand is OPEN, never PASS). If an input is missing, the module fails at import. It runs from `python -m scripts.judge_demo` and the CI job `judge-e2e`. |
+| `tests/test_judge.py` | Offline | Pinned-source verification (a wrong download is refused; a tampered cache is fetched again); payments bind only to their own contract; a skipped test makes JUDGE_GO F; stale evidence is detected; the CAD endpoints answer 409 with a reason and an action, never 503. |
 
 ## Boundaries
 

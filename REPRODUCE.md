@@ -1,19 +1,48 @@
 # Reproduce
 
-There are three modes, and each needs something different:
+There are four modes, and each needs something different:
 
 | Mode | Needs | Produces |
 |---|---|---|
-| A. Recorded runs | Python 3.11+ | Rebuilt dossiers, audit, the app |
+| **0. Judge Mode** | Python 3.12+, Git, internet | Real CAD (CASE A) and commerce replay (CASE B), computed and verified; `judge_out/JUDGE_GO_NO_GO.json`; the app |
+| A. Recorded runs | Python 3.12+ | Rebuilt dossiers, audit, the app |
 | B. Fresh seven-party run | Windows PowerShell, git, Python 3.11+, internet, your NVIDIA NIM key | A new run judged live by the independent Judge, plus 25 negatives |
 | C. PayPal Sandbox payments | Owner authorization, PayPal Sandbox accounts, Windows | Real Sandbox orders and captures |
+
+## 0. Judge Mode (no credentials)
+
+```bash
+git clone https://github.com/veraxis-protocol/LEGION-Deal-Rescue.git && cd LEGION-Deal-Rescue
+python -m scripts.judge_demo          # add --ci for the full non-interactive check (exit 0 only on GO)
+```
+
+Steps:
+
+1. `scripts/judge_demo.py` builds `.judge_venv` from `requirements-judge.txt` and `requirements-judge-e2e.txt`.
+2. `scripts/judge_preflight.py` fetches the inputs pinned in `scripts/judge_manifest.json`:
+   - from Seeed reBot-DevArm at `22f002a2`: the STEP (`a1e301ee…`, 34,840,241 bytes), `readme.md` and `Performance_Testing.md`;
+   - `ztl-engineer` at `91d1167`, `ztl-stand` at `ae6744f` and `ZTL` at `1b204ee`.
+3. The preflight then:
+   - computes XCAF, the BOM and the ZTL review, and runs the CAD-025 gate;
+   - rebuilds and audits the commerce dossiers in a scratch copy;
+   - checks the PayPal evidence;
+   - runs 10 negative checks;
+   - runs the required real-input tests (`tests/judge_real_cad027.py`, which never skip) and the platform test suite.
+4. `scripts/judge_e2e_test.py` drives headless Chromium through the 7 screens.
+
+Files are cached in `.judge_cache/` and verified again on every run. A cached file that no longer matches is fetched again; a download that does not match is refused. Results go to `judge_out/`.
+
+| Platform | What runs |
+|---|---|
+| Linux x86_64 | Everything, including the pmix sandbox tests (with `--ci` or `--full-suite`). |
+| Windows and macOS | The same Judge Mode. The pmix sandbox tests need Linux bubblewrap, so they run in the `judge-e2e` CI job. |
 
 ## A. Recorded runs (no credentials)
 
 ```bash
 git clone https://github.com/veraxis-protocol/LEGION-Deal-Rescue.git && cd LEGION-Deal-Rescue
 python -B scripts/build_and_serve.py --evidence demo_evidence --no-serve   # rebuild + audit
-python -B -m unittest discover -s tests -v                                 # release tests
+python -B -m unittest discover -s tests -v                                 # release tests (offline, 0 skips)
 python -B scripts/build_and_serve.py --evidence demo_evidence              # serve http://127.0.0.1:8795/?run=run-2
 ```
 

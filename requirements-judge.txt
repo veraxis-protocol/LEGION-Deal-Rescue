@@ -1,0 +1,7 @@
+# Judge Mode runtime (installed into .judge_venv by scripts/judge_demo.py). Exact top-level pins.
+-r paypal_adapter/requirements.lock
+cadquery-ocp==8.0.1.1.0
+cadquery-ocp-proxy==8.0.1.1.0
+vtk==9.6.2
+numpy==2.5.4
+scipy==1.18.1

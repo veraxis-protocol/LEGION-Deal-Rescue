@@ -10,6 +10,8 @@
    if($('#legion-cad027'))return;
    const b=document.createElement('button');b.id='legion-cad027';b.textContent='CAD → BOM → ZTL review';
    b.onclick=open;(document.querySelector('header')||document.body).appendChild(b);
+   fetch('/api/industrial/cad027/status').then(r=>r.json()).then(s=>{cadStatus=s;if(!s.configured)b.textContent='CAD review: not configured';})
+     .catch(()=>{cadStatus={configured:false,reason:'status unavailable'};});
    const st=document.createElement('style');st.textContent=`
    #c27{position:fixed;inset:16px;z-index:60;background:#f7f8fb;border-radius:14px;box-shadow:0 10px 40px #0004;overflow:auto;padding:22px;font:14px system-ui}
    #c27 table{border-collapse:collapse;width:100%;background:#fff}#c27 td,#c27 th{border-bottom:1px solid #e3e6ee;padding:5px 8px;text-align:left;vertical-align:top}
@@ -27,11 +29,18 @@
  async function stage(n){
    const body=$('#c27-body');body.insertAdjacentHTML('beforeend',`<p id="c27-wait">Running step ${n} on the server…</p>`);
    const r=await fetch('/api/industrial/cad027/stage?n='+n);const x=await r.json();$('#c27-wait')?.remove();
-   if(!r.ok)throw Error(x.error||('HTTP '+r.status));return x;
+   if(!r.ok)throw Error((x.error||('HTTP '+r.status))+(x.reason?': '+x.reason:'')+(x.action?' — '+x.action:''));return x;
  }
+ let cadStatus=null;
  function open(){
    if(!panel){panel=document.createElement('div');panel.id='c27';document.body.appendChild(panel);}
-   panel.hidden=false;show(0);
+   panel.hidden=false;
+   if(cadStatus&&!cadStatus.configured){   // explain instead of entering a flow that cannot run
+     panel.innerHTML=shell(0);$('#c27-close').onclick=()=>panel.hidden=true;
+     $('#c27-body').innerHTML=`<div class="card"><h3>CAD is not configured on this server</h3><p>${esc(cadStatus.reason)}</p><p><b>Action:</b> ${esc(cadStatus.action||'')}</p></div>`;
+     return;
+   }
+   show(0);
  }
  function show(i,r){
    panel.innerHTML=shell(i);$('#c27-close').onclick=()=>panel.hidden=true;

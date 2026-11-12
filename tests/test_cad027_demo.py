@@ -1,6 +1,5 @@
-"""CAD-027 demo tests. Tests marked REAL need the local reBot STEP/readme/performance doc (not in the repo) and the
-ztl-engineer checkout: CAD027_STEP, CAD027_README, CAD027_PERF, ZTL_ENGINEER_DIR. Without them they are skipped,
-never faked."""
+"""CAD-027 offline tests (always run, no external inputs). The real STEP/ZTL tests are in
+tests/judge_real_cad027.py: they never skip and are run by Judge Mode and the judge-e2e CI job."""
 import copy
 import json
 import os
@@ -177,64 +176,6 @@ class Offline(unittest.TestCase):
         bad = copy.deepcopy(report)
         bad["ztl"]["predicates"] = [{"verdict": "EARNED", "stand_called": False}]   # EARNED without the stand
         self.assertEqual(R.demo_status(bad), "F")
-
-
-@unittest.skipUnless(HAVE_ZTL, "ZTL_ENGINEER_DIR not set: real stand not available")
-class RealStand(unittest.TestCase):
-    def test_integration_scenario_earned_and_labelled(self):
-        t = R.integration_test_scenario(ZTL)
-        self.assertEqual((t["label"], t["verdict"], t["stand_called"]), ("TEST_SCENARIO_NOT_REBOT", "EARNED", True))
-
-    def test_test_tolerance_out_of_range_is_refuted(self):
-        x = copy.deepcopy(MINI_XCAF)
-        x["geometry"]["RAIL-170"]["bbox"] = [9.0, 6.5, 170.05]
-        self.assertEqual(R.check_design(R.rail_length_brick(x, MINI_README, *TEST_ONLY_TOL), ZTL)["verdict"], "REFUTED")
-
-    def test_tightened_test_tolerance_changes_verdict(self):
-        x = copy.deepcopy(MINI_XCAF)
-        x["geometry"]["RAIL-170"]["bbox"] = [9.0, 6.5, 170.001]
-        self.assertEqual(R.check_design(R.rail_length_brick(x, MINI_README, *TEST_ONLY_TOL), ZTL)["verdict"], "EARNED")
-        tight = R.rail_length_brick(x, MINI_README, (-0.0001, 0.0001), TEST_ONLY_TOL[1])
-        self.assertEqual(R.check_design(tight, ZTL)["verdict"], "REFUTED")
-
-
-@unittest.skipUnless(HAVE_REAL and HAVE_OCP, "CAD027_STEP / CAD027_README / CAD027_PERF / OCP not available")
-class RealStep(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.a = cad_xcaf.read_assembly(STEP, R.PINNED_STEP_SHA256)
-
-    def test_step_opens_with_xcaf_structure(self):
-        self.assertEqual(self.a["verdict"], "T_XCAF_STRUCTURE")
-        self.assertEqual((self.a["assemblies"], self.a["leaf_definitions"], self.a["leaf_instances"]), (33, 64, 326))
-        self.assertEqual(self.a["length_unit"], "mm")
-
-    def test_bom_40_of_40_and_53_of_53(self):
-        b = R.reconcile(self.a, R.parse_readme(Path(README).read_text(encoding="utf-8")), "b" * 64)
-        self.assertEqual((b["mandatory_positions_matched"], b["mandatory_positions"]), (40, 40))
-        self.assertEqual((b["mandatory_instances_step"], b["mandatory_instances_readme"]), (53, 53))
-        self.assertEqual(b["purchased_readme_positions"], 27)
-        self.assertEqual([(o["part_id"], o["quantity"], o["step_quantity"]) for o in b["optional"]],
-                         [("DM_MOTOR1_WIRING_HARNESS_CLIP", 2, 0)])
-
-    def test_rerun_reproduces_geometry(self):
-        again = cad_xcaf.read_assembly(STEP, R.PINNED_STEP_SHA256)
-        self.assertEqual(json.dumps(again["instances"], sort_keys=True), json.dumps(self.a["instances"], sort_keys=True))
-        self.assertEqual(json.dumps(again["geometry"], sort_keys=True), json.dumps(self.a["geometry"], sort_keys=True))
-
-    @unittest.skipUnless(HAVE_ZTL, "ZTL_ENGINEER_DIR not set")
-    def test_full_run_scoped_verdicts_and_rerun_identical(self):
-        def verdicts(r):
-            return {**{k: r["overall"][k] for k in ("demo", "bom", "ztl_production", "rail_tolerance",
-                                                     "ztl_integration_test", "engineering_admission")},
-                    "digest": r["ztl"]["requirements_digest"], "cad025": r["cad025"].get("admission_code")}
-        r1, r2 = (R.run(STEP, README, ZTL, PERF) for _ in range(2))
-        self.assertEqual(verdicts(r1), verdicts(r2))
-        self.assertEqual(verdicts(r1)["demo"], "T")
-        self.assertEqual(verdicts(r1)["ztl_production"], "OPEN")
-        self.assertEqual(verdicts(r1)["rail_tolerance"], "Z")
-        self.assertEqual(verdicts(r1)["engineering_admission"], "Z")
-        self.assertEqual(r1["overall"]["external_effects"], {"supplier_requests": 0, "paypal_calls": 0, "cad_transmitted": 0})
 
 
 if __name__ == "__main__":

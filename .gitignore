@@ -5,3 +5,6 @@ __pycache__/
 node_modules/
 demo_evidence/runs/A2-live-*/
 demo_evidence/negatives-live-*/
+.judge_venv/
+.judge_cache/
+judge_out/

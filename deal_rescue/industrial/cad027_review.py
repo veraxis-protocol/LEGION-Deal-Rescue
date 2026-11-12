@@ -415,3 +415,22 @@ class StagedRun:
             r["finished_utc"] = datetime.now(timezone.utc).isoformat()
             r["stage"] = 4
         return r
+
+
+SETUP_ACTION = "Run `python -m scripts.judge_demo` from a clone: it fetches the pinned STEP, readme and ZTL and starts " \
+               "the server configured (or start the server with --cad027-step/--cad027-readme/--cad027-perf/--ztl-engineer)."
+
+
+def cad_status(run: "StagedRun | None") -> dict:
+    """Why CAD is or is not usable, with the action that fixes it. Never an unexplained error."""
+    if run is None:
+        return {"configured": False, "reason": "CAD_NOT_CONFIGURED: server started without --cad027-step",
+                "action": SETUP_ACTION}
+    missing = [n for n, p in (("STEP", run.step_path), ("readme", run.readme_path)) if not p.is_file()]
+    if missing:
+        return {"configured": False, "reason": "CAD_INPUT_MISSING: " + ", ".join(missing), "action": SETUP_ACTION,
+                "file": run.step_path.name}
+    ztl_ok = bool(run.ztl_dir) and (Path(run.ztl_dir) / "mcp_server.py").is_file()
+    return {"configured": True, "file": run.step_path.name, "ztl_available": ztl_ok,
+            "perf_available": bool(run.perf_path and run.perf_path.is_file()),
+            "note": None if ztl_ok else "ZTL Engineer not found: the review will show the stand as not called (OPEN)"}

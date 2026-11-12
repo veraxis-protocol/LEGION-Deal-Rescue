@@ -23,6 +23,10 @@ EV = None
 DEMO_SESSIONS = {}
 DEMO_LEDGER = None
 CAD027 = None  # cad027_review.StagedRun when --cad027-step is given
+JUDGE_OUT = None  # Path of judge_out/ when started by scripts/judge_demo.py
+JUDGE_EVIDENCE = ("JUDGE_GO_NO_GO.json", "SOURCE_MANIFEST.json", "CAD_XCAF_RESULT.json", "BOM_RESULT.json", "ZTL_RESULT.json",
+                  "COMMERCE_REPLAY_RESULT.json", "PAYPAL_EVIDENCE_CHECK.json", "NEGATIVE_TESTS.json", "TEST_RESULTS.json",
+                  "CLEAN_CLONE_LOG.txt", "BROWSER_E2E_RESULT.json")
 RUNS = {}  # run_id -> (run_dir, dossier_dir)
 
 
@@ -120,6 +124,36 @@ class H(BaseHTTPRequestHandler):
         except Exception:
             return self.send(500,{"error":"INTERNAL_INTAKE_ERROR"})
 
+    def judge_get(self, path, q):
+        """Judge Experience API (read-only). Every answer is computed from the current run or recorded evidence."""
+        from deal_rescue.judge import experience as JX
+        if path == "/api/judge/state":
+            return self.send(200, {"cad": cad027_review.cad_status(CAD027), "judge_out": bool(JUDGE_OUT),
+                                   "cases": {"A": JX.P.CASE_A_ID, "B": JX.P.CASE_B_ID}})
+        report = CAD027.report if CAD027 else None
+        if path == "/api/judge/procurement":
+            if not (report and report.get("stage", 0) >= 3):
+                return self.send(409, {"error": "RUN_ENGINEERING_REVIEW_FIRST",
+                                       "action": "complete DRAWING, PARTS and ENGINEERING REVIEW"})
+            return self.send(200, JX.procurement(report, q.get("part")))
+        if path == "/api/judge/coalition":
+            return self.send(200, JX.coalition())
+        if path == "/api/judge/payment":
+            return self.send(200, JX.payment(json.loads((RUNS["run-2"][1] / "DEAL_DOSSIER.json").read_text(encoding="utf-8"))))
+        if path == "/api/judge/result":
+            if not (report and report.get("stage") == 4):
+                return self.send(409, {"error": "RUN_ALL_ENGINEERING_STEPS_FIRST"})
+            pay = JX.payment(json.loads((RUNS["run-2"][1] / "DEAL_DOSSIER.json").read_text(encoding="utf-8")))
+            go = json.loads((JUDGE_OUT / "JUDGE_GO_NO_GO.json").read_text(encoding="utf-8"))                 if JUDGE_OUT and (JUDGE_OUT / "JUDGE_GO_NO_GO.json").is_file() else None
+            return self.send(200, JX.result(report, JX.coalition(), pay, go))
+        if path == "/api/judge/evidence":
+            name = q.get("name", "")
+            if not (JUDGE_OUT and name in JUDGE_EVIDENCE and (JUDGE_OUT / name).is_file()):
+                return self.send(404, {"error": "EVIDENCE_NOT_AVAILABLE", "name": name,
+                                       "available": sorted(n for n in JUDGE_EVIDENCE if JUDGE_OUT and (JUDGE_OUT / n).is_file())})
+            return self.send(200, (JUDGE_OUT / name).read_bytes(), "application/json" if name.endswith(".json") else "text/plain; charset=utf-8")
+        return self.send(404, {"error": "not found"})
+
     def do_GET(self):
         u = urlparse(self.path)
         q = {k: v[0] for k, v in parse_qs(u.query).items()}
@@ -132,11 +166,12 @@ class H(BaseHTTPRequestHandler):
                     return self.send(404, {"error": "not found"})
                 return self.send(200, p.read_bytes(), mimetypes.guess_type(str(p))[0] or "application/octet-stream")
             if u.path == "/api/industrial/cad027/status":
-                return self.send(200, {"configured": bool(CAD027 and CAD027.configured()),
-                                       "file": CAD027.step_path.name if CAD027 else None})
+                return self.send(200, cad027_review.cad_status(CAD027))
             if u.path == "/api/industrial/cad027/stage":
-                if not (CAD027 and CAD027.configured()):
-                    return self.send(503, {"error": "CAD027_NOT_CONFIGURED"})
+                st = cad027_review.cad_status(CAD027)
+                if not st["configured"]:
+                    # 409 + reason + action: a client error the UI explains, never a bare 503
+                    return self.send(409, {"error": "CAD_NOT_CONFIGURED", **st})
                 n = int(q.get("n", "1"))
                 if n not in (1, 2, 3, 4):
                     return self.send(400, {"error": "STAGE_1_TO_4"})
@@ -145,6 +180,8 @@ class H(BaseHTTPRequestHandler):
                 if not (CAD027 and CAD027.report and CAD027.report.get("stage") == 4):
                     return self.send(409, {"error": "RUN_ALL_FOUR_STAGES_FIRST"})
                 return self.send(200, CAD027.report, extra={"Content-Disposition": "attachment; filename=CAD027_REPORT.json"})
+            if u.path.startswith("/api/judge/"):
+                return self.judge_get(u.path, q)
             if u.path == "/api/industrial/ztl-gate/status":
                 return self.send(200, ztl_gate.status())
             if u.path == "/api/industrial/registry":
@@ -187,7 +224,7 @@ class H(BaseHTTPRequestHandler):
 
 
 def main():
-    global EV, DEMO_LEDGER, CAD027
+    global EV, DEMO_LEDGER, CAD027, JUDGE_OUT
     ap = argparse.ArgumentParser()
     ap.add_argument("--evidence", required=True)
     ap.add_argument("--industrial-demo-ledger", default=None, help="Optional NEW test-only intent ledger")
@@ -196,12 +233,14 @@ def main():
     ap.add_argument("--cad027-readme", default=None, help="local factory readme.md")
     ap.add_argument("--ztl-engineer", default=None, help="local ztl-engineer checkout (mcp_server.py)")
     ap.add_argument("--cad027-perf", default=None, help="local reBot Performance_Testing.md")
+    ap.add_argument("--judge-out", default=None, help="judge_out/ directory written by scripts/judge_demo.py")
     ap.add_argument("--mode", default="replay", choices=["replay"])
     a = ap.parse_args()
     EV = Path(a.evidence).resolve()
     DEMO_LEDGER = Path(a.industrial_demo_ledger).resolve() if a.industrial_demo_ledger else None
     if a.cad027_step:
         CAD027 = cad027_review.StagedRun(a.cad027_step, a.cad027_readme, a.ztl_engineer, a.cad027_perf)
+    JUDGE_OUT = Path(a.judge_out).resolve() if a.judge_out else None
     for d in sorted((EV / "dossier").iterdir()):
         dj = json.loads((d / "DEAL_DOSSIER.json").read_text())
         RUNS[dj["run_id"]] = (EV / "runs" / dj["run_dir_name"], d)

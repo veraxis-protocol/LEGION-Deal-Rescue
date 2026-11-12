@@ -56,7 +56,11 @@ jobs:
 
       - name: All LEGION tests including real Linux pmix integration
         if: matrix.os == 'ubuntu-latest'
-        run: python -B -m unittest discover -s tests -v |& tee "${RUNNER_TEMP}/legion-tests.log"
+        run: |
+          set -o pipefail
+          python -B -m unittest discover -s tests -v |& tee "${RUNNER_TEMP}/legion-tests.log"
+          # zero skips is a hard invariant (real-input CAD/ZTL tests live in tests/judge_real_cad027.py, run by judge-e2e)
+          ! grep -E "\.\.\. skipped|skipped=" "${RUNNER_TEMP}/legion-tests.log"
 
       - name: Verify all 860 critical records against source STEP files
         if: matrix.os == 'ubuntu-latest'
@@ -141,3 +145,52 @@ jobs:
           grep -rIlE 'nvapi-[A-Za-z0-9]{8}|client_secret["'"'"' ]*[:=] *["'"'"'][A-Za-z0-9]|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|RGFNDXFWF988G|Users[\/]+Administrator|ADMINI~1|Dropbox' \
             --exclude-dir=.git --exclude-dir=.github . || result=$?
           test "$result" -eq 1
+
+  judge-e2e:
+    # The exact command a judge runs on a clean clone: real STEP from Seeed, OpenCascade XCAF, BOM, real ZTL stand,
+    # commerce replay, PayPal evidence check, full test suite with 0 required skips, headless browser E2E.
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: pmix sandbox prerequisites (same pinned packages as the checks job)
+        run: |
+          (cd vendor/ubuntu-noble && sha256sum -c SHA256SUMS)
+          sudo dpkg --install vendor/ubuntu-noble/bubblewrap_0.9.0-1ubuntu0.3_amd64.deb
+          if [ "$(cat /proc/sys/kernel/apparmor_restrict_unprivileged_userns 2>/dev/null || echo 0)" = 1 ]; then
+            sudo apparmor_parser --replace .github/apparmor/pmix-bwrap
+          fi
+          python -B scripts/install_pmix.py vendor/pmix/PAYPAL_CAD_001_RELEASE_20261110.zip
+
+      - name: Judge Mode (python -m scripts.judge_demo --ci)
+        run: python -m scripts.judge_demo --ci
+
+      - name: Verdict invariants (JUDGE_GO=T, 0 required skips, 10/10 negatives, browser E2E)
+        if: always()
+        run: |
+          python - <<'EOF'
+          import json
+          g = json.load(open("judge_out/JUDGE_GO_NO_GO.json"))
+          print(json.dumps({k: g.get(k) for k in ("final", "gates", "skipped_required", "negative_tests", "browser_e2e")}, indent=1))
+          assert g["skipped_required"] == 0, "required tests were skipped"
+          assert g["negative_tests"] == "10/10", g["negative_tests"]
+          assert g["gates"]["browser_e2e"] == "T", g.get("browser_e2e")
+          assert g["final"] == "T", g["gates"]
+          assert g["engineering_admission"] == "Z" and g["ztl_verdict"]["production"] == "OPEN"
+          EOF
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: judge-e2e
+          path: |
+            judge_out/
+            !judge_out/**/*.step
